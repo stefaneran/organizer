@@ -1,0 +1,45 @@
+
+---- General Overview ----
+
+UI:
+- Show categories on left (75% width)
+  - Carousel view
+  - Can filter based on category
+  - Can show list of all instead of 
+- Show general log on right (25% width)
+  - List of activities like FB activity log
+
+Reminders/Alerts: Detects when certain people/skills/fitness have been neglected and shows in order of severity what needs to be addressed
+
+"Start-Of-Day Report":
+- Shows a list of stuff to do today and tomorrow
+- Can set hour range to show it (open if visiting between 9am and 12pm)
+- Can skip
+
+"End-Of-Day Report": 
+- Can create an automated programme/wizard that goes through categories/items you set for it 
+- Can set at which hour it will start (Open if you visit after 8pm)
+- Can skip
+
+---- Categories ----
+
+Skill: (Shape: Diamond)
+- Goal: 10,000 Hours -> Translated to XP/Ranks a la Call Of Duty
+- Minor depreciation 
+- Can add items that contribute to XP and have their own progression (projects, classes, books)  
+- Can show a searchable history log
+- Can add items to a list as notes for that skill
+
+Fitness: (Shape: Square)
+- A scale that represents condition and goes from -100% (Bad) to 0% (Ok) to 100% (Good) 
+- Rapid depreciation
+- Depreciation is calculated day by day
+- Can add muscle groups that track their own progress
+- Can show a chart
+- Can add items to an exercise list
+
+Social: (Shape: Circle)
+- Represents a major group (work, friends, family, business)
+- Can be divided into subgroups
+- Can create individuals
+- Each individual has info like name, description, log (history of interactions) 
