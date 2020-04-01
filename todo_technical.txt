@@ -1,7 +1,7 @@
 
 Main:
-- Bootstrap project (Webpack + React + TypeScript)
 - Create basic Material-UI front-end
+  - Grid a header, footer, middle with two screens (for categories and log)
 - Create category classes and factories
 - Create store
 - Create localstorage read-write logic
