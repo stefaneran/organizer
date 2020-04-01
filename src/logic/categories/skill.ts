@@ -2,11 +2,11 @@ import { ICategory, IHistoryLog } from './general';
 
 // Skill category stuff and logic
 
-interface ISkillCategory extends ICategory {
+export interface ISkillCategory extends ICategory {
   items: any[]; 
 }
 
-interface ISkillBook {
+export interface ISkillBook {
   title: string;
   author?: string;
   total_xp: number;
@@ -17,6 +17,6 @@ interface ISkillBook {
   history: IBookHistoryLog[];
 }
 
-interface IBookHistoryLog extends IHistoryLog {
+export interface IBookHistoryLog extends IHistoryLog {
   pages_read: number;
 }

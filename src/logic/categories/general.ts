@@ -1,14 +1,14 @@
 
 export enum CategoryType {
-  Skill,
-  Fitness,
-  Social
+  Skill = "Skill",
+  Fitness = "Fitness",
+  Social = "Social"
 }
 
 export enum PriorityType {
-  Low,
-  Moderate,
-  High
+  Low = "Low",
+  Moderate = "Moderate",
+  High = "High"
 }
 
 export interface ICategory {
