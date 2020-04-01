@@ -3,7 +3,6 @@ import { ICategory, IHistoryLog } from './general';
 // Skill category stuff and logic
 
 interface ISkillCategory extends ICategory {
-  name: string;
   items: any[]; 
 }
 

@@ -1,7 +1,9 @@
 
-Main:
-- Create basic Material-UI front-end
-  - Grid a header, footer, middle with two screens (for categories and log)
-- Create category classes and factories
-- Create store
+MVP:
+- Create category mock with mock skill
+- Create basic category carousel
+- Create Skill Category screen
+- Create generic dialog component
+- Create Category Add dialog with json-schema-form
 - Create localstorage read-write logic
+

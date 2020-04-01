@@ -14,10 +14,7 @@ module.exports = {
   entry: ['babel-polyfill', path.resolve(__dirname, "src/index.tsx")],
 
   resolve: {
-    alias: {
-      "@packages": path.resolve(__dirname, './src/packages'),
-      "@constants": path.resolve(__dirname, './src/constants')
-    },
+    alias: {/** TO ADD LATER */},
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },
 
@@ -32,7 +29,15 @@ module.exports = {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
-      }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ],
+      },
     ]
   },
 

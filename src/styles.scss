@@ -1,0 +1,52 @@
+html, body, #app, * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #app, #main {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: black;
+}
+
+#main {
+
+  #header {
+    width: 95%;
+    margin: 1em;
+    padding: 1em;
+  }
+
+  #content {
+    width: 95%;
+    margin: 1em;
+
+    #categories {
+      margin: 0.5em;
+
+      .paper {
+        padding: 1em;
+      }
+    }
+
+    #history {
+      margin: 0.5em;
+      
+      .paper {
+        padding: 1em;
+      }
+    }
+
+  }
+
+  #footer {
+    width: 95%;
+    margin: 1em;
+    padding: 1em;
+  }
+
+} 
