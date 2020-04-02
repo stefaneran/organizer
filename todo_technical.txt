@@ -2,6 +2,7 @@
 MVP:
 - CAT001
 - CAT002
+- Add aliasing and update imports
 - Create localstorage read-write logic
 - ...
 
@@ -14,6 +15,9 @@ CAT001 - Create category display (Front cover)
 
 CAT002 - Wizard for creating a skill
 - Create generic dialog component
-- Create Category Add dialog with json-schema-form
+- Decide steps and info needed for creating a skill (Creative)
+- Design a Wizard (Creative)
+- Create the Wizard with json-schema-form
 
-//
+
+Done:
