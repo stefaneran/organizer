@@ -14,7 +14,15 @@ module.exports = {
   entry: ['babel-polyfill', path.resolve(__dirname, "src/index.tsx")],
 
   resolve: {
-    alias: {/** TO ADD LATER */},
+    alias: {
+      "@containers": path.resolve(__dirname, './src/containers'),
+      "@components": path.resolve(__dirname, './src/components'),
+      "@data": path.resolve(__dirname, './src/data'),
+      "@logic": path.resolve(__dirname, './src/logic'),
+      "@mocks": path.resolve(__dirname, './src/mocks'),
+      "@store": path.resolve(__dirname, './src/store'),
+      "@utils": path.resolve(__dirname, './src/utils')
+    },
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },
 

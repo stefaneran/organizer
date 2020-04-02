@@ -3,29 +3,23 @@ import clsx from 'clsx';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './carousel.styles';
+import getIndexByDirection from '@utils/getIndexByDirection';
 import FrontCategory from './FrontCategory';
 import SideCategory from './SideCategory';
 
 const useStyles = makeStyles(styles);
-
-const getIndex = (currentIndex: number, length: number, direction: 1 | -1) => {
-  const x = currentIndex + direction;
-  if(direction < 0)
-    return (x < 0) ? length - 1 : x;
-  return (x >= length) ? 0 : x;
-}
 
 const CategoryCarousel = ({ categories = [] }) => {
   const classes = useStyles();
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const numOfCategories = categories.length;
-  const leftCategory = categories[getIndex(currentIndex, numOfCategories, -1)];
-  const rightCategory = categories[getIndex(currentIndex, numOfCategories, 1)];
+  const leftCategory = categories[getIndexByDirection(currentIndex, numOfCategories, -1)];
+  const rightCategory = categories[getIndexByDirection(currentIndex, numOfCategories, 1)];
   const currentCategory = categories[currentIndex];
 
   const moveCarousel = (direction: 1 | -1) => () => {
-    const nextIndex = getIndex(currentIndex, numOfCategories, direction);
+    const nextIndex = getIndexByDirection(currentIndex, numOfCategories, direction);
     setCurrentIndex(nextIndex);
   }
 
@@ -41,3 +35,11 @@ const CategoryCarousel = ({ categories = [] }) => {
 }
 
 export default CategoryCarousel;
+
+
+const getIndex = (currentIndex: number, length: number, direction: 1 | -1) => {
+  const x = currentIndex + direction;
+  if(direction < 0)
+    return (x < 0) ? length - 1 : x;
+  return (x >= length) ? 0 : x;
+}

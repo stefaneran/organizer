@@ -1,5 +1,5 @@
-import { CategoryType, PriorityType } from '../logic/categories/general';
-import { ISkillCategory } from '../logic/categories/skill';
+import { CategoryType, PriorityType } from '@logic/categories/general';
+import { ISkillCategory } from '@logic/categories/skill';
 
 const guitar: ISkillCategory = {
   name: "Guitar",

@@ -1,10 +1,15 @@
 {
 	"compilerOptions": {
 		"jsx": "react",
-		"baseUrl": ".",
+		"baseUrl": "./",
 		"paths": {
-			"@packages": ["./src/packages"],
-			"@constants": ["./src/constants"],
+			"@containers/*": ["src/containers/*"],
+			"@components/*": ["src/components/*"],
+			"@data/*": ["src/data/*"],
+      "@logic/*": ["src/logic/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@store/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"]
 		}
 	},
 	"include": ["src/**/*"],

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Paper, Button } from '@material-ui/core';
-import { CategoryCarousel } from '../../components/CategoryCarousel';
-import categoriesMock from '../../mocks/categories.mock';
+import { CategoryCarousel } from '@components/CategoryCarousel';
+import categoriesMock from '@mocks/categories.mock';
 
 const CategoryView = () => {
   return (
