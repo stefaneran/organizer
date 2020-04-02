@@ -18,5 +18,8 @@ export interface ICategory {
 }
 
 export interface IHistoryLog {
+  category: CategoryType;
+  item: string;
+  description: string;
   date_updated: number; // Timestamp
 }

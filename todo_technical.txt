@@ -1,9 +1,17 @@
 
 MVP:
-- Create category mock with mock skill
-- Create basic category carousel
-- Create Skill Category screen
+- CAT001
+- CAT002
+- Create localstorage read-write logic
+- ...
+
+Tasks:
+
+CAT001 - Create category display (Front cover)
+- Decide category FRONT UI - What info to show (Creative idea)
+- Update category mock with mock skill after above
+- Create Skill Category FRONT UI 
+
+CAT002 - Wizard for creating a skill
 - Create generic dialog component
 - Create Category Add dialog with json-schema-form
-- Create localstorage read-write logic
-

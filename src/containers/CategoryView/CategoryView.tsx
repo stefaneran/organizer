@@ -8,7 +8,6 @@ const CategoryView = () => {
     <>
       <Paper className="paper">
         <Grid container direction="column">
-          Category View
           <Grid id="category_actions" item container direction="row">
             <Grid item>
               <Button variant="outlined" color="primary">Add New</Button>

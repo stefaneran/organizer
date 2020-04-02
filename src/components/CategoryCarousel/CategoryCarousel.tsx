@@ -1,15 +1,12 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import styles from './carousel.styles';
 import FrontCategory from './FrontCategory';
 import SideCategory from './SideCategory';
 
-const useStyles = makeStyles(theme => ({
-  container: {},
-  invisibleButton: {
-
-  }
-}));
+const useStyles = makeStyles(styles);
 
 const getIndex = (currentIndex: number, length: number, direction: 1 | -1) => {
   const x = currentIndex + direction;
@@ -28,16 +25,17 @@ const CategoryCarousel = ({ categories = [] }) => {
   const currentCategory = categories[currentIndex];
 
   const moveCarousel = (direction: 1 | -1) => () => {
-    setCurrentIndex(direction)
+    const nextIndex = getIndex(currentIndex, numOfCategories, direction);
+    setCurrentIndex(nextIndex);
   }
 
   return (
     <Grid container direction="row" justify="space-between" className={classes.container}>
-      <div className={classes.invisibleButton} onClick={moveCarousel(-1)}></div>
+      <div className={clsx(classes.invisibleButton, classes.left)} onClick={moveCarousel(-1)}></div>
       <SideCategory category={leftCategory} />
       <FrontCategory category={currentCategory} />
       <SideCategory category={rightCategory} />
-      <div className={classes.invisibleButton} onClick={moveCarousel(1)}></div>
+      <div className={clsx(classes.invisibleButton, classes.right)} onClick={moveCarousel(1)}></div>
     </Grid>
   )
 }
