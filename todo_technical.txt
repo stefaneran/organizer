@@ -2,22 +2,24 @@
 MVP:
 - CAT001
 - CAT002
-- Add aliasing and update imports
-- Create localstorage read-write logic
-- ...
+- CAT003
 
 Tasks:
 
-CAT001 - Create category display (Front cover)
+CAT001 - Create category display in carousel (Front cover)
 - Decide category FRONT UI - What info to show (Creative idea)
 - Update category mock with mock skill after above
 - Create Skill Category FRONT UI 
+- Create Skill Category SIDE UI
 
-CAT002 - Wizard for creating a skill
-- Create generic dialog component
-- Decide steps and info needed for creating a skill (Creative)
-- Design a Wizard (Creative)
-- Create the Wizard with json-schema-form
+CAT002 - Wizard for creating a category (only Skill)
+- Create simple Form Creator
+- Plug basic form to a Wizard and test wizard
+- Decide steps and info needed for creating a skill category (Creative)
+- Make the create wizard
 
+CAT003 - Read/Write operations
+- Create Write function (Store->LocalStorage)
+- Create Read function (LocalStorage->Store)
 
 Done:

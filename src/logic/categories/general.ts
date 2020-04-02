@@ -13,6 +13,7 @@ export enum PriorityType {
 
 export interface ICategory {
   name: string;
+  description: string;
   type: CategoryType;
   priority: PriorityType;
 }
