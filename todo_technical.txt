@@ -93,7 +93,3 @@ CAT012 - UI Improvements
 CAT013 - Abillity to DL and UL JSON 
 
 CAT014 - Automated alerts
-
------
-Done:
------

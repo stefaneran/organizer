@@ -1,21 +1,25 @@
 import * as React from 'react';
 import { Button } from '@material-ui/core';
 
-const WizardOptions = (
-  data: { index: number; max: number; handleClick(direction: number): () => void; }
-) => (
+interface IWizardOptions {
+  index: number;
+  maxSteps: number;
+  handler: (direction: -1 | 1) => () => void;
+}
+
+const WizardOptions = (data: IWizardOptions) => (
   <>
     {data.index > 0 && (
-      <Button variant="outlined" color="primary" onClick={data.handleClick(-1)}>Back</Button>
+      <Button variant="outlined" color="primary" onClick={data.handler(-1)}>Back</Button>
     )}
-    {data.index <= data.max && (
-      <Button variant="outlined" color="primary" onClick={data.handleClick(-1)}>Skip</Button>
+    {data.index <= data.maxSteps && (
+      <Button variant="outlined" color="primary" onClick={data.handler(-1)}>Skip</Button>
     )}
-    {data.index < data.max && (
-      <Button variant="outlined" color="primary" onClick={data.handleClick(1)}>Next</Button>
+    {data.index < data.maxSteps && (
+      <Button variant="outlined" color="primary" onClick={data.handler(1)}>Next</Button>
     )}
-    {data.index === data.max && (
-      <Button variant="outlined" color="primary" onClick={data.handleClick(1)}>Finish</Button>
+    {data.index === data.maxSteps && (
+      <Button variant="outlined" color="primary" onClick={data.handler(1)}>Finish</Button>
     )}
   </>
 );
