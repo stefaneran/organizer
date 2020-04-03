@@ -9,7 +9,10 @@ UI:
 - Show general log on right (25% width)
   - List of activities like FB activity log
 
-Reminders/Alerts: Detects when certain people/skills/fitness have been neglected and shows in order of severity what needs to be addressed
+Reminders/Alerts: 
+- Detects when certain categories have been neglected and shows what needs to be addressed
+- Will sort things by priority, time neglected
+- Can be shown as a wizard or a list (user preference)
 
 "Start-Of-Day Report":
 - Shows a list of stuff to do today and tomorrow
@@ -18,6 +21,7 @@ Reminders/Alerts: Detects when certain people/skills/fitness have been neglected
 
 "End-Of-Day Report": 
 - Can create an automated programme/wizard that goes through categories/items you set for it 
+- Can be generated automatically by the app
 - Can set at which hour it will start (Open if you visit after 8pm)
 - Can skip
 
