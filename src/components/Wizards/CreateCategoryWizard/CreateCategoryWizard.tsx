@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GenericWizardDialog, useWizardIndex } from '@components/Wizards/GenericWizardDialog';
+import { GenericWizard, useWizardIndex } from '@components/Wizards/GenericWizard';
 import { FormCreator } from '@components/FormCreator';
 import wizardForm from '@mocks/wizardForm.mock';
 
@@ -46,9 +46,9 @@ const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
   }
 
   return (
-    <GenericWizardDialog data={wizardData}>
+    <GenericWizard data={wizardData}>
       <FormCreator formData={getStepFormData(index)} onChange={handleChange} />
-    </GenericWizardDialog>
+    </GenericWizard>
   );
 }
 

@@ -13,7 +13,7 @@ interface IGenericWizardProps {
   children: React.ReactNode;
 }
 
-const GenericWizardDialog = ({ data, children }: IGenericWizardProps) => {
+const GenericWizard = ({ data, children }: IGenericWizardProps) => {
   const { isOpen, title, index, maxSteps, changeStep, canSkip } = data;
   const actionsData = {
     index, 
@@ -33,4 +33,4 @@ const GenericWizardDialog = ({ data, children }: IGenericWizardProps) => {
   );
 }
 
-export default GenericWizardDialog;
+export default GenericWizard;
