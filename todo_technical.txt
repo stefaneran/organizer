@@ -18,7 +18,7 @@ MVP:
 - CAT014
 
 -----
-Tasks:
+Tasks (MVP):
 -----
 
 CAT001 - Wizard for creating a category (only Skill)
@@ -26,6 +26,7 @@ CAT001 - Wizard for creating a category (only Skill)
 - Plug basic form to a Wizard and test wizard
 - Decide steps and info needed for creating a skill category (Creative)
 - Make the create wizard
+- Add Grid system to FormCreator
 
 CAT002 - Read/Write operations
 - Create Write function (Store->LocalStorage)
@@ -93,3 +94,9 @@ CAT012 - UI Improvements
 CAT013 - Abillity to DL and UL JSON 
 
 CAT014 - Automated alerts
+
+
+-------------
+Nice-To-Haves:
+-------------
+

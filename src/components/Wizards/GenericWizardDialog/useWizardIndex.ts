@@ -9,13 +9,13 @@ interface IProps {
 export default ({ maxSteps, callback }: IProps) => {
   const [index, setIndex] = React.useState(0);
 
-  const handleAction = (direction: -1 | 1) => () => {
-    const newIndex = getIndexByDirection(index, maxSteps, direction);
+  const changeStep = (direction: -1 | 1) => () => {
+    const newIndex = getIndexByDirection({ currentIndex: index, length: maxSteps, direction, canWrap: false });
     setIndex(newIndex);
     if(callback) {
       callback();
     }
   }
 
-  return { index, setIndex, handler: handleAction }
+  return { index, changeStep }
 }

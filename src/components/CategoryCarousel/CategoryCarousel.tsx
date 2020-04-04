@@ -14,12 +14,12 @@ const CategoryCarousel = ({ categories = [] }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const numOfCategories = categories.length;
-  const leftCategory = categories[getIndexByDirection(currentIndex, numOfCategories, -1)];
-  const rightCategory = categories[getIndexByDirection(currentIndex, numOfCategories, 1)];
+  const leftCategory = categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: -1, canWrap: true })];
+  const rightCategory = categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: 1, canWrap: true })];
   const currentCategory = categories[currentIndex];
 
   const moveCarousel = (direction: 1 | -1) => () => {
-    const nextIndex = getIndexByDirection(currentIndex, numOfCategories, direction);
+    const nextIndex = getIndexByDirection({ currentIndex, length: numOfCategories, direction, canWrap: true });
     setCurrentIndex(nextIndex);
   }
 
@@ -35,11 +35,3 @@ const CategoryCarousel = ({ categories = [] }) => {
 }
 
 export default CategoryCarousel;
-
-
-const getIndex = (currentIndex: number, length: number, direction: 1 | -1) => {
-  const x = currentIndex + direction;
-  if(direction < 0)
-    return (x < 0) ? length - 1 : x;
-  return (x >= length) ? 0 : x;
-}

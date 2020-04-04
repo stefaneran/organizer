@@ -11,7 +11,6 @@ const slice = createSlice({
   reducers: {
     load: state => {
       state.loading = true;
-      console.log('--- Loading! ---')
     }
   }
 });
