@@ -11,7 +11,7 @@ export enum CategoryPriorityType {
 }
 
 export interface ICategory {
-  name: string;
+  title: string;
   description: string;
   type: CategoryType;
   priority: CategoryPriorityType;

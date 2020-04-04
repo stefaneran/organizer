@@ -27,7 +27,10 @@ OPT - Optimizations
 
 CAT001 - Wizard for creating a category (only Skill)
 - Add a close option to dialog + Make click outside dialog close it
-- Decide steps and info needed for creating a skill category (Creative)
+- Add Number input to FormCreator
+- Make Text input work
+- Make Select input work
+- Add Wizard step subtitle
 - Make the create wizard
 - Make "Finish" button functional
 - Test with Back/Next/Skip/Finish heavily
@@ -83,7 +86,7 @@ CAT010 - Social category
 - Read/Write
 - Logic 
 
-CAT011 - Carousel Fitlering
+CAT011 - Carousel Filtering
 - By category type
 - By priority 
 - Text filter
@@ -99,11 +102,10 @@ CAT013 - Abillity to DL and UL JSON
 
 CAT014 - Automated alerts
 
-
 -------------
 Nice-To-Haves:
 -------------
-
+- Cheat detection + Alert
 
 ----------------
 Unit Tests TODO:

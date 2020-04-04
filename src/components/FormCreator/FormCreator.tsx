@@ -27,7 +27,7 @@ const FormCreator = ({ formData, formGrid, onChange }: IFormProps) => {
       {formGrid ? (
         <FormGrid formData={formData} formGrid={formGrid} onChange={handleChange} />
       ) : 
-        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange: onChange }))
+        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange }))
       }
     </>
   );

@@ -1,9 +1,8 @@
+export const TOTAL_HOURS_TO_MASTERY = 10000;
+export const XP_PER_HOUR = 100;
+export const TOTAL_XP_TO_MASTERY = TOTAL_HOURS_TO_MASTERY * XP_PER_HOUR;
 
-const TOTAL_HOURS_TO_MASTERY = 10000;
-const XP_PER_HOUR = 100;
-const TOTAL_XP_TO_MASTERY = TOTAL_HOURS_TO_MASTERY * XP_PER_HOUR;
-
-const XP_RANKS = [
+export const XP_RANKS = [
   { min: 0, max: 1000, rank: 1, title: 'Poor' }, // 10 Hours
   { min: 1001, max: 2000, rank: 2, title: 'Inept' }, // 20 Hours
   { min: 2001, max: 3000, rank: 3, title: 'Newbie' }, // 30 Hours
@@ -36,21 +35,3 @@ const XP_RANKS = [
   { min: 800001, max: 900000, rank: 31, title: 'Champion' }, // 9000 Hours
   { min: 900001, max: 999999999, rank: 32, title: 'Grand Master' } // 10000 Hours
 ];
-
-const getSkillRank = (xp) => {
-  const [xpRank] = XP_RANKS.filter(rank => (rank.min >= xp && rank.max < xp));
-  return xpRank;
-}
-
-// Action: Add skill and return potential XP
-// - Calc time to finish
-// - Calc hour value
-// - Calc total XP
-const supplementTimeToFinish = (numOfUnits: number, unitHourValue?: number) => 
-  unitHourValue ? numOfUnits * unitHourValue : 1;
-const supplementHourValue = (timeToFinish: number): number => 
-  timeToFinish / 3;
-const supplementTotalXP = (timeToFinish, addedHourValue) => 
-  (timeToFinish + addedHourValue) * 100
-
-

@@ -31,6 +31,7 @@ const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
 
   // Handle change in form input
   const handleChange = (inputName, inputData) => {
+    console.log('HANDLE CHANGE FROM WIZARD', inputName, inputData);
     setFormData({ ...formData, [inputName]: inputData });
   }
   // Handle dialog action (Back/Skip/Next)
