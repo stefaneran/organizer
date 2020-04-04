@@ -22,9 +22,9 @@ Tasks (MVP):
 -----
 
 CAT001 - Wizard for creating a category (only Skill)
+- Add a close option to dialog + Make click outside dialog close it
 - Decide steps and info needed for creating a skill category (Creative)
 - Make the create wizard
-- Add a close option to dialog
 - Make "Finish" button functional
 - Test with Back/Next/Skip/Finish heavily
 

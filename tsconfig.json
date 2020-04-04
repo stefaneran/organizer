@@ -6,7 +6,7 @@
 			"@containers/*": ["src/containers/*"],
 			"@components/*": ["src/components/*"],
 			"@data/*": ["src/data/*"],
-      "@logic/*": ["src/logic/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@mocks/*": ["src/mocks/*"],
       "@store/*": ["src/store/*"],
       "@utils/*": ["src/utils/*"]

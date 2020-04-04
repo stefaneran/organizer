@@ -1,24 +1,24 @@
-import { CategoryType, PriorityType } from '@logic/categories/general';
-import { ISkillCategory } from '@logic/categories/skill';
+import { CategoryType, CategoryPriorityType } from '@interfaces/categories';
+import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 
 const guitar: ISkillCategory = {
   name: "Guitar",
   type: CategoryType.Skill,
-  priority: PriorityType.Moderate,
+  priority: CategoryPriorityType.Moderate,
   items: []
 };
 
 const cooking: ISkillCategory = {
   name: "Cooking",
   type: CategoryType.Skill,
-  priority: PriorityType.Low,
+  priority: CategoryPriorityType.Low,
   items: []
 };
 
 const programming: ISkillCategory = {
   name: "Programming",
   type: CategoryType.Skill,
-  priority: PriorityType.High,
+  priority: CategoryPriorityType.High,
   items: []
 };
 

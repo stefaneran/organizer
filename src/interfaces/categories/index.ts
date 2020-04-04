@@ -1,11 +1,10 @@
-
 export enum CategoryType {
   Skill = "Skill",
   Fitness = "Fitness",
   Social = "Social"
 }
 
-export enum PriorityType {
+export enum CategoryPriorityType {
   Low = "Low",
   Moderate = "Moderate",
   High = "High"
@@ -15,12 +14,5 @@ export interface ICategory {
   name: string;
   description: string;
   type: CategoryType;
-  priority: PriorityType;
-}
-
-export interface IHistoryLog {
-  category: CategoryType;
-  item: string;
-  description: string;
-  date_updated: number; // Timestamp
+  priority: CategoryPriorityType;
 }
