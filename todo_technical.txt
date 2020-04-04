@@ -21,6 +21,10 @@ MVP:
 Tasks (MVP):
 -----
 
+OPT - Optimizations
+- Wrap app with context provider for Store
+- Add unit testing
+
 CAT001 - Wizard for creating a category (only Skill)
 - Add a close option to dialog + Make click outside dialog close it
 - Decide steps and info needed for creating a skill category (Creative)
