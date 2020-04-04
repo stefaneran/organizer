@@ -22,11 +22,11 @@ Tasks (MVP):
 -----
 
 CAT001 - Wizard for creating a category (only Skill)
-- Create simple Form Creator
-- Plug basic form to a Wizard and test wizard
 - Decide steps and info needed for creating a skill category (Creative)
 - Make the create wizard
-- Add Grid system to FormCreator
+- Add a close option to dialog
+- Make "Finish" button functional
+- Test with Back/Next/Skip/Finish heavily
 
 CAT002 - Read/Write operations
 - Create Write function (Store->LocalStorage)
@@ -100,3 +100,9 @@ CAT014 - Automated alerts
 Nice-To-Haves:
 -------------
 
+
+----------------
+Unit Tests TODO:
+----------------
+- validateFormGrid
+- getIndexByDirection

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import typeToInputsMap from './typeToInputsMap';
+import FormGrid from './FormGrid';
 
 interface IFormField {
   name: string;
@@ -8,12 +9,13 @@ interface IFormField {
   helperText?: string;
 }
 
-interface IFormCreatorProps {
+export interface IFormProps {
   formData: IFormField[];
+  formGrid?: { x: number; y: number; };
   onChange(name: string, value: any): void;
 }
 
-const FormCreator = ({ formData, onChange }: IFormCreatorProps) => {
+const FormCreator = ({ formData, formGrid, onChange }: IFormProps) => {
 
   const handleChange = (name, type) => ({ target }) => {
     const value = type !== 'checkbox' ? target.value : target.checked;
@@ -22,11 +24,11 @@ const FormCreator = ({ formData, onChange }: IFormCreatorProps) => {
   
   return (
     <>
-      {formData.map(field => {
-        const { name, type, ...passThroughs } = field;
-        const data = { name, type, handleChange, ...passThroughs };
-        return typeToInputsMap(type, data);
-      })}
+      {formGrid ? (
+        <FormGrid formData={formData} formGrid={formGrid} onChange={handleChange} />
+      ) : 
+        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange: onChange }))
+      }
     </>
   );
 }

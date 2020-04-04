@@ -26,6 +26,8 @@ const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
   const { steps } = wizardForm;
   // Wizard step state management
   const { index, changeStep } = useWizardIndex({ maxSteps: steps.length });
+  // Current step info 
+  const { formGrid } = steps[index];
 
   // Handle change in form input
   const handleChange = (inputName, inputData) => {
@@ -47,7 +49,11 @@ const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
 
   return (
     <GenericWizard data={wizardData}>
-      <FormCreator formData={getStepFormData(index)} onChange={handleChange} />
+      <FormCreator 
+        formData={getStepFormData(index)} 
+        formGrid={formGrid}
+        onChange={handleChange} 
+      />
     </GenericWizard>
   );
 }

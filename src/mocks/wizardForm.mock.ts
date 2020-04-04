@@ -1,43 +1,72 @@
-
+// Example Wizard Form for testing the Wizard, FormCreator, and FormGrid
 export default {
   data: {
-    // Example 
-    stepOne: { 
-      name: 'stepOne', 
+    one: { 
+      name: 'one', 
       type: 'text', 
-      label: 'Step One Test',
+      label: '1',
       helperText: ''
     },
-    stepTwo: { 
-      name: 'stepTwo', 
+    twoA: { 
+      name: 'twoA', 
       type: 'text', 
-      label: 'Step Two Test',
+      label: '2A',
       helperText: 'Sample text'
     },
-    stepTwo2: { 
-      name: 'stepTwo2', 
+    twoB: { 
+      name: 'twoB', 
       type: 'text', 
-      label: 'Step Two 2 Test',
+      label: '2B',
       helperText: 'Sample text'
     },
-    stepThree: {
-      name: 'stepThree', 
+    threeA: {
+      name: 'threeA', 
       type: 'text', 
-      label: 'Step Three Test',
+      label: '3A',
+      helperText: 'Sample text'
+    },
+    threeB: {
+      name: 'threeB', 
+      type: 'text', 
+      label: '3B',
+      helperText: 'Sample text'
+    },
+    fourA: {
+      name: 'fourA', 
+      type: 'text', 
+      label: '4A',
+      helperText: 'Sample text'
+    },
+    fourB: {
+      name: 'fourB', 
+      type: 'text', 
+      label: '4B',
+      helperText: 'Sample text'
+    },
+    fourC: {
+      name: 'fourC', 
+      type: 'text', 
+      label: '4C',
       helperText: 'Sample text'
     }
   },
   steps: [
     {
-      fields: ['stepOne'], 
-      canSkip: false 
+      fields: ['one'], 
+      formGrid: {x: 1, y: 1}
     },
     {
-      fields: ['stepTwo', 'stepTwo2'], 
-      canSkip: true 
+      fields: ['twoA', 'twoB'], 
+      formGrid: {x: 2, y: 1},
+      canSkip: true
     },
     {
-      fields: ['stepThree'] 
+      fields: ['threeA', 'threeB'], 
+      formGrid: {x: 1, y: 2}
+    },
+    {
+      fields: ['fourA', 'fourB', 'fourC'], 
+      formGrid: {x: 2, y: 2}
     }
   ]
 }
