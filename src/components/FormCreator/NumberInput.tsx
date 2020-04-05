@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormControl, FormHelperText, Input, InputLabel } from '@material-ui/core';
 
-interface ITextInputProps {
+interface INumberInputProps {
   shouldFocus: boolean;
   data: {
     name: string;
@@ -12,7 +12,7 @@ interface ITextInputProps {
   }
 }
 
-const TextInput = ({ shouldFocus, data: { name, handleChange, label, helperText, inputValue } }: ITextInputProps) => {
+const NumberInput = ({ shouldFocus, data: { name, handleChange, label, helperText, inputValue } }: INumberInputProps) => {
 
   const handleInput = event => {
     handleChange(name, event.target.value);
@@ -21,12 +21,7 @@ const TextInput = ({ shouldFocus, data: { name, handleChange, label, helperText,
   return (
     <FormControl>
       <InputLabel>{label}</InputLabel>
-      <Input 
-        type="text" 
-        value={inputValue} 
-        onChange={handleInput} 
-        inputRef={input => input && shouldFocus && input.focus()}
-      />
+      <Input type="number" value={inputValue} onChange={handleInput} inputRef={input => input && shouldFocus && input.focus()} />
       {helperText && (
         <FormHelperText>{helperText}</FormHelperText>
       )}
@@ -34,4 +29,4 @@ const TextInput = ({ shouldFocus, data: { name, handleChange, label, helperText,
   )
 }
 
-export default TextInput;
+export default NumberInput;

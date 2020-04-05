@@ -6,31 +6,31 @@ interface IOption {
   value: any;
 }
 
-interface ITextInputProps {
+interface ISelectInputProps {
   data: {
     name: string;
-    type: string;
-    handleChange: (name: string, value: any) => (event) => void;
+    handleChange: (name: string, value: any) => void;
     label: string;
-    options: IOption[]
+    options: IOption[];
     isMulti?: boolean;
+    inputValue?: any | any[];
   }
 }
 
-const SelectInput = ({ data: { name, type, handleChange, label, options, isMulti } }: ITextInputProps) => {
-  const [value, setValue] = React.useState(null);
+const setDefault = (inputValue, isMulti) => 
+  inputValue ? inputValue : (isMulti ? [] : '');
+
+const SelectInput = ({ data: { name, handleChange, label, options, isMulti, inputValue } }: ISelectInputProps) => {
 
   const handleSelect = event => {
-    const { value } = event.target;
-    setValue(value);
-    handleChange(name, type)(event);
+    handleChange(name, event.target.value);
   }
 
   return (
     <FormControl>
       <InputLabel>{label}</InputLabel>
       <Select
-        value={value}
+        value={inputValue || setDefault(inputValue, isMulti)}
         onChange={handleSelect}
         multiple={isMulti}
       >

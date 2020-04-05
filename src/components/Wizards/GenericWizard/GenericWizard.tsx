@@ -10,10 +10,11 @@ interface IGenericWizardProps {
     changeStep: any;
     canSkip?: boolean;
   };
+  onClose(options?: any): (event?) => void;
   children: React.ReactNode;
 }
 
-const GenericWizard = ({ data, children }: IGenericWizardProps) => {
+const GenericWizard = ({ data, onClose, children }: IGenericWizardProps) => {
   const { isOpen, title, index, maxSteps, changeStep, canSkip } = data;
   const actionsData = {
     index, 
@@ -27,6 +28,7 @@ const GenericWizard = ({ data, children }: IGenericWizardProps) => {
       title={title} 
       actionsType="wizard"
       actionsData={actionsData} 
+      onClose={onClose}
     >
       {children}
     </GenericDialog>

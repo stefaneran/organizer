@@ -11,10 +11,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormGrid = ({ formData, formGrid, onChange }: IFormProps) => {
+const FormGrid = ({ formData, formGrid, lastInputField, onChange }: IFormProps) => {
   const classes = useStyles();
   const isGridValid = validateFormGrid(formGrid, formData.length);
-  const grid = React.useRef(null);
 
   const Input = ({ field }) => {
     const data = { 
@@ -23,7 +22,7 @@ const FormGrid = ({ formData, formGrid, onChange }: IFormProps) => {
     };
     return (
       <Grid item className={classes.gridItem}>
-        {typeToInputsMap(field.type, data)}
+        {typeToInputsMap(field.type, data, lastInputField)}
       </Grid>
     );
   }
@@ -50,11 +49,6 @@ const FormGrid = ({ formData, formGrid, onChange }: IFormProps) => {
     }
     return rows;
   }
-
-  // Build grid only on formData change
-  React.useEffect(() => {
-    grid.current = buildGrid();
-  }, [formData]);
 
   return (
     <>

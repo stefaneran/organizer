@@ -1,28 +1,26 @@
 import * as React from 'react';
 import { GenericWizard, useWizardIndex } from '@components/Wizards/GenericWizard';
 import { FormCreator } from '@components/FormCreator';
+import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
 import wizardForm from '@mocks/wizardForm.mock';
+
+interface IFormData {
+  
+}
+
+interface ICloseProps {
+  isSubmit: boolean;
+  formData: IFormData;
+}
 
 export interface ICreateWizardProps {
   isOpen: boolean;
+  onClose(options?: ICloseProps): void;
 }
 
-// Get form data for specific wizard steps
-const getStepFormData = (index) => 
-  wizardForm.steps[index].fields.map(fieldName => ({ ...wizardForm.data[fieldName] }));
-
-// Populate state hook object with fieldName/value key pairs
-const getDefaultFormData = () => {
-  const defaultFormData = {};
-  for(const fieldName in wizardForm.data) {
-    const { defaultValue } = wizardForm.data[fieldName];
-    defaultFormData[fieldName] = defaultValue ? defaultValue : null;
-  }
-  return defaultFormData;
-}
-
-const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
-  const [formData, setFormData] = React.useState(getDefaultFormData())
+const CreateCategoryWizard = ({ isOpen, onClose }: ICreateWizardProps) => {
+  const [formData, setFormData] = React.useState(getDefaultFormData(wizardForm))
+  const [lastInputField, setLastInputField] = React.useState('');
   const { steps } = wizardForm;
   // Wizard step state management
   const { index, changeStep } = useWizardIndex({ maxSteps: steps.length });
@@ -30,29 +28,35 @@ const CreateCategoryWizard = ({ isOpen }: ICreateWizardProps) => {
   const { formGrid } = steps[index];
 
   // Handle change in form input
-  const handleChange = (inputName, inputData) => {
-    console.log('HANDLE CHANGE FROM WIZARD', inputName, inputData);
-    setFormData({ ...formData, [inputName]: inputData });
+  const handleChange = (inputName, inputValue) => {
+    setFormData({ ...formData, [inputName]: inputValue });
+    setLastInputField(inputName);
   }
   // Handle dialog action (Back/Skip/Next)
   const handleAction = (direction: -1 | 1) => () => {
     changeStep(direction)();
   }
 
+  const handleClose = (options?: ICloseProps) => (event?) => {
+    let isSubmit = options ? options.isSubmit : false;
+    onClose({ isSubmit, formData });
+  }
+
   const wizardData = {
     isOpen, 
     title: "Create new category", 
     index, 
-    maxSteps: steps.length - 1, 
+    maxSteps: steps.length - 1,
     changeStep: handleAction,
     canSkip: steps[index].canSkip
   }
 
   return (
-    <GenericWizard data={wizardData}>
+    <GenericWizard data={wizardData} onClose={handleClose}>
       <FormCreator 
-        formData={getStepFormData(index)} 
+        formData={getStepFormData(wizardForm, index, formData)} 
         formGrid={formGrid}
+        lastInputField={lastInputField}
         onChange={handleChange} 
       />
     </GenericWizard>

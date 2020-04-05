@@ -6,6 +6,15 @@ import categoriesMock from '@mocks/categories.mock';
 
 const CategoryView = () => {
   const [isCreateWizardOpen, setCreateWizardOpen] = React.useState(false);
+
+  const handleCloseCreateWizard = ({ isSubmit, formData }) => {
+    if(isSubmit) {
+      console.log(formData);
+      // Add Category
+    }
+    setCreateWizardOpen(false);
+  }
+
   return (
     <>
       <Paper className="paper">
@@ -20,7 +29,7 @@ const CategoryView = () => {
           </Grid>
         </Grid>
 
-        <CreateCategoryWizard isOpen={isCreateWizardOpen} />
+        <CreateCategoryWizard isOpen={isCreateWizardOpen} onClose={handleCloseCreateWizard} />
       </Paper>
     </>
   );

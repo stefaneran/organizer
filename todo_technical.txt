@@ -28,8 +28,6 @@ OPT - Optimizations
 CAT001 - Wizard for creating a category (only Skill)
 - Add a close option to dialog + Make click outside dialog close it
 - Add Number input to FormCreator
-- Make Text input work
-- Make Select input work
 - Add Wizard step subtitle
 - Make the create wizard
 - Make "Finish" button functional
@@ -52,6 +50,7 @@ CAT004 - Create skill category display (Full)
 - Add settings with React - Maybe Dialog
 
 CAT005 - Create logic for skill category
+- Re-think skill logic to add 100 xp every 2 hours
 - Decide hwo it should work (Creative)
 - Skill XP logic with ranks, etc
 - Time depreciation logic
@@ -105,6 +104,7 @@ CAT014 - Automated alerts
 -------------
 Nice-To-Haves:
 -------------
+- Multiselect remain open after input
 - Cheat detection + Alert
 
 ----------------

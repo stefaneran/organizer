@@ -7,27 +7,33 @@ interface IFormField {
   type: string;
   label?: string;
   helperText?: string;
+  inputValue?: any | any[];
 }
 
 export interface IFormProps {
   formData: IFormField[];
   formGrid?: { x: number; y: number; };
+  lastInputField: string;
   onChange(name: string, value: any): void;
 }
 
-const FormCreator = ({ formData, formGrid, onChange }: IFormProps) => {
+const FormCreator = ({ formData, formGrid, lastInputField, onChange }: IFormProps) => {
 
-  const handleChange = (name, type) => ({ target }) => {
-    const value = type !== 'checkbox' ? target.value : target.checked;
+  const handleChange = (name, value) => {
     onChange(name, value);
   }
   
   return (
     <>
       {formGrid ? (
-        <FormGrid formData={formData} formGrid={formGrid} onChange={handleChange} />
+        <FormGrid 
+          formData={formData} 
+          formGrid={formGrid} 
+          lastInputField={lastInputField} 
+          onChange={onChange} 
+        />
       ) : 
-        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange }))
+        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange }, lastInputField))
       }
     </>
   );

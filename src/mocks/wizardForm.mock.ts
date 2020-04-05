@@ -3,21 +3,30 @@ export default {
   data: {
     one: { 
       name: 'one', 
-      type: 'text', 
+      type: 'number', 
       label: '1',
       helperText: ''
     },
     twoA: { 
       name: 'twoA', 
-      type: 'text', 
+      type: 'select', 
       label: '2A',
-      helperText: 'Sample text'
+      options: [
+        {label: 'Option 1', value: 1},
+        {label: 'Option 2', value: 2},
+        {label: 'Option 3', value: 3}
+      ]
     },
     twoB: { 
       name: 'twoB', 
-      type: 'text', 
+      type: 'select', 
       label: '2B',
-      helperText: 'Sample text'
+      isMulti: true,
+      options: [
+        {label: 'Option 1', value: 1},
+        {label: 'Option 2', value: 2},
+        {label: 'Option 3', value: 3}
+      ]
     },
     threeA: {
       name: 'threeA', 
