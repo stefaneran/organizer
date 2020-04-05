@@ -21,15 +21,15 @@ MVP:
 Tasks (MVP):
 -----
 
-OPT - Optimizations
-- Wrap app with context provider for Store
-- Add unit testing
-
 CAT001 - Wizard for creating a category (only Skill)
-- Make the create wizard
+- Clear Wizard on close (reset index and formData)
+- Make creation wizard generic component
+- make special category wizard component
+- Make Create Wizard Form data
 - Test with Back/Next/Skip/Finish heavily
 
 CAT002 - Read/Write operations
+- Create normalized data model 
 - Create Write function (Store->LocalStorage)
 - Create Read function (LocalStorage->Store)
 
@@ -96,6 +96,10 @@ CAT012 - UI Improvements
 CAT013 - Abillity to DL and UL JSON 
 
 CAT014 - Automated alerts
+
+OPT - Optimizations
+- Wrap app with context provider for Store
+- Add unit testing
 
 -------------
 Nice-To-Haves:

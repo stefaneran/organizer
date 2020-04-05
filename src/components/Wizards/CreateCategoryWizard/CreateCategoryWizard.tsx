@@ -2,6 +2,7 @@ import * as React from 'react';
 import { GenericWizard, useWizardIndex } from '@components/Wizards/GenericWizard';
 import { FormCreator } from '@components/FormCreator';
 import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
+import { CategoryType } from '@interfaces/categories';
 import wizardForm from '@mocks/wizardForm.mock';
 
 interface IFormData {
@@ -19,8 +20,14 @@ export interface ICreateWizardProps {
 }
 
 const CreateCategoryWizard = ({ isOpen, onClose }: ICreateWizardProps) => {
-  const [formData, setFormData] = React.useState(getDefaultFormData(wizardForm))
+
+  // The category chosen to create (Default Skill for now)
+  const [chosenCategory, setChosenCategory] = React.useState(CategoryType.Skill);
+  // All data for specific category
+  const [formData, setFormData] = React.useState(chosenCategory ? getDefaultFormData(wizardForm) : {});
+  // Last input changed to 
   const [lastInputField, setLastInputField] = React.useState('');
+  
   const { steps } = wizardForm;
   // Wizard step state management
   const { index, changeStep } = useWizardIndex({ maxSteps: steps.length });
