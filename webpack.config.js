@@ -19,6 +19,7 @@ module.exports = {
       "@components": path.resolve(__dirname, './src/components'),
       "@data": path.resolve(__dirname, './src/data'),
       "@interfaces": path.resolve(__dirname, './src/interfaces'),
+      "@logic": path.resolve(__dirname, './src/logic'),
       "@mocks": path.resolve(__dirname, './src/mocks'),
       "@store": path.resolve(__dirname, './src/store'),
       "@utils": path.resolve(__dirname, './src/utils')

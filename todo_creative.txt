@@ -55,3 +55,21 @@ Social: (Shape: Circle - Color: Blue)
 - Can be divided into subgroups
 - Can create individuals
 - Each individual has info like name, description, log (history of interactions) 
+
+
+
+---- Social ---
+
+Each social category represents a group of people
+
+Each group will have people
+
+Each person can have this info:
+- name
+- relationship (friend/SO/coworker)
+- last interaction date
+- Relations to other people 
+- history of interactions
+
+Will be able to show a diagram of relationships between people 
+Will be able to show a bar chart with most interaction

@@ -21,10 +21,15 @@ MVP:
 Tasks (MVP):
 -----
 
+OPT - Optimizations
+- Wrap app with context provider for Store
+- Add unit testing
+
+IMP - Improvements
+- Make wizard step logic in generic wizard
+- Make generic wizard creator 
+
 CAT001 - Wizard for creating a category (only Skill)
-- Clear Wizard on close (reset index and formData)
-- Make creation wizard generic component
-- make special category wizard component
 - Make Create Wizard Form data
 - Test with Back/Next/Skip/Finish heavily
 
@@ -97,19 +102,16 @@ CAT013 - Abillity to DL and UL JSON
 
 CAT014 - Automated alerts
 
-OPT - Optimizations
-- Wrap app with context provider for Store
-- Add unit testing
-
 -------------
 Nice-To-Haves:
 -------------
 - Multiselect remain open after input
 - Add Wizard step subtitle
 - Cheat detection + Alert
+- Creation Wizard - Make Generic component
 
 ----------------
-Unit Tests TODO:
+Unit Tests:
 ----------------
 - validateFormGrid
 - getIndexByDirection

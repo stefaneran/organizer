@@ -7,8 +7,8 @@ import typeToActionsMap from './typeToActionsMap';
 interface IDialogProps {
   isOpen: boolean;
   title: string;
-  actionsType: string;
-  actionsData: any; // Can vary from type to type (refer to typeToActionsMap.tsx)
+  actionsType?: string;
+  actionsData?: any; // Can vary from type to type (refer to typeToActionsMap.tsx)
   onClose(options?: any): (event?) => void;
   children: React.ReactNode;
 }

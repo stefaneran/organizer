@@ -1,47 +1,55 @@
 import * as React from 'react';
-import { GenericWizard, useWizardIndex } from '@components/Wizards/GenericWizard';
+import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
-import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
 import { CategoryType } from '@interfaces/categories';
-import wizardForm from '@mocks/wizardForm.mock';
-
-interface IFormData {
-  
-}
+import createSkillWizard, { ICreateSkillForm } from '@data/wizards/createSkill';
+import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
+import getIndexByDirection from '@utils/getIndexByDirection';
 
 interface ICloseProps {
   isSubmit: boolean;
-  formData: IFormData;
+  formData: ICreateSkillForm | {};
 }
 
 export interface ICreateWizardProps {
   isOpen: boolean;
   onClose(options?: ICloseProps): void;
+  categoryType: CategoryType;
 }
 
-const CreateCategoryWizard = ({ isOpen, onClose }: ICreateWizardProps) => {
+const categoryFormModelMap = (category: CategoryType) => {
+  const map = {
+    [CategoryType.Skill]: createSkillWizard
+  }
+  return map[category];
+}
 
-  // The category chosen to create (Default Skill for now)
-  const [chosenCategory, setChosenCategory] = React.useState(CategoryType.Skill);
-  // All data for specific category
-  const [formData, setFormData] = React.useState(chosenCategory ? getDefaultFormData(wizardForm) : {});
-  // Last input changed to 
+const CreateCategoryWizard = ({ isOpen, onClose, categoryType }: ICreateWizardProps) => {
+
+  // Form model for the chosen category type
+  const formModel = categoryFormModelMap(categoryType);
+
+  // The form data of all fields across all steps
+  const [formData, setFormData] = React.useState(getDefaultFormData(formModel));
+  // Current wizard step index
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  // Last input changed
   const [lastInputField, setLastInputField] = React.useState('');
-  
-  const { steps } = wizardForm;
-  // Wizard step state management
-  const { index, changeStep } = useWizardIndex({ maxSteps: steps.length });
-  // Current step info 
-  const { formGrid } = steps[index];
 
   // Handle change in form input
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
     setLastInputField(inputName);
   }
-  // Handle dialog action (Back/Skip/Next)
-  const handleAction = (direction: -1 | 1) => () => {
-    changeStep(direction)();
+
+  const handleStepChange = (direction: 1 | -1) => () => {
+    const newIndex = getIndexByDirection({
+      currentIndex,
+      length: formModel.steps.length,
+      direction,
+      canWrap: false
+    });
+    setCurrentIndex(newIndex);
   }
 
   const handleClose = (options?: ICloseProps) => (event?) => {
@@ -49,24 +57,33 @@ const CreateCategoryWizard = ({ isOpen, onClose }: ICreateWizardProps) => {
     onClose({ isSubmit, formData });
   }
 
-  const wizardData = {
-    isOpen, 
-    title: "Create new category", 
-    index, 
-    maxSteps: steps.length - 1,
-    changeStep: handleAction,
-    canSkip: steps[index].canSkip
+  const currentStep = formModel.steps[currentIndex];
+
+  const currentStepForm = getStepFormData(formModel, currentIndex, formData);
+  const currentStepGrid = currentStep.formGrid;
+
+  const dialogActionsData = {
+    index: currentIndex, 
+    maxSteps: formModel.steps.length, 
+    handler: handleStepChange, 
+    canSkip: currentStep.canSkip
   }
 
   return (
-    <GenericWizard data={wizardData} onClose={handleClose}>
+    <GenericDialog 
+      isOpen={isOpen} 
+      title={"Create Category"} 
+      actionsType="wizard"
+      actionsData={dialogActionsData} 
+      onClose={handleClose}
+    >
       <FormCreator 
-        formData={getStepFormData(wizardForm, index, formData)} 
-        formGrid={formGrid}
+        formData={currentStepForm} 
+        formGrid={currentStepGrid}
         lastInputField={lastInputField}
-        onChange={handleChange} 
+        onChange={handleChange}
       />
-    </GenericWizard>
+    </GenericDialog>
   );
 }
 

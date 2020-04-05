@@ -1,18 +1,34 @@
 import * as React from 'react';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryCarousel } from '@components/CategoryCarousel';
+import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import categoriesMock from '@mocks/categories.mock';
 
 const CategoryView = () => {
-  const [isCreateWizardOpen, setCreateWizardOpen] = React.useState(false);
+  const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = React.useState(false);
+  const [createWizardInfo, setCreateWizardInfo] = React.useState({ isOpen: false, categoryType: null });
 
+  const handleOpenChooseCategory = () => {
+    setChooseCategoryDialogOpen(true);
+  }
+  // Close the "Choose Category" dialog which leads to open CreateCategoryWizard
+  const handleCloseChooseCategory = ({ categoryType }) => {
+    setCreateWizardInfo({
+      isOpen: categoryType ? true : false,
+      categoryType
+    });
+    setChooseCategoryDialogOpen(false);
+  }
   const handleCloseCreateWizard = ({ isSubmit, formData }) => {
     if(isSubmit) {
       console.log(formData);
       // Add Category
     }
-    setCreateWizardOpen(false);
+    setCreateWizardInfo({
+      isOpen: false,
+      categoryType: null
+    });
   }
 
   return (
@@ -21,7 +37,7 @@ const CategoryView = () => {
         <Grid container direction="column">
           <Grid id="category_actions" item container direction="row">
             <Grid item>
-              <Button variant="outlined" color="primary" onClick={() => setCreateWizardOpen(true)}>Add New</Button>
+              <Button variant="outlined" color="primary" onClick={handleOpenChooseCategory}>Add New</Button>
             </Grid>
           </Grid>
           <Grid item>
@@ -29,7 +45,14 @@ const CategoryView = () => {
           </Grid>
         </Grid>
 
-        <CreateCategoryWizard isOpen={isCreateWizardOpen} onClose={handleCloseCreateWizard} />
+        <ChooseCategoryDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />
+        {createWizardInfo.categoryType && (
+          <CreateCategoryWizard 
+            isOpen={createWizardInfo.isOpen} 
+            onClose={handleCloseCreateWizard} 
+            categoryType={createWizardInfo.categoryType} 
+          />
+        )}
       </Paper>
     </>
   );

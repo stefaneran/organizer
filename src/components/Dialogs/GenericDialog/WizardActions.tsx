@@ -13,9 +13,9 @@ const WizardActions = (
   { onClose(options?: any): (event?) => void;  data: IWizardActionsData }
 ) => {
   const showBack = index > 0;
-  const showSkip = index <= maxSteps && canSkip;
-  const showNext = index < maxSteps;
-  const showFinish = index === maxSteps;
+  const showSkip = index <= maxSteps-1 && canSkip;
+  const showNext = index < maxSteps-1;
+  const showFinish = index === maxSteps-1;
   return (
     <>
       {showBack && (
