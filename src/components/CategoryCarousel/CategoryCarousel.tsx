@@ -25,11 +25,15 @@ const CategoryCarousel = ({ categories = [] }) => {
 
   return (
     <Grid container direction="row" justify="space-between" className={classes.container}>
-      <div className={clsx(classes.invisibleButton, classes.left)} onClick={moveCarousel(-1)}></div>
-      <SideCategory category={leftCategory} />
-      <FrontCategory category={currentCategory} />
-      <SideCategory category={rightCategory} />
-      <div className={clsx(classes.invisibleButton, classes.right)} onClick={moveCarousel(1)}></div>
+      {categories.length ? (
+        <>
+          <div className={clsx(classes.invisibleButton, classes.left)} onClick={moveCarousel(-1)}></div>
+          <SideCategory category={leftCategory} />
+          <FrontCategory category={currentCategory} />
+          <SideCategory category={rightCategory} />
+          <div className={clsx(classes.invisibleButton, classes.right)} onClick={moveCarousel(1)}></div>
+        </>
+      ) : null}
     </Grid>
   )
 }

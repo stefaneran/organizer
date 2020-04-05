@@ -3,9 +3,14 @@ import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryCarousel } from '@components/CategoryCarousel';
 import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
-import categoriesMock from '@mocks/categories.mock';
+import { getCategories } from '@store/actions';
+// import categoriesMock from '@mocks/categories.mock';
 
-const CategoryView = () => {
+const CategoryView = ({ store }) => {
+
+  const { addCategory } = store;
+  const categories = store.profiles && getCategories(store);
+
   const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = React.useState(false);
   const [createWizardInfo, setCreateWizardInfo] = React.useState({ isOpen: false, categoryType: null });
 
@@ -21,9 +26,9 @@ const CategoryView = () => {
     setChooseCategoryDialogOpen(false);
   }
   const handleCloseCreateWizard = ({ isSubmit, formData }) => {
+    const { categoryType } = createWizardInfo;
     if(isSubmit) {
-      console.log(formData);
-      // Add Category
+      addCategory({ ...formData, categoryType });
     }
     setCreateWizardInfo({
       isOpen: false,
@@ -41,7 +46,7 @@ const CategoryView = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <CategoryCarousel categories={categoriesMock} />
+            <CategoryCarousel categories={categories} />
           </Grid>
         </Grid>
 

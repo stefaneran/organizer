@@ -9,7 +9,8 @@ export interface ISkillCategory extends ICategory {
 
 export enum SkillItemTypes {
   Book = "Book",
-  Course = "Course"
+  Course = "Course",
+  Project = "Project"
 }
 
 export interface ISkillItem {

@@ -1,22 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { addCategoryAction } from './actions';
 
 export const initialState = {
-  loading: true,
-  categories: []
+  loading: false,
+  currentProfile: 'default',
+  profiles: {
+    "default": {
+      categories: []
+    }
+  }
 }
 
 const slice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    load: state => {
-      state.loading = true;
-    }
+    addCategory: (store, payload) => addCategoryAction(store, payload)
   }
 });
 
 export const { 
-  load
+  addCategory
 } = slice.actions;
 
 export default slice.reducer;

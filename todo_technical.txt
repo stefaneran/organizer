@@ -2,7 +2,7 @@
 -----
 MVP:
 -----
-- CAT001
+X CAT001
 - CAT002
 - CAT003
 - CAT004
@@ -22,19 +22,13 @@ Tasks (MVP):
 -----
 
 OPT - Optimizations
-- Wrap app with context provider for Store
 - Add unit testing
 
 IMP - Improvements
-- Make wizard step logic in generic wizard
-- Make generic wizard creator 
-
-CAT001 - Wizard for creating a category (only Skill)
-- Make Create Wizard Form data
-- Test with Back/Next/Skip/Finish heavily
+- Make select input look better
+- Make custom input (chidlren props) for FormCreator
 
 CAT002 - Read/Write operations
-- Create normalized data model 
 - Create Write function (Store->LocalStorage)
 - Create Read function (LocalStorage->Store)
 

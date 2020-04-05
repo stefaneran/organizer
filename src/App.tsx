@@ -1,35 +1,33 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { load } from './store/reducer';
+import { addCategory } from './store/reducer';
 import MainPage from './MainPage';
 import './styles.scss';
 
 interface IProps {
-  load(): void;
+  addCategory(): void;
 }
 
 const App = (props: IProps) => {
 
   React.useEffect(() => {
-    props.load();
-
+    // loadFromLocalStorage
     return () => null;
   }, [])
 
   return (
-    <>
-      <MainPage />
-    </>
+    <MainPage store={props} />
   );
-  
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories
+  profiles: state.profiles,
+  currentProfile: state.currentProfile,
+  loading: state.loading
 });
 
 const mapDispatchToProp = {
-  load
+  addCategory
 }
 
 export default connect(

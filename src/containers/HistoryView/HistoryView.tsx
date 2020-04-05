@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 
-const HistoryView = () => {
+const HistoryView = ({ store }) => {
   return (
     <>
       <Paper className="paper">

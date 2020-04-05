@@ -1,15 +1,11 @@
+import { CategoryPriorityType } from '@interfaces/categories';
 import { getRankOptions } from '@logic/skill.logic';
-// Step 1: title and description
-// Step 2: Done this before? Select with skill ranks 
-// Finish
-
-// Calculate hours + XP 
-// Create
 
 export interface ICreateSkillForm {
   title: string;
   description: string;
   rank: number;
+  priority: CategoryPriorityType;
 }
 
 export default {
@@ -33,6 +29,18 @@ export default {
       helperText: '',
       defaultValue: 1,
       options: getRankOptions() 
+    },
+    priority: { 
+      name: 'priority', 
+      type: 'select',
+      label: 'Priority', 
+      helperText: '',
+      defaultValue: CategoryPriorityType.Moderate,
+      options: [
+        {label: 'Low', value: CategoryPriorityType.Low },
+        {label: 'Moderate', value: CategoryPriorityType.Moderate },
+        {label: 'High', value: CategoryPriorityType.High }
+      ] 
     }
   },
   steps: [
@@ -43,6 +51,11 @@ export default {
     },
     {
       fields: ['rank'], 
+      formGrid: {x: 1, y: 1},
+      canSkip: false
+    },
+    {
+      fields: ['priority'], 
       formGrid: {x: 1, y: 1},
       canSkip: false
     }
