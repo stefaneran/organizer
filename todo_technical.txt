@@ -26,11 +26,7 @@ OPT - Optimizations
 - Add unit testing
 
 CAT001 - Wizard for creating a category (only Skill)
-- Add a close option to dialog + Make click outside dialog close it
-- Add Number input to FormCreator
-- Add Wizard step subtitle
 - Make the create wizard
-- Make "Finish" button functional
 - Test with Back/Next/Skip/Finish heavily
 
 CAT002 - Read/Write operations
@@ -105,6 +101,7 @@ CAT014 - Automated alerts
 Nice-To-Haves:
 -------------
 - Multiselect remain open after input
+- Add Wizard step subtitle
 - Cheat detection + Alert
 
 ----------------
