@@ -19,3 +19,10 @@ export interface ISkillItem {
   date_started: number;
   date_ended: number;
 }
+
+export enum SkillItemActivityType {
+  Unstarted = "Unstarted",
+  Paused = "Paused",
+  Neglected = "Neglected",
+  Active = "Active"
+}

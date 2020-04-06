@@ -103,6 +103,7 @@ Nice-To-Haves:
 - Add Wizard step subtitle
 - Cheat detection + Alert
 - Creation Wizard - Make Generic component
+- Make translation strings (only english is enough)
 
 ----------------
 Unit Tests:
