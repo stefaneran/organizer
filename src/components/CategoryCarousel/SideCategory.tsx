@@ -12,7 +12,7 @@ const SideCategory = ({ category }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.container}>
-      Hello World 
+      {category.title}
     </Paper>
   );
 }

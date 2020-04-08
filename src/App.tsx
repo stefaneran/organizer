@@ -1,36 +1,41 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { addCategory } from './store/reducer';
 import MainPage from './MainPage';
 import './styles.scss';
+import mapStateToProps from './mapStateToProps';
+import mapDispatchToProps from './mapDispatchToProps';
 
-interface IProps {
-  addCategory(): void;
-}
+const { log } = console;
+const { useEffect } = React;
 
-const App = (props: IProps) => {
+const App = (props) => {
 
-  React.useEffect(() => {
+  log('INFO: Store in App: ', props);
+
+  useEffect(() => {
+    console.log('DEV: First Load!');
+    props.loadDataThunk()
+  }, []);
+
+  useEffect(() => {
     // loadFromLocalStorage
     return () => null;
   }, [])
 
+  const { error } = props;
+
   return (
-    <MainPage store={props} />
+    <>
+      {error ? (
+        <p> There is an error </p>
+      ) : (
+        <MainPage store={props} />
+      )}
+    </>
   );
-}
-
-const mapStateToProps = state => ({
-  profiles: state.profiles,
-  currentProfile: state.currentProfile,
-  loading: state.loading
-});
-
-const mapDispatchToProp = {
-  addCategory
 }
 
 export default connect(
   mapStateToProps, 
-  mapDispatchToProp
+  mapDispatchToProps
 )(App);

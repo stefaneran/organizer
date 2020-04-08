@@ -12,7 +12,7 @@ const FrontCategory = ({ category }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.container}>
-      Hello World - {category.name}
+      {category.title}
     </Paper>
   );
 }

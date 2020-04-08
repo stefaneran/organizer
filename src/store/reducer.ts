@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addCategoryAction } from './actions';
+
 
 export const initialState = {
   loading: false,
+  error: false,
   currentProfile: 'default',
   profiles: {
     "default": {
@@ -12,15 +13,30 @@ export const initialState = {
 }
 
 const slice = createSlice({
-  name: 'categories',
+  name: 'store',
   initialState,
   reducers: {
-    addCategory: (store, payload) => addCategoryAction(store, payload)
+    saveDataDone: (state, { payload }) => {
+      state.error = payload.success;
+    },
+    loadDataDone: (state, { payload }) => {
+      state.profiles = payload.data;
+    },
+    addCategoryDone: (state, { payload }) => {
+      const { categoryObject } = payload;
+      if(!categoryObject) {
+        state.error = true;
+        return;
+      }
+      state.profiles[state.currentProfile].categories.push(categoryObject);
+    }
   }
 });
 
 export const { 
-  addCategory
+  saveDataDone,
+  loadDataDone,
+  addCategoryDone
 } = slice.actions;
 
 export default slice.reducer;

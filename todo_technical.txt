@@ -2,8 +2,9 @@
 -----
 MVP:
 -----
-X CAT001
-- CAT002
+X INTRO - Setup webpack, frame of App, Ideas
+X CAT001 - Generic Dialog and Form Logic
+X CAT002 - Read/Write Local Storage
 - CAT003
 - CAT004
 - CAT005
@@ -28,12 +29,7 @@ IMP - Improvements
 - Make select input look better
 - Make custom input (chidlren props) for FormCreator
 
-CAT002 - Read/Write operations
-- Create Write function (Store->LocalStorage)
-- Create Read function (LocalStorage->Store)
-
 CAT003 - Create category display in carousel (Front cover)
-- Decide category FRONT UI - What info to show (Creative idea)
 - Update category mock with mock skill after above
 - Create Skill Category FRONT UI 
 - Create Skill Category SIDE UI
