@@ -1,21 +1,46 @@
 import * as React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
 import { CategoryView } from './containers/CategoryView';
 import { HistoryView } from './containers/HistoryView';
 
+const useStyles = makeStyles(theme => ({
+  mainContainer: {
+    padding: '0.5em'
+  },
+  headerContainer: {
+    maxWidth: 'none',
+    marginBottom: '0.5em'
+  },
+  footerContainer: {
+    marginTop: '0.5em',
+    maxWidth: 'none'
+  }
+}));  
+
 const MainPage = ({ store }) => {
+  const classes = useStyles(); 
   return (
-    <Grid id="main" justify="space-between" container direction="column">
-      <Paper id="header">Header</Paper>
-      <Grid id="content" container direction="row">
-        <Grid id="categories" item xs={7}>
+    <Grid 
+      id="main" 
+      container
+      direction="column"
+      className={classes.mainContainer}
+    >
+      <Grid item xs={1} className={classes.headerContainer}>
+        <Paper id="header" style={{ height: '100%' }}>Header</Paper>
+      </Grid>
+      <Grid id="content" container direction="row" xs>
+        <Grid id="categories" item xs={9}>
           <CategoryView store={store} />
         </Grid>
         <Grid id="history" item xs>
           <HistoryView store={store} />
         </Grid>
       </Grid>
-      <Paper id="footer">Footer</Paper>
+      <Grid item xs={1} className={classes.footerContainer}>
+        <Paper id="footer" style={{ height: '100%' }}>Footer</Paper>
+      </Grid>
     </Grid>
   )
 }

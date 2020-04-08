@@ -4,8 +4,7 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './carousel.styles';
 import getIndexByDirection from '@utils/getIndexByDirection';
-import FrontCategory from './FrontCategory';
-import SideCategory from './SideCategory';
+import mapTypeToComponent from './mapTypeToComponent';
 
 const useStyles = makeStyles(styles);
 
@@ -14,9 +13,11 @@ const CategoryCarousel = ({ categories = [] }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const numOfCategories = categories.length;
-  const leftCategory = categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: -1, canWrap: true })];
-  const rightCategory = categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: 1, canWrap: true })];
-  const currentCategory = categories[currentIndex];
+  const categoryItems = {
+    left: categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: -1, canWrap: true })],
+    front: categories[currentIndex],
+    right: categories[getIndexByDirection({ currentIndex, length: numOfCategories, direction: 1, canWrap: true })]
+  }
 
   const moveCarousel = (direction: 1 | -1) => () => {
     const nextIndex = getIndexByDirection({ currentIndex, length: numOfCategories, direction, canWrap: true });
@@ -28,9 +29,15 @@ const CategoryCarousel = ({ categories = [] }) => {
       {categories.length ? (
         <>
           <div className={clsx(classes.invisibleButton, classes.left)} onClick={moveCarousel(-1)}></div>
-          <SideCategory category={leftCategory} />
-          <FrontCategory category={currentCategory} />
-          <SideCategory category={rightCategory} />
+          <Grid item spacing={1} style={{height: '100%'}}>
+            {mapTypeToComponent(categoryItems.left)}
+          </Grid>
+          <Grid item spacing={1}>
+            {mapTypeToComponent(categoryItems.front)}
+          </Grid>
+          <Grid item spacing={1}>
+            {mapTypeToComponent(categoryItems.right)}
+          </Grid>
           <div className={clsx(classes.invisibleButton, classes.right)} onClick={moveCarousel(1)}></div>
         </>
       ) : null}

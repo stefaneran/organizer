@@ -1,5 +1,5 @@
 import * as React from 'react';
-import typeToInputsMap from './typeToInputsMap';
+import mapTypeToInputs from './mapTypeToInputs';
 import FormGrid from './FormGrid';
 
 interface IFormField {
@@ -33,7 +33,7 @@ const FormCreator = ({ formData, formGrid, lastInputField, onChange }: IFormProp
           onChange={onChange} 
         />
       ) : 
-        formData.map(field => typeToInputsMap(field.type, { ...field, handleChange }, lastInputField))
+        formData.map(field => mapTypeToInputs(field.type, { ...field, handleChange }, lastInputField))
       }
     </>
   );

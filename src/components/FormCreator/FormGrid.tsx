@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import typeToInputsMap from './typeToInputsMap';
+import mapTypeToInputs from './mapTypeToInputs';
 import validateFormGrid from '@utils/validateFormGrid';
 import { IFormProps } from './FormCreator';
 
@@ -22,7 +22,7 @@ const FormGrid = ({ formData, formGrid, lastInputField, onChange }: IFormProps) 
     };
     return (
       <Grid item className={classes.gridItem}>
-        {typeToInputsMap(field.type, data, lastInputField)}
+        {mapTypeToInputs(field.type, data, lastInputField)}
       </Grid>
     );
   }
