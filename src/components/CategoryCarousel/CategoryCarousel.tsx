@@ -25,17 +25,17 @@ const CategoryCarousel = ({ categories = [] }) => {
   }
 
   return (
-    <Grid container direction="row" justify="space-between" className={classes.container}>
+    <Grid container direction="row" justify="space-between" spacing={2} className={classes.container}>
       {categories.length ? (
         <>
           <div className={clsx(classes.invisibleButton, classes.left)} onClick={moveCarousel(-1)}></div>
-          <Grid item spacing={1} style={{height: '100%'}}>
+          <Grid item xs={4} style={{height: '100%'}}>
             {mapTypeToComponent(categoryItems.left)}
           </Grid>
-          <Grid item spacing={1}>
+          <Grid item xs={4}>
             {mapTypeToComponent(categoryItems.front)}
           </Grid>
-          <Grid item spacing={1}>
+          <Grid item xs={4}>
             {mapTypeToComponent(categoryItems.right)}
           </Grid>
           <div className={clsx(classes.invisibleButton, classes.right)} onClick={moveCarousel(1)}></div>

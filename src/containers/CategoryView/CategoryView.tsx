@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryCarousel } from '@components/CategoryCarousel';
 import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
@@ -6,7 +7,19 @@ import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories } from '@store/accessors';
 // import categoriesMock from '@mocks/categories.mock';
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    height: '100%',
+    '& > div': {
+      height: '100%',
+      width: '100%',
+      padding: '0.5em'
+    }
+  }
+})); 
+
 const CategoryView = ({ store }) => {
+  const classes = useStyles();
 
   const { addCategoryThunk, saveDataThunk } = store;
   const categories = store.profiles && getCategories(store);
@@ -38,15 +51,15 @@ const CategoryView = ({ store }) => {
   }
 
   return (
-    <>
-      <Paper className="paper">
-        <Grid container direction="column">
-          <Grid id="category_actions" item container direction="row">
+    <Grid container className={classes.container}>
+      <Paper>
+        <Grid container direction="column" style={{ height: '100%' }}>
+          <Grid id="category_actions" item container direction="row" xs={1}>
             <Grid item>
               <Button variant="outlined" color="primary" onClick={handleOpenChooseCategory}>Add New</Button>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <CategoryCarousel categories={categories} />
           </Grid>
         </Grid>
@@ -60,7 +73,7 @@ const CategoryView = ({ store }) => {
           />
         )}
       </Paper>
-    </>
+    </Grid>
   );
 }
 

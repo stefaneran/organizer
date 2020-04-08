@@ -28,11 +28,11 @@ OPT - Optimizations
 IMP - Improvements
 - Make select input look better
 - Make custom input (chidlren props) for FormCreator
+- Change carousel for a grid view (with empty cat thumb as a + button to add new one)
 
 CAT003 - Create category display in carousel (Front cover)
-- Update category mock with mock skill after above
 - Create Skill Category FRONT UI 
-- Create Skill Category SIDE UI
+- Add routing with breadcrumbs 
 
 CAT004 - Create skill category display (Full)
 - Decide info to show + layout (Creative)

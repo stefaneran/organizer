@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
@@ -6,26 +7,34 @@ import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 const useStyles = makeStyles(theme => ({
   thumbContainer: {
     height: '100%',
-    // width: '100%'
+    padding: '0.5em'
   },
-  leftSection: {
-    height: '100%',
-    // width: '40%',
-    border: '1px solid black'
+  fullWidth: {
+    maxWidth: 'none'
   },
-  rightSection: {
-    height: '100%',
-    // width: '60%',
-    border: '1px solid black'
+  sectionContainer: {
+    
+  },
+  topSection: {
+
+  },
+  bottomSection: {
+
+  },
+  title: {
+    padding: '0.2em',
+    marginBottom: '0.5em'
+  },
+  description: {
+    padding: '0.2em'
   },
   hourBar: {
-    height: '100%',
-    // width: '40%',
+    padding: '0.2em',
+    marginBottom: '0.3em',
     border: '1px solid black'
   },
   xpBar: {
-    height: '100%',
-    // width: '40%',
+    padding: '0.2em',
     border: '1px solid black'
   },
   itemList: {
@@ -38,20 +47,17 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const { title, description, priority, items, totalHours, totalXP } = skill;
 
   return (
-    <Paper>
-      <Grid container direction="row">
-        <Grid item container direction="row" xs={3} className={classes.leftSection}>
-          <Grid item className={classes.hourBar} xs={6}>
-            {totalHours}
+    <Paper className={classes.thumbContainer}>
+      <Grid container direction="column" justify="space-between" className={classes.sectionContainer}>
+
+        <Grid item container direction="column" xs className={classes.topSection}>
+          <Grid item xs={2} className={clsx(classes.title, classes.fullWidth)}>
+            <p>{title}</p>
           </Grid>
-          <Grid item className={classes.xpBar} xs={6}>
-            {totalXP}
+          <Grid item xs={2} className={clsx(classes.description, classes.fullWidth)}>
+            <p>{description}</p>
           </Grid>
-        </Grid>
-        <Grid item container direction="column" xs className={classes.rightSection}>
-          <Grid item>{title}</Grid>
-          <Grid item>{description}</Grid>
-          <Grid item container>
+          <Grid item container xs>
             <ul className={classes.itemList}>
               {items && items.map(item => (
                 <ul>{item.title}</ul>
@@ -59,6 +65,16 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
             </ul>
           </Grid>
         </Grid>
+
+        <Grid item container direction="column" xs={3} className={clsx(classes.bottomSection, classes.fullWidth)}>
+          <Grid item className={clsx(classes.hourBar, classes.fullWidth)} xs={6}>
+            {totalHours}
+          </Grid>
+          <Grid item className={clsx(classes.xpBar, classes.fullWidth)} xs={6}>
+            {totalXP}
+          </Grid>
+        </Grid>
+
       </Grid>
     </Paper>
   );

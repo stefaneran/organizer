@@ -8,6 +8,9 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     padding: '0.5em'
   },
+  categoriesContainer: {
+    paddingRight: '1em'
+  },
   headerContainer: {
     maxWidth: 'none',
     marginBottom: '0.5em'
@@ -31,7 +34,7 @@ const MainPage = ({ store }) => {
         <Paper id="header" style={{ height: '100%' }}>Header</Paper>
       </Grid>
       <Grid id="content" container direction="row" xs>
-        <Grid id="categories" item xs={9}>
+        <Grid id="categories" item xs={9} className={classes.categoriesContainer}>
           <CategoryView store={store} />
         </Grid>
         <Grid id="history" item xs>
