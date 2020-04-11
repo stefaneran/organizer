@@ -1,12 +1,17 @@
 import * as React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
+import { CategoryListToolbar } from '@components/CategoryListToolbar';
+import { CategoryBreadCrumbs } from '@components/CategoryBreadCrumbs';
 import { CategoryList } from '@components/CategoryList';
 import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories } from '@store/accessors';
+import { mapTypeToComponent as mapTypeToCategoryComponent } from '@components/CategoryOverviews';
 // import categoriesMock from '@mocks/categories.mock';
+
+const { useState } = React;
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -22,13 +27,18 @@ const useStyles = makeStyles(theme => ({
 const CategoryView = ({ store }) => {
   const classes = useStyles();
 
-  const [history, setHistory] = React.useState('/main');
-
   const { addCategoryThunk, saveDataThunk } = store;
   const categories = store.profiles && getCategories(store);
 
-  const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = React.useState(false);
-  const [createWizardInfo, setCreateWizardInfo] = React.useState({ isOpen: false, categoryType: null });
+  const [currentCategory, setCurrentCategory] = useState({ categoryType: null, categoryData: null });
+
+  // Dialog data
+  const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = useState(false);
+  const [createWizardInfo, setCreateWizardInfo] = useState({ isOpen: false, categoryType: null });
+
+  const handleThumbClick = (categoryType, categoryData) => () => {
+    setCurrentCategory({ categoryType, categoryData });
+  }
 
   const handleOpenChooseCategory = () => {
     setChooseCategoryDialogOpen(true);
@@ -53,6 +63,10 @@ const CategoryView = ({ store }) => {
     });
   }
 
+  const toolBarHandlers = {
+    onOpenChooseCategory: handleOpenChooseCategory
+  }
+
   return (
     <Grid container className={classes.container}>
       <Paper>
@@ -60,22 +74,31 @@ const CategoryView = ({ store }) => {
 
           <Route exact path={`/main/`}>
             <Grid id="category_actions" item container direction="row" xs={1}>
-              <Grid item>
-                <Button variant="outlined" color="primary" onClick={handleOpenChooseCategory}>Add New</Button>
-              </Grid>
+              <CategoryListToolbar toolBarHandlers={toolBarHandlers} />
             </Grid>
             <Grid item xs>
-              <CategoryList 
-                history={history} 
-                setHistory={setHistory} 
+              <CategoryList
                 categories={categories} 
+                onThumbClick={handleThumbClick}
               />
             </Grid>
           </Route>
 
-          <Route path={`/main/:name`}>
-            <span>Nested ID</span>
-          </Route>
+          <Route exact path={`/main/:category`} component={(historyProps) => (
+            <>
+              <CategoryBreadCrumbs history={historyProps} />
+              {mapTypeToCategoryComponent({ 
+                categoryType: currentCategory.categoryType, 
+                ...currentCategory.categoryData
+              })}
+            </>
+          )}/>
+
+          <Route exact path={`/main/:category/:item`} component={(historyProps) => (
+            <>
+              <CategoryBreadCrumbs history={historyProps} />
+            </>
+          )}/>
           
         </Grid>
 

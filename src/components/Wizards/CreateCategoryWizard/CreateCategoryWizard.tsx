@@ -6,6 +6,8 @@ import createSkillWizard, { ICreateSkillForm } from '@data/wizards/createSkill';
 import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
 import getIndexByDirection from '@utils/getIndexByDirection';
 
+const { useState } = React;
+
 interface ICloseProps {
   isSubmit: boolean;
   formData: ICreateSkillForm | {};
@@ -30,11 +32,11 @@ const CreateCategoryWizard = ({ isOpen, onClose, categoryType }: ICreateWizardPr
   const formModel = categoryFormModelMap(categoryType);
 
   // The form data of all fields across all steps
-  const [formData, setFormData] = React.useState(getDefaultFormData(formModel));
+  const [formData, setFormData] = useState(getDefaultFormData(formModel));
   // Current wizard step index
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   // Last input changed
-  const [lastInputField, setLastInputField] = React.useState('');
+  const [lastInputField, setLastInputField] = useState('');
 
   // Handle change in form input
   const handleChange = (inputName, inputValue) => {

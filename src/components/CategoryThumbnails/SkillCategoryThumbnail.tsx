@@ -7,7 +7,8 @@ import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 const useStyles = makeStyles(theme => ({
   thumbContainer: {
     height: '100%',
-    padding: '0.5em'
+    padding: '0.5em',
+    textDecoration: 'none'
   },
   fullWidth: {
     maxWidth: 'none'

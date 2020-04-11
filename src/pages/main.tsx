@@ -33,7 +33,7 @@ const MainPage = (store) => {
       <Grid item xs={1} className={classes.headerContainer}>
         <Paper id="header" style={{ height: '100%' }}>Header</Paper>
       </Grid>
-      <Grid id="content" container direction="row" xs>
+      <Grid id="content" item container direction="row" xs>
         <Grid id="categories" item xs={9} className={classes.categoriesContainer}>
           <CategoryView store={store} />
         </Grid>
