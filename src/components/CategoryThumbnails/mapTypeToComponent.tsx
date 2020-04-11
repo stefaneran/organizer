@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CategoryType } from '@interfaces/categories';
-import SkillCategoryThumbnail from './SkillCategoryThumbnail';
+import { SkillCategoryThumbnail } from './SkillCategoryThumbnail';
 
 export default (data) => {
   const map = {

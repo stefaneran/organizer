@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Button } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import { CategoryListToolbar } from '@components/CategoryListToolbar';
 import { CategoryBreadCrumbs } from '@components/CategoryBreadCrumbs';
 import { CategoryList } from '@components/CategoryList';
@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       padding: '0.5em'
     }
+  },
+  containerInner: {
+    height: '100%'
   }
 })); 
 
@@ -68,50 +71,46 @@ const CategoryView = ({ store }) => {
   }
 
   return (
-    <Grid container className={classes.container}>
-      <Paper>
-        <Grid container direction="column" style={{ height: '100%' }}>
+    <Paper className={classes.container}>
+      <Grid className={classes.containerInner} container direction="column">
+        <Route exact path={`/main/`}>
+          <Grid item xs={1} className={'gridRow'}>
+            <CategoryListToolbar toolBarHandlers={toolBarHandlers} />
+          </Grid>
+          <Grid item xs={11} className={'gridRow'}>
+            <CategoryList
+              categories={categories} 
+              onThumbClick={handleThumbClick}
+            />
+          </Grid>
+        </Route>
+        <Route exact path={`/main/:category`} component={(historyProps) => (
+        <>
+          <Grid item xs={1}>
+            <CategoryBreadCrumbs history={historyProps} />
+          </Grid>
+          <Grid item xs={11}>
+            {/* Will return a category overview screen */}
+            {mapTypeToCategoryComponent({ 
+              categoryType: currentCategory.categoryType, 
+              ...currentCategory.categoryData
+            })}
+          </Grid>
+        </>
+        )}/>
+      </Grid>
+      
+      {/* Dialogs and Pop-Ups below this line  */}
 
-          <Route exact path={`/main/`}>
-            <Grid id="category_actions" item container direction="row" xs={1}>
-              <CategoryListToolbar toolBarHandlers={toolBarHandlers} />
-            </Grid>
-            <Grid item xs>
-              <CategoryList
-                categories={categories} 
-                onThumbClick={handleThumbClick}
-              />
-            </Grid>
-          </Route>
-
-          <Route exact path={`/main/:category`} component={(historyProps) => (
-            <>
-              <CategoryBreadCrumbs history={historyProps} />
-              {mapTypeToCategoryComponent({ 
-                categoryType: currentCategory.categoryType, 
-                ...currentCategory.categoryData
-              })}
-            </>
-          )}/>
-
-          <Route exact path={`/main/:category/:item`} component={(historyProps) => (
-            <>
-              <CategoryBreadCrumbs history={historyProps} />
-            </>
-          )}/>
-          
-        </Grid>
-
-        <ChooseCategoryDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />
-        {createWizardInfo.categoryType && (
-          <CreateCategoryWizard 
-            isOpen={createWizardInfo.isOpen} 
-            onClose={handleCloseCreateWizard} 
-            categoryType={createWizardInfo.categoryType} 
-          />
-        )}
-      </Paper>
-    </Grid>
+      <ChooseCategoryDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />
+      {createWizardInfo.categoryType && (
+        <CreateCategoryWizard 
+          isOpen={createWizardInfo.isOpen} 
+          onClose={handleCloseCreateWizard} 
+          categoryType={createWizardInfo.categoryType} 
+        />
+      )}
+    </Paper>
   );
 }
 

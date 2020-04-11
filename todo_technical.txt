@@ -31,7 +31,6 @@ IMP - Improvements
 - Change carousel for a grid view (with empty cat thumb as a + button to add new one)
 
 M-MVP:
-- Make layered render on category view with breadcrumbs (Categories > Cat. Type: Cat Name > Item Type: Item Name)
 - Make history logs (general and category specific)
 - Skill: Add hours
 - Skill: Delete skill

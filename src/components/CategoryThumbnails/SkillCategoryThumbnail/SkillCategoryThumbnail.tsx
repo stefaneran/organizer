@@ -5,16 +5,13 @@ import { Paper, Grid } from '@material-ui/core';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 
 const useStyles = makeStyles(theme => ({
-  thumbContainer: {
+  container: {
     height: '100%',
     padding: '0.5em',
     textDecoration: 'none'
   },
-  fullWidth: {
-    maxWidth: 'none'
-  },
-  sectionContainer: {
-    
+  innerContainer: {
+    height: '100%'
   },
   topSection: {
 
@@ -31,7 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
   hourBar: {
     padding: '0.2em',
-    marginBottom: '0.3em',
     border: '1px solid black'
   },
   xpBar: {
@@ -48,17 +44,17 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const { title, description, priority, items, totalHours, totalXP } = skill;
 
   return (
-    <Paper className={classes.thumbContainer}>
-      <Grid container direction="column" justify="space-between" className={classes.sectionContainer}>
+    <Paper className={classes.container}>
+      <Grid container direction="column" justify="space-between" className={classes.innerContainer}>
 
         <Grid item container direction="column" xs className={classes.topSection}>
-          <Grid item xs={2} className={clsx(classes.title, classes.fullWidth)}>
+          <Grid className={clsx(classes.title, "gridRow")} item xs={2}>
             <p>{title}</p>
           </Grid>
-          <Grid item xs={2} className={clsx(classes.description, classes.fullWidth)}>
+          <Grid className={clsx(classes.description, "gridRow")} item xs={2}>
             <p>{description}</p>
           </Grid>
-          <Grid item container xs>
+          <Grid className={'gridRow'} item container xs>
             <ul className={classes.itemList}>
               {items && items.map(item => (
                 <ul>{item.title}</ul>
@@ -67,11 +63,11 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
           </Grid>
         </Grid>
 
-        <Grid item container direction="column" xs={3} className={clsx(classes.bottomSection, classes.fullWidth)}>
-          <Grid item className={clsx(classes.hourBar, classes.fullWidth)} xs={6}>
+        <Grid item container direction="column" xs={3} className={clsx(classes.bottomSection, 'gridRow')}>
+          <Grid item className={clsx(classes.hourBar, 'gridRow')} xs={6}>
             {totalHours}
           </Grid>
-          <Grid item className={clsx(classes.xpBar, classes.fullWidth)} xs={6}>
+          <Grid item className={clsx(classes.xpBar, 'gridRow')} xs={6}>
             {totalXP}
           </Grid>
         </Grid>

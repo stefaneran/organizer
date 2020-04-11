@@ -37,6 +37,7 @@ Skill: (Shape: Diamond - Color: Yellow/Orange)
 - Can add items that contribute to XP and have their own progression (projects, classes, books)
 - Can add items to a list as notes for that skill
 - !!! Will track progression and can calculate in how many months you will be X rank
+- Acolades/Achievements - Can add an acolade to display in overview (and also gives extra XP on creation)
 
 Fitness: (Shape: Square - Color: Green)
 - A scale that represents condition and goes from -100% (Bad) to 0% (Ok) to 100% (Good) 
