@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import MainPage from './MainPage';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import routes from './pages';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
@@ -13,14 +14,8 @@ const App = (props) => {
   log('INFO: Store in App: ', props);
 
   useEffect(() => {
-    console.log('DEV: First Load!');
     props.loadDataThunk()
   }, []);
-
-  useEffect(() => {
-    // loadFromLocalStorage
-    return () => null;
-  }, [])
 
   const { error } = props;
 
@@ -29,7 +24,18 @@ const App = (props) => {
       {error ? (
         <p> There is an error </p>
       ) : (
-        <MainPage store={props} />
+        <Router>
+          <Switch>
+          {routes.map(route => (
+            <Route key={route.path} path={route.path}>
+              {route.component(props)}
+            </Route>
+          ))}
+          </Switch>
+          <Route path="/">
+            <div> Welcome to the Homepage! </div>
+          </Route>
+        </Router>
       )}
     </>
   );

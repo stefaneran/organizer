@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
-import { CategoryView } from './containers/CategoryView';
-import { HistoryView } from './containers/HistoryView';
+import { CategoryView } from '@containers/CategoryView';
+import { HistoryView } from '@containers/HistoryView';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));  
 
-const MainPage = ({ store }) => {
-  const classes = useStyles(); 
+const MainPage = (store) => {
+  const classes = useStyles();
   return (
     <Grid 
       id="main" 

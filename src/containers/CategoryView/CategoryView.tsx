@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { Route, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
-import { CategoryCarousel } from '@components/CategoryCarousel';
+import { CategoryList } from '@components/CategoryList';
 import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories } from '@store/accessors';
@@ -20,6 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 const CategoryView = ({ store }) => {
   const classes = useStyles();
+
+  const [history, setHistory] = React.useState('/main');
 
   const { addCategoryThunk, saveDataThunk } = store;
   const categories = store.profiles && getCategories(store);
@@ -54,14 +57,26 @@ const CategoryView = ({ store }) => {
     <Grid container className={classes.container}>
       <Paper>
         <Grid container direction="column" style={{ height: '100%' }}>
-          <Grid id="category_actions" item container direction="row" xs={1}>
-            <Grid item>
-              <Button variant="outlined" color="primary" onClick={handleOpenChooseCategory}>Add New</Button>
+
+          <Route exact path={`/main/`}>
+            <Grid id="category_actions" item container direction="row" xs={1}>
+              <Grid item>
+                <Button variant="outlined" color="primary" onClick={handleOpenChooseCategory}>Add New</Button>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs>
-            <CategoryCarousel categories={categories} />
-          </Grid>
+            <Grid item xs>
+              <CategoryList 
+                history={history} 
+                setHistory={setHistory} 
+                categories={categories} 
+              />
+            </Grid>
+          </Route>
+
+          <Route path={`/main/:name`}>
+            <span>Nested ID</span>
+          </Route>
+          
         </Grid>
 
         <ChooseCategoryDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />

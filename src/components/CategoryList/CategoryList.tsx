@@ -8,7 +8,7 @@ import mapTypeToComponent from './mapTypeToComponent';
 
 const useStyles = makeStyles(styles);
 
-const CategoryCarousel = ({ categories = [] }) => {
+const CategoryList = ({ categories = [], history, setHistory }) => {
   const classes = useStyles();
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -45,4 +45,4 @@ const CategoryCarousel = ({ categories = [] }) => {
   )
 }
 
-export default CategoryCarousel;
+export default CategoryList;

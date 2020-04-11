@@ -30,6 +30,19 @@ IMP - Improvements
 - Make custom input (chidlren props) for FormCreator
 - Change carousel for a grid view (with empty cat thumb as a + button to add new one)
 
+M-MVP:
+- Make layered render on category view with breadcrumbs (Categories > Cat. Type: Cat Name > Item Type: Item Name)
+- Make history logs (general and category specific)
+- Skill: Add hours
+- Skill: Delete skill
+- Skill: Create Book
+- Skill: Update book
+- Skill: Create Course 
+- Skill: Update Course
+- Skill: UI Improvements on all fronts
+- Change carousel view to 6 view
+- Iterate if done during weekend (maybe Social)
+
 CAT003 - Create category display in carousel (Front cover)
 - Create Skill Category FRONT UI 
 - Add routing with breadcrumbs 
