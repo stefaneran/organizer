@@ -19,7 +19,7 @@ const GeneralInfo = ({ title, rank, lastActivity }) => {
       <Grid container direction="column" justify="space-between">
         <Grid item className={'gridRow'}>
           <Typography variant="h6" className={classes.title}>
-            {title}
+            {title || "Error: No Title"}
           </Typography>
         </Grid>
         <Grid item className={'gridRow'}>
@@ -29,7 +29,7 @@ const GeneralInfo = ({ title, rank, lastActivity }) => {
         </Grid>
         <Grid item className={'gridRow'}>
           <Typography variant="h6" className={classes.topActivity}>
-            Last Activity: {lastActivity}
+            Last Activity: {lastActivity || "Error: No Activity"}
           </Typography>
         </Grid>
       </Grid>

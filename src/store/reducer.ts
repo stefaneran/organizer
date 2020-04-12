@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 export const initialState = {
   loading: false,
   error: false,
@@ -29,6 +28,11 @@ const slice = createSlice({
         return;
       }
       state.profiles[state.currentProfile].categories.push(categoryObject);
+    },
+    deleteCategoryDone: (state, { payload }) => {
+      const { newCategories } = payload;
+      console.log('reducer ', newCategories)
+      state.profiles[state.currentProfile].categories = newCategories;
     }
   }
 });
@@ -36,7 +40,8 @@ const slice = createSlice({
 export const { 
   saveDataDone,
   loadDataDone,
-  addCategoryDone
+  addCategoryDone,
+  deleteCategoryDone
 } = slice.actions;
 
 export default slice.reducer;

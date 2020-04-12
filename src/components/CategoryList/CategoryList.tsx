@@ -27,6 +27,7 @@ interface ICategoryListProps {
 
 const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => {
   const classes = useStyles();
+  console.log(categories);
 
   return (
     <Paper className={classes.container}>

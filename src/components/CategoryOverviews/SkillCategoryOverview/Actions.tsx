@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Button }  from '@material-ui/core';
 
@@ -10,15 +11,17 @@ const useStyles = makeStyles(theme => ({
   action: {}
 }));
 
-const Actions = () => {
+const Actions = ({ onDelete }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.container}>
       <Grid container>
         <Grid item>
-          <Button variant="outlined" className={classes.action}>
-            Delete
-          </Button>
+          <Link to={`/main`}>
+            <Button variant="outlined" className={classes.action} onClick={onDelete}>
+              Delete
+            </Button>
+          </Link>
         </Grid>
         <Grid item>
           <Button variant="outlined" className={classes.action}>

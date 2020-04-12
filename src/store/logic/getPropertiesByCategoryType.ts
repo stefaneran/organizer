@@ -10,6 +10,18 @@ export default (payload) => {
   return map[type];
 }
 
+/*
+title: string;
+description: string;
+categoryType: CategoryType;
+priority: CategoryPriorityType;
+activity: ActivityType;
+items: any[]; 
+archive: any[];
+totalHours: number;
+totalXP: number;
+*/
+
 const getSkillProperties = (payload) => {
 
   const rank = getRankInfoByRankNum(payload.rank);

@@ -1,4 +1,5 @@
-import getPropertiesByCategoryType from '@utils/getPropertiesByCategoryType';
+import getPropertiesByCategoryType from './getPropertiesByCategoryType';
+import { ActivityType } from '@interfaces/categories';
 
 // TODO - Add other category interfaces
 export default (payload) => {
@@ -9,6 +10,8 @@ export default (payload) => {
     description,
     categoryType,
     priority,
+    activity: ActivityType.Active,
+    lastActivity: Date.now(),
     ...categoryProperties
   };
 }

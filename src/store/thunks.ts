@@ -1,6 +1,6 @@
 import { loadFromLocalStorage, saveToLocalStorage } from '@logic/localstorage.logic';
-import { saveDataDone, loadDataDone, addCategoryDone } from './reducer';
-import getCategoryObject from '@utils/getCategoryObject';
+import { saveDataDone, loadDataDone, addCategoryDone, deleteCategoryDone } from './reducer';
+import getCategoryObject from './logic/getCategoryObject';
 
 export const saveDataThunk = () => async (dispatch, getState) => {
   const { profiles } = getState();
@@ -19,4 +19,12 @@ export const loadDataThunk = () => async dispatch => {
 export const addCategoryThunk = (payload) => async dispatch => {
   const categoryObject = getCategoryObject(payload);
   dispatch(addCategoryDone({ categoryObject }));
+}
+
+export const deleteCategoryThunk = (payload) => async (dispatch, getState) => {
+  const { title } = payload;
+  const { currentProfile, profiles } = getState();
+  const categories = profiles[currentProfile].categories;
+  const newCategories = categories.filter((category) => category.title !== title);
+  dispatch(deleteCategoryDone({ newCategories }));
 }

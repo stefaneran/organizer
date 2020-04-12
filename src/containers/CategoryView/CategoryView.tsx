@@ -91,9 +91,10 @@ const CategoryView = ({ store }) => {
           </Grid>
           <Grid item xs={11} className={'gridRow'}>
             {/* Will return a category overview screen */}
-            {mapTypeToCategoryComponent({ 
+            {mapTypeToCategoryComponent({
+              store, 
               categoryType: currentCategory.categoryType, 
-              ...currentCategory.categoryData
+              categoryData: currentCategory.categoryData
             })}
           </Grid>
         </>

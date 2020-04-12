@@ -1,4 +1,4 @@
-import { addCategoryThunk, saveDataThunk, loadDataThunk } from '@store/thunks';
+import { addCategoryThunk, deleteCategoryThunk, saveDataThunk, loadDataThunk } from '@store/thunks';
 
 const localStorageThunks = {
   saveDataThunk,
@@ -6,10 +6,11 @@ const localStorageThunks = {
 }
 
 const categoryThunks = {
-  addCategoryThunk
+  addCategoryThunk,
+  deleteCategoryThunk
 }
 
 export default {
   ...localStorageThunks,
-  ...categoryThunks,
+  ...categoryThunks
 }

@@ -8,6 +8,7 @@ import TopActivity from './TopActivity';
 import Actions from './Actions';
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 import skillMock from '@mocks/skill.mock';
+import { CategoryType } from '@interfaces/categories';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -23,13 +24,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SkillCategoryOverview = () => {
+const SkillCategoryOverview = ({ store, skill }) => {
   const classes = useStyles();
 
-  const skill = skillMock;
-  const rank = getRankByXP(skill.totalXP);
-  const nextRank = getNextRank(rank);
-  console.log(skill, rank, nextRank)
+  // const skill = skillMock;
+  const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
+  const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
+
+  const handleDeleteSkill = () => {
+    // TODO - Add confirmation dialog
+    const { deleteCategoryThunk } = store;
+    deleteCategoryThunk({ 
+      categoryType: CategoryType.Skill, 
+      title: skill.title 
+    });
+  }
 
   return (
     <Paper className={classes.container}>
@@ -59,7 +68,7 @@ const SkillCategoryOverview = () => {
             </Grid>
 
             <Grid className={'gridRow'} xs={2} container item>
-              <Actions />
+              <Actions onDelete={handleDeleteSkill} />
             </Grid>
 
           </Grid>
@@ -71,7 +80,7 @@ const SkillCategoryOverview = () => {
 
       {/* Dialogs only below this line */}
 
-      
+
 
     </Paper>
   )
