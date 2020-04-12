@@ -9,9 +9,13 @@ export const getRankInfoByRankNum = (rankNum) => {
   return rankInfo;
 }
 
-export const getRankByXp = (xp) => {
-  const [xpRank] = XP_RANKS.filter(rank => (rank.min >= xp && rank.max < xp));
+export const getRankByXP = (currentXP) => {
+  const [xpRank] = XP_RANKS.filter(rank => (rank.min <= currentXP && rank.max > currentXP));
   return xpRank;
+}
+
+export const getNextRank = (rank) => {
+  return XP_RANKS[rank.rank];
 }
 
 // Action: Add skill and return potential XP

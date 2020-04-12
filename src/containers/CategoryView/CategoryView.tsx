@@ -86,10 +86,10 @@ const CategoryView = ({ store }) => {
         </Route>
         <Route exact path={`/main/:category`} component={(historyProps) => (
         <>
-          <Grid item xs={1}>
+          <Grid item xs={1} className={'gridRow'}>
             <CategoryBreadCrumbs history={historyProps} />
           </Grid>
-          <Grid item xs={11}>
+          <Grid item xs={11} className={'gridRow'}>
             {/* Will return a category overview screen */}
             {mapTypeToCategoryComponent({ 
               categoryType: currentCategory.categoryType, 

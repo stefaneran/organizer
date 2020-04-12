@@ -7,22 +7,16 @@ export interface ISkillCategory extends ICategory {
   totalXP: number;
 }
 
-export enum SkillItemTypes {
+export enum SkillItemType {
   Book = "Book",
   Course = "Course",
   Project = "Project"
 }
 
 export interface ISkillItem {
+  itemType: SkillItemType;
   title: string;
-  total_xp: number;
-  date_started: number;
-  date_ended: number;
-}
-
-export enum SkillItemActivityType {
-  Unstarted = "Unstarted",
-  Paused = "Paused",
-  Neglected = "Neglected",
-  Active = "Active"
+  totalXP: number;
+  dateCreated: number;
+  lastActivity: number;
 }

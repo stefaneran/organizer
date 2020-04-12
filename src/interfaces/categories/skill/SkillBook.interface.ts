@@ -3,12 +3,12 @@ import { IHistoryLog } from '@interfaces/history';
 
 export interface ISkillBook extends ISkillItem {
   author?: string;
-  pages_total: number;
-  pages_read: number;
+  pagesTotal: number;
+  pagesRead: number;
   history: IBookHistoryLog[];
 }
 
 export interface IBookHistoryLog extends IHistoryLog {
-  pages_read: number;
-  date: number;
+  pagesRead: number;
+  dateFinished: number;
 }

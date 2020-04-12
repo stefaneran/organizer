@@ -9,7 +9,9 @@ const getTop = () => ([
 ])
 
 const useStyles = makeStyles(theme => ({
-  container: {},
+  container: {
+    height: '100%'
+  },
   header: {},
   item: {}
 }));

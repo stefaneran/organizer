@@ -3,14 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Button }  from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  container: {},
+  container: {
+    height: '100%',
+    width: '100%'
+  },
   action: {}
 }));
 
 const Actions = () => {
   const classes = useStyles();
   return (
-    <Paper>
+    <Paper className={classes.container}>
       <Grid container>
         <Grid item>
           <Button variant="outlined" className={classes.action}>
