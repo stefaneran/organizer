@@ -14,7 +14,7 @@ const App = (props) => {
   log('INFO: Store in App: ', props);
 
   useEffect(() => {
-    props.loadDataThunk()
+    props.loadData()
   }, []);
 
   const { error } = props;

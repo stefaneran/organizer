@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { CategoryType } from '@interfaces/categories';
 
-const ChooseCategoryDialog = ({ isOpen, onClose }) => {
+const ChooseCategoryTypeDialog = ({ isOpen, onClose }) => {
 
   const handleClose = (options?) => (event?) => {
     let categoryType = options ? options.type : null;
@@ -29,4 +29,4 @@ const ChooseCategoryDialog = ({ isOpen, onClose }) => {
   );
 }
 
-export default ChooseCategoryDialog;
+export default ChooseCategoryTypeDialog;

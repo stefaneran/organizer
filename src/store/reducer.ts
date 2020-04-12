@@ -37,6 +37,14 @@ const slice = createSlice({
       const { categoryIndex, totalHours, totalXP } = payload;
       state.profiles[state.currentProfile].categories[categoryIndex].totalHours = totalHours;
       state.profiles[state.currentProfile].categories[categoryIndex].totalXP = totalXP;
+    },
+    addSkillItemDone: (state, { payload }) => {
+      const { categoryIndex, skillItemObject } = payload;
+      if(!skillItemObject) {
+        state.error = true;
+        return;
+      }
+      state.profiles[state.currentProfile].categories[categoryIndex].items.push(skillItemObject);
     }
   }
 });
@@ -46,7 +54,8 @@ export const {
   loadDataDone,
   addCategoryDone,
   deleteCategoryDone,
-  addHoursToSkillDone
+  addHoursToSkillDone,
+  addSkillItemDone
 } = slice.actions;
 
 export default slice.reducer;

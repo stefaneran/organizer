@@ -5,7 +5,7 @@
   title: string;
   description: string;
   categoryType: CategoryType;
-  priority: CategoryPriorityType;
+  priority: PriorityType;
   activity: ActivityType;
   items: any[]; 
   archive: any[];

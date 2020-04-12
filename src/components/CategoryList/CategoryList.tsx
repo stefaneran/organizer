@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     height: '100%'
   },
-  containerInner: {
+  innerContainer: {
     height: '100%',
     padding: '1em',
     overflowY: 'auto',
@@ -32,7 +32,7 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
     <Paper className={classes.container}>
       <Grid 
         data-selector="category-list" 
-        className={classes.containerInner} 
+        className={classes.innerContainer} 
         container spacing={2} justify="space-between"
       >
         {categories.length ? 

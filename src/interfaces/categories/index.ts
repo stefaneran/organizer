@@ -6,7 +6,7 @@ export enum CategoryType {
   Social = "Social"
 }
 
-export enum CategoryPriorityType {
+export enum PriorityType {
   Low = "Low",
   Moderate = "Moderate",
   High = "High"
@@ -24,7 +24,7 @@ export interface ICategory {
   description: string;
   lastActivity: number;
   categoryType: CategoryType;
-  priority: CategoryPriorityType;
+  priority: PriorityType;
   activity: ActivityType;
   history: IHistoryLog[];
 }

@@ -1,4 +1,4 @@
-import { ICategory } from '@interfaces/categories';
+import { ICategory, PriorityType, ActivityType } from '@interfaces/categories';
 
 export interface ISkillCategory extends ICategory {
   items: any[]; 
@@ -16,7 +16,11 @@ export enum SkillItemType {
 export interface ISkillItem {
   itemType: SkillItemType;
   title: string;
+  description: string;
   totalXP: number;
   dateCreated: number;
+  dateFinished: number;
   lastActivity: number;
+  activity: ActivityType;
+  priority: PriorityType;
 }

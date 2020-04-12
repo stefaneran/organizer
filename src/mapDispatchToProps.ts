@@ -1,23 +1,25 @@
 import { 
-  saveDataThunk, 
-  loadDataThunk,
-  addCategoryThunk, 
-  deleteCategoryThunk, 
-  addHoursToSkillThunk
+  saveData, 
+  loadData,
+  addCategory, 
+  deleteCategory, 
+  addHoursToSkill,
+  addSkillItem
 } from '@store/thunks';
 
 const localStorageThunks = {
-  saveDataThunk,
-  loadDataThunk
+  saveData,
+  loadData
 }
 
 const categoryThunks = {
-  addCategoryThunk,
-  deleteCategoryThunk
+  addCategory,
+  deleteCategory
 }
 
 const skillThunks = {
-  addHoursToSkillThunk
+  addHoursToSkill,
+  addSkillItem
 }
 
 export default {

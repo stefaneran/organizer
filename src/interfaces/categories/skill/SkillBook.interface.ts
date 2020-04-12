@@ -10,5 +10,4 @@ export interface ISkillBook extends ISkillItem {
 
 export interface IBookHistoryLog extends IHistoryLog {
   pagesRead: number;
-  dateFinished: number;
 }

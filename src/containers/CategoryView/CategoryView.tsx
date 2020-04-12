@@ -5,7 +5,7 @@ import { Grid, Paper } from '@material-ui/core';
 import { CategoryListToolbar } from '@components/CategoryListToolbar';
 import { CategoryBreadCrumbs } from '@components/CategoryBreadCrumbs';
 import { CategoryList } from '@components/CategoryList';
-import { ChooseCategoryDialog } from '@components/Dialogs/ChooseCategoryDialog';
+import ChooseCategoryTypeDialog from '@components/Dialogs/ChooseCategoryTypeDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories } from '@store/accessors';
 import { mapTypeToComponent as mapTypeToCategoryComponent } from '@components/CategoryOverviews';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
       padding: '0.5em'
     }
   },
-  containerInner: {
+  innerContainer: {
     height: '100%'
   }
 })); 
@@ -30,14 +30,14 @@ const useStyles = makeStyles(theme => ({
 const CategoryView = ({ store }) => {
   const classes = useStyles();
 
-  const { addCategoryThunk, saveDataThunk } = store;
+  const { addCategory, saveData } = store;
   const categories = store.profiles && getCategories(store);
 
   const [currentCategory, setCurrentCategory] = useState({ categoryType: null, categoryData: null });
 
   // Dialog data
   const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = useState(false);
-  const [createWizardInfo, setCreateWizardInfo] = useState({ isOpen: false, categoryType: null });
+  const [currentCategoryType, setCurrentCategoryType] = useState(null);
 
   const handleThumbClick = (categoryType, categoryData) => () => {
     setCurrentCategory({ categoryType, categoryData });
@@ -48,22 +48,18 @@ const CategoryView = ({ store }) => {
   }
   // Close the "Choose Category" dialog which leads to open CreateCategoryWizard
   const handleCloseChooseCategory = ({ categoryType }) => {
-    setCreateWizardInfo({
-      isOpen: categoryType ? true : false,
-      categoryType
-    });
+    setCurrentCategoryType(categoryType);
     setChooseCategoryDialogOpen(false);
   }
   const handleCloseCreateWizard = ({ isSubmit, formData }) => {
-    const { categoryType } = createWizardInfo;
     if(isSubmit) {
-      addCategoryThunk({ ...formData, categoryType });
-      saveDataThunk();
+      addCategory({ 
+        categoryType: currentCategoryType, 
+        formData 
+      });
+      saveData();
     }
-    setCreateWizardInfo({
-      isOpen: false,
-      categoryType: null
-    });
+    setCurrentCategoryType(null);
   }
 
   const toolBarHandlers = {
@@ -72,7 +68,7 @@ const CategoryView = ({ store }) => {
 
   return (
     <Paper className={classes.container}>
-      <Grid className={classes.containerInner} container direction="column">
+      <Grid className={classes.innerContainer} container direction="column">
         <Route exact path={`/main/`}>
           <Grid item xs={1} className={'gridRow'}>
             <CategoryListToolbar toolBarHandlers={toolBarHandlers} />
@@ -103,12 +99,12 @@ const CategoryView = ({ store }) => {
       
       {/* Dialogs and Pop-Ups below this line  */}
 
-      <ChooseCategoryDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />
-      {createWizardInfo.categoryType && (
+      <ChooseCategoryTypeDialog isOpen={isChooseCategoryDialogOpen} onClose={handleCloseChooseCategory} />
+      {currentCategoryType && (
         <CreateCategoryWizard 
-          isOpen={createWizardInfo.isOpen} 
+          isOpen={Boolean(currentCategoryType)} 
           onClose={handleCloseCreateWizard} 
-          categoryType={createWizardInfo.categoryType} 
+          categoryType={currentCategoryType} 
         />
       )}
     </Paper>

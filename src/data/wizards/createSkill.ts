@@ -1,11 +1,11 @@
-import { CategoryPriorityType } from '@interfaces/categories';
+import { PriorityType } from '@interfaces/categories';
 import { getRankOptions } from '@logic/skill.logic';
 
 export interface ICreateSkillForm {
   title: string;
   description: string;
   rank: number;
-  priority: CategoryPriorityType;
+  priority: PriorityType;
 }
 
 export default {
@@ -27,11 +27,11 @@ export default {
       type: 'select',
       label: 'Priority', 
       helperText: '',
-      defaultValue: CategoryPriorityType.Moderate,
+      defaultValue: PriorityType.Moderate,
       options: [
-        {label: 'Low', value: CategoryPriorityType.Low },
-        {label: 'Moderate', value: CategoryPriorityType.Moderate },
-        {label: 'High', value: CategoryPriorityType.High }
+        {label: 'Low', value: PriorityType.Low },
+        {label: 'Moderate', value: PriorityType.Moderate },
+        {label: 'High', value: PriorityType.High }
       ] 
     },
     rank: { 

@@ -17,7 +17,6 @@ const SliderInput = ({ style, data: { name, handleChange, label, min, max, step 
   const classes = useStyles();
 
   const handleInput = (event, newValue) => {
-    console.log(newValue);
     handleChange(name, newValue);
   }
 

@@ -1,11 +1,11 @@
-import { CategoryType, CategoryPriorityType } from '@interfaces/categories';
+import { CategoryType, PriorityType } from '@interfaces/categories';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 
 const guitar: ISkillCategory = {
   title: "Guitar",
   description: "Just playing things",
   categoryType: CategoryType.Skill,
-  priority: CategoryPriorityType.Moderate,
+  priority: PriorityType.Moderate,
   items: [],
   archive: [],
   totalHours: 580,
@@ -16,7 +16,7 @@ const cooking: ISkillCategory = {
   title: "Cooking",
   description: "Just cooking things",
   categoryType: CategoryType.Skill,
-  priority: CategoryPriorityType.Low,
+  priority: PriorityType.Low,
   items: [],
   archive: [],
   totalHours: 1500,
@@ -27,7 +27,7 @@ const programming: ISkillCategory = {
   title: "Programming",
   description: "Just coding things",
   categoryType: CategoryType.Skill,
-  priority: CategoryPriorityType.High,
+  priority: PriorityType.High,
   items: [],
   archive: [],
   totalHours: 7000,

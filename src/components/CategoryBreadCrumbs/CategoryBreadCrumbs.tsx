@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
+import { AppBar, Grid, Typography } from '@material-ui/core';
 
 const { Fragment } = React;
 
@@ -45,6 +45,7 @@ const CategoryBreadCrumbs = ({ history }) => {
 
   const isLastBreadCrumb = (index) => index !== breadCrumbs.length - 1;
 
+  // TODO - Add AppBar
   return (
     <Grid container>
       {breadCrumbs.map((breadCrumb, index) => (
@@ -52,9 +53,9 @@ const CategoryBreadCrumbs = ({ history }) => {
           {isLastBreadCrumb(index) ? (
             <>
               <Link key={breadCrumb.label} to={isLastBreadCrumb(index) ? breadCrumb.link : undefined}>
-                {breadCrumb.label}
+                <Typography variant="subtitle2">{breadCrumb.label}</Typography>
               </Link>
-              <span>{'\u00A0/\u00A0'}</span>
+              <Typography variant="subtitle2">{'\u00A0/\u00A0'}</Typography>
             </>
           ) : breadCrumb.label}
         </Fragment>
