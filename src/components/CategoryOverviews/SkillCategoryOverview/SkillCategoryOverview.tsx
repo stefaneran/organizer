@@ -88,7 +88,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
         itemType: currentItemType, 
         formData 
       });
-      // saveData();
+      saveData();
     }
     setCurrentItemType(null);
   }
