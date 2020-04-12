@@ -1,24 +1,5 @@
 
 -----
-MVP:
------
-X INTRO - Setup webpack, frame of App, Ideas
-X CAT001 - Generic Dialog and Form Logic
-X CAT002 - Read/Write Local Storage
-- CAT003
-- CAT004
-- CAT005
-- CAT006
-- CAT007
-- CAT008
-- CAT009
-- CAT010
-- CAT011
-- CAT012
-- CAT013
-- CAT014
-
------
 Tasks (MVP):
 -----
 
@@ -26,31 +7,21 @@ OPT - Optimizations
 - Add unit testing
 
 IMP - Improvements
-- Make select input look better
-- Make custom input (chidlren props) for FormCreator
-- Change carousel for a grid view (with empty cat thumb as a + button to add new one)
+- Add hours to skill rank labels (Wizard)
+- Caluclate Skill/Item activity status on Load
+- Disable Next/Finish in wizard in required inputs no filled
+- Breadcrumbs as AppBar component
+- (Safety) On load scan categories/items for missing properties and give defaults and Save
+- Rename AddHours files to UpdateHours (data, dialog, actions...)
+- Add ticks to Slider + dynamic label below
+- Add "data" at the end of data files to avoid confusion
+- Add "Add Category" Thumb for low thumb amounts
+- Add icons (choose dialogs, thumbnail, etc)
+- Use MUI theme and make themes
+- Wizard step progression
+- ....check TODO
 
-M-MVP:
-- Make history logs (general and category specific)
-- Skill: Add hours
-- Skill: Delete skill
-- Skill: Create Book
-- Skill: Update book
-- Skill: Create Course 
-- Skill: Update Course
-- Skill: UI Improvements on all fronts
-- Change carousel view to 6 view
-- Iterate if done during weekend (maybe Social)
-
-CAT003 - Create category display in carousel (Front cover)
-- Create Skill Category FRONT UI 
-- Add routing with breadcrumbs 
-
-CAT004 - Create skill category display (Full)
-- Decide info to show + layout (Creative)
-- Add it with React 
-- Decide settings like delete, change + layout (Creative)
-- Add settings with React - Maybe Dialog
+"TASKS"
 
 CAT005 - Create logic for skill category
 - Re-think skill logic to add 100 xp every 2 hours
@@ -59,9 +30,9 @@ CAT005 - Create logic for skill category
 - Time depreciation logic
 - Other
 
-CAT006 - Category Actions (read X pages, practiced X hours)
-- Decide how to do that (Creative)
-- Do it (Technical)
+CAT011 - Filtering (Category and items)
+- By type
+- By priority
 
 CAT007 - Add history logs
 - Read history data
@@ -88,11 +59,6 @@ CAT010 - Social category
 - Read/Write
 - Logic 
 
-CAT011 - Carousel Filtering
-- By category type
-- By priority 
-- Text filter
-- Save filter option
 
 CAT012 - UI Improvements
 - Use icons for categories
@@ -103,18 +69,3 @@ CAT012 - UI Improvements
 CAT013 - Abillity to DL and UL JSON 
 
 CAT014 - Automated alerts
-
--------------
-Nice-To-Haves:
--------------
-- Multiselect remain open after input
-- Add Wizard step subtitle
-- Cheat detection + Alert
-- Creation Wizard - Make Generic component
-- Make translation strings (only english is enough)
-
-----------------
-Unit Tests:
-----------------
-- validateFormGrid
-- getIndexByDirection
