@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, AppBar, Tabs, Tab, Button, Typography } from '@material-ui/core';
 import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
 
-const { useState } = React;
+const { Fragment, useState } = React;
 
 // @ts-ignore - flexGrow produces a TS error for some reason
 const useStyles = makeStyles(theme => ({
@@ -31,20 +31,32 @@ const ItemList = ({ items = [], archive = [], openDialog }) => {
 
   const BookItem = ({ item }) => {
     return (
-      <Paper key={`${item.title}-${item.itemType}`} onClick={()=>{/** TODO */}}>
-        <Typography variant="subtitle1">{item.title}</Typography>
-        <Typography variant="subtitle1">Progress: {item.pagesRead}/{item.pagesTotal}</Typography>
-        <Button variant="outlined" onClick={()=>{/** TODO */}}>Update</Button>
+      <Paper onClick={()=>{/** TODO */}}>
+        <Typography variant="subtitle1">
+          {item.title}
+        </Typography>
+        <Typography variant="subtitle1">
+          Pages: {item.pagesRead}/{item.pagesTotal}
+        </Typography>
+        <Button variant="outlined" onClick={openDialog({ type: 'updateBook', data: item })}>
+          Update
+        </Button>
       </Paper>
     )
   }
 
   const CourseItem = ({ item }) => {
     return (
-      <Paper key={`${item.title}-${item.itemType}`} onClick={()=>{/** TODO */}}>
-        <Typography variant="subtitle1">{item.title}</Typography>
-        <Typography variant="subtitle1">Progress: {item.classesDone}/{item.classesTotal}</Typography>
-        <Button variant="outlined" onClick={()=>{/** TODO */}}>Update</Button>
+      <Paper onClick={()=>{/** TODO */}}>
+        <Typography variant="subtitle1">
+          {item.title}
+        </Typography>
+        <Typography variant="subtitle1">
+          Classes: {item.classesDone}/{item.classesTotal}
+        </Typography>
+        <Button variant="outlined" onClick={openDialog({ type: 'updateCourse', data: item })}>
+          Update
+        </Button>
       </Paper>
     )
   }
@@ -73,7 +85,11 @@ const ItemList = ({ items = [], archive = [], openDialog }) => {
         </Grid>
         {currentTab === 0 ? (
           <Grid className={'gridRow'} item xs={9}>
-            {items && items.map(mapSkillType)}
+            {items && items.map(item => (
+              <Fragment key={`${item.title}-${item.itemType}`}>
+                {mapSkillType(item)}
+              </Fragment>
+            ))}
           </Grid>
         ) : (
           <Grid className={'gridRow'} item xs={9}>

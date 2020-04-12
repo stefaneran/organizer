@@ -4,7 +4,9 @@ import {
   addCategory, 
   deleteCategory, 
   addHoursToSkill,
-  addSkillItem
+  addSkillItem,
+  updateSkillBook,
+  updateSkillCourse
 } from '@store/thunks';
 
 const localStorageThunks = {
@@ -19,7 +21,9 @@ const categoryThunks = {
 
 const skillThunks = {
   addHoursToSkill,
-  addSkillItem
+  addSkillItem,
+  updateSkillBook,
+  updateSkillCourse
 }
 
 export default {

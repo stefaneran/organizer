@@ -45,6 +45,22 @@ const slice = createSlice({
         return;
       }
       state.profiles[state.currentProfile].categories[categoryIndex].items.push(skillItemObject);
+    },
+    updateSkillBookDone: (state, { payload }) => {
+      const { categoryIndex, itemIndex, pagesRead } = payload;
+      if(!pagesRead) {
+        state.error = true;
+        return;
+      }
+      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].pagesRead = pagesRead;
+    },
+    updateSkillCourseDone: (state, { payload }) => {
+      const { categoryIndex, itemIndex, classesDone } = payload;
+      if(!classesDone) {
+        state.error = true;
+        return;
+      }
+      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].classesDone = classesDone;
     }
   }
 });
@@ -55,7 +71,9 @@ export const {
   addCategoryDone,
   deleteCategoryDone,
   addHoursToSkillDone,
-  addSkillItemDone
+  addSkillItemDone,
+  updateSkillBookDone,
+  updateSkillCourseDone
 } = slice.actions;
 
 export default slice.reducer;

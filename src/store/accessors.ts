@@ -1,4 +1,5 @@
-// import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
+
+//// ----- Category Accessors ----- ////
 
 export const getCategories = ({ profiles, currentProfile }) => 
   profiles[currentProfile].categories;
@@ -14,6 +15,25 @@ export const getCategoryIndexByTitle = ({profiles, currentProfile}, title) => {
   let index = 0;
   for(let i = 0; i < categories.length; i += 1) {
     if(categories[i].title === title) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
+//// ----- Skill Accessors ----- ////
+
+export const getSkillItemByTitle = ({currentProfile, profiles}, skillTitle, itemTitle) => {
+  const category = getCategoryByTitle({currentProfile, profiles}, skillTitle);
+  return category.items.find(item => item.title === itemTitle);
+}
+
+export const getSkillItemIndexByTitle = ({currentProfile, profiles}, skillTitle, itemTitle) => {
+  const category = getCategoryByTitle({currentProfile, profiles}, skillTitle);
+  let index = 0;
+  for(let i = 0; i < category.items.length; i += 1) {
+    if(category.items[i].title === itemTitle) {
       index = i;
       break;
     }

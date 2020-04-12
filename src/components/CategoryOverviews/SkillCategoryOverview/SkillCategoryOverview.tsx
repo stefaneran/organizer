@@ -12,9 +12,13 @@ import ItemList from './ItemList';
 import AddSkillHoursDialog from '@components/Dialogs/AddSkillHoursDialog';
 import ChooseSkillItemTypeDialog from '@components/Dialogs/ChooseSkillItemTypeDialog';
 import CreateSkillItemDialog from '@components/Dialogs/CreateSkillItemDialog';
+import UpdateSkillBookDialog from '@components/Dialogs/UpdateSkillBookDialog';
+import UpdateSkillCourseDialog from '@components/Dialogs/UpdateSkillCourseDialog';
 // Other 
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 import { CategoryType } from '@interfaces/categories';
+import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+
 
 const { useState } = React;
 
@@ -35,21 +39,26 @@ const useStyles = makeStyles(theme => ({
 const SkillCategoryOverview = ({ store, skill }) => {
   const classes = useStyles();
 
-  const [addHoursDialogOpen, setAddHoursDialogOpen] = useState(false);
-  const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
+  // Selected data states
   const [currentItemType, setCurrentItemType] = useState(null);
+  const [currentBook, setCurrentBook] = useState(null);
+  const [currentCourse, setCurrentCourse] = useState(null);
+
+  // Dialog open states
+  const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
+  const [addHoursDialogOpen, setAddHoursDialogOpen] = useState(false);
 
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
 
-  console.log('DEV Skill Items ', skill.items)
-
-  const openDialog = ({ type }) => () => {
+  const openDialog = ({ type, data }: { type: SkillItemType; data? }) => () => {
     const map = {
       addHours: setAddHoursDialogOpen,
-      chooseItemType: setChooseItemTypeDialogOpen
+      chooseItemType: setChooseItemTypeDialogOpen,
+      updateBook: setCurrentBook,
+      updateCourse: setCurrentCourse
     }
-    map[type](true);
+    map[type](data ? data : true);
   }
 
   const handleDeleteSkill = () => {
@@ -90,6 +99,33 @@ const SkillCategoryOverview = ({ store, skill }) => {
       saveData();
     }
     setCurrentItemType(null);
+  }
+
+  const handleCloseBookDialog = ({ isSubmit, pagesValue }) => {
+    console.log('DEV Book: ', isSubmit, pagesValue);
+    const { updateSkillBook, saveData } = store;
+    if(isSubmit) {
+      updateSkillBook({
+        skillTitle: skill.title,
+        itemTitle: currentBook.title,
+        pagesValue
+      });
+      // saveData();
+    }
+    setCurrentBook(null);
+  }
+  const handleCloseCourseDialog = ({ isSubmit, classesValue }) => {
+    console.log('DEV Course: ', isSubmit, classesValue);
+    const { updateSkillCourse, saveData } = store;
+    if(isSubmit) {
+      updateSkillCourse({
+        skillTitle: skill.title,
+        itemTitle: currentCourse.title,
+        classesValue
+      });
+      // saveData();
+    }
+    setCurrentCourse(null);
   }
 
   return (
@@ -142,8 +178,14 @@ const SkillCategoryOverview = ({ store, skill }) => {
       {currentItemType && (
         <CreateSkillItemDialog isOpen={Boolean(currentItemType)} onClose={handleCloseCreateItemDialog} itemType={currentItemType} />
       )}
-      
 
+      {currentBook && (
+        <UpdateSkillBookDialog isOpen={Boolean(currentBook)} book={currentBook} onClose={handleCloseBookDialog} />
+      )}
+      {currentCourse && (
+        <UpdateSkillCourseDialog isOpen={Boolean(currentCourse)} course={currentCourse} onClose={handleCloseCourseDialog} />
+      )}
+      
     </Paper>
   )
 }

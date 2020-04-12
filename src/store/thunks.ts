@@ -1,13 +1,16 @@
 import { 
   saveDataDone, loadDataDone, 
   addCategoryDone, deleteCategoryDone, 
-  addHoursToSkillDone, addSkillItemDone 
+  addHoursToSkillDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
 } from './reducer';
+import { 
+  getCategoryByTitle, getCategoryIndexByTitle, 
+  getSkillItemByTitle, getSkillItemIndexByTitle 
+} from './accessors';
 import { loadFromLocalStorage, saveToLocalStorage } from '@logic/localstorage.logic';
 import { XP_PER_HOUR } from '@logic/skill.constants';
-import { getCategoryByTitle, getCategoryIndexByTitle } from './accessors';
 import getCategoryObject from './logic/getCategoryObject';
-import getSkillItemObject from './logic/getSkillItemObject'
+import getSkillItemObject from './logic/getSkillItemObject';
 
 //// ----- Local Storage Thunks -----
 
@@ -55,4 +58,24 @@ export const addSkillItem = ({ title, itemType, formData }) => async (dispatch, 
   const skillItemObject = getSkillItemObject(itemType, formData);
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
   dispatch(addSkillItemDone({ categoryIndex, skillItemObject }));
+}
+
+export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async (dispatch, getState) => {
+  const { currentProfile, profiles } = getState();
+  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
+  const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const item = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const pagesRead = pagesValue;
+  // TODO XP
+  dispatch(updateSkillBookDone({ categoryIndex, itemIndex, pagesRead }));
+}
+
+export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => async (dispatch, getState) => {
+  const { currentProfile, profiles } = getState();
+  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
+  const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const item = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const classesDone = classesValue;
+  // TODO XP
+  dispatch(updateSkillCourseDone({ categoryIndex, itemIndex, classesDone }));
 }

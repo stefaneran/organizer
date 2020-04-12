@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import addSkillHours from '@data/inputDialogs/addSkillHours';
+import updateSkillCourse from '@data/inputDialogs/updateSkillCourse';
 import { getDefaultFormData } from '@utils/formDataUtils';
 import SliderInput from '@components/FormCreator/SliderInput';
 
 const { useState } = React;
 
-const AddSkillHoursDialog = ({ isOpen, onClose }) => {
+const UpdateSkillCourseDialog = ({ isOpen, course, onClose }) => {
 
-  const [formData, setFormData] = useState(getDefaultFormData(addSkillHours));
+  const skillCourse = updateSkillCourse(course);
+
+  const [formData, setFormData] = useState(getDefaultFormData(skillCourse));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
@@ -16,19 +18,19 @@ const AddSkillHoursDialog = ({ isOpen, onClose }) => {
 
   const handleClose = (options?) => () => {
     let isSubmit = options ? options.isSubmit : false;
-    onClose({ isSubmit, hoursValue: formData['hours'] });
+    onClose({ isSubmit, classesValue: formData['classes'] });
   }
 
   return (
     <GenericDialog
       isOpen={isOpen} 
-      title={"Choose Category"}
+      title={"Classes Finished Today"}
       onClose={handleClose}
       actionsType={'simpleForm'}
     >
-      <SliderInput style={{ marginTop: '1em' }} data={{ ...addSkillHours.data.hours, handleChange }} />
+      <SliderInput style={{ marginTop: '1em' }} data={{ ...skillCourse.data.classes, handleChange }} />
     </GenericDialog>
   );
 }
 
-export default AddSkillHoursDialog;
+export default UpdateSkillCourseDialog;
