@@ -4,6 +4,7 @@ import { IHistoryLog } from '@interfaces/history';
 export interface ISkillCourse extends ISkillItem {
   classesTotal: number;
   classesDone: number;
+  hoursPerClass: number;
   history: ICourseHistoryLog[];
 }
 

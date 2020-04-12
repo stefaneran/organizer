@@ -17,6 +17,12 @@ export default {
       type: 'number',
       label: 'Number of classes'
     },
+    hoursPerClass: {
+      name: 'hoursPerClass',
+      type: 'number',
+      label: 'Hours per class',
+      helperText: 'Default: 1 Hour'
+    },
     priority: {
       name: 'priority', 
       type: 'select',
@@ -29,5 +35,5 @@ export default {
       ] 
     }
   },
-  formGrid: { x: 1, y: 4 }
+  formGrid: { x: 1, y: 5 }
 }

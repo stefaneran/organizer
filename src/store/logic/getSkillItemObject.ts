@@ -21,6 +21,7 @@ const getBookProperties = (formData) => ({
 const getCourseProperties = (formData) => ({
     classesTotal: formData.classesTotal,
     classesDone: formData.classesDone || 0,
+    hoursPerClass: formData.hoursPerClass,
     history: []
   });
 

@@ -1,30 +1,23 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
+import { getRankByXP } from '@logic/skill.logic';
+import { TOTAL_HOURS_TO_MASTERY } from '@logic/skill.constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
     height: '100%',
     padding: '0.5em',
-    textDecoration: 'none'
+    textDecoration: 'none !important'
   },
   innerContainer: {
     height: '100%'
   },
-  topSection: {
-
-  },
-  bottomSection: {
-
-  },
-  title: {
-    padding: '0.2em',
-    marginBottom: '0.5em'
-  },
-  description: {
-    padding: '0.2em'
+  section: {
+    width: '100%',
+    padding: '0.5em'
   },
   hourBar: {
     padding: '0.2em',
@@ -35,40 +28,70 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid black'
   },
   itemList: {
-    border: '1px solid black'
+    width: '100%',
+    height: '100%',
+    padding: '1em',
+    border: '1px solid black',
+    borderRadius: '3px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    listStyle: 'none',
+    '& li': {
+      marginBottom: '1em'
+    }
   }
 }));
 
 const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const classes = useStyles();
-  const { title, description, priority, items, totalHours, totalXP } = skill;
+  const { title, items, totalHours, totalXP } = skill;
+  const rank = getRankByXP(totalXP);
 
   return (
     <Paper className={classes.container}>
-      <Grid container direction="column" justify="space-between" className={classes.innerContainer}>
+      <Grid container direction="column" spacing={1} className={classes.innerContainer}>
 
-        <Grid item container direction="column" xs className={classes.topSection}>
-          <Grid className={clsx(classes.title, "gridRow")} item xs={2}>
-            <p>{title}</p>
-          </Grid>
-          <Grid className={clsx(classes.description, "gridRow")} item xs={2}>
-            <p>{description}</p>
+        <Grid item container direction="column" xs spacing={1}>
+          <Grid className={"gridRow"} item xs={3}>
+            <Paper className={classes.section}>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Typography>{title}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography>-</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography>{rank.title}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography>-</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography>{skill.activity}</Typography>
+                </Grid>
+              </Grid>
+            </Paper>
           </Grid>
           <Grid className={'gridRow'} item container xs>
-            <ul className={classes.itemList}>
-              {items && items.map(item => (
-                <ul>{item.title}</ul>
-              ))}
-            </ul>
+            <Paper className={classes.section}>
+              <ul className={classes.itemList}>
+                {items && items.map(item => (
+                  <li key={item.title}>
+                    <Typography variant="subtitle2">{item.title}</Typography>
+                  </li>
+                ))}
+              </ul>
+            </Paper>
           </Grid>
         </Grid>
 
-        <Grid item container direction="column" xs={3} className={clsx(classes.bottomSection, 'gridRow')}>
+        <Grid item container direction="column" xs={3} className={'gridRow'}>
           <Grid item className={clsx(classes.hourBar, 'gridRow')} xs={6}>
-            {totalHours}
+            <Typography variant="subtitle2">{`${totalHours}/${TOTAL_HOURS_TO_MASTERY}`}</Typography>
           </Grid>
           <Grid item className={clsx(classes.xpBar, 'gridRow')} xs={6}>
-            {totalXP}
+          <Typography variant="subtitle2">{`${totalXP}/${rank.max}`}</Typography>
           </Grid>
         </Grid>
 

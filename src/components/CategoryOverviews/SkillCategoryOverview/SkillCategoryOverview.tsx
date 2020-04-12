@@ -39,7 +39,6 @@ const SkillCategoryOverview = ({ store, skill }) => {
   const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
   const [currentItemType, setCurrentItemType] = useState(null);
 
-  // const skill = skillMock;
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
 
