@@ -27,7 +27,6 @@ interface ICategoryListProps {
 
 const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => {
   const classes = useStyles();
-  console.log(categories);
 
   return (
     <Paper className={classes.container}>
@@ -36,7 +35,7 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
         className={classes.containerInner} 
         container spacing={2} justify="space-between"
       >
-        {categories.length && 
+        {categories.length ? 
           categories.map((category, index) => (
             <Grid key={`${category.title}-${index}`} className={classes.thumbnail} item xs={4}>
               <Link to={`/main/${category.title}`} onClick={onThumbClick(category.categoryType, category)}>
@@ -44,7 +43,7 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
               </Link>
             </Grid>
           )
-        )}
+        ) : null}
       </Grid>
     </Paper>
   )

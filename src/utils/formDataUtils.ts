@@ -1,9 +1,10 @@
-export const getDefaultFieldValue = (type) => {
+export const mapDefaultFieldValueByType = (type) => {
   const map = {
     text: '',
     number: 0,
     checkbox: false,
-    select: ''
+    select: '',
+    slider: 0
   };
   return map[type];
 }
@@ -13,16 +14,29 @@ export const getDefaultFormData = (form) => {
   const defaultFormData = {};
   for(const fieldName in form.data) {
     const { type, defaultValue } = form.data[fieldName];
-    defaultFormData[fieldName] = defaultValue ? defaultValue : getDefaultFieldValue(type);
+    defaultFormData[fieldName] = defaultValue ? defaultValue : mapDefaultFieldValueByType(type);
   }
   return defaultFormData;
 }
 
-//// Wizard-Specific
+//// ----- Wizard-Specific -----
 
 // Get form data for specific wizard steps
-export const getStepFormData = (wizardForm, index, formData) => 
-  wizardForm.steps[index].fields.map(fieldName => ({ 
-    ...wizardForm.data[fieldName], 
+export const getStepFormData = (wizardFormModel, index, formData) => 
+  wizardFormModel.steps[index].fields.map(fieldName => ({ 
+    ...wizardFormModel.data[fieldName], 
     inputValue: formData[fieldName]
   }));
+
+//// ----- Regular Input Dialogs -----
+
+export const getSimpleFormData = (formModel, formData) => {
+  const form = [];
+  for(const field in formModel.data) {
+    form.push({
+      ...formModel.data[field],
+      inputValue: formData[field]
+    });
+  }
+  return form;
+}

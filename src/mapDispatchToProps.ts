@@ -1,4 +1,10 @@
-import { addCategoryThunk, deleteCategoryThunk, saveDataThunk, loadDataThunk } from '@store/thunks';
+import { 
+  saveDataThunk, 
+  loadDataThunk,
+  addCategoryThunk, 
+  deleteCategoryThunk, 
+  addHoursToSkillThunk
+} from '@store/thunks';
 
 const localStorageThunks = {
   saveDataThunk,
@@ -10,7 +16,12 @@ const categoryThunks = {
   deleteCategoryThunk
 }
 
+const skillThunks = {
+  addHoursToSkillThunk
+}
+
 export default {
   ...localStorageThunks,
-  ...categoryThunks
+  ...categoryThunks,
+  ...skillThunks
 }

@@ -19,7 +19,7 @@ const NumberInput = ({ shouldFocus, data: { name, handleChange, label, helperTex
   }
 
   return (
-    <FormControl>
+    <FormControl className={'fullWidth'}>
       <InputLabel>{label}</InputLabel>
       <Input type="number" value={inputValue} onChange={handleInput} inputRef={input => input && shouldFocus && input.focus()} />
       {helperText && (

@@ -6,9 +6,12 @@ import ProgressBars from './ProgressBars';
 import GeneralInfo from './GeneralInfo';
 import TopActivity from './TopActivity';
 import Actions from './Actions';
+import AddSkillHoursDialog from '@components/Dialogs/AddSkillHoursDialog';
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 import skillMock from '@mocks/skill.mock';
 import { CategoryType } from '@interfaces/categories';
+
+const { useState } = React;
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,17 +30,39 @@ const useStyles = makeStyles(theme => ({
 const SkillCategoryOverview = ({ store, skill }) => {
   const classes = useStyles();
 
+  const [addHoursDialogOpen, setAddHoursDialogOpen] = useState(false);
+
   // const skill = skillMock;
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
 
+  const openDialog = ({ type }) => () => {
+    const map = {
+      addHours: setAddHoursDialogOpen
+    }
+    map[type](true);
+  }
+
   const handleDeleteSkill = () => {
     // TODO - Add confirmation dialog
-    const { deleteCategoryThunk } = store;
+    const { deleteCategoryThunk, saveDataThunk } = store;
     deleteCategoryThunk({ 
       categoryType: CategoryType.Skill, 
       title: skill.title 
     });
+    saveDataThunk();
+  }
+
+  const handleCloseHoursDialog = ({ isSubmit, hoursValue }) => {
+    setAddHoursDialogOpen(false);
+    if(isSubmit) {
+      const { addHoursToSkillThunk, saveDataThunk } = store;
+      addHoursToSkillThunk({ 
+        title: skill.title, 
+        hoursValue 
+      });
+      saveDataThunk();
+    }
   }
 
   return (
@@ -68,7 +93,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
             </Grid>
 
             <Grid className={'gridRow'} xs={2} container item>
-              <Actions onDelete={handleDeleteSkill} />
+              <Actions openDialog={openDialog} onDelete={handleDeleteSkill} />
             </Grid>
 
           </Grid>
@@ -80,7 +105,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
 
       {/* Dialogs only below this line */}
 
-
+      <AddSkillHoursDialog isOpen={addHoursDialogOpen} onClose={handleCloseHoursDialog} />
 
     </Paper>
   )

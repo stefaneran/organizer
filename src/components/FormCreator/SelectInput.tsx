@@ -27,7 +27,7 @@ const SelectInput = ({ data: { name, handleChange, label, options, isMulti, inpu
   }
 
   return (
-    <FormControl>
+    <FormControl className={'fullWidth'}>
       <InputLabel>{label}</InputLabel>
       <Select
         value={inputValue || setDefault(inputValue, isMulti)}

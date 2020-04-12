@@ -31,8 +31,12 @@ const slice = createSlice({
     },
     deleteCategoryDone: (state, { payload }) => {
       const { newCategories } = payload;
-      console.log('reducer ', newCategories)
       state.profiles[state.currentProfile].categories = newCategories;
+    },
+    addHoursToSkillDone: (state, { payload }) => {
+      const { categoryIndex, totalHours, totalXP } = payload;
+      state.profiles[state.currentProfile].categories[categoryIndex].totalHours = totalHours;
+      state.profiles[state.currentProfile].categories[categoryIndex].totalXP = totalXP;
     }
   }
 });
@@ -41,7 +45,8 @@ export const {
   saveDataDone,
   loadDataDone,
   addCategoryDone,
-  deleteCategoryDone
+  deleteCategoryDone,
+  addHoursToSkillDone
 } = slice.actions;
 
 export default slice.reducer;

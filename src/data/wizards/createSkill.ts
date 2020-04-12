@@ -22,14 +22,6 @@ export default {
       label: 'Skill Description', 
       helperText: 'Extra info about this skill' 
     },
-    rank: { 
-      name: 'rank', 
-      type: 'select',
-      label: 'Current proficiency', 
-      helperText: '',
-      defaultValue: 1,
-      options: getRankOptions() 
-    },
     priority: { 
       name: 'priority', 
       type: 'select',
@@ -41,12 +33,20 @@ export default {
         {label: 'Moderate', value: CategoryPriorityType.Moderate },
         {label: 'High', value: CategoryPriorityType.High }
       ] 
+    },
+    rank: { 
+      name: 'rank', 
+      type: 'select',
+      label: 'Current proficiency', 
+      helperText: '',
+      defaultValue: 1,
+      options: getRankOptions() 
     }
   },
   steps: [
     {
-      fields: ['title', 'description'], 
-      formGrid: {x: 1, y: 2},
+      fields: ['title', 'description', 'priority'], 
+      formGrid: {x: 1, y: 3},
       canSkip: false
     },
     {
@@ -54,10 +54,5 @@ export default {
       formGrid: {x: 1, y: 1},
       canSkip: false
     },
-    {
-      fields: ['priority'], 
-      formGrid: {x: 1, y: 1},
-      canSkip: false
-    }
   ]
 }

@@ -15,19 +15,19 @@ const FormGrid = ({ formData, formGrid, lastInputField, onChange }: IFormProps) 
   const classes = useStyles();
   const isGridValid = validateFormGrid(formGrid, formData.length);
 
-  const Input = ({ field }) => {
+  const Input = ({ field, xs }) => {
     const data = { 
       ...field, 
       handleChange: onChange
     };
     return (
-      <Grid item className={classes.gridItem}>
+      <Grid item className={classes.gridItem} xs={xs}>
         {mapTypeToInputs(field.type, data, lastInputField)}
       </Grid>
     );
   }
 
-  const Row = () => {
+  const Row = ({ xs }) => {
     const rowItems = [];
     for(let x = 0; x < formGrid.x; x += 1) {
       const nextField = formData.shift();
@@ -36,16 +36,17 @@ const FormGrid = ({ formData, formGrid, lastInputField, onChange }: IFormProps) 
       }
     }
     return (
-      <Grid container direction="row">
-        {rowItems.map(field => <Input key={field.name} field={field} />)}
+      <Grid data-selector="ROW" container item direction="row" className={'gridRow'}>
+        {rowItems.map(field => <Input key={field.name} field={field} xs={xs} />)}
       </Grid>
     );
   }
 
   const buildGrid = () => {
     const rows = [];
+    const xsPerInput = 12 / formGrid.x;
     for(let y = 0; y < formGrid.y; y += 1) {
-      rows.push(<Row key={y} />)
+      rows.push(<Row key={y} xs={xsPerInput} />)
     }
     return rows;
   }

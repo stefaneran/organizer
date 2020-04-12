@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   action: {}
 }));
 
-const Actions = ({ onDelete }) => {
+const Actions = ({ openDialog, onDelete }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.container}>
@@ -29,7 +29,7 @@ const Actions = ({ onDelete }) => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" className={classes.action}>
+          <Button variant="outlined" className={classes.action} onClick={openDialog({ type: 'addHours' })}>
             Add Hours
           </Button>
         </Grid>

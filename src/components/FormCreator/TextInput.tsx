@@ -19,7 +19,7 @@ const TextInput = ({ shouldFocus, data: { name, handleChange, label, helperText,
   }
 
   return (
-    <FormControl>
+    <FormControl className={'fullWidth'}>
       <InputLabel>{label}</InputLabel>
       <Input 
         type="text" 

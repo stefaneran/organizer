@@ -13,7 +13,7 @@ interface IFormField {
 export interface IFormProps {
   formData: IFormField[];
   formGrid?: { x: number; y: number; };
-  lastInputField: string;
+  lastInputField?: string;
   onChange(name: string, value: any): void;
 }
 
