@@ -110,7 +110,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
         itemTitle: currentBook.title,
         pagesValue
       });
-      // saveData();
+      saveData();
     }
     setCurrentBook(null);
   }
@@ -123,7 +123,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
         itemTitle: currentCourse.title,
         classesValue
       });
-      // saveData();
+      saveData();
     }
     setCurrentCourse(null);
   }
