@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 import { mapTypeToComponent } from '@components/CategoryThumbnails';
@@ -37,10 +36,13 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
       >
         {categories.length ? 
           categories.map((category, index) => (
-            <Grid key={`${category.title}-${index}`} className={classes.thumbnail} item xs={4} lg={3}>
-              <Link to={`/main/${category.title}`} onClick={onThumbClick(category.categoryType, category)}>
-                {mapTypeToComponent(category)}
-              </Link>
+            <Grid 
+              key={`${category.title}-${index}`} 
+              className={classes.thumbnail} 
+              item xs={4} lg={3}
+              onClick={onThumbClick(category.categoryType, category)}
+            >
+              {mapTypeToComponent(category)}
             </Grid>
           )
         ) : null}

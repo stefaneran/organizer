@@ -17,11 +17,9 @@ const Actions = ({ openDialog, onDelete }) => {
     <Paper className={classes.container}>
       <Grid container>
         <Grid item>
-          <Link to={`/main`}>
-            <Button variant="outlined" className={classes.action} onClick={onDelete}>
-              Delete
-            </Button>
-          </Link>
+          <Button variant="outlined" className={classes.action} onClick={onDelete}>
+            Delete
+          </Button>
         </Grid>
         <Grid item>
           <Button variant="outlined" className={classes.action}>

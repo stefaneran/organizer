@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryListToolbar } from '@components/CategoryListToolbar';
-import { CategoryBreadCrumbs } from '@components/CategoryBreadCrumbs';
 import { CategoryList } from '@components/CategoryList';
 import ChooseCategoryTypeDialog from '@components/Dialogs/ChooseCategoryTypeDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories, getCategoryByTitle } from '@store/accessors';
 import { mapTypeToComponent as mapTypeToCategoryComponent } from '@components/CategoryOverviews';
-// import categoriesMock from '@mocks/categories.mock';
 
 const { useState, useEffect } = React;
 
@@ -82,32 +79,35 @@ const CategoryView = ({ store }) => {
   return (
     <Paper className={classes.container}>
       <Grid className={classes.innerContainer} container direction="column">
-        <Route exact path={`/`}>
-          <Grid item xs={1} className={'gridRow'}>
-            <CategoryListToolbar store={store} toolBarHandlers={toolBarHandlers} />
-          </Grid>
-          <Grid item xs={11} className={'gridRow'}>
-            <CategoryList
-              categories={categories} 
-              onThumbClick={handleThumbClick}
-            />
-          </Grid>
-        </Route>
-        <Route exact path={`/:category`} component={(historyProps) => (
-        <>
-          <Grid item xs={1} className={'gridRow'}>
-            <CategoryBreadCrumbs history={historyProps} />
-          </Grid>
-          <Grid item xs={11} className={'gridRow'}>
-            {/* Will return a category overview screen */}
-            {mapTypeToCategoryComponent({
-              store, 
-              categoryType: currentCategory.categoryType, 
-              categoryData: currentCategory.categoryData
-            })}
-          </Grid>
-        </>
-        )}/>
+        {currentCategory.categoryData ? (
+          <>
+            <Grid item xs={1} className={'gridRow'}>
+              <Button onClick={() => setCurrentCategory({ categoryType: null, categoryData: null })}>
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={11} className={'gridRow'}>
+              {/* Will return a category overview screen */}
+              {mapTypeToCategoryComponent({
+                store, 
+                categoryType: currentCategory.categoryType, 
+                categoryData: currentCategory.categoryData
+              })}
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid item xs={1} className={'gridRow'}>
+              <CategoryListToolbar store={store} toolBarHandlers={toolBarHandlers} />
+            </Grid>
+            <Grid item xs={11} className={'gridRow'}>
+              <CategoryList
+                categories={categories} 
+                onThumbClick={handleThumbClick}
+              />
+            </Grid>
+          </>
+        )}
       </Grid>
       
       {/* Dialogs and Pop-Ups below this line  */}

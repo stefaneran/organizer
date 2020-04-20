@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import routes from './pages';
+import MainPage from './pages/main';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
@@ -24,15 +23,7 @@ const App = (props) => {
       {error ? (
         <p> There is an error </p>
       ) : (
-        <Router>
-          <Switch>
-          {routes.map(route => (
-            <Route key={route.path} path={route.path}>
-              {route.component(props)}
-            </Route>
-          ))}
-          </Switch>
-        </Router>
+        <MainPage store={props} />
       )}
     </>
   );
