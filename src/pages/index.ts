@@ -2,7 +2,7 @@ import Main from './main';
 
 export default [
   {
-    path: '/main',
+    path: '/',
     title: 'Main Page',
     component: (store) => Main(store)
   }

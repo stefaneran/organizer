@@ -32,9 +32,6 @@ const App = (props) => {
             </Route>
           ))}
           </Switch>
-          <Route exact path="/">
-            <div> Welcome to the Homepage! </div>
-          </Route>
         </Router>
       )}
     </>

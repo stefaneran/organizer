@@ -82,7 +82,7 @@ const CategoryView = ({ store }) => {
   return (
     <Paper className={classes.container}>
       <Grid className={classes.innerContainer} container direction="column">
-        <Route exact path={`/main/`}>
+        <Route exact path={`/`}>
           <Grid item xs={1} className={'gridRow'}>
             <CategoryListToolbar store={store} toolBarHandlers={toolBarHandlers} />
           </Grid>
@@ -93,7 +93,7 @@ const CategoryView = ({ store }) => {
             />
           </Grid>
         </Route>
-        <Route exact path={`/main/:category`} component={(historyProps) => (
+        <Route exact path={`/:category`} component={(historyProps) => (
         <>
           <Grid item xs={1} className={'gridRow'}>
             <CategoryBreadCrumbs history={historyProps} />
