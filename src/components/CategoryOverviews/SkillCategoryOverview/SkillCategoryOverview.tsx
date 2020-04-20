@@ -146,7 +146,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
           <Grid xs={9} container item spacing={2} direction="column">
 
             <Grid className={clsx(classes.properties, 'gridRow')} xs={5} container item direction="column">
-              <GeneralInfo title={skill.title} rank={rank} lastActivity={skill.lastActivity}  />
+              <GeneralInfo skill={skill} rank={rank} />
             </Grid>
             
             <Grid className={'gridRow'} xs={5} container item direction="column">

@@ -22,6 +22,13 @@ export default {
       label: 'Skill Description', 
       helperText: 'Extra info about this skill' 
     },
+    weekHourGoal: {
+      name: 'weekHourGoal',
+      type: 'number',
+      label: 'Weekly goal (Hours)',
+      helperText: 'How many hours per week this skill should be practiced',
+      defaultValue: 0
+    },
     priority: { 
       name: 'priority', 
       type: 'select',
@@ -45,13 +52,13 @@ export default {
   },
   steps: [
     {
-      fields: ['title', 'description', 'priority'], 
+      fields: ['title', 'description', 'weekHourGoal'], 
       formGrid: {x: 1, y: 3},
       canSkip: false
     },
     {
-      fields: ['rank'], 
-      formGrid: {x: 1, y: 1},
+      fields: ['rank', 'priority'], 
+      formGrid: {x: 1, y: 2},
       canSkip: false
     },
   ]

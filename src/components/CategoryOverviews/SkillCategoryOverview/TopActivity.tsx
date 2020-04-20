@@ -1,16 +1,11 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid } from '@material-ui/core';
-
-const getTop = () => ([
-  { name: 'Activity 1' },
-  { name: 'Activity 2' },
-  { name: 'Activity 3' }
-])
+import { Paper, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    height: '100%'
+    height: '100%',
+    padding: '1em'
   },
   header: {},
   item: {}
@@ -21,13 +16,8 @@ const TopActivity = () => {
   return (
     <Paper className={classes.container}>
       <Grid item className={classes.header}>
-        <h3>Top:</h3>
+        <Typography>Top Activity: TBD</Typography>
       </Grid>
-      {getTop().map((item, index) => (
-        <Grid key={index} item className={classes.item}>
-          <h3>{item.name}</h3>
-        </Grid>
-      ))}
     </Paper>
   )
 }

@@ -4,13 +4,10 @@ Tasks (MVP):
 -----
 
 MVP:
-- Skill weekly hour goal
-  - Calculate on Load
-  - Calculate activity on laod too 
-- Display all weekly hour goal bars in footer 
 - Option to make "mini-skill" (Choose hours to mastery to be 1000 instead) - "Refreshner"
 - Basic UI
   - Oveflow hidden on thumb items
+- Display all weekly hour goal bars in footer (OPTIONAL)
 
 OPT - Optimizations
 - Add unit testing
@@ -45,24 +42,9 @@ CAT007 - Add history logs
 
 CAT008 - Make EOD Report Wizard 
 
-CAT009 - Fitness category
-- Front-End Carousel UI
-- Creation Wizard
-- Main UI 
-- Settings
-- Actions
-- Read/Write
-- Logic 
-
 CAT010 - Social category
-- Front-End Carousel UI
-- Creation Wizard
-- Main UI 
-- Settings
-- Actions
-- Read/Write
-- Logic 
 
+CAT009 - Fitness category
 
 CAT012 - UI Improvements
 - Use icons for categories

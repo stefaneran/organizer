@@ -38,10 +38,12 @@ const CategoryView = ({ store }) => {
   // Update Category state when store changes
   useEffect(() => {
     if(currentCategory.categoryData) {
+      const title = currentCategory.categoryData ? currentCategory.categoryData.title : null;
+      if(!title) return;
       const categoryData = getCategoryByTitle(store, currentCategory.categoryData.title);
       setCurrentCategory({ 
-        categoryType: currentCategory.categoryType,
-        categoryData
+        categoryType: currentCategory.categoryType || null,
+        categoryData: categoryData || null
       });
     }
   }, [store])

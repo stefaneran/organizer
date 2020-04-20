@@ -55,6 +55,8 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
 
   const log = {
     categoryType: CategoryType.Skill,
+    categoryIdentifier: title,
+    unit: hoursValue,
     activityDate: Date.now(),
     title: `${title}`,
     description: `Practiced ${hoursValue} hours`
@@ -93,8 +95,10 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   
   const log = {
     categoryType: CategoryType.Skill,
+    categoryIdentifier: skillTitle,
+    unit: hoursRead,
     activityDate: Date.now(),
-    title: `Book: ${itemTitle}`,
+    title: `${skillTitle} Book: ${itemTitle}`,
     description: finished ? 'Finished the book!' : `Read ${pagesRead} pages`
   }
 
@@ -129,8 +133,10 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
 
   const log = {
     categoryType: CategoryType.Skill,
+    categoryIdentifier: skillTitle,
+    unit: hoursPracticed,
     activityDate: Date.now(),
-    title: `Course: ${itemTitle}`,
+    title: `${skillTitle} Course: ${itemTitle}`,
     description: finished ? 'Finished the course!' : `Done ${classesDone} classes`
   }
   

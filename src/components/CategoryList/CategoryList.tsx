@@ -37,7 +37,7 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
       >
         {categories.length ? 
           categories.map((category, index) => (
-            <Grid key={`${category.title}-${index}`} className={classes.thumbnail} item xs={4}>
+            <Grid key={`${category.title}-${index}`} className={classes.thumbnail} item xs={4} lg={3}>
               <Link to={`/main/${category.title}`} onClick={onThumbClick(category.categoryType, category)}>
                 {mapTypeToComponent(category)}
               </Link>
