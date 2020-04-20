@@ -7,11 +7,11 @@ import { CategoryBreadCrumbs } from '@components/CategoryBreadCrumbs';
 import { CategoryList } from '@components/CategoryList';
 import ChooseCategoryTypeDialog from '@components/Dialogs/ChooseCategoryTypeDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
-import { getCategories } from '@store/accessors';
+import { getCategories, getCategoryByTitle } from '@store/accessors';
 import { mapTypeToComponent as mapTypeToCategoryComponent } from '@components/CategoryOverviews';
 // import categoriesMock from '@mocks/categories.mock';
 
-const { useState } = React;
+const { useState, useEffect } = React;
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -34,6 +34,17 @@ const CategoryView = ({ store }) => {
   const categories = store.profiles && getCategories(store);
 
   const [currentCategory, setCurrentCategory] = useState({ categoryType: null, categoryData: null });
+
+  // Update Category state when store changes
+  useEffect(() => {
+    if(currentCategory.categoryData) {
+      const categoryData = getCategoryByTitle(store, currentCategory.categoryData.title);
+      setCurrentCategory({ 
+        categoryType: currentCategory.categoryType,
+        categoryData
+      });
+    }
+  }, [store])
 
   // Dialog data
   const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = useState(false);

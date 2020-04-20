@@ -36,8 +36,6 @@ const getBreadCrumbs = (url) => {
 
 const CategoryBreadCrumbs = ({ history }) => {
 
-  // console.log('DEV Route History: ', history)
-
   const { match } = history;
   const { url, params } = match;
 

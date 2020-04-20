@@ -102,7 +102,6 @@ const SkillCategoryOverview = ({ store, skill }) => {
   }
 
   const handleCloseBookDialog = ({ isSubmit, pagesValue }) => {
-    console.log('DEV Book: ', isSubmit, pagesValue);
     const { updateSkillBook, saveData } = store;
     if(isSubmit) {
       updateSkillBook({
@@ -115,7 +114,6 @@ const SkillCategoryOverview = ({ store, skill }) => {
     setCurrentBook(null);
   }
   const handleCloseCourseDialog = ({ isSubmit, classesValue }) => {
-    console.log('DEV Course: ', isSubmit, classesValue);
     const { updateSkillCourse, saveData } = store;
     if(isSubmit) {
       updateSkillCourse({
