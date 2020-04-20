@@ -1,30 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add clasx
+  C:\Program Files\nodejs\node.exe C:\Users\1234\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-gh-pages -D
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  C:\Program Files\AdoptOpenJDK\jre-8.0.222.10-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\1234\AppData\Local\Microsoft\WindowsApps;C:\Users\1234\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\1234\AppData\Roaming\npm
 
 Yarn version: 
-  1.17.3
+  1.22.0
 
 Node version: 
-  10.15.3
+  12.16.0
 
 Platform: 
-  darwin x64
+  win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/clasx: Not found
-      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66830:18)
-      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140464:22)
-      at Request.emit (events.js:189:13)
-      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141436:10)
-      at Request.emit (events.js:189:13)
-      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141358:12)
-      at Object.onceWrapper (events.js:277:13)
-      at IncomingMessage.emit (events.js:194:15)
-      at endReadableNT (_stream_readable.js:1125:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: https://registry.yarnpkg.com/react-gh-pages: Not found
+      at Request.params.callback [as _callback] (C:\Users\1234\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66975:18)
+      at Request.self.callback (C:\Users\1234\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140727:22)
+      at Request.emit (events.js:321:20)
+      at Request.<anonymous> (C:\Users\1234\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141699:10)
+      at Request.emit (events.js:321:20)
+      at IncomingMessage.<anonymous> (C:\Users\1234\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141621:12)
+      at Object.onceWrapper (events.js:427:28)
+      at IncomingMessage.emit (events.js:333:22)
+      at endReadableNT (_stream_readable.js:1204:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -47,11 +47,15 @@ npm manifest:
     },
     "dependencies": {
       "@material-ui/core": "^4.9.0",
+      "@material-ui/icons": "^4.9.1",
       "@reduxjs/toolkit": "^1.2.3",
+      "clsx": "^1.1.0",
+      "date-fns": "^2.12.0",
       "react": "^16.9.0",
       "react-dom": "^16.9.0",
       "react-redux": "^7.1.3",
       "react-router-dom": "^5.1.2",
+      "redux-thunk": "^2.3.0",
       "typescript": "^3.6.3"
     },
     "devDependencies": {
@@ -957,6 +961,13 @@ Lockfile:
       prop-types "^15.7.2"
       react-is "^16.8.0"
       react-transition-group "^4.3.0"
+  
+  "@material-ui/icons@^4.9.1":
+    version "4.9.1"
+    resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.9.1.tgz#fdeadf8cb3d89208945b33dbc50c7c616d0bd665"
+    integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
+    dependencies:
+      "@babel/runtime" "^7.4.4"
   
   "@material-ui/styles@^4.9.6":
     version "4.9.6"
@@ -1904,7 +1915,7 @@ Lockfile:
       kind-of "^6.0.2"
       shallow-clone "^3.0.0"
   
-  clsx@^1.0.2:
+  clsx@^1.0.2, clsx@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.0.tgz#62937c6adfea771247c34b54d320fb99624f5702"
     integrity sha512-3avwM37fSK5oP6M5rQ9CNe99lwxhXDOeSWVPAOYF6OazUTgZCMb0yWlJpmdD74REy1gkEaFiub2ULv4fq9GUhA==
@@ -2221,6 +2232,11 @@ Lockfile:
     integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
     dependencies:
       assert-plus "^1.0.0"
+  
+  date-fns@^2.12.0:
+    version "2.12.0"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.12.0.tgz#01754c8a2f3368fc1119cf4625c3dad8c1845ee6"
+    integrity sha512-qJgn99xxKnFgB1qL4jpxU7Q2t0LOn1p8KMIveef3UZD7kqjT3tpFNNdXJelEHhE+rUgffriXriw/sOSU+cS1Hw==
   
   debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
     version "2.6.9"

@@ -1,11 +1,13 @@
 {
   "name": "organizer-app",
+  "homepage": "https://stefaneran.github.io/organizer/",
   "version": "1.0.0",
   "description": "An app for organizing different categories of life",
   "main": "babel.config.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^3.4.2",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
@@ -44,6 +47,5 @@
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"
-  },
-  "homepage": "https://github.com/stefaneran/organizer#readme"
+  }
 }
