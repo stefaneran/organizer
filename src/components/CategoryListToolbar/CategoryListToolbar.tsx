@@ -29,6 +29,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
     reader.onload = (e) => {
       const categories = JSON.parse(e.target.result); // TODO Deal with this typing
       store.loadBackupData({ categories });
+      store.saveData();
     };
     reader.readAsText(event.target.files[0]);
   }

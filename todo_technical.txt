@@ -25,6 +25,7 @@ IMP - Not so Easy
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
 - Disable Next/Finish in wizard in required inputs no filled
 - History General/Current tabs 
+- Auto download backup if havent backed up in a day
 - (Safety) On load scan categories/items for missing properties and give defaults and Save
 - ....check TODO
 
