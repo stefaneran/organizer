@@ -17,7 +17,7 @@ export interface ISkillItem {
   itemType: SkillItemType;
   title: string;
   description: string;
-  totalXP: number;
+  totalXP: number; // Total XP this item is worth (Time to complete XP + Bonus XP)
   dateCreated: number;
   dateFinished: number;
   lastActivity: number;

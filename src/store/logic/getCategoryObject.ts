@@ -36,6 +36,7 @@ export default (categoryType, formData) => {
     priority,
     activity: ActivityType.Active,
     lastActivity: Date.now(),
+    history: [],
     ...categoryProperties
   };
 }

@@ -29,7 +29,7 @@ const Actions = ({ openDialog, onDelete }) => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" className={classes.action} onClick={openDialog({ type: 'addHours' })}>
+          <Button variant="outlined" className={classes.action} onClick={openDialog({ type: 'updateHours' })}>
             Add Hours
           </Button>
         </Grid>

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import addSkillHours from '@data/inputDialogs/addSkillHours';
+import updateSkillHoursData from '@data/inputDialogs/updateSkillHoursData';
 import { getDefaultFormData } from '@utils/formDataUtils';
 import SliderInput from '@components/FormCreator/SliderInput';
 
 const { useState } = React;
 
-const AddSkillHoursDialog = ({ isOpen, onClose }) => {
+const UpdateSkillHoursDialog = ({ isOpen, onClose }) => {
 
-  const [formData, setFormData] = useState(getDefaultFormData(addSkillHours));
+  const [formData, setFormData] = useState(getDefaultFormData(updateSkillHoursData));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
@@ -26,9 +26,9 @@ const AddSkillHoursDialog = ({ isOpen, onClose }) => {
       onClose={handleClose}
       actionsType={'simpleForm'}
     >
-      <SliderInput style={{ marginTop: '1em' }} data={{ ...addSkillHours.data.hours, handleChange }} />
+      <SliderInput style={{ marginTop: '1em' }} data={{ ...updateSkillHoursData.data.hours, handleChange }} />
     </GenericDialog>
   );
 }
 
-export default AddSkillHoursDialog;
+export default UpdateSkillHoursDialog;

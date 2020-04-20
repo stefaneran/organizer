@@ -33,7 +33,7 @@ const slice = createSlice({
       const { newCategories } = payload;
       state.profiles[state.currentProfile].categories = newCategories;
     },
-    addHoursToSkillDone: (state, { payload }) => {
+    updateSkillHoursDone: (state, { payload }) => {
       const { categoryIndex, totalHours, totalXP } = payload;
       state.profiles[state.currentProfile].categories[categoryIndex].totalHours = totalHours;
       state.profiles[state.currentProfile].categories[categoryIndex].totalXP = totalXP;
@@ -47,20 +47,68 @@ const slice = createSlice({
       state.profiles[state.currentProfile].categories[categoryIndex].items.push(skillItemObject);
     },
     updateSkillBookDone: (state, { payload }) => {
-      const { categoryIndex, itemIndex, pagesRead } = payload;
-      if(!pagesRead) {
+      const { 
+        categoryIndex, 
+        itemIndex, 
+        currentPage, 
+        hoursRead,
+        gainedXP,
+      } = payload;
+      if(!currentPage) {
         state.error = true;
         return;
       }
-      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].pagesRead = pagesRead;
+      // Update total pages read
+      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].pagesRead = currentPage;
+      // Add hours and XP to skill 
+      state.profiles[state.currentProfile].categories[categoryIndex].totalHours += hoursRead;
+      state.profiles[state.currentProfile].categories[categoryIndex].totalXP += gainedXP;
+      // If user finished the book
+      if(payload.finished) {
+        // Update date finished
+        state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].dateFinished = Date.now();
+        // Copy
+        const item = { ...state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex] };
+        // Add the bonus XP to the skill
+        state.profiles[state.currentProfile].categories[categoryIndex].totalXP += payload.totalItemXP;
+        // Add item to skill archive
+        state.profiles[state.currentProfile].categories[categoryIndex].archive.push(item);
+        // Remove item from current list
+        state.profiles[state.currentProfile].categories[categoryIndex].items = 
+          state.profiles[state.currentProfile].categories[categoryIndex].items.filter(item => item.title !== payload.itemTitle);
+      }
     },
     updateSkillCourseDone: (state, { payload }) => {
-      const { categoryIndex, itemIndex, classesDone } = payload;
-      if(!classesDone) {
+      const { 
+        categoryIndex, 
+        itemIndex, 
+        currentClass, 
+        hoursPracticed,
+        gainedXP
+      } = payload;
+      if(!currentClass) {
         state.error = true;
         return;
       }
-      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].classesDone = classesDone;
+      // Update total pages read
+      state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].classesDone = currentClass;
+      // Add hours and XP to skill 
+      state.profiles[state.currentProfile].categories[categoryIndex].totalHours += hoursPracticed;
+      state.profiles[state.currentProfile].categories[categoryIndex].totalXP += gainedXP;
+      // If user finished the book
+      if(payload.finished) {
+        // Update date finished
+        state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex].dateFinished = Date.now();
+        // Copy
+        const item = { ...state.profiles[state.currentProfile].categories[categoryIndex].items[itemIndex] };
+        // Add the bonus XP to the skill
+        state.profiles[state.currentProfile].categories[categoryIndex].totalXP += payload.totalItemXP;
+        // Add item to skill archive
+        state.profiles[state.currentProfile].categories[categoryIndex].archive.push(item);
+        // Remove item from current list
+        state.profiles[state.currentProfile].categories[categoryIndex].items = 
+          state.profiles[state.currentProfile].categories[categoryIndex].items.filter(item => item.title !== payload.itemTitle);
+      }
     }
   }
 });
@@ -70,7 +118,7 @@ export const {
   loadDataDone,
   addCategoryDone,
   deleteCategoryDone,
-  addHoursToSkillDone,
+  updateSkillHoursDone,
   addSkillItemDone,
   updateSkillBookDone,
   updateSkillCourseDone

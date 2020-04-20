@@ -1,5 +1,6 @@
 export const TOTAL_HOURS_TO_MASTERY = 10000;
 export const XP_PER_HOUR = 100;
+export const SKILL_ITEM_XP_MODIFIER = 0.5;
 export const TOTAL_XP_TO_MASTERY = TOTAL_HOURS_TO_MASTERY * XP_PER_HOUR;
 
 export const XP_RANKS = [

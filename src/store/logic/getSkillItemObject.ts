@@ -1,5 +1,20 @@
 import { ActivityType } from '@interfaces/categories';
 import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+import { XP_PER_HOUR, SKILL_ITEM_XP_MODIFIER } from '@logic/skill.constants';
+
+const calculateBookTotalXP = (formData) => {
+  const { pagesTotal } = formData;
+  const totalHours = Math.ceil((pagesTotal * 2) / 60);
+  const totalXP = (totalHours * XP_PER_HOUR) * SKILL_ITEM_XP_MODIFIER;
+  return totalXP;
+}
+
+const calculateCourseTotalXP = (formData) => {
+  const { classesTotal, hoursPerClass } = formData;
+  const totalHours = classesTotal * hoursPerClass;
+  const totalXP = (totalHours * XP_PER_HOUR) * SKILL_ITEM_XP_MODIFIER;
+  return totalXP;
+}
 
 const getPropertiesBySkillItemType = (itemType, formData) => {
   const map = {
@@ -14,7 +29,8 @@ const getBookProperties = (formData) => ({
     author: formData.author,
     pagesTotal: formData.pagesTotal,
     pagesRead: formData.pagesRead || 0,
-    history: []
+    history: [],
+    totalXP: calculateBookTotalXP(formData)
   })
 
 // ISkillCourse
@@ -22,13 +38,9 @@ const getCourseProperties = (formData) => ({
     classesTotal: formData.classesTotal,
     classesDone: formData.classesDone || 0,
     hoursPerClass: formData.hoursPerClass,
-    history: []
+    history: [],
+    totalXP: calculateCourseTotalXP(formData)
   });
-
-  // TODO - Finish and move to skill.logic.ts
-const calculateXP = (itemType, data) => {
-  return 1000;
-}
 
 export default (itemType, formData) => {
   const skillItemProperties = getPropertiesBySkillItemType(itemType, formData);
@@ -42,7 +54,6 @@ export default (itemType, formData) => {
     dateCreated: Date.now(),
     dateFinished: null,
     lastActivity: Date.now(),
-    totalXP: calculateXP(itemType, {}),
     ...skillItemProperties
   };
 }

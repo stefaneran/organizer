@@ -9,7 +9,7 @@ import TopActivity from './TopActivity';
 import Actions from './Actions';
 import ItemList from './ItemList';
 // Dialogs
-import AddSkillHoursDialog from '@components/Dialogs/AddSkillHoursDialog';
+import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
 import ChooseSkillItemTypeDialog from '@components/Dialogs/ChooseSkillItemTypeDialog';
 import CreateSkillItemDialog from '@components/Dialogs/CreateSkillItemDialog';
 import UpdateSkillBookDialog from '@components/Dialogs/UpdateSkillBookDialog';
@@ -46,14 +46,14 @@ const SkillCategoryOverview = ({ store, skill }) => {
 
   // Dialog open states
   const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
-  const [addHoursDialogOpen, setAddHoursDialogOpen] = useState(false);
+  const [updateHoursDialogOpen, setUpdateHoursDialogOpen] = useState(false);
 
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
 
   const openDialog = ({ type, data }: { type: SkillItemType; data? }) => () => {
     const map = {
-      addHours: setAddHoursDialogOpen,
+      updateHours: setUpdateHoursDialogOpen,
       chooseItemType: setChooseItemTypeDialogOpen,
       updateBook: setCurrentBook,
       updateCourse: setCurrentCourse
@@ -72,10 +72,10 @@ const SkillCategoryOverview = ({ store, skill }) => {
   }
 
   const handleCloseHoursDialog = ({ isSubmit, hoursValue }) => {
-    setAddHoursDialogOpen(false);
+    setUpdateHoursDialogOpen(false);
     if(isSubmit) {
-      const { addHoursToSkill, saveData } = store;
-      addHoursToSkill({ 
+      const { updateSkillHours, saveData } = store;
+      updateSkillHours({ 
         title: skill.title, 
         hoursValue 
       });
@@ -172,7 +172,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
 
       {/* Dialogs only below this line */}
 
-      <AddSkillHoursDialog isOpen={addHoursDialogOpen} onClose={handleCloseHoursDialog} />
+      <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={handleCloseHoursDialog} />
 
       <ChooseSkillItemTypeDialog isOpen={chooseItemTypeDialogOpen} onClose={handleCloseChooseItemDialog} />
       {currentItemType && (

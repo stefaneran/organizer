@@ -3,7 +3,7 @@ import {
   loadData,
   addCategory, 
   deleteCategory, 
-  addHoursToSkill,
+  updateSkillHours,
   addSkillItem,
   updateSkillBook,
   updateSkillCourse
@@ -20,7 +20,7 @@ const categoryThunks = {
 }
 
 const skillThunks = {
-  addHoursToSkill,
+  updateSkillHours,
   addSkillItem,
   updateSkillBook,
   updateSkillCourse

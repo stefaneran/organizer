@@ -3,6 +3,16 @@
 Tasks (MVP):
 -----
 
+MVP:
+- Re-render overview on update
+- Track logs (history log) CAT007
+- Skill weekly hour goal
+  - Calculate on Load
+  - Calculate activity on laod too 
+- Display all weekly hour goal bars in footer 
+- Option to make "mini-skill" (Choose hours to mastery to be 1000 instead) - "Refreshner"
+- Basic UI
+
 OPT - Optimizations
 - Add unit testing
 
@@ -12,23 +22,17 @@ IMP - Improvements
 - Disable Next/Finish in wizard in required inputs no filled
 - Breadcrumbs as AppBar component
 - (Safety) On load scan categories/items for missing properties and give defaults and Save
-- Rename AddHours files to UpdateHours (data, dialog, actions...)
+- Conditional Skill Thumb Title render - Based on title length render different to fit better
 - Add ticks to Slider + dynamic label below
 - Add "data" at the end of data files to avoid confusion
 - Add "Add Category" Thumb for low thumb amounts
 - Add icons (choose dialogs, thumbnail, etc)
 - Use MUI theme and make themes
 - Wizard step progression
+- When adding category/item - Make check if title exists 
 - ....check TODO
 
 "TASKS"
-
-CAT005 - Create logic for skill category
-- Re-think skill logic to add 100 xp every 2 hours
-- Decide hwo it should work (Creative)
-- Skill XP logic with ranks, etc
-- Time depreciation logic
-- Other
 
 CAT011 - Filtering (Category and items)
 - By type

@@ -1,7 +1,7 @@
 import { 
   saveDataDone, loadDataDone, 
   addCategoryDone, deleteCategoryDone, 
-  addHoursToSkillDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
+  updateSkillHoursDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
 } from './reducer';
 import { 
   getCategoryByTitle, getCategoryIndexByTitle, 
@@ -9,6 +9,7 @@ import {
 } from './accessors';
 import { loadFromLocalStorage, saveToLocalStorage } from '@logic/localstorage.logic';
 import { XP_PER_HOUR } from '@logic/skill.constants';
+import { getHoursFromPages } from '@logic/skill.logic';
 import getCategoryObject from './logic/getCategoryObject';
 import getSkillItemObject from './logic/getSkillItemObject';
 
@@ -44,13 +45,14 @@ export const deleteCategory = ({ title }) => async (dispatch, getState) => {
 
 //// ----- Skill Thunks -----
 
-export const addHoursToSkill = ({ title, hoursValue }) => async (dispatch, getState) => {
+export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getState) => {
   const { currentProfile, profiles } = getState();
   const category = getCategoryByTitle({ currentProfile, profiles }, title);
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
   const totalHours = category.totalHours + hoursValue;
   const totalXP = category.totalXP + (hoursValue * XP_PER_HOUR);
-  dispatch(addHoursToSkillDone({ categoryIndex, totalHours, totalXP }));
+  // TODO Add history log
+  dispatch(updateSkillHoursDone({ categoryIndex, totalHours, totalXP }));
 }
 
 export const addSkillItem = ({ title, itemType, formData }) => async (dispatch, getState) => {
@@ -64,18 +66,61 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   const { currentProfile, profiles } = getState();
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
   const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const item = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const pagesRead = pagesValue;
-  // TODO XP
-  dispatch(updateSkillBookDone({ categoryIndex, itemIndex, pagesRead }));
+  const book = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+
+  let finished = false;
+  const pagesTotal = parseInt(book.pagesTotal, 10);
+  const pagesRead = pagesValue -  parseInt(book.pagesRead, 10);
+  const hoursRead = getHoursFromPages(pagesRead);
+  const totalItemXP = parseInt(book.totalXP, 10);
+  if(pagesTotal === pagesValue) {
+    finished = true;
+  }
+  // TODO lastActivity
+  // TODO Add history log
+  dispatch(updateSkillBookDone({ 
+    categoryIndex, 
+    itemIndex, 
+    currentPage: pagesValue, 
+    hoursRead,
+    gainedXP: hoursRead * XP_PER_HOUR,
+    totalItemXP,
+    itemTitle: book.title,
+    finished
+  }));
 }
 
 export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => async (dispatch, getState) => {
   const { currentProfile, profiles } = getState();
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
   const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const item = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const classesDone = classesValue;
-  // TODO XP
-  dispatch(updateSkillCourseDone({ categoryIndex, itemIndex, classesDone }));
+  const course = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  
+  let finished = false;
+  const classesTotal = parseInt(course.classesTotal, 10);
+  const classesDone = classesValue -  parseInt(course.classesDone, 10);
+  const hoursPracticed = classesDone * parseInt(course.hoursPerClass, 10);
+  const totalItemXP = parseInt(course.totalXP, 10);
+  if(classesTotal === classesValue) {
+    finished = true;
+  }
+  // TODO lastActivity
+  // TODO Add history log
+  dispatch(updateSkillCourseDone({ 
+    categoryIndex, 
+    itemIndex, 
+    currentClass: classesValue, 
+    hoursPracticed,
+    gainedXP: hoursPracticed * XP_PER_HOUR,
+    totalItemXP,
+    itemTitle: course.title,
+    finished
+  }));
 }
+
+/*
+  categoryType: CategoryType;
+  title: string;
+  description: string;
+  activityDate: number; // Timestamp
+*/
