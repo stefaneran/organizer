@@ -40,3 +40,30 @@ export const getSkillItemIndexByTitle = ({currentProfile, profiles}, skillTitle,
   }
   return index;
 }
+
+//// ----- History Accessors ----- ////
+
+export const getAllHistory = ({ profiles, currentProfile }) => {
+  const history = [];
+  const categories = getCategories({ profiles, currentProfile });
+  categories.forEach(category => {
+    history.push(...category.history);
+  });
+  // Todo test
+  history.sort((a, b) => b.activityDate - a.activityDate);
+  return history;
+}
+
+export const getHistory = ({ profiles, currentProfile }, limit) => {
+  const history = getAllHistory({ profiles, currentProfile });
+  const shorterHistory = [];
+  for(let i = 0; i < limit; i++) {
+    const log = history.shift();
+    if(log) {
+      shorterHistory.push(log);
+    } else {
+      break;
+    }
+  }
+  return shorterHistory;
+}

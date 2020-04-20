@@ -12,6 +12,7 @@ import { XP_PER_HOUR } from '@logic/skill.constants';
 import { getHoursFromPages } from '@logic/skill.logic';
 import getCategoryObject from './logic/getCategoryObject';
 import getSkillItemObject from './logic/getSkillItemObject';
+import { CategoryType } from '@interfaces/categories';
 
 //// ----- Local Storage Thunks -----
 
@@ -51,8 +52,20 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
   const totalHours = category.totalHours + hoursValue;
   const totalXP = category.totalXP + (hoursValue * XP_PER_HOUR);
-  // TODO Add history log
-  dispatch(updateSkillHoursDone({ categoryIndex, totalHours, totalXP }));
+
+  const log = {
+    categoryType: CategoryType.Skill,
+    activityDate: Date.now(),
+    title: `${title}`,
+    description: `Practiced ${hoursValue} hours`
+  }
+  
+  dispatch(updateSkillHoursDone({ 
+    categoryIndex, 
+    totalHours, 
+    totalXP, 
+    log 
+  }));
 }
 
 export const addSkillItem = ({ title, itemType, formData }) => async (dispatch, getState) => {
@@ -68,16 +81,23 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
   const book = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
 
-  let finished = false;
   const pagesTotal = parseInt(book.pagesTotal, 10);
   const pagesRead = pagesValue -  parseInt(book.pagesRead, 10);
   const hoursRead = getHoursFromPages(pagesRead);
   const totalItemXP = parseInt(book.totalXP, 10);
+
+  let finished = false;
   if(pagesTotal === pagesValue) {
     finished = true;
   }
-  // TODO lastActivity
-  // TODO Add history log
+  
+  const log = {
+    categoryType: CategoryType.Skill,
+    activityDate: Date.now(),
+    title: `Book: ${itemTitle}`,
+    description: finished ? 'Finished the book!' : `Read ${pagesRead} pages`
+  }
+
   dispatch(updateSkillBookDone({ 
     categoryIndex, 
     itemIndex, 
@@ -86,7 +106,8 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
     gainedXP: hoursRead * XP_PER_HOUR,
     totalItemXP,
     itemTitle: book.title,
-    finished
+    finished,
+    log
   }));
 }
 
@@ -95,17 +116,24 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
   const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
   const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
   const course = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  
-  let finished = false;
+
   const classesTotal = parseInt(course.classesTotal, 10);
   const classesDone = classesValue -  parseInt(course.classesDone, 10);
   const hoursPracticed = classesDone * parseInt(course.hoursPerClass, 10);
   const totalItemXP = parseInt(course.totalXP, 10);
+
+  let finished = false;
   if(classesTotal === classesValue) {
     finished = true;
   }
-  // TODO lastActivity
-  // TODO Add history log
+
+  const log = {
+    categoryType: CategoryType.Skill,
+    activityDate: Date.now(),
+    title: `Course: ${itemTitle}`,
+    description: finished ? 'Finished the course!' : `Done ${classesDone} classes`
+  }
+  
   dispatch(updateSkillCourseDone({ 
     categoryIndex, 
     itemIndex, 
@@ -114,13 +142,7 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
     gainedXP: hoursPracticed * XP_PER_HOUR,
     totalItemXP,
     itemTitle: course.title,
-    finished
+    finished,
+    log
   }));
 }
-
-/*
-  categoryType: CategoryType;
-  title: string;
-  description: string;
-  activityDate: number; // Timestamp
-*/

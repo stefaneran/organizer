@@ -4,14 +4,13 @@ Tasks (MVP):
 -----
 
 MVP:
-- Re-render overview on update
-- Track logs (history log) CAT007
 - Skill weekly hour goal
   - Calculate on Load
   - Calculate activity on laod too 
 - Display all weekly hour goal bars in footer 
 - Option to make "mini-skill" (Choose hours to mastery to be 1000 instead) - "Refreshner"
 - Basic UI
+  - Oveflow hidden on thumb items
 
 OPT - Optimizations
 - Add unit testing
@@ -27,6 +26,7 @@ IMP - Improvements
 - Add "data" at the end of data files to avoid confusion
 - Add "Add Category" Thumb for low thumb amounts
 - Add icons (choose dialogs, thumbnail, etc)
+- History log scrollbar style
 - Use MUI theme and make themes
 - Wizard step progression
 - When adding category/item - Make check if title exists 

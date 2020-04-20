@@ -32,7 +32,7 @@ const App = (props) => {
             </Route>
           ))}
           </Switch>
-          <Route path="/">
+          <Route exact path="/">
             <div> Welcome to the Homepage! </div>
           </Route>
         </Router>

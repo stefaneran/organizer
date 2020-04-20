@@ -6,45 +6,27 @@ import { HistoryView } from '@containers/HistoryView';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
+    height: '100%',
     padding: '0.5em'
   },
   categoriesContainer: {
-    // paddingRight: '1em'
+    height: '100%'
   },
-  headerContainer: {
-    maxWidth: 'none',
-    marginBottom: '0.5em'
-  },
-  footerContainer: {
-    marginTop: '0.5em',
-    maxWidth: 'none'
-  }
 }));  
 
 const MainPage = (store) => {
   const classes = useStyles();
   return (
-    <Grid 
-      id="main" 
-      container
-      direction="column"
-      className={classes.mainContainer}
-    >
-      <Grid item xs={1} className={classes.headerContainer}>
-        <Paper id="header" style={{ height: '100%' }}>Header</Paper>
-      </Grid>
-      <Grid id="content" container item direction="row" xs>
-        <Grid item xs={9}>
+    <div id="main" className={classes.mainContainer}>
+      <Grid id="content" className={classes.categoriesContainer} container spacing={1}>
+        <Grid item xs={9} style={{ height: '100%' }}>
           <CategoryView store={store} />
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{ height: '100%' }}>
           <HistoryView store={store} />
         </Grid>
       </Grid>
-      <Grid item xs={1} className={classes.footerContainer}>
-        <Paper id="footer" style={{ height: '100%' }}>Footer</Paper>
-      </Grid>
-    </Grid>
+    </div>
   )
 }
 

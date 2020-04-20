@@ -5,9 +5,4 @@ export interface ISkillBook extends ISkillItem {
   author?: string;
   pagesTotal: number;
   pagesRead: number;
-  history: IBookHistoryLog[];
-}
-
-export interface IBookHistoryLog extends IHistoryLog {
-  pagesRead: number;
 }
