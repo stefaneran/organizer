@@ -9,48 +9,42 @@ MVP:
   - Oveflow hidden on thumb items
 - Display all weekly hour goal bars in footer (OPTIONAL)
 
-OPT - Optimizations
-- Add unit testing
-
-IMP - Improvements
+IMP - Easy:
+- Add "data" at the end of data files to avoid confusion
 - Add hours to skill rank labels (Wizard)
-- Caluclate Skill/Item activity status on Load
-- Disable Next/Finish in wizard in required inputs no filled
-- Breadcrumbs as AppBar component
-- (Safety) On load scan categories/items for missing properties and give defaults and Save
+- Add icons (choose dialogs, thumbnail, etc)
 - Conditional Skill Thumb Title render - Based on title length render different to fit better
 - Add ticks to Slider + dynamic label below
-- Add "data" at the end of data files to avoid confusion
-- Add "Add Category" Thumb for low thumb amounts
-- Add icons (choose dialogs, thumbnail, etc)
 - History log scrollbar style
+- When adding category/item - Make check if title exists 
+- Breadcrumbs as AppBar component
+
+IMP - Not so Easy
+- Add "Add Category" Thumb for low thumb amounts
+- Caluclate Skill/Item activity status on Load
+- Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
+- Disable Next/Finish in wizard in required inputs no filled
+- History General/Current tabs 
+- (Safety) On load scan categories/items for missing properties and give defaults and Save
+- ....check TODO
+
+IMP - Big 
+- Add unit tests
+- Add linting and fix lints
 - Use MUI theme and make themes
 - Wizard step progression
-- When adding category/item - Make check if title exists 
-- ....check TODO
 
 "TASKS"
 
-CAT011 - Filtering (Category and items)
+CAT011 - Filtering (Category, history, and items)
 - By type
 - By priority
-
-CAT007 - Add history logs
-- Read history data
-- Sort history data
-- Display separated by day with info
 
 CAT008 - Make EOD Report Wizard 
 
 CAT010 - Social category
 
 CAT009 - Fitness category
-
-CAT012 - UI Improvements
-- Use icons for categories
-- Use MUI theme for colors
-- Animated carousel (?)
-- Overall better look
 
 CAT013 - Abillity to DL and UL JSON 
 

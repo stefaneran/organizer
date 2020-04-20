@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { GridList, GridListTile ,Paper, Typography } from '@material-ui/core';
 import { getHistory } from '@store/accessors';
+import { formatDataBasic } from '@logic/date.logic';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,7 +31,7 @@ const HistoryView = ({ store }) => {
           <Paper key={log.activityDate} className={classes.log}>
             <Typography variant="subtitle2">{log.title}</Typography>
             <Typography variant="subtitle2">{log.description}</Typography>
-            <Typography variant="subtitle2">{log.activityDate}</Typography>
+            <Typography variant="subtitle2">{formatDataBasic(log.activityDate)}</Typography>
           </Paper>
         ))}
       </div>

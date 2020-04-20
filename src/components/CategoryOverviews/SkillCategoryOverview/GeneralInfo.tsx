@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import { getWeekHourGoalProgress } from '@logic/date.logic';
+import { getWeekHourGoalProgress, formatDataBasic } from '@logic/date.logic';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -39,7 +39,7 @@ const GeneralInfo = ({ skill, rank }) => {
         </Grid>
         <Grid item className={'gridRow'}>
           <Typography variant="h6" className={classes.topActivity}>
-            Last Activity: {lastActivity || "Error: No Activity"}
+            Last Activity: {formatDataBasic(lastActivity) || "Error: No Activity"}
           </Typography>
         </Grid>
       </Grid>

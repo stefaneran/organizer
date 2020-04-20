@@ -1,6 +1,7 @@
 import {
   startOfWeek,
-  endOfWeek
+  endOfWeek,
+  format
 } from 'date-fns';
 
 export const getWeekHourGoalProgress = (category) => {
@@ -9,8 +10,6 @@ export const getWeekHourGoalProgress = (category) => {
   const end = endOfWeek(Date.now());
   category.history.forEach(log => {
     const { activityDate, unit } = log;
-    console.log('Start: ', start);
-    console.log('End: ', end);
     if(activityDate >= start && activityDate <= end) {
       progress += unit;
     }
@@ -18,7 +17,5 @@ export const getWeekHourGoalProgress = (category) => {
   return progress;
 }
 
-export const formatDataBasic = (timestamp) => {
-
-  // Return Monday 14th April
-}
+export const formatDataBasic = (timestamp) => 
+  format(new Date(timestamp), 'EEEE - Lo MMMM');
