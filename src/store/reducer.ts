@@ -21,6 +21,9 @@ const slice = createSlice({
     loadDataDone: (state, { payload }) => {
       state.profiles = payload.data;
     },
+    loadBackupData: (state, { payload }) => {
+      state.profiles[state.currentProfile].categories = payload.categories;
+    },
     addCategoryDone: (state, { payload }) => {
       const { categoryObject } = payload;
       if(!categoryObject) {
@@ -129,6 +132,7 @@ const slice = createSlice({
 export const { 
   saveDataDone,
   loadDataDone,
+  loadBackupData,
   addCategoryDone,
   deleteCategoryDone,
   updateSkillHoursDone,

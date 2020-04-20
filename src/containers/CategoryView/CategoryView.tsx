@@ -84,7 +84,7 @@ const CategoryView = ({ store }) => {
       <Grid className={classes.innerContainer} container direction="column">
         <Route exact path={`/main/`}>
           <Grid item xs={1} className={'gridRow'}>
-            <CategoryListToolbar toolBarHandlers={toolBarHandlers} />
+            <CategoryListToolbar store={store} toolBarHandlers={toolBarHandlers} />
           </Grid>
           <Grid item xs={11} className={'gridRow'}>
             <CategoryList
