@@ -2,7 +2,7 @@ import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
 import { CategoryType } from '@interfaces/categories';
-import createSkillWizard, { ICreateSkillForm } from '@data/wizards/createSkill';
+import createSkillWizard, { ICreateSkillForm } from '@data/wizards/createSkillData';
 import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
 import getIndexByDirection from '@utils/getIndexByDirection';
 

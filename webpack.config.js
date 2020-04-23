@@ -15,6 +15,7 @@ module.exports = {
 
   resolve: {
     alias: {
+      "@static": path.resolve(__dirname, './static'),
       "@containers": path.resolve(__dirname, './src/containers'),
       "@components": path.resolve(__dirname, './src/components'),
       "@data": path.resolve(__dirname, './src/data'),
@@ -30,7 +31,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'build.js',
-    publicPath: './'
+    publicPath: '/'
   },
 
   module: {
@@ -48,6 +49,17 @@ module.exports = {
           { loader: 'sass-loader' }
         ],
       },
+      {
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[hash]-[name].[ext]',
+            },
+          },
+        ],
+      }
     ]
   },
 

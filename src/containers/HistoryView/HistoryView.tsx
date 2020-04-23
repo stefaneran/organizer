@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { GridList, GridListTile ,Paper, Typography } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
+import SkillIcon from '@static/skill.svg';
 import { getHistory } from '@store/accessors';
 import { formatDataBasic } from '@logic/date.logic';
 
@@ -16,6 +17,14 @@ const useStyles = makeStyles(theme => ({
   log: {
     padding: '0.5em',
     marginBottom: '0.5em'
+  },
+  icon: {
+    position: 'relative',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    height: '2em', 
+    width: '2em',
+    marginRight: '1em'
   }
 })); 
 
@@ -29,9 +38,16 @@ const HistoryView = ({ store }) => {
       <div className={classes.list}>
         {history && history.map(log => (
           <Paper key={log.activityDate} className={classes.log}>
-            <Typography variant="subtitle2">{log.title}</Typography>
-            <Typography variant="subtitle2">{log.description}</Typography>
-            <Typography variant="subtitle2">{formatDataBasic(log.activityDate)}</Typography>
+            <Grid container>
+              <Grid item>
+                <img src={SkillIcon} className={classes.icon} />
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle2">{log.title}</Typography>
+                <Typography variant="subtitle2">{log.description}</Typography>
+                <Typography variant="subtitle2">{formatDataBasic(log.activityDate)}</Typography>
+              </Grid>
+            </Grid>
           </Paper>
         ))}
       </div>

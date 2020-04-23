@@ -31,7 +31,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
       store.loadBackupData({ categories });
       store.saveData();
     };
-    reader.readAsText(event.target.files[0]);
+    reader.readAsText(event.target.files[0]); 
   }
 
   return (

@@ -3,8 +3,8 @@ import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
 import { getDefaultFormData, getSimpleFormData } from '@utils/formDataUtils';
 import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
-import createSkillBook from '@data/inputDialogs/createSkillBook';
-import createSkillCourse from '@data/inputDialogs/createSkillCourse';
+import createSkillBook from '@data/inputDialogs/createSkillBookData';
+import createSkillCourse from '@data/inputDialogs/createSkillCourseData';
 
 const { useState } = React;
 

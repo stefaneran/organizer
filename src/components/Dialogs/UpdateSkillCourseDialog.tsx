@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import updateSkillCourse from '@data/inputDialogs/updateSkillCourse';
+import updateSkillCourse from '@data/inputDialogs/updateSkillCourseData';
 import { getDefaultFormData } from '@utils/formDataUtils';
 import SliderInput from '@components/FormCreator/SliderInput';
 

@@ -3,6 +3,7 @@
 		"jsx": "react",
 		"baseUrl": "./",
 		"paths": {
+			"@static/*": ["static/*"],
 			"@containers/*": ["src/containers/*"],
 			"@components/*": ["src/components/*"],
 			"@data/*": ["src/data/*"],

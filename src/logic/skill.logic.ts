@@ -4,7 +4,7 @@ import { XP_RANKS } from './skill.constants';
 
 // To get a Select input compatible rank options array
 export const getRankOptions = () => 
-  XP_RANKS.map(rank => ({ label: rank.title, value: rank.rank }));
+  XP_RANKS.map(rank => ({ label: rank.label, value: rank.rank }));
 
 export const getRankInfoByRankNum = (rankNum) => {
   const [rankInfo] = XP_RANKS.filter(rank => (rank.rank === rankNum));
@@ -14,9 +14,8 @@ export const getRankByXP = (currentXP) => {
   const [xpRank] = XP_RANKS.filter(rank => (rank.min <= currentXP && rank.max >= currentXP));
   return xpRank;
 }
-export const getNextRank = (rank) => {
-  return XP_RANKS[rank.rank];
-}
+export const getNextRank = (rank) => 
+  XP_RANKS[rank.rank];
 
 
 // Calculate hours spent reading a book by pages

@@ -10,8 +10,6 @@ MVP:
 - Display all weekly hour goal bars in footer (OPTIONAL)
 
 IMP - Easy:
-- Add "data" at the end of data files to avoid confusion
-- Add hours to skill rank labels (Wizard)
 - Add icons (choose dialogs, thumbnail, etc)
 - Conditional Skill Thumb Title render - Based on title length render different to fit better
 - Add ticks to Slider + dynamic label below
