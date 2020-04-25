@@ -11,15 +11,14 @@ MVP:
 
 IMP - Easy:
 - Add icons (choose dialogs, thumbnail, etc)
-- Conditional Skill Thumb Title render - Based on title length render different to fit better
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
-- When adding category/item - Make check if title exists 
-- Breadcrumbs as AppBar component
+- When adding category/item - Make check if title exists
 
 IMP - Not so Easy
 - Add "Add Category" Thumb for low thumb amounts
-- Caluclate Skill/Item activity status on Load
+- Conditional Skill Thumb Title render - Based on title length render different to fit better
+- Calculate Skill/Item activity status on Load
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
 - Disable Next/Finish in wizard in required inputs no filled
 - History General/Current tabs 

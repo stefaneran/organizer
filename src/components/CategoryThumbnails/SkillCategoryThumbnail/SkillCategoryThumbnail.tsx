@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
   container: {
     height: '100%',
     padding: '0.5em',
-    textDecoration: 'none !important'
+    textDecoration: 'none !important',
+    cursor: 'pointer'
   },
   innerContainer: {
     height: '100%'

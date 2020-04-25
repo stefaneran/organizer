@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import SkillIcon from '@static/skill.svg';
+import CategoryIcon from '@components/CategoryIcon';
 import { getHistory } from '@store/accessors';
 import { formatDataBasic } from '@logic/date.logic';
 
@@ -39,10 +39,10 @@ const HistoryView = ({ store }) => {
         {history && history.map(log => (
           <Paper key={log.activityDate} className={classes.log}>
             <Grid container>
-              <Grid item>
-                <img src={SkillIcon} className={classes.icon} />
+              <Grid item xs={2}>
+                <CategoryIcon categoryType={log.categoryType} className={classes.icon} />
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Typography variant="subtitle2">{log.title}</Typography>
                 <Typography variant="subtitle2">{log.description}</Typography>
                 <Typography variant="subtitle2">{formatDataBasic(log.activityDate)}</Typography>

@@ -1,12 +1,29 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Button } from '@material-ui/core';
+import { Paper, Grid, Divider, Tooltip, Button, IconButton } from '@material-ui/core';
+import CategoryIcon from '@components/CategoryIcon';
+import { 
+  Add as AddIcon,
+  Save as SaveIcon,
+  Publish as PublishIcon
+} from '@material-ui/icons';
 import downloadJSON from '@utils/downloadJSON';
+import { CategoryType } from '@interfaces/categories';
 
 const { useRef } = React;
 
 const useStyles = makeStyles(theme => ({
-  container: {}
+  container: {},
+  buttonContainer: {
+    padding: '0.3em'
+  },
+  button: {
+    padding: '0.2em'
+  },
+  buttonIcon: {
+    width: '1.5em',
+    height: '1.5em'
+  }
 }));
 
 interface IToolBarProps {
@@ -37,26 +54,57 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
   return (
     <Paper className={classes.container}>
       <Grid container>
-        <Grid item>
-          Filters: 
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Filter By Skill">
+            <IconButton className={classes.button}>
+              <CategoryIcon categoryType={CategoryType.Skill} className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
-        <Grid item>
-          <Button disabled variant="outlined" color="primary">Skill</Button> 
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Filter By Social">
+            <IconButton className={classes.button}>
+              <CategoryIcon categoryType={CategoryType.Social} className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
-        <Grid item>
-          <Button disabled variant="outlined" color="primary">Fitness</Button> 
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Filter By Fitness">
+            <IconButton className={classes.button}>
+              <CategoryIcon categoryType={CategoryType.Fitness} className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
-        <Grid item>
-          <Button disabled variant="outlined" color="primary">Social</Button> 
+
+        <Divider orientation="vertical" flexItem />
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Add New Category">
+            <IconButton className={classes.button} onClick={toolBarHandlers.onOpenChooseCategory}>
+              <AddIcon className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
-        <Grid item>
-          Actions: 
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Download Backup">
+            <IconButton className={classes.button}>
+              <SaveIcon onClick={downloadJSON(store)} className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
-        <Grid item>
-          <Button variant="outlined" color="primary" onClick={toolBarHandlers.onOpenChooseCategory}>Add New</Button>
-          <Button variant="outlined" color="primary" onClick={downloadJSON(store)}>DL Backup</Button>
-          <Button variant="outlined" color="primary" onClick={upload}>UL Backup</Button>
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Upload Backup">
+            <IconButton className={classes.button}>
+              <PublishIcon onClick={upload} className={classes.buttonIcon} />
+            </IconButton>
+          </Tooltip>
         </Grid>
+
       </Grid>
       <a id="downloadData" style={{ display: 'none' }} />
       <input ref={inputRef} onChange={onUpload} type="file" id="uploadData" style={{ display: 'none' }} />
