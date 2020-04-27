@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import CategoryIcon from '@components/CategoryIcon';
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     height: '93%',
-    overflowY: 'scroll'
+    overflowY: 'auto'
   },
   log: {
     padding: '0.5em',
@@ -33,7 +34,7 @@ const HistoryView = ({ store }) => {
   const history = getHistory(store, 25);
 
   return (
-    <Paper className={classes.container}>
+    <Paper className={clsx(classes.container, "theme-level-1")}>
       <Typography variant="subtitle1">History Log</Typography>
       <div className={classes.list}>
         {history && history.map(log => (

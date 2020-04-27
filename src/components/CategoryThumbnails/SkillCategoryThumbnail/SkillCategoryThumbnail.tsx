@@ -49,7 +49,7 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const rank = getRankByXP(totalXP);
 
   return (
-    <Paper className={classes.container}>
+    <Paper className={clsx(classes.container, 'theme-level-3')}>
       <Grid container direction="column" spacing={1} className={classes.innerContainer}>
 
         <Grid item container direction="column" xs spacing={1}>

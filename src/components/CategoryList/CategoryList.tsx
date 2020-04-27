@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 import { mapTypeToComponent } from '@components/CategoryThumbnails';
@@ -28,11 +29,11 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
   const classes = useStyles();
 
   return (
-    <Paper className={classes.container}>
+    <Paper className={clsx(classes.container, 'theme-level-2')}>
       <Grid 
         data-selector="category-list" 
         className={classes.innerContainer} 
-        container spacing={2} justify="space-between"
+        container spacing={2}
       >
         {categories.length ? 
           categories.map((category, index) => (

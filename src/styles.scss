@@ -9,10 +9,6 @@ html, body, #app, #main {
   width: 100%;
 }
 
-body {
-  background-color: black;
-}
-
 a {
   text-decoration: none !important;
 }
@@ -24,4 +20,22 @@ a {
 .fullWidth {
   width: 100%;
   max-width: none;
+}
+
+// Theme trials
+
+body {
+  background-color: #fff;
+}
+
+.theme-level-1 {
+  background: #00909e !important;
+}
+
+.theme-level-2 {
+  // background: #90303d !important;
+}
+
+.theme-level-3 {
+  background: #00909e !important;
 }

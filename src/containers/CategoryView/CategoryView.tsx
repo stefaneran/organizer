@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryListToolbar } from '@components/CategoryListToolbar';
@@ -77,7 +78,7 @@ const CategoryView = ({ store }) => {
   }
 
   return (
-    <Paper className={classes.container}>
+    <Paper className={clsx(classes.container, "theme-level-1")}>
       <Grid className={classes.innerContainer} container direction="column">
         {currentCategory.categoryData ? (
           <>

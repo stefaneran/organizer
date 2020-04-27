@@ -18,4 +18,4 @@ export const getWeekHourGoalProgress = (category) => {
 }
 
 export const formatDataBasic = (timestamp) => 
-  format(new Date(timestamp), 'EEEE - Lo MMMM');
+  format(new Date(timestamp), 'EEEE - do MMMM');
