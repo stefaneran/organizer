@@ -80,8 +80,7 @@ const ItemList = ({ items = [], archive = [], openDialog }) => {
       </AppBar>
       <Grid className={classes.innerContainer} container direction="column">
         <Grid className={'gridRow'} item xs={1}>
-          <Typography variant="subtitle1">Filters</Typography>
-          <Button variant="outlined" onClick={openDialog({ type: 'chooseItemType' })}>Add Item</Button>
+          <Button variant="outlined" onClick={openDialog({ type: 'chooseItemType' })}>Add New Item</Button>
         </Grid>
         {currentTab === 0 ? (
           <Grid className={'gridRow'} item xs={9}>
