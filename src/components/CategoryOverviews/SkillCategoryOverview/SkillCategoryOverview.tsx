@@ -23,12 +23,8 @@ import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
 const { useState } = React;
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    height: '100%'
-  },
   innerContainer: {
     height: '100%',
-    padding: '1em',
     maxWidth: 'none'
   },
   properties: {
@@ -127,46 +123,45 @@ const SkillCategoryOverview = ({ store, skill }) => {
   }
 
   return (
-    <Paper className={classes.container}>
-      <Grid className={classes.innerContainer} container item spacing={2} xs={11}>
-        <Grid container item xs={8} spacing={2}>
-          <Grid container item xs={3} spacing={2} direction="column">
-            
-            <Grid className={'gridRow'} item xs={10}>
-              <ProgressBars />
-            </Grid>
-
-            <Grid className={'gridRow'} item xs={2}>
-              <Paper style={{ height: '100%', padding: '0.5em' }}>
-                <Typography variant="subtitle1">Next level: {nextRank.title}</Typography>
-              </Paper>
-            </Grid>
-
+    <Grid className={classes.innerContainer} container item spacing={2} xs={11}>
+      <Grid container item xs={8} spacing={2}>
+        <Grid container item xs={3} spacing={2} direction="column">
+          
+          <Grid className={'gridRow'} item xs={10}>
+            <ProgressBars />
           </Grid>
-          <Grid xs={9} container item spacing={2} direction="column">
 
-            <Grid className={clsx(classes.properties, 'gridRow')} xs={5} container item direction="column">
-              <GeneralInfo skill={skill} rank={rank} />
-            </Grid>
-            
-            <Grid className={'gridRow'} xs={5} container item direction="column">
-              <TopActivity />
-            </Grid>
-
-            <Grid className={'gridRow'} xs={2} container item>
-              <Actions openDialog={openDialog} onDelete={handleDeleteSkill} />
-            </Grid>
-
+          <Grid className={'gridRow'} item xs={2}>
+            <Paper style={{ height: '100%', padding: '0.5em' }}>
+              <Typography variant="subtitle1">Next level: {nextRank.title}</Typography>
+            </Paper>
           </Grid>
+
         </Grid>
-        <Grid item xs={4}>
-          <ItemList 
-            items={skill.items} 
-            archive={skill.archive} 
-            openDialog={openDialog}
-          />
+        <Grid xs={9} container item spacing={2} direction="column">
+
+          <Grid className={clsx(classes.properties, 'gridRow')} xs={5} container item direction="column">
+            <GeneralInfo skill={skill} rank={rank} />
+          </Grid>
+          
+          <Grid className={'gridRow'} xs={5} container item direction="column">
+            <TopActivity />
+          </Grid>
+
+          <Grid className={'gridRow'} xs={2} container item>
+            <Actions openDialog={openDialog} onDelete={handleDeleteSkill} />
+          </Grid>
+
         </Grid>
       </Grid>
+      <Grid item xs={4}>
+        <ItemList 
+          items={skill.items} 
+          archive={skill.archive} 
+          openDialog={openDialog}
+        />
+      </Grid>
+    
 
       {/* Dialogs only below this line */}
 
@@ -183,8 +178,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
       {currentCourse && (
         <UpdateSkillCourseDialog isOpen={Boolean(currentCourse)} course={currentCourse} onClose={handleCloseCourseDialog} />
       )}
-      
-    </Paper>
+    </Grid>
   )
 }
 

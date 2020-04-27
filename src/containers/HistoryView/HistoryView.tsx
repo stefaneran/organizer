@@ -11,9 +11,14 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     padding: '1em'
   },
+  historyHeader: {
+    padding: '0.5em',
+    marginBottom: '1em'
+  },
   list: {
     height: '93%',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    paddingRight: '1em'
   },
   log: {
     padding: '0.5em',
@@ -34,8 +39,10 @@ const HistoryView = ({ store }) => {
   const history = getHistory(store, 25);
 
   return (
-    <Paper className={clsx(classes.container, "theme-level-1")}>
-      <Typography variant="subtitle1">History Log</Typography>
+    <div className={clsx(classes.container, "theme-level-1")}>
+      <Paper className={classes.historyHeader}>
+        <Typography variant="subtitle1">History Log</Typography>
+      </Paper>
       <div className={classes.list}>
         {history && history.map(log => (
           <Paper key={log.activityDate} className={classes.log}>
@@ -52,7 +59,7 @@ const HistoryView = ({ store }) => {
           </Paper>
         ))}
       </div>
-    </Paper>
+    </div>
   );
 }
 

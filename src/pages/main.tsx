@@ -6,8 +6,7 @@ import { HistoryView } from '@containers/HistoryView';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
-    height: '100%',
-    padding: '0.5em'
+    height: '100%'
   },
   categoriesContainer: {
     height: '100%'
@@ -18,7 +17,7 @@ const MainPage = ({ store }) => {
   const classes = useStyles();
   return (
     <div id="main" className={classes.mainContainer}>
-      <Grid id="content" className={classes.categoriesContainer} container spacing={1}>
+      <Grid id="content" className={classes.categoriesContainer} container>
         <Grid item xs={9} style={{ height: '100%' }}>
           <CategoryView store={store} />
         </Grid>

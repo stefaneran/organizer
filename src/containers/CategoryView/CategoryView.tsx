@@ -78,14 +78,16 @@ const CategoryView = ({ store }) => {
   }
 
   return (
-    <Paper className={clsx(classes.container, "theme-level-1")}>
+    <div className={clsx(classes.container, "theme-level-1")}>
       <Grid className={classes.innerContainer} container direction="column">
         {currentCategory.categoryData ? (
           <>
             <Grid item xs={1} className={'gridRow'}>
-              <Button onClick={() => setCurrentCategory({ categoryType: null, categoryData: null })}>
-                Back
-              </Button>
+              <Paper style={{ padding: '0.5em' }}>
+                <Button variant="outlined" color="primary" onClick={() => setCurrentCategory({ categoryType: null, categoryData: null })}>
+                  Back
+                </Button>
+              </Paper>
             </Grid>
             <Grid item xs={11} className={'gridRow'}>
               {/* Will return a category overview screen */}
@@ -121,7 +123,7 @@ const CategoryView = ({ store }) => {
           categoryType={currentCategoryType} 
         />
       )}
-    </Paper>
+    </div>
   );
 }
 
