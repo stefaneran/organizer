@@ -50,8 +50,12 @@ const CategoryView = ({ store }) => {
   const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = useState(false);
   const [currentCategoryType, setCurrentCategoryType] = useState(null);
 
-  const handleThumbClick = (categoryType, categoryData) => () => {
-    setCurrentCategory({ categoryType, categoryData });
+  const handleThumbClick = (categoryType?, categoryData?) => () => {
+    if(categoryType) {
+      setCurrentCategory({ categoryType, categoryData });
+    } else {
+      handleOpenChooseCategory();
+    }
   }
 
   const handleOpenChooseCategory = () => {
