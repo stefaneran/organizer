@@ -3,11 +3,19 @@
 Tasks (MVP):
 -----
 
-MVP:
-- Option to make "mini-skill" (Choose hours to mastery to be 1000 instead) - "Refreshner"
-- Basic UI
-  - Oveflow hidden on thumb items
-- Display all weekly hour goal bars in footer (OPTIONAL)
+Next Version:
+- (Minor) Change name of downlaoded file (prefix with "backup")
+- (Minor) Auto-Downlaod after a day
+- (Minor) Edit week goal 
+- Add progress bars (in overview and thumbnail)
+- Better Skill Thumbnails
+- Add note editting in overview (switch with "Top Activity")
+- Better item list look
+- Better overview actions look (icons)
+- Basic archive display
+- Add versioning
+Bonus:
+- Display all weekly hour goal bars in footer
 
 IMP - Easy:
 - Add icons (choose dialogs, thumbnail, etc)
@@ -16,7 +24,6 @@ IMP - Easy:
 - When adding category/item - Make check if title exists
 
 IMP - Not so Easy
-- Add "Add Category" Thumb for low thumb amounts
 - Conditional Skill Thumb Title render - Based on title length render different to fit better
 - Calculate Skill/Item activity status on Load
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
