@@ -1,7 +1,7 @@
 import { 
   saveDataDone, loadDataDone, 
   addCategoryDone, deleteCategoryDone, 
-  updateSkillHoursDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
+  updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
 } from './reducer';
 import { 
   getCategoryByTitle, getCategoryIndexByTitle, 
@@ -68,6 +68,15 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
     totalXP, 
     log 
   }));
+}
+
+export const updateSkillNotes = ({ title, newNotes }) => async(dispatch, getState) => {
+  const { currentProfile, profiles } = getState();
+  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
+  dispatch(updateSkillNotesDone({
+    categoryIndex,
+    newNotes
+  }))
 }
 
 export const addSkillItem = ({ title, itemType, formData }) => async (dispatch, getState) => {

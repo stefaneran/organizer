@@ -5,7 +5,7 @@ import { Paper, Grid, Typography } from '@material-ui/core';
 // Overview components
 import ProgressBars from './ProgressBars';
 import GeneralInfo from './GeneralInfo';
-import TopActivity from './TopActivity';
+import Notes from './Notes';
 import Actions from './Actions';
 import ItemList from './ItemList';
 // Dialogs
@@ -123,9 +123,9 @@ const SkillCategoryOverview = ({ store, skill }) => {
   }
 
   return (
-    <Grid className={classes.innerContainer} container item spacing={2} xs={11}>
-      <Grid container item xs={8} spacing={2}>
-        <Grid container item xs={3} spacing={2} direction="column">
+    <Grid className={classes.innerContainer} container item spacing={1} xs={11}>
+      <Grid container item xs={8} spacing={1}>
+        <Grid container item xs={3} spacing={1} direction="column">
           
           <Grid className={'gridRow'} item xs={10}>
             <ProgressBars />
@@ -138,14 +138,14 @@ const SkillCategoryOverview = ({ store, skill }) => {
           </Grid>
 
         </Grid>
-        <Grid xs={9} container item spacing={2} direction="column">
+        <Grid xs={9} container item spacing={1} direction="column">
 
-          <Grid className={clsx(classes.properties, 'gridRow')} xs={5} container item direction="column">
+          <Grid className={clsx(classes.properties, 'gridRow')} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
             <GeneralInfo skill={skill} rank={rank} />
           </Grid>
           
-          <Grid className={'gridRow'} xs={5} container item direction="column">
-            <TopActivity />
+          <Grid className={'gridRow'} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
+            <Notes store={store} title={skill.title} notes={skill.notes} />
           </Grid>
 
           <Grid className={'gridRow'} xs={2} container item>

@@ -6,6 +6,7 @@ export interface ISkillCategory extends ICategory {
   totalHours: number;
   totalXP: number;
   weekHourGoal: number;
+  notes: string;
 }
 
 export enum SkillItemType {

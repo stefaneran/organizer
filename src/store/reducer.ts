@@ -42,6 +42,10 @@ const slice = createSlice({
       state.profiles[state.currentProfile].categories[categoryIndex].totalXP = totalXP;
       state.profiles[state.currentProfile].categories[categoryIndex].history.push(log);
     },
+    updateSkillNotesDone: (state, { payload }) => {
+      const { categoryIndex, newNotes } = payload;
+      state.profiles[state.currentProfile].categories[categoryIndex].notes = newNotes
+    },
     addSkillItemDone: (state, { payload }) => {
       const { categoryIndex, skillItemObject } = payload;
       if(!skillItemObject) {
@@ -136,6 +140,7 @@ export const {
   addCategoryDone,
   deleteCategoryDone,
   updateSkillHoursDone,
+  updateSkillNotesDone,
   addSkillItemDone,
   updateSkillBookDone,
   updateSkillCourseDone

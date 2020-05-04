@@ -9,7 +9,7 @@ Next Version:
 - (Minor) Edit week goal 
 - Add progress bars (in overview and thumbnail)
 - Better Skill Thumbnails
-- Add note editting in overview (switch with "Top Activity")
+X Add note editting in overview
 - Better item list look
 - Better overview actions look (icons)
 - Basic archive display
@@ -30,6 +30,7 @@ IMP - Not so Easy
 - Disable Next/Finish in wizard in required inputs no filled
 - History General/Current tabs 
 - Auto download backup if havent backed up in a day
+- Note taking - Fix bug and make it work better
 - (Safety) On load scan categories/items for missing properties and give defaults and Save
 - ....check TODO
 

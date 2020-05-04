@@ -7,6 +7,7 @@ import {
   addCategory, 
   deleteCategory, 
   updateSkillHours,
+  updateSkillNotes,
   addSkillItem,
   updateSkillBook,
   updateSkillCourse
@@ -25,6 +26,7 @@ const categoryThunks = {
 
 const skillThunks = {
   updateSkillHours,
+  updateSkillNotes,
   addSkillItem,
   updateSkillBook,
   updateSkillCourse
