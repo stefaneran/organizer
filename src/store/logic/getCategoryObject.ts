@@ -23,7 +23,8 @@ const getSkillProperties = (formData) => {
     // Will get a negative number if lowest level
     totalHours: totalHours < 0 ? 0 : totalHours,
     totalXP: totalXP < 0 ? 0 : totalXP,
-    weekHourGoal: formData.weekHourGoal
+    weekHourGoal: formData.weekHourGoal,
+    notes: ''
   }
 }
 
