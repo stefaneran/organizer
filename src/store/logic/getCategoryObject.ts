@@ -36,8 +36,8 @@ export default (categoryType, formData) => {
     description,
     categoryType,
     priority,
-    activity: ActivityType.Active,
-    lastActivity: Date.now(),
+    activity: ActivityType.Unstarted,
+    lastActivity: null,
     history: [],
     ...categoryProperties
   };

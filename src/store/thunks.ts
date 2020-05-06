@@ -24,7 +24,6 @@ export const saveData = () => async (dispatch, getState) => {
 
 export const loadData = () => async dispatch => {
   const data = loadFromLocalStorage();
-  console.log('DEV Load data start')
   if(data) {
     dispatch(loadDataDone({ data }))
   }

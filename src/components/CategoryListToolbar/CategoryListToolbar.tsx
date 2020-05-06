@@ -100,16 +100,16 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Download Backup">
-            <IconButton className={classes.button}>
-              <SaveIcon onClick={downloadJSON(store)} className={classes.buttonIcon} />
+            <IconButton className={classes.button} onClick={downloadJSON(store)}>
+              <SaveIcon className={classes.buttonIcon} />
             </IconButton>
           </Tooltip>
         </Grid>
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Upload Backup">
-            <IconButton className={classes.button}>
-              <PublishIcon onClick={upload} className={classes.buttonIcon} />
+            <IconButton className={classes.button} onClick={upload}>
+              <PublishIcon className={classes.buttonIcon} />
             </IconButton>
           </Tooltip>
         </Grid>

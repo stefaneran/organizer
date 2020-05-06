@@ -11,6 +11,7 @@ const { useState, useEffect } = React;
 const App = (props) => {
 
   const [isDataValidated, setValidated] = useState(false);
+  const [isActivityUpdated, setActivityUpdated] = useState(false);
 
   log('=== INFO: Store in App ===\n', props);
 
@@ -22,7 +23,7 @@ const App = (props) => {
 
   // Validate for any missing properties due to changes
   useEffect(() => {
-    const { validateData, saveData, profiles, currentProfile } = props;
+    const { validateData, updateActivity, saveData, profiles, currentProfile } = props;
     const { categories } = profiles[currentProfile];
     // Only run after loadData is done
     if(!isDataValidated && categories.length) {
@@ -30,7 +31,12 @@ const App = (props) => {
       setValidated(true);
       saveData();
     }
-  }, [props]);
+    // Run after data is loaded and validated
+    if(!isActivityUpdated && isDataValidated) {
+      updateActivity();
+      setActivityUpdated(true);
+    }
+  }, [props, isDataValidated]);
 
   const { error } = props;
 

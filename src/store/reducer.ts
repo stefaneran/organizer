@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { differenceInDays } from 'date-fns';
 import { skillModel } from '@interfaces/categories/skill/Skill.interface';
+import { ActivityType } from '@interfaces/categories';
+
 
 export const initialState = {
   loading: false,
@@ -10,7 +13,7 @@ export const initialState = {
       categories: []
     }
   },
-  version: '1.0.1'
+  version: '1.0.2'
 }
 
 const slice = createSlice({
@@ -26,7 +29,7 @@ const slice = createSlice({
     validateData: (state) => {
       const { categories } = state.profiles[state.currentProfile];
       // Iterate through categories
-      categories.forEach((category, index) => {
+      categories.forEach(category => {
         // Iterate through model
         Object.keys(skillModel).forEach(property => {
           if(!category[property]) {
@@ -34,6 +37,24 @@ const slice = createSlice({
           }
         });
       })
+    },
+    updateActivity: (state) => {
+      const { categories } = state.profiles[state.currentProfile];
+      categories.forEach(category => {
+        if(!category.lastActivity) {
+          category.activity = ActivityType.Unstarted;
+          return;
+        }
+        // Number of days since last activity
+        const days = Math.abs(differenceInDays(new Date(category.lastActivity), new Date()));
+        if(days <= 3) {
+          category.activity = ActivityType.Active;
+        } else if(days > 3 && days <=7) {
+          category.activity = ActivityType.Paused;
+        } else {
+          category.activity = ActivityType.Neglected;
+        }
+      });
     },
     loadBackupData: (state, { payload }) => {
       state.profiles[state.currentProfile].categories = payload.categories;
@@ -153,6 +174,7 @@ export const {
   loadDataDone,
   loadBackupData,
   validateData,
+  updateActivity,
   addCategoryDone,
   deleteCategoryDone,
   updateSkillHoursDone,

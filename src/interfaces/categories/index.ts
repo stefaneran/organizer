@@ -13,10 +13,10 @@ export enum PriorityType {
 }
 
 export enum ActivityType {
-  Unstarted = "Unstarted",
-  Paused = "Paused",
-  Neglected = "Neglected",
-  Active = "Active"
+  Unstarted = "Unstarted", // If lastActivity is null (Freshly created skill)
+  Neglected = "Neglected", // If no activity in more than 7 days
+  Paused = "Paused", // If activity in last 3-7 days
+  Active = "Active" // If activity in last 3 days
 }
 
 export interface ICategory {
