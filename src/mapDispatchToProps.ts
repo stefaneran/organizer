@@ -1,5 +1,6 @@
 import {
-  loadBackupData
+  loadBackupData,
+  validateData
 } from '@store/reducer';
 import { 
   saveData, 
@@ -16,7 +17,8 @@ import {
 const localStorageThunks = {
   saveData,
   loadData,
-  loadBackupData
+  loadBackupData,
+  validateData
 }
 
 const categoryThunks = {

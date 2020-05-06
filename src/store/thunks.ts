@@ -7,7 +7,7 @@ import {
   getCategoryByTitle, getCategoryIndexByTitle, 
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
-import { loadFromLocalStorage, saveToLocalStorage } from '@logic/localstorage.logic';
+import { loadFromLocalStorage, saveToLocalStorage } from '@store/logic/localstorage';
 import { XP_PER_HOUR } from '@logic/skill.constants';
 import { getHoursFromPages } from '@logic/skill.logic';
 import getCategoryObject from './logic/getCategoryObject';
@@ -24,6 +24,7 @@ export const saveData = () => async (dispatch, getState) => {
 
 export const loadData = () => async dispatch => {
   const data = loadFromLocalStorage();
+  console.log('DEV Load data start')
   if(data) {
     dispatch(loadDataDone({ data }))
   }

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { skillModel } from '@interfaces/categories/skill/Skill.interface';
 
 export const initialState = {
   loading: false,
@@ -8,7 +9,8 @@ export const initialState = {
     "default": {
       categories: []
     }
-  }
+  },
+  version: '1.0.1'
 }
 
 const slice = createSlice({
@@ -20,6 +22,18 @@ const slice = createSlice({
     },
     loadDataDone: (state, { payload }) => {
       state.profiles = payload.data;
+    },
+    validateData: (state) => {
+      const { categories } = state.profiles[state.currentProfile];
+      // Iterate through categories
+      categories.forEach((category, index) => {
+        // Iterate through model
+        Object.keys(skillModel).forEach(property => {
+          if(!category[property]) {
+            category[property] = skillModel[property];
+          }
+        });
+      })
     },
     loadBackupData: (state, { payload }) => {
       state.profiles[state.currentProfile].categories = payload.categories;
@@ -38,9 +52,10 @@ const slice = createSlice({
     },
     updateSkillHoursDone: (state, { payload }) => {
       const { categoryIndex, totalHours, totalXP, log } = payload;
-      state.profiles[state.currentProfile].categories[categoryIndex].totalHours = totalHours;
-      state.profiles[state.currentProfile].categories[categoryIndex].totalXP = totalXP;
-      state.profiles[state.currentProfile].categories[categoryIndex].history.push(log);
+      const { categories } = state.profiles[state.currentProfile];
+      categories[categoryIndex].totalHours = totalHours;
+      categories[categoryIndex].totalXP = totalXP;
+      categories[categoryIndex].history.push(log);
     },
     updateSkillNotesDone: (state, { payload }) => {
       const { categoryIndex, newNotes } = payload;
@@ -137,6 +152,7 @@ export const {
   saveDataDone,
   loadDataDone,
   loadBackupData,
+  validateData,
   addCategoryDone,
   deleteCategoryDone,
   updateSkillHoursDone,

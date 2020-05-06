@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import { getWeekHourGoalProgress, formatDataBasic } from '@logic/date.logic';
+import { getWeekHourGoalProgress, formatDataBasic } from '@utils/dateUtils';
 
 const useStyles = makeStyles(theme => ({
   container: {

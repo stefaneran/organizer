@@ -6,15 +6,31 @@ import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
 
 const { log } = console;
-const { useEffect } = React;
+const { useState, useEffect } = React;
 
 const App = (props) => {
 
-  log('INFO: Store in App: ', props);
+  const [isDataValidated, setValidated] = useState(false);
 
+  log('=== INFO: Store in App ===\n', props);
+
+  // load data from local storage
   useEffect(() => {
-    props.loadData()
+    const { loadData } = props;
+    loadData();
   }, []);
+
+  // Validate for any missing properties due to changes
+  useEffect(() => {
+    const { validateData, saveData, profiles, currentProfile } = props;
+    const { categories } = profiles[currentProfile];
+    // Only run after loadData is done
+    if(!isDataValidated && categories.length) {
+      validateData();
+      setValidated(true);
+      saveData();
+    }
+  }, [props]);
 
   const { error } = props;
 

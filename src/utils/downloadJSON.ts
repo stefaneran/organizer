@@ -1,4 +1,4 @@
-import { formatDataBasic } from '@logic/date.logic';
+import { formatDataBasic } from '@utils/dateUtils';
 
 export default (store) => () => {
   const { profiles, currentProfile } = store;

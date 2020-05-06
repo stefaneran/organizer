@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import CategoryIcon from '@components/CategoryIcon';
 import { getHistory } from '@store/accessors';
-import { formatDataBasic } from '@logic/date.logic';
+import { formatDataBasic } from '@utils/dateUtils';
 
 const useStyles = makeStyles(theme => ({
   container: {

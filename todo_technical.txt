@@ -4,12 +4,13 @@ Tasks (MVP):
 -----
 
 Next Version:
+X Add note editting in overview
+- On Load validation
 - (Minor) Change name of downlaoded file (prefix with "backup")
 - (Minor) Auto-Downlaod after a day
 - (Minor) Edit week goal 
 - Add progress bars (in overview and thumbnail)
 - Better Skill Thumbnails
-X Add note editting in overview
 - Better item list look
 - Better overview actions look (icons)
 - Basic archive display

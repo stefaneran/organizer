@@ -14,7 +14,9 @@ import { CategoryType } from '@interfaces/categories';
 const { useRef } = React;
 
 const useStyles = makeStyles(theme => ({
-  container: {},
+  container: {
+    position: 'relative'
+  },
   buttonContainer: {
     padding: '0.3em'
   },
@@ -24,6 +26,12 @@ const useStyles = makeStyles(theme => ({
   buttonIcon: {
     width: '1.5em',
     height: '1.5em'
+  },
+  version: {
+    position: 'absolute',
+    right: '0.5em',
+    top: '50%',
+    transform: 'translateY(-50%)'
   }
 }));
 
@@ -105,6 +113,8 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
             </IconButton>
           </Tooltip>
         </Grid>
+
+        <span className={classes.version}>V{store.version}</span>
 
       </Grid>
       <a id="downloadData" style={{ display: 'none' }} />

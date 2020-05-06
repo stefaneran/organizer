@@ -1,4 +1,4 @@
-import { ICategory, PriorityType, ActivityType } from '@interfaces/categories';
+import { ICategory, PriorityType, ActivityType, CategoryType } from '@interfaces/categories';
 
 export interface ISkillCategory extends ICategory {
   items: any[]; 
@@ -7,6 +7,23 @@ export interface ISkillCategory extends ICategory {
   totalXP: number;
   weekHourGoal: number;
   notes: string;
+}
+
+// Used in validation
+export const skillModel: ISkillCategory = {
+  title: '',
+  description: '',
+  lastActivity: Date.now(),
+  categoryType: CategoryType.Skill,
+  priority: PriorityType.Low,
+  activity: ActivityType.Active,
+  history: [],
+  items: [],
+  archive: [],
+  totalHours: 0,
+  totalXP: 0,
+  weekHourGoal: 0,
+  notes: ''
 }
 
 export enum SkillItemType {
