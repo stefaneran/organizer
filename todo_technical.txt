@@ -5,54 +5,46 @@ Tasks (MVP):
 
 Next Version:
 X Add note editting in overview
-- On Load validation
+X On Load validation
 - (Minor) Change name of downlaoded file (prefix with "backup")
 - (Minor) Auto-Downlaod after a day
-- (Minor) Edit week goal 
+X (Minor) Edit week goal 
 - Add progress bars (in overview and thumbnail)
-- Better Skill Thumbnails
+X Better Skill Thumbnails
+- Skill Thumb - Practice Button work
 - Better item list look
 - Better overview actions look (icons)
 - Basic archive display
-- Add versioning
-Bonus:
+X Add versioning
 - Display all weekly hour goal bars in footer
 
-IMP - Easy:
-- Add icons (choose dialogs, thumbnail, etc)
+============================================================
+======= Minor Features / Bugs / Improvements / TODOs =======
+============================================================
+
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
 - When adding category/item - Make check if title exists
-
-IMP - Not so Easy
-- Conditional Skill Thumb Title render - Based on title length render different to fit better
-- Calculate Skill/Item activity status on Load
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
-- Disable Next/Finish in wizard in required inputs no filled
+- Disable Next/Finish in wizard if required inputs not filled
 - History General/Current tabs 
 - Auto download backup if havent backed up in a day
 - Note taking - Fix bug and make it work better
 - (Safety) On load scan categories/items for missing properties and give defaults and Save
-- ....check TODO
-
-IMP - Big 
 - Add unit tests
 - Add linting and fix lints
 - Use MUI theme and make themes
 - Wizard step progression
+- ....check TODO
 
-"TASKS"
+==============================
+======= Major Features =======
+==============================
 
-CAT011 - Filtering (Category, history, and items)
-- By type
-- By priority
-
-CAT008 - Make EOD Report Wizard 
-
-CAT010 - Social category
-
-CAT009 - Fitness category
-
-CAT013 - Abillity to DL and UL JSON 
-
-CAT014 - Automated alerts
+- Filtering (Category, history, and items)
+  - By type
+  - By priority
+  - By name (auto)
+- Make EOD Report Wizard 
+- Social category
+- Automated alerts

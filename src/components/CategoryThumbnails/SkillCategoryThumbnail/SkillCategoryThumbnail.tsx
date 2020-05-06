@@ -1,101 +1,85 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
+import UpdateIcon from '@material-ui/icons/Update';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 import { getRankByXP } from '@logic/skill.logic';
-import { TOTAL_HOURS_TO_MASTERY } from '@logic/skill.constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    height: '100%',
     padding: '0.5em',
     cursor: 'pointer'
   },
-  innerContainer: {
-    height: '100%'
-  },
-  section: {
+  paper: {
     width: '100%',
     padding: '0.5em'
   },
-  hourBar: {
-    padding: '0.2em',
-    border: '1px solid black'
+  button: {
+    width: '100%'
   },
-  xpBar: {
-    padding: '0.2em',
-    border: '1px solid black'
+  title: {
+    marginBottom: '0.5em'
   },
-  itemList: {
+  activity: {
+    display: 'flex',
     width: '100%',
+    overflow: 'hidden'
+  },
+  activityText: {
+    padding: '0.5em 0',
+    paddingRight: '0.5em',
+    paddingLeft: '0.5em'
+  },
+  progress: {
     height: '100%',
-    padding: '1em',
-    border: '1px solid black',
-    borderRadius: '3px',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    listStyle: 'none',
-    '& li': {
-      marginBottom: '1em'
-    }
+    width: '100%'
   }
 }));
 
 const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const classes = useStyles();
-  const { title, items, totalHours, totalXP } = skill;
+  const { title, totalXP } = skill;
   const rank = getRankByXP(totalXP);
 
   return (
     <Paper className={clsx(classes.container, 'theme-level-3')}>
-      <Grid container direction="column" spacing={1} className={classes.innerContainer}>
 
-        <Grid item container direction="column" xs spacing={1}>
-          <Grid className={"gridRow"} item xs={3}>
-            <Paper className={classes.section}>
-              <Grid container justify="space-between">
-                <Grid item>
-                  <Typography>{title}</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>-</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>{rank.title}</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>-</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>{skill.activity}</Typography>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid className={'gridRow'} item container xs>
-            <Paper className={classes.section}>
-              <ul className={classes.itemList}>
-                {items && items.map(item => (
-                  <li key={item.title}>
-                    <Typography variant="subtitle2">{item.title}</Typography>
-                  </li>
-                ))}
-              </ul>
-            </Paper>
-          </Grid>
+      <Paper className={clsx(classes.paper, classes.title)}>
+        <Typography variant="subtitle1">{title}</Typography>
+      </Paper>
+
+      <Grid container spacing={1} style={{ marginBottom: '0.2em' }}> 
+        <Grid item xs={2}>
+          <Paper className={classes.progress}>
+
+          </Paper>
         </Grid>
-
-        <Grid item container direction="column" xs={3} className={'gridRow'}>
-          <Grid item className={clsx(classes.hourBar, 'gridRow')} xs={6}>
-            <Typography variant="subtitle2">{`${totalHours}/${TOTAL_HOURS_TO_MASTERY}`}</Typography>
-          </Grid>
-          <Grid item className={clsx(classes.xpBar, 'gridRow')} xs={6}>
-          <Typography variant="subtitle2">{`${totalXP}/${rank.max}`}</Typography>
-          </Grid>
+        <Grid item xs>
+          <Paper className={classes.paper} style={{ marginBottom: '0.5em' }}>
+            <Typography variant="subtitle2">Level: {rank.title}</Typography>
+          </Paper>
+          <Paper className={classes.activity} style={{ display: 'flex', marginBottom: '0.5em' }}>
+            <Typography className={classes.activityText} variant="subtitle2">
+              {skill.activity}
+            </Typography>
+            <Divider orientation="vertical" flexItem />
+            <Typography className={classes.activityText} variant="subtitle2">
+              {3} Days ago
+            </Typography>
+          </Paper>
+          <Paper className={classes.paper}> 
+            <Typography variant="subtitle2">Last Action</Typography>
+            <Divider style={{ marginBottom: '0.2em', marginTop: '0.2em' }} />
+            <Typography variant="subtitle2">Coming Soon</Typography>
+          </Paper>
         </Grid>
-
       </Grid>
+      <Paper className={classes.paper}> 
+        <Button className={classes.button} variant="outlined" color="primary" endIcon={<UpdateIcon />} onClick={(e) => {e.stopPropagation()}}>
+          Practice
+        </Button>
+      </Paper>
     </Paper>
   );
 }
