@@ -1,22 +1,27 @@
+============================
+======= Next Version =======
+============================
 
------
-Tasks (MVP):
------
-
-Next Version:
-X Add note editting in overview
-X On Load validation
+- Progress Bars
+- UI:
+  - Category List - Remove 50% height
+  - Skill Item List (Current)
+  - Skill Item List (Archive)
+  - Skill Actions (Icon after text)
+  - Skill general info (Add "Edit" button next to week goal)
+  - Toolbar Actions (Text in button)
+- Sort categories by activity time (Most neglected first)
+- Skill Thumb - Practice Button work
+- Skill Thumb - Last Action (Check history)
+- Skill Item - Delete button
+- Weekly Goals in footer
 - (Minor) Change name of downlaoded file (prefix with "backup")
 - (Minor) Auto-Downlaod after a day
-X (Minor) Edit week goal 
-- Add progress bars (in overview and thumbnail)
 X Better Skill Thumbnails
-- Skill Thumb - Practice Button work
-- Better item list look
-- Better overview actions look (icons)
-- Basic archive display
 X Add versioning
-- Display all weekly hour goal bars in footer
+X (Minor) Edit week goal 
+X Add note editting in overview
+X On Load validation
 
 ============================================================
 ======= Minor Features / Bugs / Improvements / TODOs =======
