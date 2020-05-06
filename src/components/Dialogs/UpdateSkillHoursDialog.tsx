@@ -22,7 +22,7 @@ const UpdateSkillHoursDialog = ({ isOpen, onClose }) => {
   return (
     <GenericDialog
       isOpen={isOpen} 
-      title={"Choose Category"}
+      title={"Hours Practiced"}
       onClose={handleClose}
       actionsType={'simpleForm'}
     >

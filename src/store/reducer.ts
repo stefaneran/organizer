@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { differenceInDays } from 'date-fns';
 import { skillModel } from '@interfaces/categories/skill/Skill.interface';
 import { ActivityType } from '@interfaces/categories';
-
+import { getCategoryIndexByTitle } from './accessors';
 
 export const initialState = {
   loading: false,
@@ -13,7 +13,7 @@ export const initialState = {
       categories: []
     }
   },
-  version: '1.0.2'
+  version: '1.0.3'
 }
 
 const slice = createSlice({
@@ -77,6 +77,13 @@ const slice = createSlice({
       categories[categoryIndex].totalHours = totalHours;
       categories[categoryIndex].totalXP = totalXP;
       categories[categoryIndex].history.push(log);
+    },
+    updateWeeklyGoal: (state, { payload }) => {
+      const { profiles, currentProfile } = state;
+      const { categories } = state.profiles[state.currentProfile];
+      const { title, weeklyGoal } = payload;
+      const categoryIndex = getCategoryIndexByTitle({ profiles, currentProfile }, title);
+      categories[categoryIndex].weekHourGoal = weeklyGoal;
     },
     updateSkillNotesDone: (state, { payload }) => {
       const { categoryIndex, newNotes } = payload;
@@ -175,6 +182,7 @@ export const {
   loadBackupData,
   validateData,
   updateActivity,
+  updateWeeklyGoal,
   addCategoryDone,
   deleteCategoryDone,
   updateSkillHoursDone,

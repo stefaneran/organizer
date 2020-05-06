@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Button }  from '@material-ui/core';
 
@@ -17,13 +16,13 @@ const Actions = ({ openDialog, onDelete }) => {
     <Paper className={classes.container}>
       <Grid container>
         <Grid item>
-          <Button variant="outlined" className={classes.action} onClick={onDelete}>
-            Delete
+          <Button variant="outlined" color="secondary" className={classes.action} onClick={onDelete}>
+            Delete Skill
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" className={classes.action}>
-            Edit Skill
+          <Button variant="outlined" className={classes.action} onClick={openDialog({ type: 'updateGoal' })}>
+            Change Week Goal
           </Button>
         </Grid>
         <Grid item>

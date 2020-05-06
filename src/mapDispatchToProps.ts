@@ -1,7 +1,8 @@
 import {
   loadBackupData,
   validateData,
-  updateActivity
+  updateActivity,
+  updateWeeklyGoal
 } from '@store/reducer';
 import { 
   saveData, 
@@ -30,6 +31,7 @@ const categoryThunks = {
 
 const skillThunks = {
   updateSkillHours,
+  updateWeeklyGoal,
   updateSkillNotes,
   addSkillItem,
   updateSkillBook,

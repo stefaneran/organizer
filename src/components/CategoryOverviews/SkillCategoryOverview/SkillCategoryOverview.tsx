@@ -10,6 +10,7 @@ import Actions from './Actions';
 import ItemList from './ItemList';
 // Dialogs
 import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
+import UpdateSkillWeeklyGoalDialog from '@components/Dialogs/UpdateSkillWeeklyGoalDialog';
 import ChooseSkillItemTypeDialog from '@components/Dialogs/ChooseSkillItemTypeDialog';
 import CreateSkillItemDialog from '@components/Dialogs/CreateSkillItemDialog';
 import UpdateSkillBookDialog from '@components/Dialogs/UpdateSkillBookDialog';
@@ -18,7 +19,6 @@ import UpdateSkillCourseDialog from '@components/Dialogs/UpdateSkillCourseDialog
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 import { CategoryType } from '@interfaces/categories';
 import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
-
 
 const { useState } = React;
 
@@ -43,6 +43,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
   // Dialog open states
   const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
   const [updateHoursDialogOpen, setUpdateHoursDialogOpen] = useState(false);
+  const [updateGoalDialogOpen, setUpdateGoalDialogOpen] = useState(false);
 
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
@@ -50,11 +51,12 @@ const SkillCategoryOverview = ({ store, skill }) => {
   const openDialog = ({ type, data }: { type: SkillItemType; data? }) => () => {
     const map = {
       updateHours: setUpdateHoursDialogOpen,
+      updateGoal: setUpdateGoalDialogOpen,
       chooseItemType: setChooseItemTypeDialogOpen,
       updateBook: setCurrentBook,
       updateCourse: setCurrentCourse
     }
-    map[type](data ? data : true);
+    map[type](data || true);
   }
 
   const handleDeleteSkill = () => {
@@ -74,6 +76,18 @@ const SkillCategoryOverview = ({ store, skill }) => {
       updateSkillHours({ 
         title: skill.title, 
         hoursValue 
+      });
+      saveData();
+    }
+  }
+
+  const handleCloseGoalDialog = ({ isSubmit, weeklyGoal }) => {
+    setUpdateGoalDialogOpen(false);
+    if(isSubmit) {
+      const { updateWeeklyGoal, saveData } = store;
+      updateWeeklyGoal({ 
+        title: skill.title, 
+        weeklyGoal
       });
       saveData();
     }
@@ -109,6 +123,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
     }
     setCurrentBook(null);
   }
+
   const handleCloseCourseDialog = ({ isSubmit, classesValue }) => {
     const { updateSkillCourse, saveData } = store;
     if(isSubmit) {
@@ -165,7 +180,12 @@ const SkillCategoryOverview = ({ store, skill }) => {
 
       {/* Dialogs only below this line */}
 
-      <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={handleCloseHoursDialog} />
+      {updateHoursDialogOpen && (
+        <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={handleCloseHoursDialog} />
+      )}
+      {updateGoalDialogOpen && (
+        <UpdateSkillWeeklyGoalDialog isOpen={updateGoalDialogOpen} onClose={handleCloseGoalDialog} />
+      )}
 
       <ChooseSkillItemTypeDialog isOpen={chooseItemTypeDialogOpen} onClose={handleCloseChooseItemDialog} />
       {currentItemType && (
