@@ -1,15 +1,22 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Paper, Grid, Typography, Divider, Button, Tooltip } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
+import { VerticalProgressBar } from '@components/ProgressBar';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 import { getRankByXP } from '@logic/skill.logic';
+import { getWeekHourGoalProgress, getDaysFromDate } from '@utils/dateUtils';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     padding: '0.5em',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    transition: 'background-color 300ms',
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    }
   },
   paper: {
     width: '100%',
@@ -30,20 +37,20 @@ const useStyles = makeStyles(theme => ({
     padding: '0.5em 0',
     paddingRight: '0.5em',
     paddingLeft: '0.5em'
-  },
-  progress: {
-    height: '100%',
-    width: '100%'
   }
 }));
 
 const SkillCategoryThumbnail = (skill: ISkillCategory) => {
   const classes = useStyles();
-  const { title, totalXP } = skill;
+
+  const { title, totalXP, weekHourGoal, lastActivity } = skill;
+
   const rank = getRankByXP(totalXP);
+  const weekProgress = getWeekHourGoalProgress(skill);
+  const daysSinceLastActivity = getDaysFromDate(lastActivity);
 
   return (
-    <Paper className={clsx(classes.container, 'theme-level-3')}>
+    <Paper className={classes.container}>
 
       <Paper className={clsx(classes.paper, classes.title)}>
         <Typography variant="subtitle1">{title}</Typography>
@@ -51,9 +58,9 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
 
       <Grid container spacing={1} style={{ marginBottom: '0.2em' }}> 
         <Grid item xs={2}>
-          <Paper className={classes.progress}>
-
-          </Paper>
+          <Tooltip title={`${weekProgress} hours out of ${weekHourGoal}`}>
+            <VerticalProgressBar current={weekProgress} max={weekHourGoal} />
+          </Tooltip>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper} style={{ marginBottom: '0.5em' }}>
@@ -65,7 +72,7 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
             </Typography>
             <Divider orientation="vertical" flexItem />
             <Typography className={classes.activityText} variant="subtitle2">
-              {3} Days ago
+              {daysSinceLastActivity > 0 ? `${daysSinceLastActivity} Days ago` : `Today`}
             </Typography>
           </Paper>
           <Paper className={classes.paper}> 

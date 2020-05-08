@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, Tooltip, Button, IconButton } from '@material-ui/core';
+import { Paper, Grid, Divider, Tooltip, IconButton } from '@material-ui/core';
 import CategoryIcon from '@components/CategoryIcon';
 import { 
   Add as AddIcon,
@@ -61,7 +61,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
   }
 
   return (
-    <Paper className={clsx(classes.container, 'theme-level-2')}>
+    <Paper className={classes.container}>
       <Grid container>
 
         <Grid item className={classes.buttonContainer}>

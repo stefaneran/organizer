@@ -1,30 +1,35 @@
 import * as React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Paper, Grid, Typography, Divider } from '@material-ui/core';
 import CategoryIcon from '@components/CategoryIcon';
 import { getHistory } from '@store/accessors';
 import { formatDataBasic } from '@utils/dateUtils';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
-    padding: '1em'
+    padding: '0.5em'
   },
   historyHeader: {
-    padding: '0.5em',
+    padding: '0.84em 1em',
     marginBottom: '1em'
   },
   list: {
     height: '93%',
-    overflowY: 'auto',
-    paddingRight: '1em'
+    overflowY: 'auto'
   },
-  log: {
+  logContainer: {
     padding: '0.5em',
-    marginBottom: '0.5em'
+    marginBottom: '0.5em',
+    backgroundColor: theme.palette.primary.main
   },
-  icon: {
+  logInfo: {
+    padding: '0.2em'
+  },
+  logLine: {
+    padding: '0.1em 0.5em'
+  },
+  logIcon: {
     position: 'relative',
     top: '50%',
     transform: 'translateY(-50%)',
@@ -39,21 +44,31 @@ const HistoryView = ({ store }) => {
   const history = getHistory(store, 25);
 
   return (
-    <div className={clsx(classes.container, "theme-level-1")}>
+    <div className={classes.container}>
       <Paper className={classes.historyHeader}>
         <Typography variant="subtitle1">History Log</Typography>
       </Paper>
       <div className={classes.list}>
         {history && history.map(log => (
-          <Paper key={log.activityDate} className={classes.log}>
+          <Paper key={log.activityDate} className={classes.logContainer}>
             <Grid container>
               <Grid item xs={2}>
-                <CategoryIcon categoryType={log.categoryType} className={classes.icon} />
+                <CategoryIcon categoryType={log.categoryType} className={classes.logIcon} />
               </Grid>
               <Grid item xs>
-                <Typography variant="subtitle2">{log.title}</Typography>
-                <Typography variant="subtitle2">{log.description}</Typography>
-                <Typography variant="subtitle2">{formatDataBasic(log.activityDate)}</Typography>
+                <Paper className={classes.logInfo}>
+                  <Typography variant="subtitle2" className={classes.logLine}>
+                    {log.title}
+                  </Typography>
+                  <Divider />
+                  <Typography variant="subtitle2" className={classes.logLine}>
+                    {log.description}
+                  </Typography>
+                  <Divider />
+                  <Typography variant="subtitle2" className={classes.logLine}>
+                    {formatDataBasic(log.activityDate)}
+                  </Typography>
+                </Paper>
               </Grid>
             </Grid>
           </Paper>

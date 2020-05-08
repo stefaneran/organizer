@@ -74,9 +74,11 @@ const slice = createSlice({
     updateSkillHoursDone: (state, { payload }) => {
       const { categoryIndex, totalHours, totalXP, log } = payload;
       const { categories } = state.profiles[state.currentProfile];
-      categories[categoryIndex].totalHours = totalHours;
-      categories[categoryIndex].totalXP = totalXP;
-      categories[categoryIndex].history.push(log);
+      const category = categories[categoryIndex];
+      category.lastActivity = Date.now();
+      category.totalHours = totalHours;
+      category.totalXP = totalXP;
+      category.history.push(log);
     },
     updateWeeklyGoal: (state, { payload }) => {
       const { profiles, currentProfile } = state;

@@ -82,7 +82,7 @@ const CategoryView = ({ store }) => {
   }
 
   return (
-    <div className={clsx(classes.container, "theme-level-1")}>
+    <div className={classes.container}>
       <Grid className={classes.innerContainer} container direction="column">
         {currentCategory.categoryData ? (
           <>

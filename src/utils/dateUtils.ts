@@ -1,4 +1,5 @@
 import {
+  differenceInDays,
   startOfWeek,
   endOfWeek,
   format
@@ -16,6 +17,8 @@ export const getWeekHourGoalProgress = (category) => {
   });
   return progress;
 }
+
+export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new Date(timestamp));
 
 export const formatDataBasic = (timestamp) => 
   format(new Date(timestamp), 'EEEE - do MMMM');
