@@ -3,20 +3,19 @@
 ============================
 
 X Progress Bars
-- History - Put limit (around 25)
 X Format hour string (1.25 = 1h 15m)
-- UI:
+X UI:
   X Category List - Remove 50% height
-  - Skill Item List (Current)
-  - Skill Item List (Archive)
+  X Skill Item List (Current)
+  X Skill Item List (Archive)
   X Skill Actions (Icon after text)
   X Skill general info (Add "Edit" button next to week goal, title)
-  - Toolbar Actions (Text in button)
-  - Update icons (check self-FB messages)
+  X Toolbar Actions (Text in button)
+  X Update icons (check self-FB messages)
 - Sort categories by activity time (Most neglected first)
-- Skill Thumb - Practice Button work
+X Skill Thumb - Practice Button work
 X Skill Thumb - Last Action days ago
-- Skill Item - Delete button
+X Skill Item - Delete button
 - Add Title validation
 - (Minor) Change name of downlaoded file (prefix with "backup")
 - (Minor) Auto-Downlaod after a day
@@ -31,6 +30,8 @@ X On Load validation
 ============================================================
 
 - Make CategoryView and HistoryView ONE container
+- Use Context for "global" dialog Actions
+- Make compression for local data
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
 - When adding category/item - Make check if title exists

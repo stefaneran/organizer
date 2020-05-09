@@ -7,8 +7,8 @@ import {
 
 export const getWeekHourGoalProgress = (category) => {
   let progress = 0;
-  const start = startOfWeek(Date.now());
-  const end = endOfWeek(Date.now());
+  const start = startOfWeek(Date.now(), { weekStartsOn: 1 });
+  const end = endOfWeek(Date.now(), { weekStartsOn: 1 });
   category.history.forEach(log => {
     const { activityDate, unit } = log;
     if(activityDate >= start && activityDate <= end) {
