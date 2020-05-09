@@ -36,7 +36,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, onDelete }) => {
 
   return (
     <Paper className={classes.container}>
-      <Grid container direction="column" justify="space-between">
+      <Grid container direction="column" justify="space-between" style={{ height: '100%' }}>
 
         <Grid item className={'gridRow'} style={{ marginBottom: '1em' }}>
           <Paper className={classes.innerContainer}>
@@ -92,15 +92,15 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, onDelete }) => {
 
               <Tooltip title={'Will be enabled when I implement a confirmation dialog'}>
                 <Grid item>
-                    <Button 
-                      variant="outlined" 
-                      color="secondary" 
-                      endIcon={<DeleteIcon />} 
-                      onClick={onDelete} 
-                      disabled
-                    >
-                      Delete
-                    </Button>
+                  <Button 
+                    variant="outlined" 
+                    color="secondary" 
+                    endIcon={<DeleteIcon />} 
+                    onClick={onDelete} 
+                    disabled
+                  >
+                    Delete
+                  </Button>
                 </Grid>
               </Tooltip>
               

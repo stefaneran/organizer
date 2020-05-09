@@ -1,8 +1,7 @@
 import * as React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, Tooltip, IconButton } from '@material-ui/core';
-import CategoryIcon from '@components/CategoryIcon';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Paper, Grid, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
+import Icon from '@components/Icon';
 import { 
   Add as AddIcon,
   Save as SaveIcon,
@@ -13,15 +12,20 @@ import { CategoryType } from '@interfaces/categories';
 
 const { useRef } = React;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    position: 'relative'
+    position: 'relative',
+    backgroundColor: theme.palette.primary.main
   },
   buttonContainer: {
     padding: '0.3em'
   },
   button: {
-    padding: '0.2em'
+    padding: '0.2em',
+    '&:hover': {
+      background: 'rgba(255,255,255,0.2)'
+    }
+    
   },
   buttonIcon: {
     width: '1.5em',
@@ -67,7 +71,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Filter By Skill">
             <IconButton className={classes.button}>
-              <CategoryIcon categoryType={CategoryType.Skill} className={classes.buttonIcon} />
+              <Icon type={'Category'} subType={CategoryType.Skill} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -75,25 +79,17 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Filter By Social">
             <IconButton className={classes.button}>
-              <CategoryIcon categoryType={CategoryType.Social} className={classes.buttonIcon} />
+              <Icon type={'Category'} subType={CategoryType.Social} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
         </Grid>
 
-        <Grid item className={classes.buttonContainer}>
-          <Tooltip title="Filter By Fitness">
-            <IconButton className={classes.button}>
-              <CategoryIcon categoryType={CategoryType.Fitness} className={classes.buttonIcon} />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-
-        <Divider orientation="vertical" flexItem />
+        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Add New Category">
             <IconButton className={classes.button} onClick={toolBarHandlers.onOpenChooseCategory}>
-              <AddIcon className={classes.buttonIcon} />
+              <AddIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -101,7 +97,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Download Backup">
             <IconButton className={classes.button} onClick={downloadJSON(store)}>
-              <SaveIcon className={classes.buttonIcon} />
+              <SaveIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -109,12 +105,14 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Upload Backup">
             <IconButton className={classes.button} onClick={upload}>
-              <PublishIcon className={classes.buttonIcon} />
+              <PublishIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
         </Grid>
 
-        <span className={classes.version}>V{store.version}</span>
+        <span className={classes.version}>
+          <Typography variant="subtitle1" style={{ color: '#fff' }}>V{store.version}</Typography>
+        </span>
 
       </Grid>
       <a id="downloadData" style={{ display: 'none' }} />

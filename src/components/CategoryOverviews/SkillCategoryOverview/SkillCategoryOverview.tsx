@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
 // Overview components
 import SkillProgressBars from './SkillProgressBars';
@@ -18,17 +18,21 @@ import UpdateSkillCourseDialog from '@components/Dialogs/UpdateSkillCourseDialog
 // Other 
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 import { CategoryType } from '@interfaces/categories';
-import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
 
 const { useState } = React;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   innerContainer: {
     height: '100%',
     maxWidth: 'none'
   },
   properties: {
     width: '100%'
+  },
+  progressInfo: {
+    backgroundColor: theme.palette.primary.main,
+    padding: '0.3em',
+    height: '100%'
   }
 }));
 
@@ -151,8 +155,10 @@ const SkillCategoryOverview = ({ store, skill }) => {
           </Grid>
 
           <Grid className={'gridRow'} item xs={2}>
-            <Paper style={{ height: '100%', padding: '0.5em' }}>
-              <Typography variant="subtitle1">Next level: {nextRank.title}</Typography>
+            <Paper className={classes.progressInfo}>
+              <Paper style={{ height: '100%', padding: '0.3em' }}>
+                <Typography variant="subtitle1">Next level: {nextRank.title}</Typography>
+              </Paper>
             </Paper>
           </Grid>
 

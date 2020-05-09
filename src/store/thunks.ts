@@ -13,6 +13,7 @@ import { getHoursFromPages } from '@logic/skill.logic';
 import getCategoryObject from './logic/getCategoryObject';
 import getSkillItemObject from './logic/getSkillItemObject';
 import { CategoryType } from '@interfaces/categories';
+import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
 import formatHourValue from '@utils/formatHourValue';
 
 //// ----- Local Storage Thunks -----
@@ -106,6 +107,7 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   const log = {
     categoryType: CategoryType.Skill,
     categoryIdentifier: skillTitle,
+    subType: SkillItemType.Book,
     unit: hoursRead,
     activityDate: Date.now(),
     title: `${skillTitle} Book: ${itemTitle}`,
@@ -144,6 +146,7 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
   const log = {
     categoryType: CategoryType.Skill,
     categoryIdentifier: skillTitle,
+    subType: SkillItemType.Course,
     unit: hoursPracticed,
     activityDate: Date.now(),
     title: `${skillTitle} Course: ${itemTitle}`,
