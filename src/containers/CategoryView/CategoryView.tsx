@@ -1,10 +1,10 @@
 import * as React from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { CategoryListToolbar } from '@components/CategoryListToolbar';
 import { CategoryList } from '@components/CategoryList';
 import ChooseCategoryTypeDialog from '@components/Dialogs/ChooseCategoryTypeDialog';
+import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
 import { CreateCategoryWizard } from '@components/Wizards/CreateCategoryWizard';
 import { getCategories, getCategoryByTitle } from '@store/accessors';
 import { mapTypeToComponent as mapTypeToCategoryComponent } from '@components/CategoryOverviews';
@@ -49,6 +49,32 @@ const CategoryView = ({ store }) => {
   // Dialog data
   const [isChooseCategoryDialogOpen, setChooseCategoryDialogOpen] = useState(false);
   const [currentCategoryType, setCurrentCategoryType] = useState(null);
+  const [updateHoursDialog, setUpdateHoursDialog] = useState({
+    isOpen: false,
+    title: null
+  });
+
+  const globalDialogActions = {
+    open: ({ type, data }: { type: string; data? }) => () => {
+      const map = {
+        updateHours: () => setUpdateHoursDialog({ isOpen: true, title: data })
+      }
+      map[type](data || true);
+    },
+    close: {
+      hours: ({ isSubmit, hoursValue }) => {
+        setUpdateHoursDialog({ isOpen: false, title: null });
+        if(isSubmit) {
+          const { updateSkillHours, saveData } = store;
+          updateSkillHours({ 
+            title: updateHoursDialog.title, 
+            hoursValue 
+          });
+          saveData();
+        }
+      }
+    }
+  }
 
   const handleThumbClick = (categoryType?, categoryData?) => () => {
     if(categoryType) {
@@ -98,7 +124,8 @@ const CategoryView = ({ store }) => {
               {mapTypeToCategoryComponent({
                 store, 
                 categoryType: currentCategory.categoryType, 
-                categoryData: currentCategory.categoryData
+                categoryData: currentCategory.categoryData,
+                globalDialogActions
               })}
             </Grid>
           </>
@@ -111,6 +138,7 @@ const CategoryView = ({ store }) => {
               <CategoryList
                 categories={categories} 
                 onThumbClick={handleThumbClick}
+                globalDialogActions={globalDialogActions}
               />
             </Grid>
           </>
@@ -127,6 +155,11 @@ const CategoryView = ({ store }) => {
           categoryType={currentCategoryType} 
         />
       )}
+
+      {updateHoursDialog.isOpen && (
+        <UpdateSkillHoursDialog isOpen={updateHoursDialog.isOpen} onClose={globalDialogActions.close.hours} />
+      )}
+
     </div>
   );
 }

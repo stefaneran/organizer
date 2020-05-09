@@ -43,8 +43,6 @@ const SkillItem = ({ item, type, openDialog }) => {
 
   const { itemType, lastActivity } = item;
 
-  console.log(item);
-
   const map = {
     [SkillItemType.Book]: {
       clickHandler: 'updateBook',

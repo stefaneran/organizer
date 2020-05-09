@@ -9,7 +9,6 @@ import SkillNotes from './SkillNotes';
 import SkillStats from './SkillStats';
 import SkillItemList from './SkillItemList';
 // Dialogs
-import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
 import UpdateSkillWeeklyGoalDialog from '@components/Dialogs/UpdateSkillWeeklyGoalDialog';
 import ChooseSkillItemTypeDialog from '@components/Dialogs/ChooseSkillItemTypeDialog';
 import CreateSkillItemDialog from '@components/Dialogs/CreateSkillItemDialog';
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillCategoryOverview = ({ store, skill }) => {
+const SkillCategoryOverview = ({ store, skill, globalDialogActions }) => {
   const classes = useStyles();
 
   // Selected data states
@@ -46,7 +45,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
 
   // Dialog open states
   const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
-  const [updateHoursDialogOpen, setUpdateHoursDialogOpen] = useState(false);
+  
   const [updateGoalDialogOpen, setUpdateGoalDialogOpen] = useState(false);
 
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
@@ -55,7 +54,6 @@ const SkillCategoryOverview = ({ store, skill }) => {
   const dialogActions = {
     open: ({ type, data }: { type: string; data? }) => () => {
       const map = {
-        updateHours: setUpdateHoursDialogOpen,
         updateGoal: setUpdateGoalDialogOpen,
         chooseItemType: setChooseItemTypeDialogOpen,
         updateBook: setCurrentBook,
@@ -64,18 +62,6 @@ const SkillCategoryOverview = ({ store, skill }) => {
       map[type](data || true);
     },
     close: {
-      // Hours practiced dialog
-      hours: ({ isSubmit, hoursValue }) => {
-        setUpdateHoursDialogOpen(false);
-        if(isSubmit) {
-          const { updateSkillHours, saveData } = store;
-          updateSkillHours({ 
-            title: skill.title, 
-            hoursValue 
-          });
-          saveData();
-        }
-      },
       // Change week goal dialog
       goal: ({ isSubmit, weeklyGoal }) => {
         setUpdateGoalDialogOpen(false);
@@ -166,7 +152,13 @@ const SkillCategoryOverview = ({ store, skill }) => {
         <Grid xs={9} container item spacing={1} direction="column">
 
           <Grid className={clsx(classes.properties, 'gridRow')} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
-            <SkillGeneralInfo skill={skill} rank={rank} dialogActions={dialogActions} onDelete={handleDeleteSkill} />
+            <SkillGeneralInfo 
+              skill={skill} 
+              rank={rank} 
+              dialogActions={dialogActions} 
+              globalDialogActions={globalDialogActions} 
+              onDelete={handleDeleteSkill}
+            />
           </Grid>
           
           <Grid className={'gridRow'} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
@@ -189,9 +181,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
     
       {/* Dialogs only below this line */}
 
-      {updateHoursDialogOpen && (
-        <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={dialogActions.close.hours} />
-      )}
+      
       {updateGoalDialogOpen && (
         <UpdateSkillWeeklyGoalDialog isOpen={updateGoalDialogOpen} onClose={dialogActions.close.goal} />
       )}

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillGeneralInfo = ({ skill, rank, dialogActions, onDelete }) => {
+const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onDelete }) => {
   const classes = useStyles();
 
   const { title, weekHourGoal, lastActivity } = skill;
@@ -84,7 +84,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, onDelete }) => {
                   variant="outlined" 
                   color="primary" 
                   endIcon={<UpdateIcon />} 
-                  onClick={dialogActions.open({ type: 'updateHours' })}
+                  onClick={globalDialogActions.open({ type: 'updateHours', data: title })}
                 >
                   Practice
                 </Button>

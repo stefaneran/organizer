@@ -4,7 +4,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { VerticalProgressBar } from '@components/ProgressBar';
-import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 import { getRankByXP } from '@logic/skill.logic';
 import { getWeekHourGoalProgress, getDaysFromDate } from '@utils/dateUtils';
 import formatHourValue from '@utils/formatHourValue';
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillCategoryThumbnail = (skill: ISkillCategory) => {
+const SkillCategoryThumbnail = ({ skill, globalDialogActions }) => {
   const classes = useStyles();
 
   const { title, totalXP, weekHourGoal, lastActivity } = skill;
@@ -86,7 +85,16 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
         </Grid>
       </Grid>
       <Paper className={classes.paper}> 
-        <Button className={classes.button} variant="outlined" color="primary" endIcon={<UpdateIcon />} onClick={(e) => {e.stopPropagation()}}>
+        <Button 
+          className={classes.button} 
+          variant="outlined" 
+          color="primary" 
+          endIcon={<UpdateIcon />} 
+          onClick={(e) => {
+            e.stopPropagation();
+            globalDialogActions.open({ type: 'updateHours', data: skill.title })();
+          }}
+        >
           Practice
         </Button>
       </Paper>

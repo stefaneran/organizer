@@ -18,9 +18,10 @@ const useStyles = makeStyles(theme => ({
 interface ICategoryListProps {
   categories: ICategory[];
   onThumbClick(type?, data?): () => void;
+  globalDialogActions: any;
 }
 
-const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => {
+const CategoryList = ({ categories = [], onThumbClick, globalDialogActions }: ICategoryListProps) => {
   const classes = useStyles();
 
   return (
@@ -38,7 +39,7 @@ const CategoryList = ({ categories = [], onThumbClick }: ICategoryListProps) => 
               item xs={4} lg={3}
               onClick={onThumbClick(category.categoryType, category)}
             >
-              {mapTypeToComponent(category)}
+              {mapTypeToComponent(category, globalDialogActions)}
             </Grid>
           ))}
           {categories.length < 3 && (

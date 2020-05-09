@@ -13,7 +13,7 @@ export const initialState = {
       categories: []
     }
   },
-  version: '1.0.4'
+  version: '1.1.0'
 }
 
 const slice = createSlice({

@@ -4,7 +4,7 @@ import { SkillCategoryOverview } from './SkillCategoryOverview';
 
 export default (mapData) => {
   const map = {
-    [CategoryType.Skill]: <SkillCategoryOverview store={mapData.store} skill={mapData.categoryData} />
+    [CategoryType.Skill]: <SkillCategoryOverview store={mapData.store} skill={mapData.categoryData} globalDialogActions={mapData.globalDialogActions} />
   }
   return map[mapData.categoryType];
 }
