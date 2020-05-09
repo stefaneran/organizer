@@ -10,7 +10,8 @@ import { formatDateBasic } from '@utils/dateUtils';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     padding: '0.5em 0.5em 0.5em 0',
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    marginBottom: '1em'
   },
   iconContainer: {
     '& > svg': {
