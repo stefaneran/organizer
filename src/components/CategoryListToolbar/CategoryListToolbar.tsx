@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&:hover': {
       background: 'rgba(255,255,255,0.2)'
     }
-    
   },
   buttonIcon: {
     width: '1.5em',
@@ -57,6 +56,7 @@ const CategoryListToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
   const onUpload = (event) => {
     const reader = new FileReader();
     reader.onload = (e) => {
+      // @ts-ignore
       const categories = JSON.parse(e.target.result); // TODO Deal with this typing
       store.loadBackupData({ categories });
       store.saveData();

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import mapTypeToActions from './mapTypeToActions';
 
@@ -13,12 +13,16 @@ interface IDialogProps {
   children: React.ReactNode;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     '& .MuiDialog-paper': {
       minHeight: '30%',
       minWidth: '40%',
     }
+  },
+  header: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff'
   },
   closeIcon: {
     margin: '0.7em',
@@ -33,8 +37,8 @@ const GenericDialog = ({ isOpen, title, children, actionsType, actionsData, onCl
   const classes = useStyles();
   return (
     <Dialog open={isOpen} onClose={onClose()} className={classes.container}>
-      <DialogTitle>
-        <span>{title}</span>
+      <DialogTitle className={classes.header}>
+        <Typography variant="h5">{title}</Typography>
         <IconButton className={classes.closeIcon} onClick={onClose()} color="primary" component="span">
           <CloseIcon />
         </IconButton>

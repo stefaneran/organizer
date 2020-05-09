@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid, Typography, Divider } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import { HistoryLogItem } from '@components/HistoryLogItem';
 import { getHistory } from '@store/accessors';
 
@@ -10,8 +10,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: '0.5em'
   },
   historyHeader: {
-    padding: '0.84em 1em',
-    marginBottom: '1em'
+    padding: '0.7em',
+    marginBottom: '1em',
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff'
   },
   list: {
     height: '93%',
@@ -26,7 +28,7 @@ const HistoryView = ({ store }) => {
   return (
     <div className={classes.container}>
       <Paper className={classes.historyHeader}>
-        <Typography variant="subtitle1">History Log</Typography>
+        <Typography variant="h5">History Log</Typography>
       </Paper>
       <div className={classes.list}>
         {history && history.map(log => (

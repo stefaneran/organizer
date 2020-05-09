@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider } from '@material-ui/core';
 import Icon from '@components/Icon';
-import { formatDataBasic } from '@utils/dateUtils';
+import { formatDateBasic } from '@utils/dateUtils';
 import { IHistoryLog } from '@interfaces/history';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -70,7 +70,7 @@ const HistoryLogItem = ({ log }: { log: IHistoryLog }) => {
             </Typography>
             <Divider />
             <Typography variant="subtitle2" className={classes.logLine}>
-              {formatDataBasic(activityDate)}
+              {formatDateBasic(activityDate)}
             </Typography>
           </Paper>
         </Grid>

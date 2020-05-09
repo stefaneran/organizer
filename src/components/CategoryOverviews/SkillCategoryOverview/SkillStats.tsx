@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography }  from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    padding: '1em',
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff'
   }
 }));
 

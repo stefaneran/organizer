@@ -35,7 +35,7 @@ const SkillProgressBars = ({ skill, rank }) => {
 
   const currentXP = Math.abs(skill.totalXP - rank.min);
   const maxXP = rank.max - rank.min;
-  const xpTooltip = `${currentXP} / ${rank.max} XP`;
+  const xpTooltip = `${currentXP} / ${maxXP} XP`;
 
   return (
     <Paper className={classes.container}>

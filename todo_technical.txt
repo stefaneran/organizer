@@ -30,6 +30,7 @@ X On Load validation
 ======= Minor Features / Bugs / Improvements / TODOs =======
 ============================================================
 
+- Make CategoryView and HistoryView ONE container
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
 - When adding category/item - Make check if title exists

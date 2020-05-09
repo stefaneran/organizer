@@ -7,7 +7,7 @@ import SkillProgressBars from './SkillProgressBars';
 import SkillGeneralInfo from './SkillGeneralInfo';
 import SkillNotes from './SkillNotes';
 import SkillStats from './SkillStats';
-import ItemList from './ItemList';
+import SkillItemList from './SkillItemList';
 // Dialogs
 import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
 import UpdateSkillWeeklyGoalDialog from '@components/Dialogs/UpdateSkillWeeklyGoalDialog';
@@ -180,7 +180,7 @@ const SkillCategoryOverview = ({ store, skill }) => {
         </Grid>
       </Grid>
       <Grid item xs={4}>
-        <ItemList 
+        <SkillItemList 
           items={skill.items} 
           archive={skill.archive} 
           openDialog={dialogActions.open}

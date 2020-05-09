@@ -20,5 +20,5 @@ export const getWeekHourGoalProgress = (category) => {
 
 export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new Date(timestamp));
 
-export const formatDataBasic = (timestamp) => 
+export const formatDateBasic = (timestamp) => 
   format(new Date(timestamp), 'EEEE - do MMMM');

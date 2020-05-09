@@ -4,7 +4,7 @@ import { Paper, Grid, Typography, Divider, Button, IconButton, Tooltip } from '@
 import EditIcon from '@material-ui/icons/Edit';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getWeekHourGoalProgress, formatDataBasic } from '@utils/dateUtils';
+import { getWeekHourGoalProgress, formatDateBasic } from '@utils/dateUtils';
 import formatHourValue from '@utils/formatHourValue';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -69,7 +69,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, onDelete }) => {
 
             <Grid item className={'gridRow'}>
               <Typography variant="subtitle1" className={classes.infoLine}>
-                Last Activity: {formatDataBasic(lastActivity) || "Error: No Activity"}
+                Last Activity: {formatDateBasic(lastActivity) || "Error: No Activity"}
               </Typography>
             </Grid>
           </Paper>
