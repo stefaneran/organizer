@@ -13,6 +13,7 @@ import { getHoursFromPages } from '@logic/skill.logic';
 import getCategoryObject from './logic/getCategoryObject';
 import getSkillItemObject from './logic/getSkillItemObject';
 import { CategoryType } from '@interfaces/categories';
+import formatHourValue from '@utils/formatHourValue';
 
 //// ----- Local Storage Thunks -----
 
@@ -59,7 +60,7 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
     unit: hoursValue,
     activityDate: Date.now(),
     title: `${title}`,
-    description: `Practiced ${hoursValue} hours`
+    description: `Practiced ${formatHourValue(hoursValue)}`
   }
   
   dispatch(updateSkillHoursDone({ 

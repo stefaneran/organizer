@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
 // Overview components
-import ProgressBars from './ProgressBars';
-import GeneralInfo from './GeneralInfo';
-import Notes from './Notes';
-import Actions from './Actions';
+import SkillProgressBars from './SkillProgressBars';
+import SkillGeneralInfo from './SkillGeneralInfo';
+import SkillNotes from './SkillNotes';
+import SkillStats from './SkillStats';
 import ItemList from './ItemList';
 // Dialogs
 import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
@@ -48,15 +48,87 @@ const SkillCategoryOverview = ({ store, skill }) => {
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
 
-  const openDialog = ({ type, data }: { type: SkillItemType; data? }) => () => {
-    const map = {
-      updateHours: setUpdateHoursDialogOpen,
-      updateGoal: setUpdateGoalDialogOpen,
-      chooseItemType: setChooseItemTypeDialogOpen,
-      updateBook: setCurrentBook,
-      updateCourse: setCurrentCourse
+  const dialogActions = {
+    open: ({ type, data }: { type: string; data? }) => () => {
+      const map = {
+        updateHours: setUpdateHoursDialogOpen,
+        updateGoal: setUpdateGoalDialogOpen,
+        chooseItemType: setChooseItemTypeDialogOpen,
+        updateBook: setCurrentBook,
+        updateCourse: setCurrentCourse
+      }
+      map[type](data || true);
+    },
+    close: {
+      // Hours practiced dialog
+      hours: ({ isSubmit, hoursValue }) => {
+        setUpdateHoursDialogOpen(false);
+        if(isSubmit) {
+          const { updateSkillHours, saveData } = store;
+          updateSkillHours({ 
+            title: skill.title, 
+            hoursValue 
+          });
+          saveData();
+        }
+      },
+      // Change week goal dialog
+      goal: ({ isSubmit, weeklyGoal }) => {
+        setUpdateGoalDialogOpen(false);
+        if(isSubmit) {
+          const { updateWeeklyGoal, saveData } = store;
+          updateWeeklyGoal({ 
+            title: skill.title, 
+            weeklyGoal
+          });
+          saveData();
+        }
+      },
+      // Choose item type on creation dialog
+      chooseItemType: ({ itemType }) => {
+        setCurrentItemType(itemType);
+        setChooseItemTypeDialogOpen(false);
+      },
+      // Create item wizard dialog
+      createItem: ({ isSubmit, formData }) => {
+        const { addSkillItem, saveData } = store;
+        if(isSubmit) {
+          addSkillItem({ 
+            title: skill.title, 
+            itemType: currentItemType, 
+            formData 
+          });
+          saveData();
+        }
+        setCurrentItemType(null);
+      },
+      // Update book dialog
+      book: ({ isSubmit, pagesValue }) => {
+        const { updateSkillBook, saveData } = store;
+        if(isSubmit) {
+          updateSkillBook({
+            skillTitle: skill.title,
+            itemTitle: currentBook.title,
+            pagesValue
+          });
+          saveData();
+        }
+        setCurrentBook(null);
+      },
+      // Update course dialog
+      course: ({ isSubmit, classesValue }) => {
+        const { updateSkillCourse, saveData } = store;
+        if(isSubmit) {
+          updateSkillCourse({
+            skillTitle: skill.title,
+            itemTitle: currentCourse.title,
+            classesValue
+          });
+          saveData();
+        }
+        setCurrentCourse(null);
+      }
     }
-    map[type](data || true);
   }
 
   const handleDeleteSkill = () => {
@@ -69,81 +141,13 @@ const SkillCategoryOverview = ({ store, skill }) => {
     saveData();
   }
 
-  const handleCloseHoursDialog = ({ isSubmit, hoursValue }) => {
-    setUpdateHoursDialogOpen(false);
-    if(isSubmit) {
-      const { updateSkillHours, saveData } = store;
-      updateSkillHours({ 
-        title: skill.title, 
-        hoursValue 
-      });
-      saveData();
-    }
-  }
-
-  const handleCloseGoalDialog = ({ isSubmit, weeklyGoal }) => {
-    setUpdateGoalDialogOpen(false);
-    if(isSubmit) {
-      const { updateWeeklyGoal, saveData } = store;
-      updateWeeklyGoal({ 
-        title: skill.title, 
-        weeklyGoal
-      });
-      saveData();
-    }
-  }
-
-  const handleCloseChooseItemDialog = ({ itemType }) => {
-    setCurrentItemType(itemType);
-    setChooseItemTypeDialogOpen(false);
-  }
-
-  const handleCloseCreateItemDialog = ({ isSubmit, formData }) => {
-    const { addSkillItem, saveData } = store;
-    if(isSubmit) {
-      addSkillItem({ 
-        title: skill.title, 
-        itemType: currentItemType, 
-        formData 
-      });
-      saveData();
-    }
-    setCurrentItemType(null);
-  }
-
-  const handleCloseBookDialog = ({ isSubmit, pagesValue }) => {
-    const { updateSkillBook, saveData } = store;
-    if(isSubmit) {
-      updateSkillBook({
-        skillTitle: skill.title,
-        itemTitle: currentBook.title,
-        pagesValue
-      });
-      saveData();
-    }
-    setCurrentBook(null);
-  }
-
-  const handleCloseCourseDialog = ({ isSubmit, classesValue }) => {
-    const { updateSkillCourse, saveData } = store;
-    if(isSubmit) {
-      updateSkillCourse({
-        skillTitle: skill.title,
-        itemTitle: currentCourse.title,
-        classesValue
-      });
-      saveData();
-    }
-    setCurrentCourse(null);
-  }
-
   return (
     <Grid className={classes.innerContainer} container item spacing={1} xs={11}>
       <Grid container item xs={8} spacing={1}>
         <Grid container item xs={3} spacing={1} direction="column">
           
           <Grid className={'gridRow'} item xs={10}>
-            <ProgressBars />
+            <SkillProgressBars skill={skill} rank={rank} />
           </Grid>
 
           <Grid className={'gridRow'} item xs={2}>
@@ -156,15 +160,15 @@ const SkillCategoryOverview = ({ store, skill }) => {
         <Grid xs={9} container item spacing={1} direction="column">
 
           <Grid className={clsx(classes.properties, 'gridRow')} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
-            <GeneralInfo skill={skill} rank={rank} />
+            <SkillGeneralInfo skill={skill} rank={rank} dialogActions={dialogActions} onDelete={handleDeleteSkill} />
           </Grid>
           
           <Grid className={'gridRow'} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
-            <Notes store={store} title={skill.title} notes={skill.notes} />
+            <SkillNotes store={store} title={skill.title} notes={skill.notes} />
           </Grid>
 
           <Grid className={'gridRow'} xs={2} container item>
-            <Actions openDialog={openDialog} onDelete={handleDeleteSkill} />
+            <SkillStats />
           </Grid>
 
         </Grid>
@@ -173,30 +177,29 @@ const SkillCategoryOverview = ({ store, skill }) => {
         <ItemList 
           items={skill.items} 
           archive={skill.archive} 
-          openDialog={openDialog}
+          openDialog={dialogActions.open}
         />
       </Grid>
     
-
       {/* Dialogs only below this line */}
 
       {updateHoursDialogOpen && (
-        <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={handleCloseHoursDialog} />
+        <UpdateSkillHoursDialog isOpen={updateHoursDialogOpen} onClose={dialogActions.close.hours} />
       )}
       {updateGoalDialogOpen && (
-        <UpdateSkillWeeklyGoalDialog isOpen={updateGoalDialogOpen} onClose={handleCloseGoalDialog} />
+        <UpdateSkillWeeklyGoalDialog isOpen={updateGoalDialogOpen} onClose={dialogActions.close.goal} />
       )}
 
-      <ChooseSkillItemTypeDialog isOpen={chooseItemTypeDialogOpen} onClose={handleCloseChooseItemDialog} />
+      <ChooseSkillItemTypeDialog isOpen={chooseItemTypeDialogOpen} onClose={dialogActions.close.chooseItemType} />
       {currentItemType && (
-        <CreateSkillItemDialog isOpen={Boolean(currentItemType)} onClose={handleCloseCreateItemDialog} itemType={currentItemType} />
+        <CreateSkillItemDialog isOpen={Boolean(currentItemType)} onClose={dialogActions.close.createItem} itemType={currentItemType} />
       )}
 
       {currentBook && (
-        <UpdateSkillBookDialog isOpen={Boolean(currentBook)} book={currentBook} onClose={handleCloseBookDialog} />
+        <UpdateSkillBookDialog isOpen={Boolean(currentBook)} book={currentBook} onClose={dialogActions.close.book} />
       )}
       {currentCourse && (
-        <UpdateSkillCourseDialog isOpen={Boolean(currentCourse)} course={currentCourse} onClose={handleCloseCourseDialog} />
+        <UpdateSkillCourseDialog isOpen={Boolean(currentCourse)} course={currentCourse} onClose={dialogActions.close.course} />
       )}
     </Grid>
   )

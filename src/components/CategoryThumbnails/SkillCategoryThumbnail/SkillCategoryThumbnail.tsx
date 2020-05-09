@@ -1,12 +1,13 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid, Typography, Divider, Button, Tooltip } from '@material-ui/core';
+import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { VerticalProgressBar } from '@components/ProgressBar';
 import { ISkillCategory } from '@interfaces/categories/skill/Skill.interface';
 import { getRankByXP } from '@logic/skill.logic';
 import { getWeekHourGoalProgress, getDaysFromDate } from '@utils/dateUtils';
+import formatHourValue from '@utils/formatHourValue';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -58,9 +59,11 @@ const SkillCategoryThumbnail = (skill: ISkillCategory) => {
 
       <Grid container spacing={1} style={{ marginBottom: '0.2em' }}> 
         <Grid item xs={2}>
-          <Tooltip title={`${weekProgress} hours out of ${weekHourGoal}`}>
-            <VerticalProgressBar current={weekProgress} max={weekHourGoal} />
-          </Tooltip>
+          <VerticalProgressBar 
+            current={weekProgress} 
+            max={weekHourGoal} 
+            tooltip={{ text: `${formatHourValue(weekProgress)} hours out of ${formatHourValue(weekHourGoal)}`, placement: 'right'}}
+          />
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper} style={{ marginBottom: '0.5em' }}>

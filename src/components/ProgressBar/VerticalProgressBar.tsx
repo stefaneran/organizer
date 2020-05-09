@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, Tooltip, TooltipProps } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   progressBarContainer: {
@@ -16,14 +16,34 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const VerticalProgressBar = ({ current, max }) => {
+interface ProgressBarProps {
+  current: number;
+  max: number;
+  tooltip?: {
+    text: string;
+    placement: TooltipProps["placement"];
+  };
+}
+
+const VerticalProgressBar = ({ current, max, tooltip }: ProgressBarProps) => {
   const classes = useStyles(undefined);
   const ratio = current / max;
   const progress = ratio >= 1 ? 100 : Math.round(current / max * 100);
+
   return (
-    <Paper className={classes.progressBarContainer}>
-      <Paper className={classes.progressBar} style={{ height: `${progress}%` }} />
-    </Paper>
+    <>
+      {tooltip ? (
+        <Tooltip title={tooltip.text} placement={tooltip.placement}>
+          <Paper className={classes.progressBarContainer}>
+            <Paper className={classes.progressBar} style={{ height: `${progress}%` }} />
+          </Paper>
+        </Tooltip>
+      ) : (
+        <Paper className={classes.progressBarContainer}>
+          <Paper className={classes.progressBar} style={{ height: `${progress}%` }} />
+        </Paper>
+      )}
+    </>
   )
 }
 
