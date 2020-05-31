@@ -46,8 +46,8 @@ export const getAllHistory = (skills) => {
   return history;
 }
 
-export const getHistory = (skills, limit) => {
-  const history = getAllHistory(skills);
+export const getHistory = (store, limit) => {
+  const history = getAllHistory(store.data.skills);
   const shorterHistory = [];
   for(let i = 0; i < limit; i++) {
     const log = history.shift();

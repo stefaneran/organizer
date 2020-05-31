@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
-import { Grid } from '@material-ui/core';
 import ContentView from '@components/ContentView';
 import HistoryView from '@components/HistoryView';
 
@@ -29,6 +29,7 @@ const App = (store) => {
 
   // load data from local storage
   useEffect(() => {
+    log('IF YOU SEE THIS, CELEBRATE!');
     const { loadData } = store;
     loadData();
   }, []);

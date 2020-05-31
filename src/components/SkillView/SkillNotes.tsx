@@ -50,7 +50,6 @@ const SkillNotes = ({ store, title, notes }) => {
 
   const handleNotesInput = (event) => {
     setNotesText(event.target.value);
-    console.log('Char num ', notesText.length)
   }
 
   const handleStartEdit = () => {

@@ -25,7 +25,6 @@ export const saveData = () => async (dispatch, getState) => {
 }
 
 export const loadData = () => async dispatch => {
-  console.log('ARE YOU FUCKING UPDATING ME????');
   const data = loadFromLocalStorage();
   if(data) {
     dispatch(loadDataDone({ data }))

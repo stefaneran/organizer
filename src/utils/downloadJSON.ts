@@ -1,11 +1,10 @@
 import { formatDateBasic } from '@utils/dateUtils';
 
 export default (store) => () => {
-  const { profiles, currentProfile } = store;
-  const { categories } = profiles[currentProfile];
-  const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(categories));
+  const { data } = store;
+  const downloadData = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
   const dlAnchorElem = document.getElementById('downloadData');
-  dlAnchorElem.setAttribute("href", data);
+  dlAnchorElem.setAttribute("href", downloadData);
   dlAnchorElem.setAttribute("download", `${formatDateBasic(Date.now())}.json`);
   dlAnchorElem.click();
 }

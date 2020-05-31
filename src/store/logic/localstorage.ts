@@ -11,14 +11,12 @@ export const saveToLocalStorage = (data) => {
 export const loadFromLocalStorage = () => {
   try {
     let rawData = localStorage.getItem('data');
-    console.log('==== DEV Raw: ', rawData)
     let data;
     if(!rawData) {
       rawData = localStorage.getItem('profiles');
       let tempData = JSON.parse(rawData);
-      console.log('==== DEV: ', tempData)
       data = {
-        skill: tempData.default.categories,
+        skills: tempData.default.categories,
         contacts: []
       }
     } else {

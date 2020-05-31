@@ -55,7 +55,7 @@ const slice = createSlice({
       });
     },
     loadBackupData: (state, { payload }) => {
-      state.data.skills = payload.skills;
+      state.data = payload.data;
     },
     addSkillDone: (state, { payload }) => {
       const { skillObject } = payload;

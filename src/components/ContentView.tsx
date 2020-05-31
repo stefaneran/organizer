@@ -47,7 +47,7 @@ const ContentView = ({ store }) => {
     if(currentSkill) {
       const title = currentSkill.title;
       if(!title) return;
-      const skillData = getSkillByTitle(store, title);
+      const skillData = getSkillByTitle(skills, title);
       setCurrentSkill(skillData);
     }
   }, [store])
@@ -101,7 +101,7 @@ const ContentView = ({ store }) => {
           <>
             <Grid item xs={1} className={'gridRow'}>
               <Paper style={{ padding: '0.5em' }}>
-                <Button variant="outlined" color="primary" onClick={() => setCurrentCategory({ categoryType: null, categoryData: null })}>
+                <Button variant="outlined" color="primary" onClick={() => setCurrentSkill(null)}>
                   Back
                 </Button>
               </Paper>

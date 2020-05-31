@@ -57,8 +57,8 @@ const ContentToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       // @ts-ignore
-      const categories = JSON.parse(e.target.result); // TODO Deal with this typing
-      store.loadBackupData({ categories });
+      const data = JSON.parse(e.target.result); // TODO Deal with this typing
+      store.loadBackupData({ data });
       store.saveData();
     };
     reader.readAsText(event.target.files[0]); 

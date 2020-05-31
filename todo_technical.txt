@@ -1,11 +1,3 @@
-============================
-======= Next Version =======
-============================
-
-- Sort categories by activity time (Most neglected first)
-- Add Title validation
-- (Minor) Change name of downlaoded file (prefix with "backup")
-- (Minor) Auto-Downlaod after a day
 
 ============================================================
 ======= Minor Features / Bugs / Improvements / TODOs =======
@@ -15,14 +7,14 @@
 
 === Morning ===
 
-- Make CategoryView and HistoryView ONE container
+= Title validation on add new skill (Avoid duplicate)
+= Backup - Auto download every 24h
+= Backup - Prefix with "Backup" 
+= Implement compression for localstorage data
 - Use Context for "global" dialog Actions
-- Make compression for local data
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
-- When adding category/item - Make check if title exists
 - History General/Current tabs 
-- Auto download backup if havent backed up in a day
 - (After fixing FormCreator) Disable Next/Finish in wizard if required inputs not filled
 
 === Weekend ===
