@@ -1,30 +1,31 @@
 import { 
   saveDataDone, loadDataDone, 
-  addCategoryDone, deleteCategoryDone, 
+  addSkillDone, deleteSkillDone, 
   updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
 } from './reducer';
 import { 
-  getCategoryByTitle, getCategoryIndexByTitle, 
+  getSkillByTitle, getSkillIndexByTitle, 
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
 import { loadFromLocalStorage, saveToLocalStorage } from '@store/logic/localstorage';
 import { XP_PER_HOUR } from '@logic/skill.constants';
 import { getHoursFromPages } from '@logic/skill.logic';
-import getCategoryObject from './logic/getCategoryObject';
+import getSkillObject from './logic/getSkillObject';
 import getSkillItemObject from './logic/getSkillItemObject';
-import { CategoryType } from '@interfaces/categories';
-import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+import { CategoryType } from '@interfaces/general';
+import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import formatHourValue from '@utils/formatHourValue';
 
 //// ----- Local Storage Thunks -----
 
 export const saveData = () => async (dispatch, getState) => {
-  const { profiles } = getState();
-  const success = saveToLocalStorage(profiles);
+  const { data } = getState();
+  const success = saveToLocalStorage(data);
   dispatch(saveDataDone({ success }));
 }
 
 export const loadData = () => async dispatch => {
+  console.log('ARE YOU FUCKING UPDATING ME????');
   const data = loadFromLocalStorage();
   if(data) {
     dispatch(loadDataDone({ data }))
@@ -34,26 +35,25 @@ export const loadData = () => async dispatch => {
 
 //// ----- Category Thunks -----
 
-export const addCategory = ({ categoryType, formData }) => async dispatch => {
-  const categoryObject = getCategoryObject(categoryType, formData);
-  dispatch(addCategoryDone({ categoryObject }));
+export const addSkill = ({ formData }) => async dispatch => {
+  const skillObject = getSkillObject(formData);
+  dispatch(addSkillDone({ skillObject }));
 }
 
-export const deleteCategory = ({ title }) => async (dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
-  const categories = profiles[currentProfile].categories;
-  const newCategories = categories.filter((category) => category.title !== title);
-  dispatch(deleteCategoryDone({ newCategories }));
+export const deleteSkill = ({ title }) => async (dispatch, getState) => {
+  const { data: { skills } } = getState();
+  const newSkills = skills.filter(skill => skill.title !== title);
+  dispatch(deleteSkillDone({ newSkills }));
 }
 
 //// ----- Skill Thunks -----
 
 export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
-  const category = getCategoryByTitle({ currentProfile, profiles }, title);
-  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
-  const totalHours = category.totalHours + hoursValue;
-  const totalXP = category.totalXP + (hoursValue * XP_PER_HOUR);
+  const { data: { skills } } = getState();
+  const skill = getSkillByTitle(skills, title);
+  const skillIndex = getSkillIndexByTitle(skills, title);
+  const totalHours = skill.totalHours + hoursValue;
+  const totalXP = skill.totalXP + (hoursValue * XP_PER_HOUR);
 
   const log = {
     categoryType: CategoryType.Skill,
@@ -65,7 +65,7 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
   }
   
   dispatch(updateSkillHoursDone({ 
-    categoryIndex, 
+    skillIndex, 
     totalHours, 
     totalXP, 
     log 
@@ -73,26 +73,29 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
 }
 
 export const updateSkillNotes = ({ title, newNotes }) => async(dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
-  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
+  const { data: { skills } } = getState();
+  const skillIndex = getSkillIndexByTitle(skills, title);
   dispatch(updateSkillNotesDone({
-    categoryIndex,
+    skillIndex,
     newNotes
   }))
 }
 
 export const addSkillItem = ({ title, itemType, formData }) => async (dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
+  const { data: { skills } } = getState();
   const skillItemObject = getSkillItemObject(itemType, formData);
-  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, title);
-  dispatch(addSkillItemDone({ categoryIndex, skillItemObject }));
+  const skillIndex = getSkillIndexByTitle(skills, title);
+  dispatch(addSkillItemDone({ 
+    skillIndex, 
+    skillItemObject 
+  }));
 }
 
 export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async (dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
-  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
-  const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const book = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const { data: { skills } } = getState();
+  const skillIndex = getSkillIndexByTitle(skills, skillTitle);
+  const itemIndex = getSkillItemIndexByTitle(skills, skillTitle, itemTitle);
+  const book = getSkillItemByTitle(skills, skillTitle, itemTitle);
 
   const pagesTotal = parseInt(book.pagesTotal, 10);
   const pagesRead = pagesValue -  parseInt(book.pagesRead, 10);
@@ -115,7 +118,7 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   }
 
   dispatch(updateSkillBookDone({ 
-    categoryIndex, 
+    skillIndex, 
     itemIndex, 
     currentPage: pagesValue, 
     hoursRead,
@@ -128,10 +131,10 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
 }
 
 export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => async (dispatch, getState) => {
-  const { currentProfile, profiles } = getState();
-  const categoryIndex = getCategoryIndexByTitle({ currentProfile, profiles }, skillTitle);
-  const itemIndex = getSkillItemIndexByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
-  const course = getSkillItemByTitle({ currentProfile, profiles }, skillTitle, itemTitle);
+  const { data: { skills } } = getState();
+  const skillIndex = getSkillIndexByTitle(skills, skillTitle);
+  const itemIndex = getSkillItemIndexByTitle(skills, skillTitle, itemTitle);
+  const course = getSkillItemByTitle(skills, skillTitle, itemTitle);
 
   const classesTotal = parseInt(course.classesTotal, 10);
   const classesDone = classesValue -  parseInt(course.classesDone, 10);
@@ -154,7 +157,7 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
   }
   
   dispatch(updateSkillCourseDone({ 
-    categoryIndex, 
+    skillIndex, 
     itemIndex, 
     currentClass: classesValue, 
     hoursPracticed,

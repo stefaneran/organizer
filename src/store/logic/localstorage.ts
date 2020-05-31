@@ -1,7 +1,7 @@
 
-export const saveToLocalStorage = (profiles) => {
+export const saveToLocalStorage = (data) => {
   try {
-    localStorage.setItem('profiles', JSON.stringify(profiles));
+    localStorage.setItem('data', JSON.stringify(data));
   } catch(e) {
     return false; // TODO - Return message for notification
   }
@@ -10,7 +10,20 @@ export const saveToLocalStorage = (profiles) => {
 
 export const loadFromLocalStorage = () => {
   try {
-    const data = JSON.parse(localStorage.getItem('profiles'));
+    let rawData = localStorage.getItem('data');
+    console.log('==== DEV Raw: ', rawData)
+    let data;
+    if(!rawData) {
+      rawData = localStorage.getItem('profiles');
+      let tempData = JSON.parse(rawData);
+      console.log('==== DEV: ', tempData)
+      data = {
+        skill: tempData.default.categories,
+        contacts: []
+      }
+    } else {
+      data = JSON.parse(rawData);
+    }
     return data;
   } catch(e) {
     return false; // TODO - Return message for notification

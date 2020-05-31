@@ -3,13 +3,10 @@
 		"jsx": "react",
 		"baseUrl": "./",
 		"paths": {
-			"@static/*": ["static/*"],
-			"@containers/*": ["src/containers/*"],
 			"@components/*": ["src/components/*"],
 			"@data/*": ["src/data/*"],
 			"@interfaces/*": ["src/interfaces/*"],
 			"@logic/*": ["src/logic/*"],
-      "@mocks/*": ["src/mocks/*"],
       "@store/*": ["src/store/*"],
       "@utils/*": ["src/utils/*"]
 		}

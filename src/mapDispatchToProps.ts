@@ -7,8 +7,8 @@ import {
 import { 
   saveData, 
   loadData,
-  addCategory, 
-  deleteCategory, 
+  addSkill, 
+  deleteSkill, 
   updateSkillHours,
   updateSkillNotes,
   addSkillItem,
@@ -23,13 +23,10 @@ const localStorageThunks = {
   validateData
 }
 
-const categoryThunks = {
-  updateActivity,
-  addCategory,
-  deleteCategory
-}
-
 const skillThunks = {
+  updateActivity,
+  addSkill,
+  deleteSkill,
   updateSkillHours,
   updateWeeklyGoal,
   updateSkillNotes,
@@ -40,6 +37,5 @@ const skillThunks = {
 
 export default {
   ...localStorageThunks,
-  ...categoryThunks,
   ...skillThunks
 }

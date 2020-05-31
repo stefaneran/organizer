@@ -2,7 +2,7 @@ import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
 import { getDefaultFormData, getSimpleFormData } from '@utils/formDataUtils';
-import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import createSkillBook from '@data/inputDialogs/createSkillBookData';
 import createSkillCourse from '@data/inputDialogs/createSkillCourseData';
 

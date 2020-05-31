@@ -1,4 +1,4 @@
-import { PriorityType } from "@interfaces/categories";
+import { PriorityType } from "@interfaces/general";
 
 export default {
   data: {

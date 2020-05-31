@@ -12,7 +12,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SliderInput = ({ style, data: { name, handleChange, label, min, max, step } }) => {
+interface SliderProps {
+  data: {
+    name: string; 
+    handleChange; 
+    label: string;
+    min: number;
+    max: number;
+    step: number;
+  };
+  style?;
+}
+
+const SliderInput = ({ style, data: { name, handleChange, label, min, max, step } }: SliderProps) => {
 
   const classes = useStyles();
 

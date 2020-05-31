@@ -1,20 +1,13 @@
 
 //// ----- Category Accessors ----- ////
 
-export const getCategories = ({ profiles, currentProfile }) => 
-  profiles[currentProfile].categories;
+export const getSkillByTitle = (skills, title) => 
+  skills.find(skill => skill.title === title);
 
-
-export const getCategoryByTitle = ({ profiles, currentProfile }, title) => {
-  const categories = getCategories({ profiles, currentProfile });
-  return categories.find(category => category.title === title);
-}
-
-export const getCategoryIndexByTitle = ({ profiles, currentProfile }, title) => {
-  const categories = getCategories({ profiles, currentProfile });
+export const getSkillIndexByTitle = (skills, title) => {
   let index = 0;
-  for(let i = 0; i < categories.length; i += 1) {
-    if(categories[i].title === title) {
+  for(let i = 0; i < skills.length; i += 1) {
+    if(skills[i].title === title) {
       index = i;
       break;
     }
@@ -24,16 +17,16 @@ export const getCategoryIndexByTitle = ({ profiles, currentProfile }, title) => 
 
 //// ----- Skill Accessors ----- ////
 
-export const getSkillItemByTitle = ({currentProfile, profiles}, skillTitle, itemTitle) => {
-  const category = getCategoryByTitle({currentProfile, profiles}, skillTitle);
-  return category.items.find(item => item.title === itemTitle);
+export const getSkillItemByTitle = (skills, skillTitle, itemTitle) => {
+  const skill = getSkillByTitle(skills, skillTitle);
+  return skill.items.find(item => item.title === itemTitle);
 }
 
-export const getSkillItemIndexByTitle = ({currentProfile, profiles}, skillTitle, itemTitle) => {
-  const category = getCategoryByTitle({currentProfile, profiles}, skillTitle);
+export const getSkillItemIndexByTitle = (skills, skillTitle, itemTitle) => {
+  const skill = getSkillByTitle(skills, skillTitle);
   let index = 0;
-  for(let i = 0; i < category.items.length; i += 1) {
-    if(category.items[i].title === itemTitle) {
+  for(let i = 0; i < skill.items.length; i += 1) {
+    if(skill.items[i].title === itemTitle) {
       index = i;
       break;
     }
@@ -43,19 +36,18 @@ export const getSkillItemIndexByTitle = ({currentProfile, profiles}, skillTitle,
 
 //// ----- History Accessors ----- ////
 
-export const getAllHistory = ({ profiles, currentProfile }) => {
+export const getAllHistory = (skills) => {
   const history = [];
-  const categories = getCategories({ profiles, currentProfile });
-  categories.forEach(category => {
-    history.push(...category.history);
+  skills.forEach(skill => {
+    history.push(...skill.history);
   });
   // Todo test
   history.sort((a, b) => b.activityDate - a.activityDate);
   return history;
 }
 
-export const getHistory = ({ profiles, currentProfile }, limit) => {
-  const history = getAllHistory({ profiles, currentProfile });
+export const getHistory = (skills, limit) => {
+  const history = getAllHistory(skills);
   const shorterHistory = [];
   for(let i = 0; i < limit; i++) {
     const log = history.shift();

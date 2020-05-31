@@ -1,11 +1,11 @@
-import { PriorityType } from '@interfaces/categories';
+import { PriorityType } from '@interfaces/general';
 import { getRankOptions } from '@logic/skill.logic';
 
-export interface ICreateSkillForm {
+export interface CreateSkillFormSchema {
   title: string;
   description: string;
-  rank: number;
   priority: PriorityType;
+  rank: number;
 }
 
 export default {

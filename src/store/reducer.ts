@@ -1,19 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { differenceInDays } from 'date-fns';
-import { skillModel } from '@interfaces/categories/skill/Skill.interface';
-import { ActivityType } from '@interfaces/categories';
-import { getCategoryIndexByTitle } from './accessors';
+import { skillModel } from '@interfaces/skill/Skill.interface';
+import { ActivityType } from '@interfaces/general';
+import { getSkillIndexByTitle } from './accessors';
 
 export const initialState = {
   loading: false,
   error: false,
-  currentProfile: 'default',
-  profiles: {
-    "default": {
-      categories: []
-    }
-  },
-  version: '1.1.0'
+  version: '1.1.0',
+  data: {
+    skills: [],
+    social: []
+  }
 }
 
 const slice = createSlice({
@@ -24,84 +22,84 @@ const slice = createSlice({
       state.error = payload.success;
     },
     loadDataDone: (state, { payload }) => {
-      state.profiles = payload.data;
+      state.data = payload.data;
     },
     validateData: (state) => {
-      const { categories } = state.profiles[state.currentProfile];
-      // Iterate through categories
-      categories.forEach(category => {
+      const { skills } = state.data;
+      // Iterate through skills
+      skills.forEach(skill => {
         // Iterate through model
         Object.keys(skillModel).forEach(property => {
-          if(!category[property]) {
-            category[property] = skillModel[property];
+          if(!skill[property]) {
+            skill[property] = skillModel[property];
           }
         });
       })
     },
     updateActivity: (state) => {
-      const { categories } = state.profiles[state.currentProfile];
-      categories.forEach(category => {
-        if(!category.lastActivity) {
-          category.activity = ActivityType.Unstarted;
+      const { skills } = state.data;
+      skills.forEach(skill => {
+        if(!skill.lastActivity) {
+          skill.activity = ActivityType.Unstarted;
           return;
         }
         // Number of days since last activity
-        const days = Math.abs(differenceInDays(new Date(category.lastActivity), new Date()));
+        const days = Math.abs(differenceInDays(new Date(skill.lastActivity), new Date()));
         if(days <= 3) {
-          category.activity = ActivityType.Active;
+          skill.activity = ActivityType.Active;
         } else if(days > 3 && days <=7) {
-          category.activity = ActivityType.Paused;
+          skill.activity = ActivityType.Paused;
         } else {
-          category.activity = ActivityType.Neglected;
+          skill.activity = ActivityType.Neglected;
         }
       });
     },
     loadBackupData: (state, { payload }) => {
-      state.profiles[state.currentProfile].categories = payload.categories;
+      state.data.skills = payload.skills;
     },
-    addCategoryDone: (state, { payload }) => {
-      const { categoryObject } = payload;
-      if(!categoryObject) {
+    addSkillDone: (state, { payload }) => {
+      const { skillObject } = payload;
+      if(!skillObject) {
         state.error = true;
         return;
       }
-      state.profiles[state.currentProfile].categories.push(categoryObject);
+      state.data.skills.push(skillObject);
     },
-    deleteCategoryDone: (state, { payload }) => {
-      const { newCategories } = payload;
-      state.profiles[state.currentProfile].categories = newCategories;
+    deleteSkillDone: (state, { payload }) => {
+      const { newSkills } = payload;
+      state.data.skills = newSkills;
     },
     updateSkillHoursDone: (state, { payload }) => {
-      const { categoryIndex, totalHours, totalXP, log } = payload;
-      const { categories } = state.profiles[state.currentProfile];
-      const category = categories[categoryIndex];
-      category.lastActivity = Date.now();
-      category.totalHours = totalHours;
-      category.totalXP = totalXP;
-      category.history.push(log);
+      const { skillIndex, totalHours, totalXP, log } = payload;
+      const { skills } = state.data;
+      const skill = skills[skillIndex];
+      skill.lastActivity = Date.now();
+      skill.totalHours = totalHours;
+      skill.totalXP = totalXP;
+      skill.history.push(log);
     },
+    // TODO - Move skillIndex to thunk
     updateWeeklyGoal: (state, { payload }) => {
-      const { profiles, currentProfile } = state;
-      const { categories } = state.profiles[state.currentProfile];
+      const { skills } = state.data;
       const { title, weeklyGoal } = payload;
-      const categoryIndex = getCategoryIndexByTitle({ profiles, currentProfile }, title);
-      categories[categoryIndex].weekHourGoal = weeklyGoal;
+      const skillIndex = getSkillIndexByTitle(skills, title);
+      skills[skillIndex].weekHourGoal = weeklyGoal;
     },
     updateSkillNotesDone: (state, { payload }) => {
-      const { categoryIndex, newNotes } = payload;
-      state.profiles[state.currentProfile].categories[categoryIndex].notes = newNotes
+      const { skillIndex, newNotes } = payload;
+      state.data.skills[skillIndex].notes = newNotes
     },
     addSkillItemDone: (state, { payload }) => {
-      const { categoryIndex, skillItemObject } = payload;
+      const { skillIndex, skillItemObject } = payload;
       if(!skillItemObject) {
         state.error = true;
         return;
       }
-      state.profiles[state.currentProfile].categories[categoryIndex].items.push(skillItemObject);
+      state.data.skills[skillIndex].items.push(skillItemObject);
     },
     updateSkillBookDone: (state, { payload }) => {
       const { 
-        categoryIndex, 
+        skillIndex, 
         itemIndex, 
         currentPage, 
         hoursRead,
@@ -112,34 +110,34 @@ const slice = createSlice({
         state.error = true;
         return;
       }
-      const { categories } = state.profiles[state.currentProfile];
-      const category = categories[categoryIndex];
+      const { skills } = state.data;
+      const skill = skills[skillIndex];
       // Update total pages read
-      category.items[itemIndex].pagesRead = currentPage;
-      category.items[itemIndex].lastActivity = Date.now();
+      skill.items[itemIndex].pagesRead = currentPage;
+      skill.items[itemIndex].lastActivity = Date.now();
       // Add hours and XP to skill 
-      category.totalHours += hoursRead;
-      category.totalXP += gainedXP;
-      category.lastActivity = Date.now();
-      category.history.push(log);
+      skill.totalHours += hoursRead;
+      skill.totalXP += gainedXP;
+      skill.lastActivity = Date.now();
+      skill.history.push(log);
       // If user finished the book
       if(payload.finished) {
         // Update date finished
-        category.items[itemIndex].dateFinished = Date.now();
+        skill.items[itemIndex].dateFinished = Date.now();
         // Copy
-        const item = { ...category.items[itemIndex] };
+        const item = { ...skill.items[itemIndex] };
         // Add the bonus XP to the skill
-        category.totalXP += payload.totalItemXP;
+        skill.totalXP += payload.totalItemXP;
         // Add item to skill archive
-        category.archive.push(item);
+        skill.archive.push(item);
         // Remove item from current list
-        category.items = 
-          category.items.filter(item => item.title !== payload.itemTitle);
+        skill.items = 
+          skill.items.filter(item => item.title !== payload.itemTitle);
       }
     },
     updateSkillCourseDone: (state, { payload }) => {
       const { 
-        categoryIndex, 
+        skillIndex, 
         itemIndex, 
         currentClass, 
         hoursPracticed,
@@ -150,29 +148,29 @@ const slice = createSlice({
         state.error = true;
         return;
       }
-      const { categories } = state.profiles[state.currentProfile];
-      const category = categories[categoryIndex];
+      const { skills } = state.data;
+      const skill = skills[skillIndex];
       // Update total pages read
-      category.items[itemIndex].classesDone = currentClass;
-      category.items[itemIndex].lastActivity = Date.now();
+      skill.items[itemIndex].classesDone = currentClass;
+      skill.items[itemIndex].lastActivity = Date.now();
       // Add hours and XP to skill 
-      category.totalHours += hoursPracticed;
-      category.totalXP += gainedXP;
-      category.lastActivity = Date.now();
-      category.history.push(log);
+      skill.totalHours += hoursPracticed;
+      skill.totalXP += gainedXP;
+      skill.lastActivity = Date.now();
+      skill.history.push(log);
       // If user finished the book
       if(payload.finished) {
         // Update date finished
-        category.items[itemIndex].dateFinished = Date.now();
+        skill.items[itemIndex].dateFinished = Date.now();
         // Copy
-        const item = { ...category.items[itemIndex] };
+        const item = { ...skill.items[itemIndex] };
         // Add the bonus XP to the skill
-        category.totalXP += payload.totalItemXP;
+        skill.totalXP += payload.totalItemXP;
         // Add item to skill archive
-        category.archive.push(item);
+        skill.archive.push(item);
         // Remove item from current list
-        category.items = 
-          category.items.filter(item => item.title !== payload.itemTitle);
+        skill.items = 
+          skill.items.filter(item => item.title !== payload.itemTitle);
       }
     }
   }
@@ -185,8 +183,8 @@ export const {
   validateData,
   updateActivity,
   updateWeeklyGoal,
-  addCategoryDone,
-  deleteCategoryDone,
+  addSkillDone,
+  deleteSkillDone,
   updateSkillHoursDone,
   updateSkillNotesDone,
   addSkillItemDone,

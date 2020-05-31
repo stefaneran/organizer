@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { CategoryType } from '@interfaces/categories';
-import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+import { CategoryType } from '@interfaces/general';
+import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import { Brain } from '@styled-icons/fa-solid';
 import { Book } from '@styled-icons/boxicons-solid';
 import { School } from '@styled-icons/material-rounded/School';
@@ -32,7 +32,7 @@ const Icon = ({ type, subType, style }: IconProps) => {
     const map = {
       Category: {
         [CategoryType.Skill]: () => getStyledIcon(Brain, style),
-        [CategoryType.Social]: () => getStyledIcon(People, style)
+        [CategoryType.Contacts]: () => getStyledIcon(People, style)
       },
       SkillItem: {
         [SkillItemType.Book]: () => getStyledIcon(Book, style), 

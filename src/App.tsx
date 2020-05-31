@@ -1,32 +1,44 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import MainPage from './pages/main';
+import { makeStyles } from '@material-ui/core/styles';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
+import { Grid } from '@material-ui/core';
+import ContentView from '@components/ContentView';
+import HistoryView from '@components/HistoryView';
 
 const { log } = console;
 const { useState, useEffect } = React;
 
-const App = (props) => {
+const useStyles = makeStyles(theme => ({
+  mainContainer: {
+    height: '100%'
+  },
+  categoriesContainer: {
+    height: '100%'
+  },
+}));  
 
+const App = (store) => {
+  const classes = useStyles();
   const [isDataValidated, setValidated] = useState(false);
   const [isActivityUpdated, setActivityUpdated] = useState(false);
 
-  log('=== INFO: Store in App ===\n', props);
+  log('=== INFO: Store in App ===\n', store);
 
   // load data from local storage
   useEffect(() => {
-    const { loadData } = props;
+    const { loadData } = store;
     loadData();
   }, []);
 
   // Validate for any missing properties due to changes
   useEffect(() => {
-    const { validateData, updateActivity, saveData, profiles, currentProfile } = props;
-    const { categories } = profiles[currentProfile];
+    const { validateData, updateActivity, saveData, data } = store;
+    const { skills } = data;
     // Only run after loadData is done
-    if(!isDataValidated && categories.length) {
+    if(!isDataValidated && skills.length) {
       validateData();
       setValidated(true);
       saveData();
@@ -36,16 +48,23 @@ const App = (props) => {
       updateActivity();
       setActivityUpdated(true);
     }
-  }, [props, isDataValidated]);
+  }, [store, isDataValidated]);
 
-  const { error } = props;
+  const { error } = store;
 
   return (
     <>
       {error ? (
-        <p> There is an error </p>
+        <p> There was a critical error </p>
       ) : (
-        <MainPage store={props} />
+        <Grid id="content" className={classes.categoriesContainer} container>
+          <Grid item xs={9} style={{ height: '100%' }}>
+            <ContentView store={store} />
+          </Grid>
+          <Grid item xs style={{ height: '100%' }}>
+            <HistoryView store={store} />
+          </Grid>
+        </Grid>
       )}
     </>
   );

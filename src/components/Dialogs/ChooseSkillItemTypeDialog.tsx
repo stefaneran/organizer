@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '@material-ui/core';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import { SkillItemType } from '@interfaces/categories/skill/Skill.interface';
+import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 
 const ChooseSkillItemTypeDialog = ({ isOpen, onClose }) => {
 
