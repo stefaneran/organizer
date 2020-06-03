@@ -123,11 +123,8 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
 
   const handleDeleteSkill = () => {
     // TODO - Add confirmation dialog
-    const { deleteCategory, saveData } = store;
-    deleteCategory({ 
-      categoryType: CategoryType.Skill, 
-      title: skill.title 
-    });
+    const { deleteSkill, saveData } = store;
+    deleteSkill({ title: skill.title });
     saveData();
   }
 
