@@ -2,7 +2,7 @@ import * as React from 'react';
 import mapTypeToInputs from './mapTypeToInputs';
 import FormGrid from './FormGrid';
 
-interface IFormField {
+interface FormField {
   name: string;
   type: string;
   label?: string;
@@ -10,14 +10,14 @@ interface IFormField {
   inputValue?: any | any[];
 }
 
-export interface IFormProps {
-  formData: IFormField[];
+export interface FormProps {
+  formData: FormField[];
   formGrid?: { x: number; y: number; };
   lastInputField?: string;
   onChange(name: string, value: any): void;
 }
 
-const FormCreator = ({ formData, formGrid, lastInputField, onChange }: IFormProps) => {
+const FormCreator = ({ formData, formGrid, lastInputField, onChange }: FormProps) => {
 
   const handleChange = (name, value) => {
     onChange(name, value);

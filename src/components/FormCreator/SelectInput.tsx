@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-interface IOption {
+interface Option {
   label: string;
   value: any;
 }
 
-interface ISelectInputProps {
+interface SelectInputProps {
   data: {
     name: string;
     handleChange: (name: string, value: any) => void;
     label: string;
-    options: IOption[];
+    options: Option[];
     isMulti?: boolean;
     inputValue?: any | any[];
   }
@@ -20,7 +20,7 @@ interface ISelectInputProps {
 const setDefault = (inputValue, isMulti) => 
   inputValue ? inputValue : (isMulti ? [] : '');
 
-const SelectInput = ({ data: { name, handleChange, label, options, isMulti, inputValue } }: ISelectInputProps) => {
+const SelectInput = ({ data: { name, handleChange, label, options, isMulti, inputValue } }: SelectInputProps) => {
 
   const handleSelect = event => {
     handleChange(name, event.target.value);

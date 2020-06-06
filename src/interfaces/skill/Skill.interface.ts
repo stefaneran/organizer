@@ -1,5 +1,5 @@
 import { PriorityType, CategoryType, ActivityType } from '@interfaces/general';
-import { HistoryLog } from '@interfaces/HistoryLog.interface';
+import { SkillHistoryLog } from '@interfaces/SkillHistoryLog.interface';
 
 export interface Skill {
   title: string;
@@ -8,7 +8,7 @@ export interface Skill {
   categoryType: CategoryType;
   priority: PriorityType;
   activity: ActivityType;
-  history: HistoryLog[];
+  history: SkillHistoryLog[];
   items: any[]; 
   archive: any[];
   totalHours: number;

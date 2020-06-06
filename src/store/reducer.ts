@@ -10,7 +10,40 @@ export const initialState = {
   version: '1.1.0',
   data: {
     skills: [],
-    social: []
+    social: [
+      {
+        name: 'Stefan Milenkovic',
+        location: 'Bulgaria - Sofia',
+        subgroups: ['Coworkers', 'Family'],
+        priority: "High",
+        info: 'This is literally me, man.\nNothing more to it.',
+        lastActivity: Date.now(),
+        interactionHistory: [
+          {
+            type: 'Talk',
+            activityDate: Date.now()
+          },
+          {
+            type: 'Hangout',
+            activityDate: Date.now()
+          }
+        ]
+      },
+      {
+        name: 'Kaja Djuknic',
+        location: 'Serbia - Belgrade',
+        subgroups: ['Friends'],
+        priority: "High",
+        info: 'BFF in university, I love her',
+        lastActivity: Date.now(),
+        interactionHistory: [
+          {
+            type: 'Hangout',
+            activityDate: Date.now()
+          }
+        ]
+      }
+    ]
   }
 }
 

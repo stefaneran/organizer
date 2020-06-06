@@ -7,6 +7,9 @@
 
 === Morning ===
 
+= Put all interfaces/enums in individual files and set as default exports
+= Implement interfaces more
+= Rename properties of SkillHistoryLog
 = Title validation on add new skill (Avoid duplicate)
 = Backup - Auto download every 24h
 = Backup - Prefix with "Backup" 
@@ -19,12 +22,14 @@
 
 === Weekend ===
 
+- Separate store to several stores
 - Wizard step progression
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
 - Note taking - Overhaul (custom note? Dialog?)
 - Add unit tests
 - Add linting and fix lints
 - Use MUI theme and make themes
+- Use compose/decorator pattern (Start with components that use content toolbar handlers)
 
 ==============================
 ======= Major Features =======

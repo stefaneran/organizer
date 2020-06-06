@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
 import ContentToolbar from '@components/ContentToolbar';
 import SkillList from '@components/SkillList';
-import { SkillView } from '@components/SkillView';
+import SkillView from '@components/SkillView';
 import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
 import CreateSkillWizard from '@components/Wizards/CreateSkillWizard';
 import { getSkillByTitle } from '@store/accessors';

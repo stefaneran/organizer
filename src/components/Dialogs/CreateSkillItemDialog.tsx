@@ -8,7 +8,7 @@ import createSkillCourse from '@data/inputDialogs/createSkillCourseData';
 
 const { useState } = React;
 
-interface ICreateSkillItemProps {
+interface CreateSkillItemProps {
   isOpen: boolean;
   onClose: any;
   itemType: SkillItemType;
@@ -22,7 +22,7 @@ const skillItemFormModelMap = (itemType: SkillItemType) => {
   return map[itemType];
 }
 
-const CreateSkillItemDialog = ({ isOpen, onClose, itemType }: ICreateSkillItemProps) => {
+const CreateSkillItemDialog = ({ isOpen, onClose, itemType }: CreateSkillItemProps) => {
 
   const formModel = skillItemFormModelMap(itemType);
 

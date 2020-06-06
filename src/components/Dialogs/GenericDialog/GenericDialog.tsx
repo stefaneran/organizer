@@ -4,7 +4,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Typograp
 import CloseIcon from '@material-ui/icons/Close';
 import mapTypeToActions from './mapTypeToActions';
 
-interface IDialogProps {
+interface DialogProps {
   isOpen: boolean;
   title: string;
   actionsType?: string;
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const GenericDialog = ({ isOpen, title, children, actionsType, actionsData, onClose }: IDialogProps) => {
+const GenericDialog = ({ isOpen, title, children, actionsType, actionsData, onClose }: DialogProps) => {
   const classes = useStyles();
   return (
     <Dialog open={isOpen} onClose={onClose()} className={classes.container}>

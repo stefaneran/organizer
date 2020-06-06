@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '@material-ui/core';
 
-interface IWizardActionsData {
+interface WizardActionsData {
   index: number;
   maxSteps: number;
   handler: (direction: -1 | 1) => () => void;
@@ -10,7 +10,7 @@ interface IWizardActionsData {
 
 const WizardActions = (
   { onClose, data: { index, maxSteps, handler, canSkip } }: 
-  { onClose(options?: any): (event?) => void;  data: IWizardActionsData }
+  { onClose(options?: any): (event?) => void;  data: WizardActionsData }
 ) => {
   const showBack = index > 0;
   const showSkip = index <= maxSteps-1 && canSkip;

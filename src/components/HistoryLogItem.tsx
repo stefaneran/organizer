@@ -2,9 +2,12 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider } from '@material-ui/core';
-import Icon from '@components/Icon';
+import BrainIcon from '@components/Icons/BrainIcon';
+import BookIcon from '@components/Icons/BookIcon';
+import SchoolIcon from '@components/Icons/SchoolIcon';
 import { formatDateBasic } from '@utils/dateUtils';
-import { HistoryLog } from '@interfaces/HistoryLog.interface';
+import { SkillHistoryLog } from '@interfaces/SkillHistoryLog.interface';
+import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   logContainer: {
@@ -35,20 +38,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 })); 
 
-const HistoryLogItem = ({ log }: { log: HistoryLog }) => {
+const HistoryLogItem = ({ log }: { log: SkillHistoryLog }) => {
   const classes = useStyles();
 
-  const { categoryType, title, description, activityDate } = log;
+  const { title, description, activityDate } = log;
 
   const Icons = () => {
     const { subType } = log;
-    const height = subType ? '1.7em' : '2em';
+    const subTypeIcon = {
+      [SkillItemType.Book]: <BookIcon size="medium" />,
+      [SkillItemType.Course]: <SchoolIcon size="medium" />
+    }
     return (
       <div className={clsx(classes.iconContainer, (subType ? classes.iconContainerTwo : ''))}>
-        <Icon type={'Category'} subType={categoryType} style={{ height, color: '#fff' }} />
-        {subType ? (
-          <Icon type={'SkillItem'} subType={subType} style={{ height, color: '#fff' }} />
-        ) : null}
+        <BrainIcon size={subType ? 'medium' : 'large'} />
+        {subType ? subTypeIcon[subType] : null}
       </div>
     )
   }

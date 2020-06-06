@@ -33,8 +33,11 @@ const ContentView = ({ store }) => {
   return (
     <div className={classes.container}>
       <Grid className={classes.innerContainer} container direction="column">
-        {currentCategory === 'Skills' ?
-          <SkillContainer store={store} toolBarHandlers={toolBarHandlers} /> : <div></div>
+        {currentCategory === 'Skills' &&
+          <SkillContainer store={store} toolBarHandlers={toolBarHandlers} />
+        }
+        {currentCategory === 'Contacts' &&
+          <div>Hello social world!</div>
         }
       </Grid>
     </div>

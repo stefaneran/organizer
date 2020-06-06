@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
-import Icon from '@components/Icon';
+import BrainIcon from '@components/Icons/BrainIcon';
+import PeopleIcon from '@components/Icons/PeopleIcon';
 import { 
   Add as AddIcon,
   Save as SaveIcon,
   Publish as PublishIcon
 } from '@material-ui/icons';
 import downloadJSON from '@utils/downloadJSON';
-import { CategoryType } from '@interfaces/general';
 
 const { useRef } = React;
 
@@ -38,14 +38,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface IToolBarProps {
+interface ToolBarProps {
   store: any;
-  toolBarHandlers: {
-    openCreateSkillWizard(): void;
-  }
+  toolBarHandlers: any;
 }
 
-const ContentToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
+const ContentToolbar = ({ store, toolBarHandlers }: ToolBarProps) => {
   const classes = useStyles();
 
   const inputRef = useRef(null);
@@ -70,16 +68,16 @@ const ContentToolbar = ({ store, toolBarHandlers }: IToolBarProps) => {
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Skill View">
-            <IconButton className={classes.button}>
-              <Icon type={'Category'} subType={CategoryType.Skill} style={{ height: '1.5em', color: '#fff' }} />
+            <IconButton className={classes.button} onClick={toolBarHandlers.viewSkills}>
+              <BrainIcon size="small" />
             </IconButton>
           </Tooltip>
         </Grid>
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts View">
-            <IconButton className={classes.button}>
-              <Icon type={'Category'} subType={CategoryType.Contacts} style={{ height: '1.5em', color: '#fff' }} />
+            <IconButton className={classes.button} onClick={toolBarHandlers.viewContacts}>
+              <PeopleIcon size="small" />
             </IconButton>
           </Tooltip>
         </Grid>

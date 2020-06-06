@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, IconButton } from '@material-ui/core';
+import BookIcon from '@components/Icons/BookIcon';
+import SchoolIcon from '@components/Icons/SchoolIcon';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Icon from '@components/Icon';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import { formatDateBasic } from '@utils/dateUtils';
 
@@ -47,21 +48,27 @@ const SkillItem = ({ item, type, openDialog }) => {
   const map = {
     [SkillItemType.Book]: {
       clickHandler: 'updateBook',
-      info: type === 'active' ? `Pages: ${item.pagesRead}/${item.pagesTotal}` : `Finished ${formatDateBasic(lastActivity)}`
+      icon: <BookIcon size="large" />,
+      info: type === 'active' ? 
+        `Pages: ${item.pagesRead}/${item.pagesTotal}` : 
+        `Finished ${formatDateBasic(lastActivity)}`
     },
     [SkillItemType.Course]: {
       clickHandler: 'updateCourse',
-      info: type === 'active' ? `Classes: ${item.classesDone}/${item.classesTotal}` : `Finished ${formatDateBasic(lastActivity)}`
+      icon: <SchoolIcon size="large" />,
+      info: type === 'active' ? 
+        `Classes: ${item.classesDone}/${item.classesTotal}` : 
+        `Finished ${formatDateBasic(lastActivity)}`
     }
   }
 
-  const { clickHandler, info } = map[itemType];
+  const { clickHandler, icon, info } = map[itemType];
 
   return (
     <Paper className={classes.container}>
       <Grid container>
         <Grid item xs={2} className={classes.iconContainer}>
-          <Icon type={'SkillItem'} subType={itemType} style={{ height: '2em', color: '#fff' }} />
+          {icon}
         </Grid>
         <Grid item xs={type === 'active' ? 8 : 10}>
           <Paper className={classes.itemInfo}>
