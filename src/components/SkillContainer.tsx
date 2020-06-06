@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Paper, Button } from '@material-ui/core';
-import ContentToolbar from '@components/ContentToolbar';
+import { Add as AddIcon } from '@material-ui/icons';
+import ContentToolbar, { exportedStyles } from '@components/ContentToolbar';
 import SkillList from '@components/SkillList';
 import SkillView from '@components/SkillView';
 import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
@@ -9,8 +11,12 @@ import { getSkillByTitle } from '@store/accessors';
 
 const { useState, useEffect } = React;
 
-const SkillContainer = ({ store, toolBarHandlers }) => {
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  ...exportedStyles
+}));
 
+const SkillContainer = ({ store, toolBarHandlers }) => {
+  const classes = useStyles();
   const { data: { skills } } = store;
 
   // Skill selected (Entire skill data)
@@ -93,7 +99,21 @@ const SkillContainer = ({ store, toolBarHandlers }) => {
       ) : (
         <>
           <Grid item xs={1} className={'gridRow'}>
-            <ContentToolbar store={store} toolBarHandlers={skillToolBarHandlers} />
+            <ContentToolbar 
+              store={store} 
+              toolBarHandlers={skillToolBarHandlers}
+              specializedButtons={(
+                <Grid item className={classes.buttonContainer}>
+                  <Button 
+                    className={classes.button} 
+                    onClick={() => setCreateSkillDialogOpen(true)}
+                    endIcon={<AddIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />}
+                  >
+                    Add Skill
+                  </Button>
+                </Grid>
+              )} 
+            />
           </Grid>
           <Grid item xs={11} className={'gridRow'}>
             <SkillList

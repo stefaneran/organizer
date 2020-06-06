@@ -1,22 +1,17 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
-import BrainIcon from '@components/Icons/BrainIcon';
-import PeopleIcon from '@components/Icons/PeopleIcon';
-import { 
-  Add as AddIcon,
+import {
   Save as SaveIcon,
   Publish as PublishIcon
 } from '@material-ui/icons';
+import BrainIcon from '@components/Icons/BrainIcon';
+import PeopleIcon from '@components/Icons/PeopleIcon';
 import downloadJSON from '@utils/downloadJSON';
 
 const { useRef } = React;
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  container: {
-    position: 'relative',
-    backgroundColor: theme.palette.primary.main
-  },
+export const exportedStyles = {
   buttonContainer: {
     padding: '0.3em'
   },
@@ -30,20 +25,29 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '1.5em',
     height: '1.5em'
   },
+}
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    position: 'relative',
+    backgroundColor: theme.palette.primary.main
+  },
   version: {
     position: 'absolute',
     right: '0.5em',
     top: '50%',
     transform: 'translateY(-50%)'
-  }
+  },
+  ...exportedStyles
 }));
 
 interface ToolBarProps {
   store: any;
   toolBarHandlers: any;
+  specializedButtons: JSX.Element
 }
 
-const ContentToolbar = ({ store, toolBarHandlers }: ToolBarProps) => {
+const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarProps) => {
   const classes = useStyles();
 
   const inputRef = useRef(null);
@@ -82,16 +86,6 @@ const ContentToolbar = ({ store, toolBarHandlers }: ToolBarProps) => {
           </Tooltip>
         </Grid>
 
-        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
-
-        <Grid item className={classes.buttonContainer}>
-          <Tooltip title="Add New Category">
-            <IconButton className={classes.button} onClick={toolBarHandlers.openCreateSkillWizard}>
-              <AddIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Download Backup">
             <IconButton className={classes.button} onClick={downloadJSON(store)}>
@@ -107,6 +101,10 @@ const ContentToolbar = ({ store, toolBarHandlers }: ToolBarProps) => {
             </IconButton>
           </Tooltip>
         </Grid>
+
+        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
+
+        {specializedButtons}
 
         <span className={classes.version}>
           <Typography variant="subtitle1" style={{ color: '#fff' }}>V{store.version}</Typography>
