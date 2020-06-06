@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import updateSkillWeeklyGoalData from '@data/inputDialogs/updateSkillWeeklyGoalData';
+import updateSkillWeeklyGoalData from '@schemas/inputDialogs/updateSkillWeeklyGoalData';
 import { getDefaultFormData } from '@utils/formDataUtils';
-import SliderInput from '@components/FormCreator/SliderInput';
+import SliderInput from '@components/FormInputs/SliderInput';
 
 const { useState } = React;
 
@@ -26,7 +26,7 @@ const UpdateSkillWeeklyGoalDialog = ({ isOpen, onClose }) => {
       onClose={handleClose}
       actionsType={'simpleForm'}
     >
-      <SliderInput style={{ marginTop: '1em' }} data={{ ...updateSkillWeeklyGoalData.data.weeklyGoal, handleChange }} />
+      <SliderInput style={{ marginTop: '1em' }} handleChange={handleChange} {...updateSkillWeeklyGoalData.data.weeklyGoal} />
     </GenericDialog>
   );
 }

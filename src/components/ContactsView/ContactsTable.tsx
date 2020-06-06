@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
-  Paper, Button,
+  Paper, Grid, IconButton, Tooltip,
   TableContainer, Table, TableHead, TableBody, TableRow, TableCell 
 } from '@material-ui/core';
+import EventIcon from '@material-ui/icons/Event';
+import { TalkIconExtraSmallBlue } from '@components/Icons/TalkIcon';
+import { PeopleIconExtraSmallBlue } from '@components/Icons/PeopleIcon';
 import Person from '@interfaces/contacts/Person.interface';
 import { formatDateBasic } from '@utils/dateUtils';
 
@@ -17,23 +20,44 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactsTable = ({ contacts }: { contacts: Person[] }) => {
+interface Filter {
+  nameFilter: string;
+  locationFilter: string;
+}
+
+interface Props {
+  contacts: Person[]; 
+  filters: Filter;
+}
+
+
+
+const ContactsTable = ({ contacts, filters }: Props) => {
   const classes = useStyles();
+
+  const filterList = (contacts) => {
+    const { nameFilter, locationFilter } = filters;
+    const nameMatch = (name) => 
+      (nameFilter.length && name.toLowerCase().includes(nameFilter.toLowerCase())) || !nameFilter.length;
+    const locationMatch = (location) => 
+      (locationFilter.length && location.toLowerCase().includes(locationFilter.toLowerCase())) || !locationFilter.length;
+    return contacts.filter(person => nameMatch(person.name) && locationMatch(person.location));
+  };
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Last Contact</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Priority</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="center">Last Contact</TableCell>
+            <TableCell align="center">Location</TableCell>
+            <TableCell align="center">Priority</TableCell>
+            <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {contacts.map(person => (
+          {filterList(contacts).map(person => (
             <TableRow key={person.name}>
               <TableCell>
                 {person.name}
@@ -48,17 +72,29 @@ const ContactsTable = ({ contacts }: { contacts: Person[] }) => {
                 {person.priority}
               </TableCell>
               <TableCell>
-                <div className={classes.personActions}>
-                  <Button variant="outlined" color="primary" endIcon>
-                    Talk
-                  </Button>
-                  <Button variant="outlined" color="primary" endIcon>
-                    Hangout
-                  </Button>
-                  <Button variant="outlined" color="primary" endIcon>
-                    Schedule
-                  </Button>
-                </div>
+                <Grid container className={classes.personActions}>
+                  <Grid item>
+                    <Tooltip title="Log Talk">
+                      <IconButton>
+                        <TalkIconExtraSmallBlue />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Log Hangout">
+                      <IconButton>
+                        <PeopleIconExtraSmallBlue />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Schedule Activity">
+                      <IconButton>
+                        <EventIcon color="primary" />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                </Grid>
               </TableCell>
             </TableRow>
           ))}

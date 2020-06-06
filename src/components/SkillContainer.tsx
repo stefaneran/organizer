@@ -1,7 +1,9 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Paper, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
+import { default as ArrowIcon } from '@material-ui/icons/ArrowBackIos';
 import ContentToolbar, { exportedStyles } from '@components/ContentToolbar';
 import SkillList from '@components/SkillList';
 import SkillView from '@components/SkillView';
@@ -11,9 +13,7 @@ import { getSkillByTitle } from '@store/accessors';
 
 const { useState, useEffect } = React;
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  ...exportedStyles
-}));
+const useStyles = makeStyles((theme: Theme) => createStyles(exportedStyles));
 
 const SkillContainer = ({ store, toolBarHandlers }) => {
   const classes = useStyles();
@@ -83,47 +83,42 @@ const SkillContainer = ({ store, toolBarHandlers }) => {
 
   return (
     <>
-      {currentSkill ? (
-        <>
-          <Grid item xs={1} className={'gridRow'}>
-            <Paper style={{ padding: '0.5em' }}>
-              <Button variant="outlined" color="primary" onClick={() => setCurrentSkill(null)}>
-                Back
-              </Button>
-            </Paper>
+      <ContentToolbar 
+        store={store} 
+        toolBarHandlers={skillToolBarHandlers}
+        specializedButtons={currentSkill ? (
+          <Grid item className={classes.buttonContainer}>
+            <Button 
+              className={clsx(classes.button, classes.textButton)}
+              onClick={() => setCurrentSkill(null)}
+              startIcon={<ArrowIcon className={classes.buttonIcon} />}
+            >
+              Back
+            </Button>
           </Grid>
-          <Grid item xs={11} className={'gridRow'}>
-            <SkillView store={store} skill={currentSkill} globalDialogActions={globalDialogActions} />
+        ) : (
+          <Grid item className={classes.buttonContainer}>
+            <Button 
+              className={clsx(classes.button, classes.textButton)} 
+              onClick={() => setCreateSkillDialogOpen(true)}
+              endIcon={<AddIcon className={classes.buttonIcon} />}
+            >
+              Add Skill
+            </Button>
           </Grid>
-        </>
-      ) : (
-        <>
-          <Grid item xs={1} className={'gridRow'}>
-            <ContentToolbar 
-              store={store} 
-              toolBarHandlers={skillToolBarHandlers}
-              specializedButtons={(
-                <Grid item className={classes.buttonContainer}>
-                  <Button 
-                    className={classes.button} 
-                    onClick={() => setCreateSkillDialogOpen(true)}
-                    endIcon={<AddIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />}
-                  >
-                    Add Skill
-                  </Button>
-                </Grid>
-              )} 
-            />
-          </Grid>
-          <Grid item xs={11} className={'gridRow'}>
-            <SkillList
-              skills={skills} 
-              onThumbClick={handleSkillThumbClick}
-              globalDialogActions={globalDialogActions}
-            />
-          </Grid>
-        </>
-      )}
+        )}
+      />
+      <Grid item xs={11} className={'gridRow'} style={{ paddingTop: '0.5em' }}>
+        {currentSkill ? (
+          <SkillView store={store} skill={currentSkill} globalDialogActions={globalDialogActions} />
+        ) : (
+          <SkillList
+            skills={skills} 
+            onThumbClick={handleSkillThumbClick}
+            globalDialogActions={globalDialogActions}
+          />
+        )}
+      </Grid>
       
       {/* Dialogs and Pop-Ups below this line  */}
 

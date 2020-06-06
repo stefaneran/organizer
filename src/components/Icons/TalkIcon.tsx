@@ -2,37 +2,32 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { GoogleHangouts as Talk } from '@styled-icons/entypo-social';
 
-const TalkIconSmall = () => {
-  const Icon = styled(Talk)`
-    height: 1.5em;
-    color: #fff;
-  `;
-  return <Icon />
-}
+const TalkExtraSmallBlue = styled(Talk)`
+  height: 1em;
+  color: #3f51b5;
+`;
+export const TalkIconExtraSmallBlue = () => <TalkExtraSmallBlue />
 
-const TalkIconMedium = () => {
-  const Icon = styled(Talk)`
-    height: 1.7em;
-    color: #fff;
-  `;
-  return <Icon />
-}
+const TalkExtraSmall = styled(Talk)`
+  height: 1em;
+  color: #fff;
+`;
+export const TalkIconExtraSmall = () => <TalkExtraSmall />
 
-const TalkIconLarge = () => {
-  const Icon = styled(Talk)`
-    height: 2em;
-    color: #fff;
-  `;
-  return <Icon />
-}
+const TalkSmall = styled(Talk)`
+  height: 1.5em;
+  color: #fff;
+`;
+export const TalkIconSmall = () => <TalkSmall />
 
-const TalkIcon = ({ size }) => {
-  const sizeMap = {
-    small: <TalkIconSmall />,
-    medium: <TalkIconMedium />,
-    large: <TalkIconLarge />
-  }
-  return sizeMap[size];
-} 
+const TalkMedium = styled(Talk)`
+  height: 1.7em;
+  color: #fff;
+`;
+export const TalkIconMedium = () => <TalkMedium />
 
-export default TalkIcon;
+const TalkLarge = styled(Talk)`
+  height: 2em;
+  color: #fff;
+`;
+export const TalkIconLarge = () => <TalkLarge />

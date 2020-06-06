@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GenericDialog } from '@components/Dialogs/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
-import createSkillSchema, { CreateSkillFormSchema } from '@data/wizards/createSkillData';
+import createSkillSchema, { CreateSkillFormSchema } from '@schemas/wizards/createSkillData';
 import { getDefaultFormData, getStepFormData } from '@utils/formDataUtils';
 import getIndexByDirection from '@utils/getIndexByDirection';
 

@@ -10,7 +10,7 @@ export const initialState = {
   version: '1.1.0',
   data: {
     skills: [],
-    social: [
+    contacts: [
       {
         name: 'Stefan Milenkovic',
         location: 'Bulgaria - Sofia',

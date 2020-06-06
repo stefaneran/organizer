@@ -5,8 +5,8 @@ import {
   Save as SaveIcon,
   Publish as PublishIcon
 } from '@material-ui/icons';
-import BrainIcon from '@components/Icons/BrainIcon';
-import PeopleIcon from '@components/Icons/PeopleIcon';
+import { BrainIconSmall } from '@components/Icons/BrainIcon';
+import { PeopleIconSmall } from '@components/Icons/PeopleIcon';
 import downloadJSON from '@utils/downloadJSON';
 
 const { useRef } = React;
@@ -25,6 +25,17 @@ export const exportedStyles = {
     width: '1.5em',
     height: '1.5em'
   },
+  textButton: {
+    color: '#fff',
+    position: 'relative' as 'relative',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    marginLeft: '0.5em',
+    '&>span>span': {
+      marginLeft: '0',
+      marginRight: '0'
+    }
+  }
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -44,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface ToolBarProps {
   store: any;
   toolBarHandlers: any;
-  specializedButtons: JSX.Element
+  specializedButtons?: JSX.Element
 }
 
 const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarProps) => {
@@ -73,7 +84,7 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarP
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Skill View">
             <IconButton className={classes.button} onClick={toolBarHandlers.viewSkills}>
-              <BrainIcon size="small" />
+              <BrainIconSmall />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -81,7 +92,7 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarP
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts View">
             <IconButton className={classes.button} onClick={toolBarHandlers.viewContacts}>
-              <PeopleIcon size="small" />
+              <PeopleIconSmall />
             </IconButton>
           </Tooltip>
         </Grid>

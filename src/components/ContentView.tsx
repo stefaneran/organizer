@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Button } from '@material-ui/core';
-
+import { Grid } from '@material-ui/core';
 import SkillContainer from '@components/SkillContainer';
+import ContactsContainer from '@components/ContactsContainer';
+import { CategoryType } from '@interfaces/general'
 
-const { useState, useEffect } = React;
+const { useState } = React;
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     '& > div': {
       height: '100%',
       width: '100%',
-      padding: '0.5em'
+      padding: '0.8em'
     }
   },
   innerContainer: {
@@ -23,21 +24,21 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ store }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = useState('Skills');
+  const [currentCategory, setCurrentCategory] = useState(CategoryType.Contacts);
 
   const toolBarHandlers = {
-    viewSkills: () => setCurrentCategory('Skills'),
-    viewContacts: () => setCurrentCategory('Contacts')
+    viewSkills: () => setCurrentCategory(CategoryType.Skill),
+    viewContacts: () => setCurrentCategory(CategoryType.Contacts)
   }
 
   return (
     <div className={classes.container}>
       <Grid className={classes.innerContainer} container direction="column">
-        {currentCategory === 'Skills' &&
+        {currentCategory === CategoryType.Skill &&
           <SkillContainer store={store} toolBarHandlers={toolBarHandlers} />
         }
-        {currentCategory === 'Contacts' &&
-          <div>Hello social world!</div>
+        {currentCategory === CategoryType.Contacts &&
+          <ContactsContainer store={store} toolBarHandlers={toolBarHandlers} />
         }
       </Grid>
     </div>

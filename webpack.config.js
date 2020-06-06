@@ -16,7 +16,7 @@ module.exports = {
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, './src/components'),
-      "@data": path.resolve(__dirname, './src/data'),
+      "@schemas": path.resolve(__dirname, './src/schemas'),
       "@interfaces": path.resolve(__dirname, './src/interfaces'),
       "@logic": path.resolve(__dirname, './src/logic'),
       "@store": path.resolve(__dirname, './src/store'),

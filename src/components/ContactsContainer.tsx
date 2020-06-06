@@ -5,14 +5,10 @@ import ContactsView from '@components/ContactsView';
 
 const ContactsContainer = ({ store, toolBarHandlers }) => {
 
-  const contactsToolBarHandlers = {
-    ...toolBarHandlers
-  }
-
   return (
     <>
       <Grid item xs={1} className={'gridRow'}>
-        <ContentToolbar store={store} toolBarHandlers={contactsToolBarHandlers} />
+        <ContentToolbar store={store} toolBarHandlers={toolBarHandlers} />
       </Grid>
       <Grid item xs={11} className={'gridRow'}>
         <ContactsView store={store} />

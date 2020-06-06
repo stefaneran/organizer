@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, IconButton } from '@material-ui/core';
-import BookIcon from '@components/Icons/BookIcon';
-import SchoolIcon from '@components/Icons/SchoolIcon';
+import { BookIconLarge } from '@components/Icons/BookIcon';
+import { SchoolIconLarge } from '@components/Icons/SchoolIcon';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
@@ -48,14 +48,14 @@ const SkillItem = ({ item, type, openDialog }) => {
   const map = {
     [SkillItemType.Book]: {
       clickHandler: 'updateBook',
-      icon: <BookIcon size="large" />,
+      icon: <BookIconLarge />,
       info: type === 'active' ? 
         `Pages: ${item.pagesRead}/${item.pagesTotal}` : 
         `Finished ${formatDateBasic(lastActivity)}`
     },
     [SkillItemType.Course]: {
       clickHandler: 'updateCourse',
-      icon: <SchoolIcon size="large" />,
+      icon: <SchoolIconLarge />,
       info: type === 'active' ? 
         `Classes: ${item.classesDone}/${item.classesTotal}` : 
         `Finished ${formatDateBasic(lastActivity)}`

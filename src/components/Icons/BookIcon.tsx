@@ -2,37 +2,20 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Book } from '@styled-icons/boxicons-solid';
 
-const BookIconSmall = () => {
-  const Icon = styled(Book)`
-    height: 1.5em;
-    color: #fff;
-  `;
-  return <Icon />
-}
+const BookSmall = styled(Book)`
+  height: 1.5em;
+  color: #fff;
+`;
+export const BookIconSmall = () => <BookSmall />
 
-const BookIconMedium = () => {
-  const Icon = styled(Book)`
-    height: 1.7em;
-    color: #fff;
-  `;
-  return <Icon />
-}
+const BookMedium = styled(Book)`
+  height: 1.7em;
+  color: #fff;
+`;
+export const BookIconMedium = () => <BookMedium />
 
-const BookIconLarge = () => {
-  const Icon = styled(Book)`
+const BookLarge = styled(Book)`
     height: 2em;
     color: #fff;
   `;
-  return <Icon />
-}
-
-const BookIcon = ({ size }) => {
-  const sizeMap = {
-    small: <BookIconSmall />,
-    medium: <BookIconMedium />,
-    large: <BookIconLarge />
-  }
-  return sizeMap[size];
-} 
-
-export default BookIcon;
+export const BookIconLarge = () => <BookLarge />

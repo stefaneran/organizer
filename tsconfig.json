@@ -4,7 +4,7 @@
 		"baseUrl": "./",
 		"paths": {
 			"@components/*": ["src/components/*"],
-			"@data/*": ["src/data/*"],
+			"@schemas/*": ["src/schemas/*"],
 			"@interfaces/*": ["src/interfaces/*"],
 			"@logic/*": ["src/logic/*"],
       "@store/*": ["src/store/*"],

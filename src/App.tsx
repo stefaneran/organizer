@@ -29,9 +29,8 @@ const App = (store) => {
 
   // load data from local storage
   useEffect(() => {
-    log('IF YOU SEE THIS, CELEBRATE!');
     const { loadData } = store;
-    loadData();
+    // loadData();
   }, []);
 
   // Validate for any missing properties due to changes

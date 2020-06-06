@@ -2,9 +2,9 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider } from '@material-ui/core';
-import BrainIcon from '@components/Icons/BrainIcon';
-import BookIcon from '@components/Icons/BookIcon';
-import SchoolIcon from '@components/Icons/SchoolIcon';
+import { BrainIconMedium, BrainIconLarge } from '@components/Icons/BrainIcon';
+import { BookIconMedium } from '@components/Icons/BookIcon';
+import { SchoolIconMedium } from '@components/Icons/SchoolIcon';
 import { formatDateBasic } from '@utils/dateUtils';
 import { SkillHistoryLog } from '@interfaces/SkillHistoryLog.interface';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
@@ -46,12 +46,12 @@ const HistoryLogItem = ({ log }: { log: SkillHistoryLog }) => {
   const Icons = () => {
     const { subType } = log;
     const subTypeIcon = {
-      [SkillItemType.Book]: <BookIcon size="medium" />,
-      [SkillItemType.Course]: <SchoolIcon size="medium" />
+      [SkillItemType.Book]: <BookIconMedium />,
+      [SkillItemType.Course]: <SchoolIconMedium />
     }
     return (
       <div className={clsx(classes.iconContainer, (subType ? classes.iconContainerTwo : ''))}>
-        <BrainIcon size={subType ? 'medium' : 'large'} />
+        {subType ? <BrainIconMedium /> : <BrainIconLarge />}
         {subType ? subTypeIcon[subType] : null}
       </div>
     )
