@@ -22,3 +22,6 @@ export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new D
 
 export const formatDateBasic = (timestamp) => 
   format(new Date(timestamp), 'EEEE - do MMMM');
+
+export const formatDateClassic = (timestamp) => 
+  format(new Date(timestamp), 'dd/MM/yy');

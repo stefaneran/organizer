@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
@@ -11,17 +9,7 @@ import HistoryView from '@components/HistoryView';
 const { log } = console;
 const { useState, useEffect } = React;
 
-const useStyles = makeStyles(theme => ({
-  mainContainer: {
-    height: '100%'
-  },
-  categoriesContainer: {
-    height: '100%'
-  },
-}));  
-
 const App = (store) => {
-  const classes = useStyles();
   const [isDataValidated, setValidated] = useState(false);
   const [isActivityUpdated, setActivityUpdated] = useState(false);
 
@@ -30,7 +18,7 @@ const App = (store) => {
   // load data from local storage
   useEffect(() => {
     const { loadData } = store;
-    // loadData();
+    loadData();
   }, []);
 
   // Validate for any missing properties due to changes
@@ -57,14 +45,9 @@ const App = (store) => {
       {error ? (
         <p> There was a critical error </p>
       ) : (
-        <Grid id="content" className={classes.categoriesContainer} container>
-          <Grid item xs={9} style={{ height: '100%' }}>
-            <ContentView store={store} />
-          </Grid>
-          <Grid item xs style={{ height: '100%' }}>
-            <HistoryView store={store} />
-          </Grid>
-        </Grid>
+        <div className="appContainer">
+          <ContentView store={store} />
+        </div>
       )}
     </>
   );

@@ -12,7 +12,6 @@ export interface SkillHistoryLog {
   // TODO - Rename for clarity
   subType?: string;
   // Unit of value to represent action
-  // - Skill: Hours (number)
   unit?: number; 
   // What is displayed in the log
   title: string;

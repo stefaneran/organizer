@@ -1,7 +1,8 @@
 import { 
   saveDataDone, loadDataDone, 
   addSkillDone, deleteSkillDone, 
-  updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone
+  updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone,
+  addContactDone, logContactInteractionDone
 } from './reducer';
 import { 
   getSkillByTitle, getSkillIndexByTitle, 
@@ -32,7 +33,7 @@ export const loadData = () => async dispatch => {
   // TODO - Dispatch error action
 }
 
-//// ----- Category Thunks -----
+//// ----- Skill Thunks -----
 
 export const addSkill = ({ formData }) => async dispatch => {
   const skillObject = getSkillObject(formData);
@@ -44,8 +45,6 @@ export const deleteSkill = ({ title }) => async (dispatch, getState) => {
   const newSkills = skills.filter(skill => skill.title !== title);
   dispatch(deleteSkillDone({ newSkills }));
 }
-
-//// ----- Skill Thunks -----
 
 export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getState) => {
   const { data: { skills } } = getState();
@@ -166,4 +165,29 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
     finished,
     log
   }));
+}
+
+//// ----- Contacts Thunks -----
+
+export const addContact = ({ formData }) => async (dispatch, getState) => {
+  const { data: { contacts } } = getState();
+  const { name } = formData;
+  const match = contacts.find(contact => contact.name === name);
+  if (!match) {
+    const contact = {
+      ...formData,
+      info: '',
+      lastActivity: null,
+      interactionHistory: []
+    }
+    dispatch(addContactDone({ contact }));
+  }
+}
+
+export const logContactInteraction = ({ contactName, interactionType }) => async dispatch => {
+  const log = {
+    type: interactionType,
+    activityDate: Date.now()
+  }
+  dispatch(logContactInteractionDone({ contactName, log }));
 }

@@ -5,43 +5,62 @@ import {
   TableContainer, Table, TableHead, TableBody, TableRow, TableCell 
 } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
-import { TalkIconExtraSmallBlue } from '@components/Icons/TalkIcon';
-import { PeopleIconExtraSmallBlue } from '@components/Icons/PeopleIcon';
+import { TalkIconExtraSmall, TalkIconExtraSmallBlue } from '@components/Icons/TalkIcon';
+import { PeopleIconExtraSmall, PeopleIconExtraSmallBlue } from '@components/Icons/PeopleIcon';
 import Contact from '@interfaces/contacts/Contact.interface';
+import InteractionType from '@interfaces/contacts/InteractionType.interface';
 import { formatDateBasic } from '@utils/dateUtils';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  table: {
-    // height: '100%',
-    // maxWidth: 'none'
+  table: {},
+  tableRow: {
+    cursor: 'pointer',
+    transition: 'background 300ms',
+    '&:hover': {
+      background: theme.palette.primary.light,
+    }
   },
-  contactActions: {
-
+  tableRowSelected: {
+    cursor: 'pointer',
+    background: theme.palette.primary.main,
+    '& td': {
+      color: '#fff'
+    }
   }
 }));
 
 interface Filter {
   nameFilter: string;
   locationFilter: string;
+  selectedSubgroup: string;
 }
 
 interface Props {
   contacts: Contact[]; 
   filters: Filter;
+  selectedContact: Contact;
+  onSelectContact: (contact: Contact) => (event?) => void;
+  onInteraction: (contactName: string, interactionType: InteractionType) => (event?) => void;
 }
 
-
-
-const ContactsTable = ({ contacts, filters }: Props) => {
+const ContactsTable = ({ contacts, filters, selectedContact, onSelectContact, onInteraction }: Props) => {
   const classes = useStyles();
 
+  const isSelected = (name) => selectedContact ? name === selectedContact.name : false;
+
   const filterList = (contacts) => {
-    const { nameFilter, locationFilter } = filters;
+    const { nameFilter, locationFilter, selectedSubgroup } = filters;
+    const subgroupMatch = (subgroups) =>
+      (selectedSubgroup !== 'All' && subgroups.includes(selectedSubgroup)) || selectedSubgroup === 'All';
     const nameMatch = (name) => 
       (nameFilter.length && name.toLowerCase().includes(nameFilter.toLowerCase())) || !nameFilter.length;
     const locationMatch = (location) => 
       (locationFilter.length && location.toLowerCase().includes(locationFilter.toLowerCase())) || !locationFilter.length;
-    return contacts.filter(contact => nameMatch(contact.name) && locationMatch(contact.location));
+    return contacts.filter(contact => 
+      nameMatch(contact.name) && 
+      locationMatch(contact.location) &&
+      subgroupMatch(contact.subgroups)
+    );
   };
 
   return (
@@ -58,7 +77,11 @@ const ContactsTable = ({ contacts, filters }: Props) => {
         </TableHead>
         <TableBody>
           {filterList(contacts).map(contact => (
-            <TableRow key={contact.name}>
+            <TableRow 
+              key={contact.name} 
+              className={isSelected(contact.name) ? classes.tableRowSelected : classes.tableRow} 
+              onClick={onSelectContact(contact)}
+            >
               <TableCell>
                 {contact.name}
               </TableCell>
@@ -72,25 +95,37 @@ const ContactsTable = ({ contacts, filters }: Props) => {
                 {contact.priority}
               </TableCell>
               <TableCell>
-                <Grid container className={classes.contactActions}>
+                <Grid container>
                   <Grid item>
                     <Tooltip title="Log Talk">
-                      <IconButton>
-                        <TalkIconExtraSmallBlue />
+                      <IconButton onClick={onInteraction(contact.name, InteractionType.Talk)}>
+                        {isSelected(contact.name) ? (
+                          <TalkIconExtraSmall />
+                        ) : (
+                          <TalkIconExtraSmallBlue />
+                        )}
                       </IconButton>
                     </Tooltip>
                   </Grid>
                   <Grid item>
-                    <Tooltip title="Log Hangout">
+                    <Tooltip title="Log Hangout" onClick={onInteraction(contact.name, InteractionType.Hangout)}>
                       <IconButton>
-                        <PeopleIconExtraSmallBlue />
+                        {isSelected(contact.name) ? (
+                          <PeopleIconExtraSmall />
+                        ) : (
+                          <PeopleIconExtraSmallBlue />
+                        )}
                       </IconButton>
                     </Tooltip>
                   </Grid>
                   <Grid item>
                     <Tooltip title="Schedule Activity">
                       <IconButton>
-                        <EventIcon color="primary" />
+                        {isSelected(contact.name) ? (
+                          <EventIcon style={{ color: '#fff' }} />
+                        ) : (
+                          <EventIcon color="primary" />
+                        )}
                       </IconButton>
                     </Tooltip>
                   </Grid>

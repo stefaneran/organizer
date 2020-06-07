@@ -44,7 +44,12 @@ const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) 
 
   const handleClose = (options?) => () => {
     let isSubmit = options ? options.isSubmit : false;
-    onClose({ isSubmit, formData });
+    const parsedForm = {
+      ...formData,
+      subgroups: formData.subgroups.map(subgroup => subgroup.value),
+      relations: formData.relations.map(relation => relation.value)
+    }
+    onClose({ isSubmit, formData: parsedForm });
   }
 
   return (
@@ -78,6 +83,7 @@ const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) 
             <SelectInput
               name={formModel.data.priority.name}
               label={formModel.data.priority.label}
+              inputValue={formData.priority}
               handleChange={handleChange}
               options={formModel.data.priority.options}
             />

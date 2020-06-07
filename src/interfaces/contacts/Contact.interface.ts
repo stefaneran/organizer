@@ -9,9 +9,9 @@ interface Contact {
   subgroups: string[];
   // Which other people this person has a relation with
   relations: string[];
-  priority: PriorityType;
   info: string;
   lastActivity: number;
+  priority: PriorityType;
   interactionHistory: ContactHistoryLog[];
 }
 

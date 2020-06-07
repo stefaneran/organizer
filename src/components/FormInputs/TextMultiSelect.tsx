@@ -57,6 +57,7 @@ const TextMultiSelect = ({
   return (
     <FormControl className={'fullWidth'}>
       <Autocomplete
+        className={className}
         multiple={multiple}
         value={currentValue}
         options={currentOptions}

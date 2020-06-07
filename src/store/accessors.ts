@@ -1,6 +1,6 @@
 
 //// ----- Category Accessors ----- ////
-
+// TODO - Get rid of this useless junk
 export const getSkillByTitle = (skills, title) => 
   skills.find(skill => skill.title === title);
 
@@ -27,6 +27,22 @@ export const getSkillItemIndexByTitle = (skills, skillTitle, itemTitle) => {
   let index = 0;
   for(let i = 0; i < skill.items.length; i += 1) {
     if(skill.items[i].title === itemTitle) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
+//// ----- Contacts Accessors ----- ////
+
+export const getContactByName = (contacts, name) => 
+  contacts.find(contact => contact.name === name);
+
+export const getContactIndexByName = (contacts, name) => {
+  let index = 0;
+  for(let i = 0; i < contacts.length; i += 1) {
+    if(contacts[i].name === name) {
       index = i;
       break;
     }

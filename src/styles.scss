@@ -17,6 +17,12 @@ a {
   text-decoration: none !important;
 }
 
+.appContainer {
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
 .gridRow {
   max-width: none !important;
 }
@@ -24,4 +30,12 @@ a {
 .fullWidth {
   width: 100%;
   max-width: none;
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.overflowAuto {
+  overflow-y: auto;
 }

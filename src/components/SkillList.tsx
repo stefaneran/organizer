@@ -6,10 +6,6 @@ import EmptyThumbnail from '@components/EmptyThumbnail';
 import { Skill } from '@interfaces/skill/Skill.interface';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    overflowY: 'auto',
-    overflowX: 'hidden'
-  },
   thumbnail: {
     cursor: 'pointer'
   }
@@ -26,9 +22,9 @@ const SkillList = ({ skills = [], onThumbClick, globalDialogActions }: SkillList
 
   return (
     <Grid 
-      data-selector="skills-list" 
-      className={classes.container} 
-      container spacing={2}
+      data-selector="skills-list"
+      container 
+      spacing={2}
     >
       {skills.length ? (
         <>

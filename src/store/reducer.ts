@@ -10,40 +10,7 @@ export const initialState = {
   version: '1.1.0',
   data: {
     skills: [],
-    contacts: [
-      {
-        name: 'Stefan Milenkovic',
-        location: 'Bulgaria - Sofia',
-        subgroups: ['Coworkers', 'Family'],
-        priority: "High",
-        info: 'This is literally me, man.\nNothing more to it.',
-        lastActivity: Date.now(),
-        interactionHistory: [
-          {
-            type: 'Talk',
-            activityDate: Date.now()
-          },
-          {
-            type: 'Hangout',
-            activityDate: Date.now()
-          }
-        ]
-      },
-      {
-        name: 'Kaja Djuknic',
-        location: 'Serbia - Belgrade',
-        subgroups: ['Friends'],
-        priority: "High",
-        info: 'BFF in university, I love her',
-        lastActivity: Date.now(),
-        interactionHistory: [
-          {
-            type: 'Hangout',
-            activityDate: Date.now()
-          }
-        ]
-      }
-    ]
+    contacts: []
   }
 }
 
@@ -205,6 +172,24 @@ const slice = createSlice({
         skill.items = 
           skill.items.filter(item => item.title !== payload.itemTitle);
       }
+    },
+    addContactDone: (state, { payload }) => {
+      const { contact } = payload;
+      const { contacts } = state.data;
+      contacts.push(contact);
+    },
+    logContactInteractionDone: (state, { payload }) => {
+      const { contactName, log } = payload;
+      const { contacts } = state.data;
+      const contact = contacts.find(contact => contact.name === contactName);
+      contact.interactionHistory.push(log);
+      contact.lastActivity = Date.now();
+    },
+    editContactSubgroup: (state, { payload }) => {
+      const { selectedContact, newSubgroups } = payload;
+      const { contacts } = state.data;
+      const contact = contacts.find(contact => contact.name === selectedContact.name);
+      contact.subgroups = newSubgroups;
     }
   }
 });
@@ -222,7 +207,10 @@ export const {
   updateSkillNotesDone,
   addSkillItemDone,
   updateSkillBookDone,
-  updateSkillCourseDone
+  updateSkillCourseDone,
+  addContactDone,
+  logContactInteractionDone,
+  editContactSubgroup
 } = slice.actions;
 
 export default slice.reducer;

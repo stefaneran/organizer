@@ -13,7 +13,14 @@ import { getSkillByTitle } from '@store/accessors';
 
 const { useState, useEffect } = React;
 
-const useStyles = makeStyles((theme: Theme) => createStyles(exportedStyles));
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  contentContainer: {
+    height: '93%',
+    overflowX: 'hidden',
+    overflowY: 'auto'
+  },
+  ...exportedStyles
+}));
 
 const SkillContainer = ({ store, toolBarHandlers }) => {
   const classes = useStyles();
@@ -108,9 +115,13 @@ const SkillContainer = ({ store, toolBarHandlers }) => {
           </Grid>
         )}
       />
-      <Grid item xs={11} className={'gridRow'} style={{ paddingTop: '0.5em' }}>
+      <Grid item xs={11} className={`gridRow ${classes.contentContainer}`} style={{ paddingTop: '0.5em' }}>
         {currentSkill ? (
-          <SkillView store={store} skill={currentSkill} globalDialogActions={globalDialogActions} />
+          <SkillView 
+            store={store} 
+            skill={currentSkill} 
+            globalDialogActions={globalDialogActions} 
+          />
         ) : (
           <SkillList
             skills={skills} 

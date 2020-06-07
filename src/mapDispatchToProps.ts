@@ -2,7 +2,8 @@ import {
   loadBackupData,
   validateData,
   updateActivity,
-  updateWeeklyGoal
+  updateWeeklyGoal,
+  editContactSubgroup
 } from '@store/reducer';
 import { 
   saveData, 
@@ -13,7 +14,9 @@ import {
   updateSkillNotes,
   addSkillItem,
   updateSkillBook,
-  updateSkillCourse
+  updateSkillCourse,
+  addContact,
+  logContactInteraction
 } from '@store/thunks';
 
 const localStorageThunks = {
@@ -35,7 +38,18 @@ const skillThunks = {
   updateSkillCourse
 }
 
+const contactThunks = {
+  addContact,
+  logContactInteraction
+}
+
+const contactActions = {
+  editContactSubgroup
+}
+
 export default {
   ...localStorageThunks,
-  ...skillThunks
+  ...skillThunks,
+  ...contactThunks,
+  ...contactActions
 }
