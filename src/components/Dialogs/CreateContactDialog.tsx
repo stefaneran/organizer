@@ -1,0 +1,114 @@
+import * as React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import { GenericDialog } from '@components/Dialogs/GenericDialog';
+import TextMultiSelect from '@components/FormInputs/TextMultiSelect';
+import TextInput from '@components/FormInputs/TextInput';
+import SelectInput from '@components/FormInputs/SelectInput';
+import { getDefaultFormData } from '@utils/formDataUtils';
+import getSubgroupsFromContacts from '@utils/getSubgroupsFromContacts'
+import createContactData from '@schemas/inputDialogs/createContactData';
+import Contact from '@interfaces/contacts/Contact.interface';
+
+const { useState } = React;
+
+interface CreateContactProps {
+  isOpen: boolean;
+  onClose: any;
+  contacts: Contact[];
+}
+
+const useStyles = makeStyles(theme => ({
+  input: {
+    // margin: '1em'
+  }
+}));
+
+const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) => {
+  const classes = useStyles();
+  const formModel = createContactData;
+
+  // Inject options since they cannot be declared statically in the schema
+  const subgroupsOptions = 
+    getSubgroupsFromContacts(contacts)
+    .map(subgroup => ({ label: subgroup, value: subgroup }));
+
+  const relationsOptions = 
+    contacts.map(contact => ({ label: contact.name, value: contact.name }));
+
+  const [formData, setFormData] = useState(getDefaultFormData(formModel));
+
+  const handleChange = (inputName, inputValue) => {
+    setFormData({ ...formData, [inputName]: inputValue });
+  }
+
+  const handleClose = (options?) => () => {
+    let isSubmit = options ? options.isSubmit : false;
+    onClose({ isSubmit, formData });
+  }
+
+  return (
+    <GenericDialog
+      isOpen={isOpen} 
+      title={"Create a Contact"}
+      onClose={handleClose}
+      actionsType={'simpleForm'}
+      maxWidth={'none'}
+    >
+      <Grid container spacing={2}>
+        <Grid container item direction="column" xs={4}>
+          <Grid item className={classes.input}>
+            <TextInput 
+              name={formModel.data.name.name} 
+              label={formModel.data.name.label} 
+              handleChange={handleChange} 
+              inputValue={formData.name}
+            />
+          </Grid>
+          <Grid item className={classes.input}>
+            <TextInput 
+              name={formModel.data.location.name} 
+              label={formModel.data.location.label} 
+              handleChange={handleChange} 
+              helperText={formModel.data.location.helperText} 
+              inputValue={formData.location}
+            />
+          </Grid>
+          <Grid item className={classes.input}>
+            <SelectInput
+              name={formModel.data.priority.name}
+              label={formModel.data.priority.label}
+              handleChange={handleChange}
+              options={formModel.data.priority.options}
+            />
+          </Grid>
+        </Grid>
+        <Grid item className={classes.input} xs={4} style={{ paddingTop: '0.8em' }}>
+          <TextMultiSelect 
+            name={formModel.data.subgroups.name} 
+            label={formModel.data.subgroups.label} 
+            options={subgroupsOptions}
+            handleChange={handleChange} 
+            multiple={true}
+            canAdd={true}
+            helperText={formModel.data.subgroups.helperText}
+            size="small"
+          />
+        </Grid>
+        <Grid item className={classes.input} xs={4} style={{ paddingTop: '0.8em' }}>
+          <TextMultiSelect 
+            name={formModel.data.relations.name} 
+            label={formModel.data.relations.label} 
+            options={relationsOptions}
+            handleChange={handleChange}
+            multiple={true}
+            helperText={formModel.data.relations.helperText}
+            size="small"
+          />
+        </Grid>
+      </Grid>
+    </GenericDialog>
+  );
+}
+
+export default CreateContactDialog;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Chip } from '@material-ui/core';
+import getSubgroupsFromContacts from '@utils/getSubgroupsFromContacts';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chipGroup: {
@@ -11,22 +12,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const getSubgroups = (contacts) => {
-  const subgroups = [];
-  contacts.forEach(person => {
-    person.subgroups.forEach(subgroup => {
-      if (!subgroups.includes(subgroup)) {
-        subgroups.push(subgroup);
-      }
-    })
-  })
-  return subgroups;
-}
-
 const ContactsSubgroups = ({ contacts, onChangeSubgroup }) => {
   const classes = useStyles();
   // TODO - Save subgroups to store
-  const subgroups = getSubgroups(contacts);
+  const subgroups = getSubgroupsFromContacts(contacts);
 
   return (
     <Grid container className={classes.chipGroup}>

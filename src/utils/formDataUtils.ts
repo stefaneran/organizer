@@ -4,14 +4,15 @@ export const mapDefaultFieldValueByType = (type) => {
     number: 0,
     checkbox: false,
     select: '',
-    slider: 0
+    slider: 0,
+    textMultiSelect: []
   };
   return map[type];
 }
 
 // Populate state hook object with fieldName/value key pairs
 export const getDefaultFormData = (form) => {
-  const defaultFormData = {};
+  const defaultFormData: any = {};
   for(const fieldName in form.data) {
     const { type, defaultValue } = form.data[fieldName];
     defaultFormData[fieldName] = defaultValue ? defaultValue : mapDefaultFieldValueByType(type);

@@ -7,7 +7,7 @@ import {
 import EventIcon from '@material-ui/icons/Event';
 import { TalkIconExtraSmallBlue } from '@components/Icons/TalkIcon';
 import { PeopleIconExtraSmallBlue } from '@components/Icons/PeopleIcon';
-import Person from '@interfaces/contacts/Person.interface';
+import Contact from '@interfaces/contacts/Contact.interface';
 import { formatDateBasic } from '@utils/dateUtils';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     // height: '100%',
     // maxWidth: 'none'
   },
-  personActions: {
+  contactActions: {
 
   }
 }));
@@ -26,7 +26,7 @@ interface Filter {
 }
 
 interface Props {
-  contacts: Person[]; 
+  contacts: Contact[]; 
   filters: Filter;
 }
 
@@ -41,7 +41,7 @@ const ContactsTable = ({ contacts, filters }: Props) => {
       (nameFilter.length && name.toLowerCase().includes(nameFilter.toLowerCase())) || !nameFilter.length;
     const locationMatch = (location) => 
       (locationFilter.length && location.toLowerCase().includes(locationFilter.toLowerCase())) || !locationFilter.length;
-    return contacts.filter(person => nameMatch(person.name) && locationMatch(person.location));
+    return contacts.filter(contact => nameMatch(contact.name) && locationMatch(contact.location));
   };
 
   return (
@@ -57,22 +57,22 @@ const ContactsTable = ({ contacts, filters }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filterList(contacts).map(person => (
-            <TableRow key={person.name}>
+          {filterList(contacts).map(contact => (
+            <TableRow key={contact.name}>
               <TableCell>
-                {person.name}
+                {contact.name}
               </TableCell>
               <TableCell>
-                {formatDateBasic(person.lastActivity)}
+                {formatDateBasic(contact.lastActivity)}
               </TableCell>
               <TableCell>
-                {person.location}
+                {contact.location}
               </TableCell>
               <TableCell>
-                {person.priority}
+                {contact.priority}
               </TableCell>
               <TableCell>
-                <Grid container className={classes.personActions}>
+                <Grid container className={classes.contactActions}>
                   <Grid item>
                     <Tooltip title="Log Talk">
                       <IconButton>

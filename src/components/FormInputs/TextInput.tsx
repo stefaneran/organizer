@@ -5,10 +5,10 @@ interface TextInputProps {
   name: string;
   handleChange: (name: string, value: any) => void;
   label: string;
+  inputValue: string;
   className?: string;
   shouldFocus?: boolean;
   helperText?: string;
-  inputValue?: string;
   variant?;
   size?;
 }

@@ -18,6 +18,7 @@
 - Add ticks to Slider + dynamic label below
 - History log scrollbar style
 - History General/Current tabs 
+- Abstract simple input dialogs
 - (After fixing FormCreator) Disable Next/Finish in wizard if required inputs not filled
 
 === Weekend ===

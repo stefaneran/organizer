@@ -1,16 +1,18 @@
-import { PersonHistoryLog } from '@interfaces/PersonHistoryLog.interface';
+import { ContactHistoryLog } from '@interfaces/ContactHistoryLog.interface';
 import { PriorityType } from '@interfaces/general';
 
-interface Person {
+interface Contact {
   name: string;
   // Country and city, shape at discretion of user
   location: string;
   // Which social circles this person is a part of (ex: Coworkers, Business Contact, College)
   subgroups: string[];
+  // Which other people this person has a relation with
+  relations: string[];
   priority: PriorityType;
   info: string;
   lastActivity: number;
-  interactionHistory: PersonHistoryLog[];
+  interactionHistory: ContactHistoryLog[];
 }
 
-export default Person;
+export default Contact;

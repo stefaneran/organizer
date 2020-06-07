@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import mapTypeToInputs from './mapTypeToInputs';
 import validateFormGrid from '@utils/validateFormGrid';
-import { IFormProps } from './FormCreator';
+import { FormProps } from './FormCreator';
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormGrid = ({ formData, formGrid, lastInputField, onChange }: IFormProps) => {
+const FormGrid = ({ formData, formGrid, lastInputField, onChange }: FormProps) => {
   const classes = useStyles();
   const isGridValid = validateFormGrid(formGrid, formData.length);
 

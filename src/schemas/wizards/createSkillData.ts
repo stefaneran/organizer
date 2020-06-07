@@ -32,8 +32,7 @@ export default {
     priority: { 
       name: 'priority', 
       type: 'select',
-      label: 'Priority', 
-      helperText: '',
+      label: 'Priority',
       defaultValue: PriorityType.Moderate,
       options: [
         {label: 'Low', value: PriorityType.Low },

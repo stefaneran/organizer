@@ -7,10 +7,11 @@ import mapTypeToActions from './mapTypeToActions';
 interface DialogProps {
   isOpen: boolean;
   title: string;
-  actionsType?: string;
-  actionsData?: any; // Can vary from type to type (refer to typeToActionsMap.tsx)
   onClose(options?: any): (event?) => void;
   children: React.ReactNode;
+  actionsType?: string;
+  actionsData?: any; // Can vary from type to type (refer to typeToActionsMap.tsx)
+  maxWidth?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -18,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& .MuiDialog-paper': {
       minHeight: '30%',
       minWidth: '40%',
+    },
+    '& [role="dialog"]': {
+      maxWidth: '1000px'
     }
   },
   header: {
@@ -33,10 +37,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const GenericDialog = ({ isOpen, title, children, actionsType, actionsData, onClose }: DialogProps) => {
+const GenericDialog = ({ isOpen, title, children, actionsType, actionsData, onClose, maxWidth }: DialogProps) => {
   const classes = useStyles();
   return (
-    <Dialog open={isOpen} onClose={onClose()} className={classes.container}>
+    <Dialog open={isOpen} onClose={onClose()} className={classes.container} style={{ maxWidth }}>
       <DialogTitle className={classes.header}>
         <Typography variant="h5">{title}</Typography>
         <IconButton className={classes.closeIcon} onClick={onClose()} color="primary" component="span">
