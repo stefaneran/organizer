@@ -7,7 +7,7 @@ import { getSkillIndexByTitle } from './accessors';
 export const initialState = {
   loading: false,
   error: false,
-  version: '1.1.0',
+  version: '1.2.0',
   data: {
     skills: [],
     contacts: []

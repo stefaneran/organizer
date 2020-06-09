@@ -9,9 +9,14 @@ import ContactPanel from './ContactPanel';
 const { useState } = React;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  innerContainer: {
+  container: {
     height: '100%',
     maxWidth: 'none'
+  },
+  innerContainer: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   }
 }));
 
@@ -41,8 +46,8 @@ const ContactsView = ({
   }
 
   return (
-    <Grid className={classes.innerContainer} container item spacing={2} xs={11}>
-      <Grid item xs={6}>
+    <Grid className={classes.container} container item spacing={2} xs={11}>
+      <Grid item xs={6} className={classes.innerContainer}>
         <ContactsTableToolbar 
           nameFilter={nameFilter} 
           onNameChange={handleNameChange}
@@ -62,7 +67,7 @@ const ContactsView = ({
           onSelectContact={onSelectContact}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} className={classes.innerContainer}>
         {selectedContact && (
           <ContactPanel contact={selectedContact} openDialog={open} />
         )}

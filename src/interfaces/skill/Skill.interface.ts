@@ -22,7 +22,7 @@ export const skillModel: Skill = {
   title: '',
   description: '',
   lastActivity: Date.now(),
-  categoryType: CategoryType.Skill,
+  categoryType: CategoryType.Skills,
   priority: PriorityType.Low,
   activity: ActivityType.Active,
   history: [],

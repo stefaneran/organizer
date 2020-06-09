@@ -12,7 +12,7 @@ export default (formData) => {
   return {
     title,
     description,
-    categoryType: CategoryType.Skill,
+    categoryType: CategoryType.Skills,
     priority,
     activity: ActivityType.Unstarted,
     lastActivity: null,

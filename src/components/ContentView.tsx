@@ -22,17 +22,17 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ store }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = useState(CategoryType.Skill);
+  const [currentCategory, setCurrentCategory] = useState(CategoryType.Contacts);
 
   const toolBarHandlers = {
-    viewSkills: () => setCurrentCategory(CategoryType.Skill),
+    viewSkills: () => setCurrentCategory(CategoryType.Skills),
     viewContacts: () => setCurrentCategory(CategoryType.Contacts)
   }
 
   return (
     <div className={classes.container}>
       <Grid className="fullHeight" container direction="column">
-        {currentCategory === CategoryType.Skill && (
+        {currentCategory === CategoryType.Skills && (
           <Grid className="fullHeight" container>
             <Grid item xs={9} className="fullHeight">
               <SkillContainer store={store} toolBarHandlers={toolBarHandlers} />

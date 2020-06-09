@@ -87,7 +87,7 @@ const ContactsContainer = ({ store, toolBarHandlers }) => {
           )} 
         />
       </Grid>
-      <Grid item xs={11} className={'gridRow'}>
+      <Grid item xs={11} className={'gridRow'} style={{ height: '85%' }}>
         <ContactsView 
           store={store} 
           selectedContact={selectedContact}

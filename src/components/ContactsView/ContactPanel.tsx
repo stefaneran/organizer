@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, AppBar, Tabs, Tab, Button } from '@material-ui/core';
-import { TalkIconMedium } from '@components/Icons/TalkIcon';
-import { PeopleIconMedium } from '@components/Icons/PeopleIcon';
+import InteractionLog from './InteractionLog';
 import { formatDateClassic } from '@utils/dateUtils';
-import InteractionType from '@interfaces/contacts/InteractionType.interface';
 
 const { useState } = React;
 
@@ -31,31 +29,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     maxHeight: '300px',
     overflowY: 'auto'
   },
-  historyLog: {
-    background: theme.palette.primary.main,
-    padding: '0.5em 0.5em 0.5em 0',
-    marginBottom: '0.5em'
-  },
-  historyLogIcon: {
-    '& svg': {
-      position: 'relative' as 'relative',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    }
-  },
-  historyLogContent: {
-    padding: '0.2em'
-  },
-  historyLogLine: {
-    padding: '0.1em 0.5em'
-  }
 }));
 
 const ContactPanel = ({ contact, openDialog }) => {
   const classes = useStyles();
   const { name, location, lastActivity, subgroups, relations, interactionHistory } = contact;
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(1);
 
   const handleTabChange = (event, tab) => {
     setCurrentTab(tab);
@@ -106,29 +85,8 @@ const ContactPanel = ({ contact, openDialog }) => {
             <div>Bio</div>
           ) : (
             <div className={classes.historyContainer}>
-              {interactionHistory.map(log => (
-                <Paper className={classes.historyLog}>
-                  <Grid container>
-                    <Grid item xs={2} className={classes.historyLogIcon}>
-                      {log.type === InteractionType.Talk ? (
-                        <TalkIconMedium />
-                      ) : (
-                        <PeopleIconMedium />
-                      )}
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Paper className={classes.historyLogContent}>
-                        <Typography variant="subtitle1" className={classes.historyLogLine}>
-                          {log.type}
-                        </Typography>
-                        <Divider />
-                        <Typography variant="subtitle1" className={classes.historyLogLine}>
-                          {formatDateClassic(log.activityDate)}
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                  </Grid>
-                </Paper>
+              {interactionHistory.map((log, index) => (
+                <InteractionLog key={`${log.activityDate}-${index}`} log={log} />
               ))}
             </div>
           )}

@@ -54,7 +54,7 @@ export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getS
   const totalXP = skill.totalXP + (hoursValue * XP_PER_HOUR);
 
   const log = {
-    categoryType: CategoryType.Skill,
+    categoryType: CategoryType.Skills,
     categoryIdentifier: title,
     unit: hoursValue,
     activityDate: Date.now(),
@@ -106,7 +106,7 @@ export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async 
   }
   
   const log = {
-    categoryType: CategoryType.Skill,
+    categoryType: CategoryType.Skills,
     categoryIdentifier: skillTitle,
     subType: SkillItemType.Book,
     unit: hoursRead,
@@ -145,7 +145,7 @@ export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => as
   }
 
   const log = {
-    categoryType: CategoryType.Skill,
+    categoryType: CategoryType.Skills,
     categoryIdentifier: skillTitle,
     subType: SkillItemType.Course,
     unit: hoursPracticed,

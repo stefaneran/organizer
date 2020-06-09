@@ -1,5 +1,5 @@
 export enum CategoryType {
-  Skill = "Skill",
+  Skills = "Skills",
   Contacts = "Contacts"
 }
 
