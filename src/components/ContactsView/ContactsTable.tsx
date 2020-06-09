@@ -15,6 +15,7 @@ interface Filter {
   nameFilter: string;
   locationFilter: string;
   selectedSubgroup: string;
+  sortOrder: string;
 }
 
 interface Props {
@@ -29,18 +30,27 @@ const ContactsTable = ({ contacts, filters, selectedContact, onSelectContact, on
   const classes = useStyles();
 
   const filterList = (contacts) => {
-    const { nameFilter, locationFilter, selectedSubgroup } = filters;
+    const { nameFilter, locationFilter, selectedSubgroup, sortOrder } = filters;
     const subgroupMatch = (subgroups) =>
       (selectedSubgroup !== 'All' && subgroups.includes(selectedSubgroup)) || selectedSubgroup === 'All';
     const nameMatch = (name) => 
       (nameFilter.length && name.toLowerCase().includes(nameFilter.toLowerCase())) || !nameFilter.length;
     const locationMatch = (location) => 
       (locationFilter.length && location.toLowerCase().includes(locationFilter.toLowerCase())) || !locationFilter.length;
-    return contacts.filter(contact => 
+
+    let filtered = contacts.filter(contact => 
       nameMatch(contact.name) && 
       locationMatch(contact.location) &&
       subgroupMatch(contact.subgroups)
     );
+    if (sortOrder) {
+      filtered = filtered.sort((a, b) => 
+        sortOrder === 'descending' ? 
+          a.lastActivity - b.lastActivity :
+          b.lastActivity - a.lastActivity
+      )
+    }
+    return filtered;
   };
 
   return (

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography, IconButton } from '@material-ui/core';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import TextInput from '@components/FormInputs/TextInput';
 
 const { useState } = React;
@@ -13,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   textInput: {
     width: '9em',
     marginRight: '0.5em'
+  },
+  pressed: {
+    background: 'rgba(0, 0, 0, 0.2)'
   }
 }));
 
@@ -20,9 +25,14 @@ const ContactsTableToolbar = ({
   nameFilter, 
   onNameChange, 
   locationFilter, 
-  onLocationChange 
+  onLocationChange,
+  sortOrder,
+  onSort
 }) => {
   const classes = useStyles();
+
+  const handleSort = (order) => () => onSort(order);
+
   return (
     <Paper className={classes.toolbar}>
       <Grid container>
@@ -47,6 +57,24 @@ const ContactsTableToolbar = ({
             variant="outlined"
             size="small"
           />
+        </Grid>
+        <Grid item>
+          <IconButton 
+            className={sortOrder === 'ascending' ? classes.pressed : ''} 
+            onClick={handleSort('ascending')} 
+            style={{ padding: '8px', marginRight: '0.5em' }}
+          >
+            <ArrowUpwardIcon />
+          </IconButton>
+        </Grid>
+        <Grid item>
+          <IconButton 
+            className={sortOrder === 'descending' ? classes.pressed : ''} 
+            onClick={handleSort('descending')} 
+            style={{ padding: '8px' }}
+          >
+            <ArrowDownwardIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Paper>

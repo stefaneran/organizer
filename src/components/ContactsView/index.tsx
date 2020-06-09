@@ -35,14 +35,17 @@ const ContactsView = ({
 
   const [nameFilter, setNameFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
+  const [sortOrder, setSortOrder] = useState(null);
   
   const handleNameChange = (name, value) => setNameFilter(value);
   const handleLocationChange = (name, value) => setLocationFilter(value);
+  const handleSort = (order) => setSortOrder(order === sortOrder ? null : order);
 
   const filters = {
     selectedSubgroup,
     nameFilter,
-    locationFilter
+    locationFilter,
+    sortOrder
   }
 
   return (
@@ -53,6 +56,8 @@ const ContactsView = ({
           onNameChange={handleNameChange}
           locationFilter={locationFilter} 
           onLocationChange={handleLocationChange}
+          sortOrder={sortOrder}
+          onSort={handleSort}
         />
         <ContactsSubgroups 
           contacts={contacts} 

@@ -85,7 +85,7 @@ const ContactPanel = ({ contact, openDialog }) => {
             <div>Bio</div>
           ) : (
             <div className={classes.historyContainer}>
-              {interactionHistory.map((log, index) => (
+              {interactionHistory.slice().sort((a, b) => b.activityDate - a.activityDate).map((log, index) => (
                 <InteractionLog key={`${log.activityDate}-${index}`} log={log} />
               ))}
             </div>
