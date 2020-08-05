@@ -12,7 +12,7 @@ const { useState, useEffect } = React;
 
 const useStyles = makeStyles((theme: Theme) => createStyles(exportedStyles));
 
-const ContactsContainer = ({ store, toolBarHandlers }) => {
+const ContactsContainer = ({ store, toolBarHandlers, tempDialog }) => {
   const classes = useStyles();
   const { data: { contacts } } = store;
 
@@ -71,6 +71,7 @@ const ContactsContainer = ({ store, toolBarHandlers }) => {
       <Grid item xs={1} className={'gridRow'}>
         <ContentToolbar 
           store={store} 
+          tempDialog={tempDialog}
           toolBarHandlers={toolBarHandlers} 
           specializedButtons={(
             <>

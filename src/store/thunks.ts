@@ -1,4 +1,5 @@
 import { 
+  startLoading, endLoading, apiData, loginDone,
   saveDataDone, loadDataDone, 
   addSkillDone, deleteSkillDone, 
   updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone,
@@ -17,12 +18,69 @@ import { CategoryType } from '@interfaces/general';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import formatHourValue from '@utils/formatHourValue';
 
+// TODO move to process.env
+const baseUrl = "https://us-central1-sem-organizer.cloudfunctions.net/default/api";
+
+export const register = ({ userName, password }) => async (dispatch) => {
+  console.log('Register Called')
+  dispatch(startLoading());
+  const response = await fetch(`${baseUrl}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userName, password })
+  });
+  console.log('Register response: ', response);
+  dispatch(endLoading());
+  dispatch(loginDone({ userName, password }))
+  return response;
+}
+
+export const login = ({ userName, password }) => async (dispatch) => {
+  console.log('Login Called')
+  dispatch(startLoading());
+  const response = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userName, password })
+  });
+  const responseData = await response.json();
+  console.log('Login response: ', responseData);
+  dispatch(endLoading());
+  if (responseData) {
+    dispatch(apiData(responseData));
+    dispatch(loginDone({ userName, password }))
+  }
+  return responseData;
+}
+
+export const updateData = () => async (dispatch, getState) => {
+  const { user, data } = getState();
+  console.log('Update Called ', user, data);
+  const { userName, password } = user;
+  dispatch(startLoading());
+  const response = await fetch(`${baseUrl}/save`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userName, password, data })
+  });
+  console.log('Update response: ', response);
+  dispatch(endLoading());
+  return response;
+}
+
 //// ----- Local Storage Thunks -----
 
 export const saveData = () => async (dispatch, getState) => {
   const { data } = getState();
   const success = saveToLocalStorage(data);
   dispatch(saveDataDone({ success }));
+  dispatch(updateData());
 }
 
 export const loadData = () => async dispatch => {

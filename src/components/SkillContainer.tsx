@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   ...exportedStyles
 }));
 
-const SkillContainer = ({ store, toolBarHandlers }) => {
+const SkillContainer = ({ store, toolBarHandlers, tempDialog }) => {
   const classes = useStyles();
   const { data: { skills } } = store;
 
@@ -92,6 +92,7 @@ const SkillContainer = ({ store, toolBarHandlers }) => {
     <>
       <ContentToolbar 
         store={store} 
+        tempDialog={tempDialog}
         toolBarHandlers={skillToolBarHandlers}
         specializedButtons={currentSkill ? (
           <Grid item className={classes.buttonContainer}>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
+import { Paper, Grid, Divider, Typography, Tooltip, IconButton, Button } from '@material-ui/core';
 import {
   Save as SaveIcon,
   Publish as PublishIcon
@@ -55,10 +55,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface ToolBarProps {
   store: any;
   toolBarHandlers: any;
-  specializedButtons?: JSX.Element
+  specializedButtons?: JSX.Element;
+  tempDialog: any;
 }
 
-const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarProps) => {
+const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog }: ToolBarProps) => {
   const classes = useStyles();
 
   const inputRef = useRef(null);
@@ -111,6 +112,14 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons }: ToolBarP
               <PublishIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
+        </Grid>
+
+        <Grid item className={classes.buttonContainer}>
+          <Button style={{ color: '#fff' }} onClick={() => tempDialog({ type: 'register', isOpen: true })}>Register</Button>
+        </Grid>
+
+        <Grid item className={classes.buttonContainer}>
+          <Button style={{ color: '#fff' }} onClick={() => tempDialog({ type: 'login', isOpen: true })}>Login</Button>
         </Grid>
 
         <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />

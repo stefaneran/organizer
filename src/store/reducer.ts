@@ -7,10 +7,15 @@ import { getSkillIndexByTitle } from './accessors';
 export const initialState = {
   loading: false,
   error: false,
-  version: '1.2.1',
+  version: '1.3.0',
   data: {
     skills: [],
     contacts: []
+  },
+  user: {
+    loggedIn: false,
+    userName: null,
+    password: null
   }
 }
 
@@ -18,6 +23,20 @@ const slice = createSlice({
   name: 'store',
   initialState,
   reducers: {
+    startLoading: (state) => {
+      state.loading = true;
+    },
+    endLoading: (state) => {
+      state.loading = false;
+    },
+    apiData: (state, { payload }) => {
+      state.data = payload.data.data;
+    },
+    loginDone: (state, { payload }) => {
+      state.user.loggedIn = true;
+      state.user.userName = payload.userName;
+      state.user.password = payload.password;
+    },
     saveDataDone: (state, { payload }) => {
       state.error = payload.success;
     },
@@ -195,6 +214,10 @@ const slice = createSlice({
 });
 
 export const { 
+  startLoading,
+  endLoading,
+  apiData,
+  loginDone,
   saveDataDone,
   loadDataDone,
   loadBackupData,

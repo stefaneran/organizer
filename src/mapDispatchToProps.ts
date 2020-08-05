@@ -6,6 +6,8 @@ import {
   editContactSubgroup
 } from '@store/reducer';
 import { 
+  register,
+  login,
   saveData, 
   loadData,
   addSkill, 
@@ -18,6 +20,11 @@ import {
   addContact,
   logContactInteraction
 } from '@store/thunks';
+
+const apiThunks = {
+  register,
+  login
+}
 
 const localStorageThunks = {
   saveData,
@@ -48,6 +55,7 @@ const contactActions = {
 }
 
 export default {
+  ...apiThunks,
   ...localStorageThunks,
   ...skillThunks,
   ...contactThunks,
