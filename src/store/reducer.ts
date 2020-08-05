@@ -7,7 +7,7 @@ import { getSkillIndexByTitle } from './accessors';
 export const initialState = {
   loading: false,
   error: false,
-  version: '1.3.0',
+  version: '1.3.1',
   data: {
     skills: [],
     contacts: []
@@ -41,7 +41,23 @@ const slice = createSlice({
       state.error = payload.success;
     },
     loadDataDone: (state, { payload }) => {
-      state.data = payload.data;
+      const { data, user } = payload;
+      state.data = data;
+      if (user) {
+        state.user = {
+          loggedIn: true,
+          userName: user.userName,
+          password: user.password
+        }
+      }
+    },
+    loadUserDataDone: (state, { payload }) => {
+      const { user } = payload;
+      state.user = {
+        loggedIn: true,
+        userName: user.userName,
+        password: user.password
+      }
     },
     validateData: (state) => {
       const { skills } = state.data;

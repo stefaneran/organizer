@@ -1,6 +1,6 @@
 import { 
   startLoading, endLoading, apiData, loginDone,
-  saveDataDone, loadDataDone, 
+  saveDataDone, loadDataDone, loadUserDataDone, 
   addSkillDone, deleteSkillDone, 
   updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone,
   addContactDone, logContactInteractionDone
@@ -9,7 +9,7 @@ import {
   getSkillByTitle, getSkillIndexByTitle, 
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
-import { loadFromLocalStorage, saveToLocalStorage } from '@store/logic/localstorage';
+import { loadUserFromLocalStorage, loadFromLocalStorage, saveToLocalStorage } from '@store/logic/localstorage';
 import { XP_PER_HOUR } from '@logic/skill.constants';
 import { getHoursFromPages } from '@logic/skill.logic';
 import getSkillObject from './logic/getSkillObject';
@@ -53,6 +53,7 @@ export const login = ({ userName, password }) => async (dispatch) => {
   if (responseData) {
     dispatch(apiData(responseData));
     dispatch(loginDone({ userName, password }))
+    localStorage.setItem('user', JSON.stringify({ userName, password }));
   }
   return responseData;
 }
@@ -83,10 +84,11 @@ export const saveData = () => async (dispatch, getState) => {
   dispatch(updateData());
 }
 
+// TODO - Delete deprecated
 export const loadData = () => async dispatch => {
-  const data = loadFromLocalStorage();
-  if(data) {
-    dispatch(loadDataDone({ data }))
+  const { success, user, data } = loadFromLocalStorage();
+  if(success) {
+    dispatch(loadDataDone({ user, data }))
   }
   // TODO - Dispatch error action
 }

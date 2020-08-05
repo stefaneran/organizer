@@ -11,7 +11,8 @@ export const saveToLocalStorage = (data) => {
 export const loadFromLocalStorage = () => {
   try {
     let rawData = localStorage.getItem('data');
-    let data;
+    let userRawData = localStorage.getItem('user');
+    let data, user;
     if(!rawData) {
       rawData = localStorage.getItem('profiles');
       let tempData = JSON.parse(rawData);
@@ -21,9 +22,19 @@ export const loadFromLocalStorage = () => {
       }
     } else {
       data = JSON.parse(rawData);
+      user = JSON.parse(userRawData);
     }
-    return data;
+    return { success: true, data, user };
   } catch(e) {
-    return false; // TODO - Return message for notification
+    return { success: false, user: false }; // TODO - Return message for notification
   }
+}
+
+export const loadUserFromLocalStorage = () => {
+  const userRawData = localStorage.getItem('user');
+  if (userRawData) {
+    const user = JSON.parse(userRawData);
+    return { success: true, user }
+  }
+  return { success: false, user: false };
 }

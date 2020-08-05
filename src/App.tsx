@@ -5,6 +5,7 @@ import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
 import ContentView from '@components/ContentView';
+import { loadUserFromLocalStorage } from '@store/logic/localstorage';
 
 const { log } = console;
 const { useState, useEffect } = React;
@@ -25,19 +26,24 @@ const App = (store) => {
 
   // load data from local storage
   useEffect(() => {
-    const { loadData } = store;
-    loadData();
+    const { success, user } = loadUserFromLocalStorage();
+    if (success) {
+      const { login } = store;
+      const { userName, password } = user;
+      if (userName && password) {
+        login(user)
+      }
+    }
   }, []);
 
   // Validate for any missing properties due to changes
   useEffect(() => {
-    const { validateData, updateActivity, saveData, data } = store;
+    const { validateData, updateActivity, data } = store;
     const { skills } = data;
     // Only run after loadData is done
     if(!isDataValidated && skills.length) {
       validateData();
       setValidated(true);
-      saveData();
     }
     // Run after data is loaded and validated
     if(!isActivityUpdated && isDataValidated) {
