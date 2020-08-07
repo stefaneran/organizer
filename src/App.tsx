@@ -24,7 +24,7 @@ const App = (store) => {
 
   log('=== INFO: Store in App ===\n', store);
 
-  // load data from local storage
+  // load user data from local storage and login
   useEffect(() => {
     const { success, user } = loadUserFromLocalStorage();
     if (success) {
@@ -84,9 +84,11 @@ const App = (store) => {
                   onChange={(event) => setDialogInputs({ userName: event.target.value, password: dialogInputs.password })} 
                   placeholder="User Name" 
                 />
+                <br /><br />
                 <TextField 
                   value={dialogInputs.password} 
                   placeholder="Password" 
+                  type="password"
                   onChange={(event) => setDialogInputs({ userName: dialogInputs.userName, password: event.target.value })} 
                 />
               </DialogContent>

@@ -8,6 +8,7 @@ import {
 import { 
   register,
   login,
+  logout,
   saveData, 
   loadData,
   addSkill, 
@@ -29,6 +30,7 @@ const apiThunks = {
 const localStorageThunks = {
   saveData,
   loadData,
+  logout,
   loadBackupData,
   validateData
 }

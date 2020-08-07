@@ -37,6 +37,15 @@ const slice = createSlice({
       state.user.userName = payload.userName;
       state.user.password = payload.password;
     },
+    logoutDone: (state) => {
+      state.user.loggedIn = false;
+      state.user.userName = null;
+      state.user.password = null;
+      state.data = {
+        skills: [],
+        contacts: []
+      }
+    },
     saveDataDone: (state, { payload }) => {
       state.error = payload.success;
     },
@@ -49,14 +58,6 @@ const slice = createSlice({
           userName: user.userName,
           password: user.password
         }
-      }
-    },
-    loadUserDataDone: (state, { payload }) => {
-      const { user } = payload;
-      state.user = {
-        loggedIn: true,
-        userName: user.userName,
-        password: user.password
       }
     },
     validateData: (state) => {
@@ -234,6 +235,7 @@ export const {
   endLoading,
   apiData,
   loginDone,
+  logoutDone,
   saveDataDone,
   loadDataDone,
   loadBackupData,

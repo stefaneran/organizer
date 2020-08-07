@@ -43,11 +43,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
     backgroundColor: theme.palette.primary.main
   },
+  rightSection: {
+    display: 'flex',
+    marginLeft: 'auto',
+    alignSelf: 'center',
+    paddingRight: '1em'
+  },
   version: {
-    position: 'absolute',
-    right: '0.5em',
-    top: '50%',
-    transform: 'translateY(-50%)'
+    // position: 'absolute',
+    // right: '0.5em',
+    // top: '50%',
+    // transform: 'translateY(-50%)',
+    alignSelf: 'center',
+    marginLeft: '1em'
+  },
+  userName: {
+    alignSelf: 'center',
   },
   ...exportedStyles
 }));
@@ -63,6 +74,8 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
   const classes = useStyles();
 
   const inputRef = useRef(null);
+
+  const { user: { loggedIn, userName } } = store;
 
   const upload = () => {
     inputRef.current.click();
@@ -81,6 +94,10 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
   return (
     <Paper className={classes.container}>
       <Grid container>
+
+        {specializedButtons}
+
+        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Skill View">
@@ -114,21 +131,35 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
           </Tooltip>
         </Grid>
 
-        <Grid item className={classes.buttonContainer}>
-          <Button style={{ color: '#fff' }} onClick={() => tempDialog({ type: 'register', isOpen: true })}>Register</Button>
-        </Grid>
+        {!loggedIn ? (
+          <>
+            <Grid item className={classes.buttonContainer}>
+              <Button className={classes.textButton} onClick={() => tempDialog({ type: 'register', isOpen: true })}>Register</Button>
+            </Grid>
 
-        <Grid item className={classes.buttonContainer}>
-          <Button style={{ color: '#fff' }} onClick={() => tempDialog({ type: 'login', isOpen: true })}>Login</Button>
-        </Grid>
+            <Grid item className={classes.buttonContainer}>
+              <Button className={classes.textButton} onClick={() => tempDialog({ type: 'login', isOpen: true })}>Login</Button>
+            </Grid>
+          </>
+        ) : (
+          <Grid item className={classes.buttonContainer}>
+            <Button className={classes.textButton} onClick={() => store.logout()}>Logout</Button>
+          </Grid>
+        )}
 
-        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
+        <div className={classes.rightSection}>
 
-        {specializedButtons}
+          {loggedIn && (
+            <span className={classes.userName}>
+              <Typography variant="subtitle1" style={{ color: '#fff' }}>{userName}</Typography>
+            </span>
+          )}
 
-        <span className={classes.version}>
-          <Typography variant="subtitle1" style={{ color: '#fff' }}>V{store.version}</Typography>
-        </span>
+          <span className={classes.version}>
+            <Typography variant="subtitle1" style={{ color: '#fff' }}>V{store.version}</Typography>
+          </span>
+
+        </div>
 
       </Grid>
       <a id="downloadData" style={{ display: 'none' }} />

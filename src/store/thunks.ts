@@ -1,6 +1,6 @@
 import { 
-  startLoading, endLoading, apiData, loginDone,
-  saveDataDone, loadDataDone, loadUserDataDone, 
+  startLoading, endLoading, apiData, loginDone, logoutDone,
+  saveDataDone, loadDataDone,
   addSkillDone, deleteSkillDone, 
   updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone,
   addContactDone, logContactInteractionDone
@@ -32,9 +32,11 @@ export const register = ({ userName, password }) => async (dispatch) => {
     body: JSON.stringify({ userName, password })
   });
   console.log('Register response: ', response);
+  if (response.status === 200) {
+    dispatch(loginDone({ userName, password }));
+    localStorage.setItem('user', JSON.stringify({ userName, password }));
+  }
   dispatch(endLoading());
-  dispatch(loginDone({ userName, password }))
-  return response;
 }
 
 export const login = ({ userName, password }) => async (dispatch) => {
@@ -47,21 +49,32 @@ export const login = ({ userName, password }) => async (dispatch) => {
     },
     body: JSON.stringify({ userName, password })
   });
-  const responseData = await response.json();
-  console.log('Login response: ', responseData);
-  dispatch(endLoading());
-  if (responseData) {
-    dispatch(apiData(responseData));
-    dispatch(loginDone({ userName, password }))
-    localStorage.setItem('user', JSON.stringify({ userName, password }));
+  try {
+    const responseData = await response.json();
+    console.log('Login response: ', responseData);
+    if (response.status === 200 && responseData) {
+      dispatch(apiData(responseData));
+      dispatch(loginDone({ userName, password }))
+      localStorage.setItem('user', JSON.stringify({ userName, password }));
+    }
+  } catch (e) {
+    // TODO - Handle
   }
-  return responseData;
+  dispatch(endLoading());
+}
+
+export const logout = () => async dispatch => {
+  localStorage.removeItem('user');
+  dispatch(logoutDone());
 }
 
 export const updateData = () => async (dispatch, getState) => {
   const { user, data } = getState();
   console.log('Update Called ', user, data);
   const { userName, password } = user;
+  if (!userName || !password) {
+    return;
+  }
   dispatch(startLoading());
   const response = await fetch(`${baseUrl}/save`, {
     method: 'PUT',
@@ -72,7 +85,6 @@ export const updateData = () => async (dispatch, getState) => {
   });
   console.log('Update response: ', response);
   dispatch(endLoading());
-  return response;
 }
 
 //// ----- Local Storage Thunks -----
