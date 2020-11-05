@@ -4,10 +4,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { default as ArrowIcon } from '@material-ui/icons/ArrowBackIos';
-import ContentToolbar, { exportedStyles } from '@components/ContentToolbar';
-import SkillList from '@components/SkillList';
-import SkillView from '@components/SkillView';
-import UpdateSkillHoursDialog from '@components/Dialogs/UpdateSkillHoursDialog';
+import ContentToolbar, { exportedStyles } from '@components/core/ContentToolbar';
+import SkillList from '@components/skills/SkillList';
+import SkillView from '@components/skills/SkillView';
+import UpdateSkillHoursDialog from '@components/skills/dialogs/UpdateSkillHoursDialog';
 import CreateSkillWizard from '@components/Wizards/CreateSkillWizard';
 import { getSkillByTitle } from '@store/accessors';
 

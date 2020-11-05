@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import TextMultiSelect from '@components/FormInputs/TextMultiSelect';
+import { GenericDialog } from '@components/core/GenericDialog';
+import TextMultiSelect from '@components/core/FormInputs/TextMultiSelect';
 
 const { useState } = React;
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import { GenericDialog } from '@components/Dialogs/GenericDialog';
-import TextMultiSelect from '@components/FormInputs/TextMultiSelect';
-import TextInput from '@components/FormInputs/TextInput';
-import SelectInput from '@components/FormInputs/SelectInput';
+import { GenericDialog } from '@components/core/GenericDialog';
+import TextMultiSelect from '@components/core/FormInputs/TextMultiSelect';
+import TextInput from '@components/core/FormInputs/TextInput';
+import SelectInput from '@components/core/FormInputs/SelectInput';
 import { getDefaultFormData } from '@utils/formDataUtils';
 import getSubgroupsFromContacts from '@utils/getSubgroupsFromContacts'
 import createContactData from '@schemas/inputDialogs/createContactData';

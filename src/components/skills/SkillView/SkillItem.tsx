@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, IconButton } from '@material-ui/core';
-import { BookIconLarge } from '@components/Icons/BookIcon';
-import { SchoolIconLarge } from '@components/Icons/SchoolIcon';
+import { BookIconLarge } from '@components/core/Icons/BookIcon';
+import { SchoolIconLarge } from '@components/core/Icons/SchoolIcon';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';

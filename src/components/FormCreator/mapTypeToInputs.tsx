@@ -1,9 +1,9 @@
 import * as React from 'react';
-import TextInput from '@components/FormInputs/TextInput';
-import NumberInput from '@components/FormInputs/NumberInput';
-import SelectInput from '@components/FormInputs/SelectInput';
-import SliderInput from '@components/FormInputs/SliderInput';
-import TextMultiSelect from '@components/FormInputs/TextMultiSelect'
+import TextInput from '@components/core/FormInputs/TextInput';
+import NumberInput from '@components/core/FormInputs/NumberInput';
+import SelectInput from '@components/core/FormInputs/SelectInput';
+import SliderInput from '@components/core/FormInputs/SliderInput';
+import TextMultiSelect from '@components/core/FormInputs/TextMultiSelect'
 
 export default (type, data, lastInputField) => {
   const map = {

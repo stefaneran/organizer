@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GenericDialog } from '@components/Dialogs/GenericDialog';
+import { GenericDialog } from '@components/core/GenericDialog';
 import { FormCreator } from '@components/FormCreator';
 import { getDefaultFormData, getSimpleFormData } from '@utils/formDataUtils';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';

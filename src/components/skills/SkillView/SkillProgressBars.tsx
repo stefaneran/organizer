@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import { VerticalProgressBar } from '@components/ProgressBar';
+import { VerticalProgressBar } from '@components/skills/ProgressBar';
 import { TOTAL_HOURS_TO_MASTERY } from '@logic/skill.constants';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

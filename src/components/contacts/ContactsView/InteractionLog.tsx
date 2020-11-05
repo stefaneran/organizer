@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider } from '@material-ui/core';
-import { TalkIconMedium } from '@components/Icons/TalkIcon';
-import { PeopleIconMedium } from '@components/Icons/PeopleIcon';
+import { TalkIconMedium } from '@components/core/Icons/TalkIcon';
+import { PeopleIconMedium } from '@components/core/Icons/PeopleIcon';
 import InteractionType from '@interfaces/contacts/InteractionType.interface';
 import { formatDateClassic, getDaysFromDate } from '@utils/dateUtils';
 

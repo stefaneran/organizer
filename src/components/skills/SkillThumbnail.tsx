@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
-import { VerticalProgressBar } from '@components/ProgressBar';
+import { VerticalProgressBar } from '@components/skills/ProgressBar';
 import { getRankByXP } from '@logic/skill.logic';
 import { getWeekHourGoalProgress, getDaysFromDate } from '@utils/dateUtils';
 import formatHourValue from '@utils/formatHourValue';

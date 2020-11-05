@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { GenericDialog } from '@components/Dialogs/GenericDialog';
+import { GenericDialog } from '@components/core/GenericDialog';
 import updateSkillBook from '@schemas/inputDialogs/updateSkillBookData';
 import { getDefaultFormData } from '@utils/formDataUtils';
-import SliderInput from '@components/FormInputs/SliderInput';
+import SliderInput from '@components/core/FormInputs/SliderInput';
 
 const { useState } = React;
 

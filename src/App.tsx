@@ -1,10 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, TextField } from '@material-ui/core';
+import { CircularProgress, 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  Button, 
+  Typography, 
+  TextField 
+} from '@material-ui/core';
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
-import ContentView from '@components/ContentView';
+import ContentView from '@components/contacts/ContentView';
 import { loadUserFromLocalStorage } from '@store/logic/localstorage';
 
 const { log } = console;

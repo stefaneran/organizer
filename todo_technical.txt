@@ -1,4 +1,19 @@
 
+
+
+
+- Data:
+  - Change shape for API
+  - Add compression
+  - Migrate data
+
+- Get rid of form creator/form wizard
+
+- Add detailed loading dialog on load 
+
+- Mobile version
+
+
 ============================================================
 ======= Minor Features / Bugs / Improvements / TODOs =======
 ============================================================

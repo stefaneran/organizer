@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import SkillContainer from '@components/SkillContainer';
-import HistoryView from '@components/HistoryView'
-import ContactsContainer from '@components/ContactsContainer';
+import SkillContainer from '@components/skills/SkillContainer';
+import HistoryView from '@components/skills/HistoryView'
+import ContactsContainer from '@components/contacts/ContactsContainer';
 import { CategoryType } from '@interfaces/general'
 
 const { useState } = React;

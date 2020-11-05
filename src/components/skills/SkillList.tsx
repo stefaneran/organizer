@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import SkillThumbnail from '@components/SkillThumbnail';
-import EmptyThumbnail from '@components/EmptyThumbnail';
+import SkillThumbnail from '@components/skills/SkillThumbnail';
+import EmptyThumbnail from '@components/skills/EmptyThumbnail';
 import { Skill } from '@interfaces/skill/Skill.interface';
 
 const useStyles = makeStyles(theme => ({

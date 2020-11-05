@@ -5,8 +5,8 @@ import {
   Save as SaveIcon,
   Publish as PublishIcon
 } from '@material-ui/icons';
-import { BrainIconSmall } from '@components/Icons/BrainIcon';
-import { PeopleIconSmall } from '@components/Icons/PeopleIcon';
+import { BrainIconSmall } from '@components/core/Icons/BrainIcon';
+import { PeopleIconSmall } from '@components/core/Icons/PeopleIcon';
 import downloadJSON from '@utils/downloadJSON';
 
 const { useRef } = React;

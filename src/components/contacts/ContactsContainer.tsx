@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
-import ContentToolbar, { exportedStyles } from '@components/ContentToolbar';
-import ContactsView from '@components/ContactsView';
-import CreateContactDialog from '@components/Dialogs/CreateContactDialog';
-import EditContactSubgroups from '@components/Dialogs/EditContactSubgroups';
+import ContentToolbar, { exportedStyles } from '@components/core/ContentToolbar';
+import ContactsView from '@components/contacts/ContactsView';
+import CreateContactDialog from '@components/contacts/dialogs/CreateContactDialog';
+import EditContactSubgroups from '@components/contacts/dialogs/EditContactSubgroups';
 
 const { useState, useEffect } = React;
 

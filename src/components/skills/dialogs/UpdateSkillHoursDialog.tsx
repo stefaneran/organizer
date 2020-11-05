@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { GenericDialog } from '@components/Dialogs/GenericDialog';
+import { GenericDialog } from '@components/core/GenericDialog';
 import updateSkillHoursData from '@schemas/inputDialogs/updateSkillHoursData';
 import { getDefaultFormData } from '@utils/formDataUtils';
-import SliderInput from '@components/FormInputs/SliderInput';
+import SliderInput from '@components/core/FormInputs/SliderInput';
 
 const { useState } = React;
 
@@ -13,7 +13,7 @@ const UpdateSkillHoursDialog = ({ isOpen, onClose }) => {
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
   }
-
+ 
   const handleClose = (options?) => () => {
     let isSubmit = options ? options.isSubmit : false;
     onClose({ isSubmit, hoursValue: formData['hours'] });

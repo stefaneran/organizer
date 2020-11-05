@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import HistoryLogItem from '@components/HistoryLogItem';
+import HistoryLogItem from '@components/skills/HistoryLogItem';
 import { getHistory } from '@store/accessors';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

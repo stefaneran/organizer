@@ -9,11 +9,11 @@ import SkillNotes from './SkillNotes';
 import SkillStats from './SkillStats';
 import SkillItemList from './SkillItemList';
 // Dialogs
-import UpdateSkillWeeklyGoalDialog from '@components/Dialogs/UpdateSkillWeeklyGoalDialog';
-import ChooseSkillItemTypeDialog from '@components/Dialogs/ChooseSkillItemTypeDialog';
-import CreateSkillItemDialog from '@components/Dialogs/CreateSkillItemDialog';
-import UpdateSkillBookDialog from '@components/Dialogs/UpdateSkillBookDialog';
-import UpdateSkillCourseDialog from '@components/Dialogs/UpdateSkillCourseDialog';
+import UpdateSkillWeeklyGoalDialog from '@components/skills/dialogs/UpdateSkillWeeklyGoalDialog';
+import ChooseSkillItemTypeDialog from '@components/skills/dialogs/ChooseSkillItemTypeDialog';
+import CreateSkillItemDialog from '@components/skills/dialogs/CreateSkillItemDialog';
+import UpdateSkillBookDialog from '@components/skills/dialogs/UpdateSkillBookDialog';
+import UpdateSkillCourseDialog from '@components/skills/dialogs/UpdateSkillCourseDialog';
 // Other 
 import { getRankByXP, getNextRank } from '@logic/skill.logic';
 
