@@ -1,1 +1,0 @@
-export default (grid, numOfFields) => numOfFields <= (grid.x * grid.y);

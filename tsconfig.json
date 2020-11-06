@@ -3,12 +3,10 @@
 		"jsx": "react",
 		"baseUrl": "./",
 		"paths": {
-			"@components/*": ["src/components/*"],
-			"@schemas/*": ["src/schemas/*"],
-			"@interfaces/*": ["src/interfaces/*"],
-			"@logic/*": ["src/logic/*"],
-      "@store/*": ["src/store/*"],
-      "@utils/*": ["src/utils/*"]
+			"@core/*": ["src/core/*"],
+			"@contacts/*": ["src/contacts/*"],
+			"@skills/*": ["src/skills/*"],
+      "@store/*": ["src/store/*"]
 		}
 	},
 	"include": ["src/**/*"],

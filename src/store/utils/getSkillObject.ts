@@ -1,6 +1,6 @@
-import { ActivityType, CategoryType } from '@interfaces/general';
-import { XP_PER_HOUR } from '@logic/skill.constants';
-import { getRankInfoByRankNum } from '@logic/skill.logic';
+import { ActivityType, CategoryType } from '@core/interfaces/general';
+import { XP_PER_HOUR } from '@skills/constants';
+import { getRankInfoByRankNum } from '@skills/utils';
 
 export default (formData) => {
   const { title, description, priority } = formData;

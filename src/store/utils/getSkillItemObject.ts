@@ -1,6 +1,6 @@
-import { ActivityType } from '@interfaces/general';
-import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
-import { XP_PER_HOUR, SKILL_ITEM_XP_MODIFIER } from '@logic/skill.constants';
+import { ActivityType } from '@core/interfaces/general';
+import { SkillItemType } from '@skills/interfaces/SkillItem.interface';
+import { XP_PER_HOUR, SKILL_ITEM_XP_MODIFIER } from '@skills/constants';
 
 const calculateBookTotalXP = (formData) => {
   const { pagesTotal } = formData;

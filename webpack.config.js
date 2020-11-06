@@ -15,12 +15,10 @@ module.exports = {
 
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, './src/components'),
-      "@schemas": path.resolve(__dirname, './src/schemas'),
-      "@interfaces": path.resolve(__dirname, './src/interfaces'),
-      "@logic": path.resolve(__dirname, './src/logic'),
-      "@store": path.resolve(__dirname, './src/store'),
-      "@utils": path.resolve(__dirname, './src/utils')
+      "@core": path.resolve(__dirname, './src/core'),
+      "@contacts": path.resolve(__dirname, './src/contacts'),
+      "@skills": path.resolve(__dirname, './src/skills'),
+      "@store": path.resolve(__dirname, './src/store')
     },
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },

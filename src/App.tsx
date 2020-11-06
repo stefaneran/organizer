@@ -12,7 +12,7 @@ import { CircularProgress,
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
-import ContentView from '@components/ContentView';
+import ContentView from '@core/components/ContentView';
 import { loadUserFromLocalStorage } from '@store/utils/localstorage';
 
 const { log } = console;

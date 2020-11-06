@@ -10,13 +10,13 @@ import {
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
 import { loadUserFromLocalStorage, loadFromLocalStorage, saveToLocalStorage } from '@store/utils/localstorage';
-import { XP_PER_HOUR } from '@logic/skill.constants';
-import { getHoursFromPages } from '@logic/skill.logic';
+import { XP_PER_HOUR } from '@skills/constants';
+import { getHoursFromPages } from '@skills/utils';
 import getSkillObject from './utils/getSkillObject';
 import getSkillItemObject from './utils/getSkillItemObject';
-import { CategoryType } from '@interfaces/general';
-import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
-import formatHourValue from '@utils/formatHourValue';
+import { CategoryType } from '@core/interfaces/general';
+import { SkillItemType } from '@skills/interfaces/SkillItem.interface';
+import formatHourValue from '@core/utils/formatHourValue';
 
 // TODO move to process.env
 const baseUrl = "https://us-central1-sem-organizer.cloudfunctions.net/default/api";

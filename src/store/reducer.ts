@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { differenceInDays } from 'date-fns';
-import { skillModel } from '@interfaces/skill/Skill.interface';
-import { ActivityType } from '@interfaces/general';
+import { skillModel } from '@skills/interfaces/Skill.interface';
+import { ActivityType } from '@core/interfaces/general';
 import { getSkillIndexByTitle } from './accessors';
 
 export const initialState = {
