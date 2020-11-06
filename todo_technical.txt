@@ -1,6 +1,6 @@
 
 
-
+- Create separate stores
 
 - Data:
   - Change shape for API

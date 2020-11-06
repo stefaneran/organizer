@@ -9,9 +9,15 @@ interface Contact {
   subgroups: string[];
   // Which other people this person has a relation with
   relations: string[];
+  // Custom info user can type in for context such as contact background or how they met the contact, etc
   info: string;
-  lastActivity: number;
+  // Timestamp of last interaction - Updated automatically on hang out, or user can update manually to get rid of notification 
+  lastInteraction: number;
+  // Array of timestamps representing days user hung out with contact
+  // hangouts: number[];
+  // TO DELETE
   priority: PriorityType;
+  // TO DELETE
   interactionHistory: ContactHistoryLog[];
 }
 

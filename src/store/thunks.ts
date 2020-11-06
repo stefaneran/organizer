@@ -9,11 +9,11 @@ import {
   getSkillByTitle, getSkillIndexByTitle, 
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
-import { loadUserFromLocalStorage, loadFromLocalStorage, saveToLocalStorage } from '@store/logic/localstorage';
+import { loadUserFromLocalStorage, loadFromLocalStorage, saveToLocalStorage } from '@store/utils/localstorage';
 import { XP_PER_HOUR } from '@logic/skill.constants';
 import { getHoursFromPages } from '@logic/skill.logic';
-import getSkillObject from './logic/getSkillObject';
-import getSkillItemObject from './logic/getSkillItemObject';
+import getSkillObject from './utils/getSkillObject';
+import getSkillItemObject from './utils/getSkillItemObject';
 import { CategoryType } from '@interfaces/general';
 import { SkillItemType } from '@interfaces/skill/SkillItem.interface';
 import formatHourValue from '@utils/formatHourValue';

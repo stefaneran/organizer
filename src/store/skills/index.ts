@@ -1,82 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { differenceInDays } from 'date-fns';
-import { skillModel } from '@interfaces/skill/Skill.interface';
-import { ActivityType } from '@interfaces/general';
-import { getSkillIndexByTitle } from './accessors';
-
-export const initialState = {
-  loading: false,
-  error: false,
-  version: '1.3.1',
-  data: {
-    skills: [],
-    contacts: []
-  },
-  user: {
-    loggedIn: false,
-    userName: null,
-    password: null
-  }
-}
 
 const slice = createSlice({
-  name: 'store',
-  initialState,
+  name: 'skills',
+  initialState: {
+    skills: {}
+  },
   reducers: {
-    startLoading: (state) => {
-      state.loading = true;
-    },
-    endLoading: (state) => {
-      state.loading = false;
-    },
-    apiData: (state, { payload }) => {
-      state.data = payload.data.data;
-    },
-    loginDone: (state, { payload }) => {
-      state.user.loggedIn = true;
-      state.user.userName = payload.userName;
-      state.user.password = payload.password;
-    },
-    logoutDone: (state) => {
-      state.user.loggedIn = false;
-      state.user.userName = null;
-      state.user.password = null;
-      state.data = {
-        skills: [],
-        contacts: []
+    createSkillDone: (state, { payload }) => {
+      const { skillObject } = payload;
+      if(!skillObject) {
+        state.error = true;
+        return;
       }
+      state.skills.push(skillObject);
     },
-    saveDataDone: (state, { payload }) => {
-      state.error = payload.success;
-    },
-    loadDataDone: (state, { payload }) => {
-      const { data, user } = payload;
-      state.data = data;
-      if (user) {
-        state.user = {
-          loggedIn: true,
-          userName: user.userName,
-          password: user.password
-        }
+    createSkillItemDone: (state, { payload }) => {
+      const { skillIndex, skillItemObject } = payload;
+      if(!skillItemObject) {
+        state.error = true;
+        return;
       }
+      state.skills[skillIndex].items.push(skillItemObject);
     },
-    validateData: (state) => {
-      const { skills } = state.data;
-      // Iterate through skills
-      skills.forEach(skill => {
-        // Iterate through model
-        Object.keys(skillModel).forEach(property => {
-          if(!skill[property]) {
-            skill[property] = skillModel[property];
-          }
-        });
-      })
-    },
-    loadBackupData: (state, { payload }) => {
-      state.data = payload.data;
+    deleteSkillDone: (state, { payload }) => {
+      const { newSkills } = payload;
+      state.skills = newSkills;
     },
     updateActivity: (state) => {
-      const { skills } = state.data;
+      const { skills } = state;
       skills.forEach(skill => {
         if(!skill.lastActivity) {
           skill.activity = ActivityType.Unstarted;
@@ -93,21 +44,9 @@ const slice = createSlice({
         }
       });
     },
-    addSkillDone: (state, { payload }) => {
-      const { skillObject } = payload;
-      if(!skillObject) {
-        state.error = true;
-        return;
-      }
-      state.data.skills.push(skillObject);
-    },
-    deleteSkillDone: (state, { payload }) => {
-      const { newSkills } = payload;
-      state.data.skills = newSkills;
-    },
     updateSkillHoursDone: (state, { payload }) => {
       const { skillIndex, totalHours, totalXP, log } = payload;
-      const { skills } = state.data;
+      const { skills } = state;
       const skill = skills[skillIndex];
       skill.lastActivity = Date.now();
       skill.totalHours = totalHours;
@@ -115,23 +54,15 @@ const slice = createSlice({
       skill.history.push(log);
     },
     // TODO - Move skillIndex to thunk
-    updateWeeklyGoal: (state, { payload }) => {
-      const { skills } = state.data;
+    updateWeeklyGoalDone: (state, { payload }) => {
+      const { skills } = state;
       const { title, weeklyGoal } = payload;
       const skillIndex = getSkillIndexByTitle(skills, title);
       skills[skillIndex].weekHourGoal = weeklyGoal;
     },
     updateSkillNotesDone: (state, { payload }) => {
       const { skillIndex, newNotes } = payload;
-      state.data.skills[skillIndex].notes = newNotes
-    },
-    addSkillItemDone: (state, { payload }) => {
-      const { skillIndex, skillItemObject } = payload;
-      if(!skillItemObject) {
-        state.error = true;
-        return;
-      }
-      state.data.skills[skillIndex].items.push(skillItemObject);
+      state.skills[skillIndex].notes = newNotes
     },
     updateSkillBookDone: (state, { payload }) => {
       const { 
@@ -146,7 +77,7 @@ const slice = createSlice({
         state.error = true;
         return;
       }
-      const { skills } = state.data;
+      const { skills } = state;
       const skill = skills[skillIndex];
       // Update total pages read
       skill.items[itemIndex].pagesRead = currentPage;
@@ -184,7 +115,7 @@ const slice = createSlice({
         state.error = true;
         return;
       }
-      const { skills } = state.data;
+      const { skills } = state;
       const skill = skills[skillIndex];
       // Update total pages read
       skill.items[itemIndex].classesDone = currentClass;
@@ -209,49 +140,18 @@ const slice = createSlice({
           skill.items.filter(item => item.title !== payload.itemTitle);
       }
     },
-    addContactDone: (state, { payload }) => {
-      const { contact } = payload;
-      const { contacts } = state.data;
-      contacts.push(contact);
-    },
-    logContactInteractionDone: (state, { payload }) => {
-      const { contactName, log } = payload;
-      const { contacts } = state.data;
-      const contact = contacts.find(contact => contact.name === contactName);
-      contact.interactionHistory.push(log);
-      contact.lastActivity = Date.now();
-    },
-    editContactSubgroup: (state, { payload }) => {
-      const { selectedContact, newSubgroups } = payload;
-      const { contacts } = state.data;
-      const contact = contacts.find(contact => contact.name === selectedContact.name);
-      contact.subgroups = newSubgroups;
-    }
   }
 });
 
-export const { 
-  startLoading,
-  endLoading,
-  apiData,
-  loginDone,
-  logoutDone,
-  saveDataDone,
-  loadDataDone,
-  loadBackupData,
-  validateData,
-  updateActivity,
-  updateWeeklyGoal,
-  addSkillDone,
+export const {
+  createSkillDone,
+  createSkillItemDone,
   deleteSkillDone,
   updateSkillHoursDone,
+  updateWeeklyGoalDone,
   updateSkillNotesDone,
-  addSkillItemDone,
   updateSkillBookDone,
-  updateSkillCourseDone,
-  addContactDone,
-  logContactInteractionDone,
-  editContactSubgroup
+  updateSkillCourseDone
 } = slice.actions;
 
 export default slice.reducer;

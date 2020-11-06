@@ -12,8 +12,8 @@ import { CircularProgress,
 import './styles.scss';
 import mapStateToProps from './mapStateToProps';
 import mapDispatchToProps from './mapDispatchToProps';
-import ContentView from '@components/contacts/ContentView';
-import { loadUserFromLocalStorage } from '@store/logic/localstorage';
+import ContentView from '@components/ContentView';
+import { loadUserFromLocalStorage } from '@store/utils/localstorage';
 
 const { log } = console;
 const { useState, useEffect } = React;
