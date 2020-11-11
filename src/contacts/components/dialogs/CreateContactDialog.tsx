@@ -6,16 +6,14 @@ import TextMultiSelect from '@core/components/FormInputs/TextMultiSelect';
 import TextInput from '@core/components/FormInputs/TextInput';
 import SelectInput from '@core/components/FormInputs/SelectInput';
 import { getDefaultFormData } from '@core/utils/formDataUtils';
-import getSubgroupsFromContacts from '@core/utils/getSubgroupsFromContacts'
 import createContactData from '@core/schemas/inputDialogs/createContactData';
 import Contact from '@contacts/interfaces/Contact.interface';
-
-const { useState } = React;
 
 interface CreateContactProps {
   isOpen: boolean;
   onClose: any;
   contacts: Contact[];
+  groups: string[];
 }
 
 const useStyles = makeStyles(theme => ({
@@ -24,19 +22,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) => {
+const CreateContactDialog = ({ isOpen, onClose, contacts, groups }: CreateContactProps) => {
   const classes = useStyles();
   const formModel = createContactData;
-
+  
   // Inject options since they cannot be declared statically in the schema
-  const subgroupsOptions = 
-    getSubgroupsFromContacts(contacts)
-    .map(subgroup => ({ label: subgroup, value: subgroup }));
+  const groupsOptions = 
+    groups.map(group => ({ 
+      label: group, 
+      value: group 
+    }));
 
+  // All other contacts as options
   const relationsOptions = 
-    contacts.map(contact => ({ label: contact.name, value: contact.name }));
+    Object.keys(contacts).map(contactId => ({ 
+      label: contacts[contactId].name, 
+      value: contacts[contactId].name 
+    }));
 
-  const [formData, setFormData] = useState(getDefaultFormData(formModel));
+  const [formData, setFormData] = React.useState(getDefaultFormData(formModel));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
@@ -46,7 +50,7 @@ const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) 
     let isSubmit = options ? options.isSubmit : false;
     const parsedForm = {
       ...formData,
-      subgroups: formData.subgroups.map(subgroup => subgroup.value),
+      groups: formData.groups.map(group => group.value),
       relations: formData.relations.map(relation => relation.value)
     }
     onClose({ isSubmit, formData: parsedForm });
@@ -91,13 +95,13 @@ const CreateContactDialog = ({ isOpen, onClose, contacts }: CreateContactProps) 
         </Grid>
         <Grid item className={classes.input} xs={4} style={{ paddingTop: '0.8em' }}>
           <TextMultiSelect 
-            name={formModel.data.subgroups.name} 
-            label={formModel.data.subgroups.label} 
-            options={subgroupsOptions}
+            name={formModel.data.groups.name} 
+            label={formModel.data.groups.label} 
+            options={groupsOptions}
             handleChange={handleChange} 
             multiple={true}
             canAdd={true}
-            helperText={formModel.data.subgroups.helperText}
+            helperText={formModel.data.groups.helperText}
             size="small"
           />
         </Grid>

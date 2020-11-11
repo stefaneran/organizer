@@ -1,36 +1,52 @@
 import { createSlice } from '@reduxjs/toolkit';
+import InteractionType from '@contacts/interfaces/InteractionType.interface';
 
 const slice = createSlice({
-  name: 'contacts',
+  name: 'contactsStore',
   initialState: {
-    contacts: {}
+    // All individual contacts serialized by UUID
+    contacts: {},
+    // Array of all unique contact group names (eg: Friends, Coworkers)
+    groups: []
   },
   reducers: {
     createContactDone: (state, { payload }) => {
-      const { contact } = payload;
+      const { newId, contact } = payload;
       const { contacts } = state;
-      contacts.push(contact);
+      contacts[newId] = contact;
+    },
+    editContactDone: (state, { payload }) => {
+      const { id, property, value } = payload;
+      const { contacts } = state;
+      contacts[id][property] = value;
+    },
+    deleteContactDone: (state, { payload }) => {
+      const { id } = payload;
+      const { contacts } = state;
+      delete contacts[id];
     },
     addContactInteractionDone: (state, { payload }) => {
-      const { contactName, log } = payload;
+      const { id, interactionType } = payload;
       const { contacts } = state;
-      const contact = contacts.find(contact => contact.name === contactName);
-      contact.interactionHistory.push(log);
-      contact.lastActivity = Date.now();
+      const contact = contacts[id];
+      const now = Date.now();
+      if (interactionType === InteractionType.Hangout) {
+        contact.hangouts.push(now);
+      }
+      contact.lastInteraction = now;
     },
-    editContactSubgroupDone: (state, { payload }) => {
-      const { selectedContact, newSubgroups } = payload;
-      const { contacts } = state;
-      const contact = contacts.find(contact => contact.name === selectedContact.name);
-      contact.subgroups = newSubgroups;
+    updateGroups: (state, { payload }) => {
+      state.groups = payload;
     }
   }
 });
 
 export const {
   createContactDone,
+  editContactDone,
+  deleteContactDone,
   addContactInteractionDone,
-  editContactSubgroupDone
+  updateGroups
 } = slice.actions;
 
 export default slice.reducer;

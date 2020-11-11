@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { default as ArrowIcon } from '@material-ui/icons/ArrowBackIos';
-import ContentToolbar, { exportedStyles } from '@core/components/ContentToolbar';
+import ContentToolbar, { exportedStyles } from '@core/components/ContentToolbar/ContentToolbar';
 import SkillList from '@skills/components/SkillList';
 import SkillView from '@skills/components/SkillView';
 import UpdateSkillHoursDialog from '@skills/components/dialogs/UpdateSkillHoursDialog';
@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   ...exportedStyles
 }));
 
-const SkillContainer = ({ store, toolBarHandlers, tempDialog }) => {
+const SkillsContainer = ({ store, toolBarHandlers, tempDialog }) => {
   const classes = useStyles();
   const { data: { skills } } = store;
 
   // Skill selected (Entire skill data)
-  const [currentSkill, setCurrentSkill] = useState(null);
+  const [currentSkill, setCurrentSkill] = useState(undefined);
 
   // Dialog data
   const [isCreateSkillDialogOpen, setCreateSkillDialogOpen] = useState(false);
   const [updateHoursDialog, setUpdateHoursDialog] = useState({
     isOpen: false,
-    title: null
+    title: undefined
   });
 
   // Update skill state when store changes
@@ -55,7 +55,7 @@ const SkillContainer = ({ store, toolBarHandlers, tempDialog }) => {
     },
     close: {
       hours: ({ isSubmit, hoursValue }) => {
-        setUpdateHoursDialog({ isOpen: false, title: null });
+        setUpdateHoursDialog({ isOpen: false, title: undefined });
         if(isSubmit) {
           store.updateSkillHours({ 
             title: updateHoursDialog.title, 
@@ -98,7 +98,7 @@ const SkillContainer = ({ store, toolBarHandlers, tempDialog }) => {
           <Grid item className={classes.buttonContainer}>
             <Button 
               className={clsx(classes.button, classes.textButton)}
-              onClick={() => setCurrentSkill(null)}
+              onClick={() => setCurrentSkill(undefined)}
               startIcon={<ArrowIcon className={classes.buttonIcon} />}
             >
               Back
@@ -148,4 +148,4 @@ const SkillContainer = ({ store, toolBarHandlers, tempDialog }) => {
   );
 }
 
-export default SkillContainer;
+export default SkillsContainer;

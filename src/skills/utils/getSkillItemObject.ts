@@ -52,7 +52,7 @@ export default (itemType, formData) => {
     activity: ActivityType.Active,
     priority,
     dateCreated: Date.now(),
-    dateFinished: null,
+    dateFinished: undefined,
     lastActivity: Date.now(),
     ...skillItemProperties
   };

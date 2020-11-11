@@ -6,7 +6,7 @@ import { SkillItemType } from '@skills/interfaces/SkillItem.interface';
 const ChooseSkillItemTypeDialog = ({ isOpen, onClose }) => {
 
   const handleClose = (options?) => (event?) => {
-    let itemType = options ? options.type : null;
+    let itemType = options ? options.type : undefined;
     onClose({ itemType });
   }
 

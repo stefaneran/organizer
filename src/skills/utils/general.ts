@@ -1,4 +1,4 @@
-import { XP_RANKS } from './constants';
+import { XP_RANKS } from '../constants';
 
 //// ----- Rank Info -----
 

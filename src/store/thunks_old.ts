@@ -1,17 +1,18 @@
+/* 
 import { 
   startLoading, endLoading, apiData, loginDone, logoutDone,
   saveDataDone, loadDataDone,
   addSkillDone, deleteSkillDone, 
   updateSkillHoursDone, updateSkillNotesDone, addSkillItemDone, updateSkillBookDone, updateSkillCourseDone,
   addContactDone, logContactInteractionDone
-} from './reducer';
+} from './reducer_old';
 import { 
   getSkillByTitle, getSkillIndexByTitle, 
   getSkillItemByTitle, getSkillItemIndexByTitle 
 } from './accessors';
 import { loadUserFromLocalStorage, loadFromLocalStorage, saveToLocalStorage } from '@store/utils/localstorage';
 import { XP_PER_HOUR } from '@skills/constants';
-import { getHoursFromPages } from '@skills/utils';
+import { getHoursFromPages } from '@skills/utils/general';
 import getSkillObject from './utils/getSkillObject';
 import getSkillItemObject from './utils/getSkillItemObject';
 import { CategoryType } from '@core/interfaces/general';
@@ -263,3 +264,4 @@ export const logContactInteraction = ({ contactName, interactionType }) => async
   }
   dispatch(logContactInteractionDone({ contactName, log }));
 }
+*/

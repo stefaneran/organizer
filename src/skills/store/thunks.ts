@@ -1,142 +1,259 @@
+import { updateError } from '@store/app';
 import {
   createSkillDone,
   createSkillItemDone,
   deleteSkillDone,
-  updateSkillHoursDone,
-  updateWeeklyGoalDone,
-  updateSkillNotesDone,
-  updateSkillBookDone,
-  updateSkillCourseDone
+  updateSkillDone,
+  editSkillDone
 } from '.';
+import {
+  loadingStart,
+  loadingEnd
+} from '@store/app';
+import {
+  updateSkillHoursLogic,
+  updateSkillBookLogic,
+  updateSkillCourseLogic
+} from './thunksLogic';
+import getSkillObject from '@skills/utils/getSkillObject';
+import getSkillItemObject from '@skills/utils/getSkillItemObject';
+import jsonFetch from '@store/utils/jsonFetch';
+import { v4 } from 'uuid';
 
-export const createSkill = ({ formData }) => async dispatch => {
-  const skillObject = getSkillObject(formData);
-  dispatch(createSkill({ skillObject }));
-}
+const baseUrlLocal = "http://localhost:5001/sem-organizer/us-central1/default";
+const baseUrlRemote = "https://us-central1-sem-organizer.cloudfunctions.net/default";
+const baseUrl = baseUrlLocal;
 
-export const createSkillItem = ({ title, itemType, formData }) => async (dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const skillItemObject = getSkillItemObject(itemType, formData);
-  const skillIndex = getSkillIndexByTitle(skills, title);
-  dispatch(addSkillItemDone({ 
-    skillIndex, 
-    skillItemObject 
-  }));
-}
-
-export const deleteSkill = ({ title }) => async (dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const newSkills = skills.filter(skill => skill.title !== title);
-  dispatch(deleteSkill({ newSkills }));
-}
-
-export const updateSkillHours = ({ title, hoursValue }) => async (dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const skill = getSkillByTitle(skills, title);
-  const skillIndex = getSkillIndexByTitle(skills, title);
-  const totalHours = skill.totalHours + hoursValue;
-  const totalXP = skill.totalXP + (hoursValue * XP_PER_HOUR);
-
-  const log = {
-    categoryType: CategoryType.Skills,
-    categoryIdentifier: title,
-    unit: hoursValue,
-    activityDate: Date.now(),
-    title: `${title}`,
-    description: `Practiced ${formatHourValue(hoursValue)}`
+// TODO try this out
+const genericRequest = async (
+  dispatch, 
+  getState, 
+  url, 
+  params, 
+  dispatchFunction, 
+  dispatchParams,
+  errorMessage
+) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, ...params })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(dispatchFunction({ ...dispatchParams }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `${errorMessage} - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `${errorMessage} - ${e.message}`
+    }));
   }
-  
-  dispatch(updateSkillHoursDone({ 
-    skillIndex, 
-    totalHours, 
-    totalXP, 
-    log 
-  }));
+  dispatch(loadingEnd());
 }
 
-export const updateSkillNotes = ({ title, newNotes }) => async(dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const skillIndex = getSkillIndexByTitle(skills, title);
-  dispatch(updateSkillNotesDone({
-    skillIndex,
-    newNotes
-  }))
+export const createSkill = ({ formData }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const newId = v4();
+    const skill = getSkillObject(formData, newId);
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/create`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, newId, skill })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(createSkillDone({ newId, skill }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not create skill - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not create skill - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
 }
 
-export const updateSkillBook = ({ skillTitle, itemTitle, pagesValue }) => async (dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const skillIndex = getSkillIndexByTitle(skills, skillTitle);
-  const itemIndex = getSkillItemIndexByTitle(skills, skillTitle, itemTitle);
-  const book = getSkillItemByTitle(skills, skillTitle, itemTitle);
-
-  const pagesTotal = parseInt(book.pagesTotal, 10);
-  const pagesRead = pagesValue -  parseInt(book.pagesRead, 10);
-  const hoursRead = getHoursFromPages(pagesRead);
-  const totalItemXP = parseInt(book.totalXP, 10);
-
-  let finished = false;
-  if(pagesTotal === pagesValue) {
-    finished = true;
+export const createSkillItem = ({ id, itemType, formData }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const skillItem = getSkillItemObject(itemType, formData);
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/createItem`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, skillItem })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(createSkillItemDone({ id, skillItem }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not create skill item (${itemType}) - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not create skill item (${itemType}) - ${e.message}`
+    }));
   }
-  
-  const log = {
-    categoryType: CategoryType.Skills,
-    categoryIdentifier: skillTitle,
-    subType: SkillItemType.Book,
-    unit: hoursRead,
-    activityDate: Date.now(),
-    title: `${skillTitle} Book: ${itemTitle}`,
-    description: finished ? 'Finished the book!' : `Read ${pagesRead} pages`
-  }
-
-  dispatch(updateSkillBookDone({ 
-    skillIndex, 
-    itemIndex, 
-    currentPage: pagesValue, 
-    hoursRead,
-    gainedXP: hoursRead * XP_PER_HOUR,
-    totalItemXP,
-    itemTitle: book.title,
-    finished,
-    log
-  }));
+  dispatch(loadingEnd());
 }
 
-export const updateSkillCourse = ({ skillTitle, itemTitle, classesValue }) => async (dispatch, getState) => {
-  const { data: { skills } } = getState();
-  const skillIndex = getSkillIndexByTitle(skills, skillTitle);
-  const itemIndex = getSkillItemIndexByTitle(skills, skillTitle, itemTitle);
-  const course = getSkillItemByTitle(skills, skillTitle, itemTitle);
-
-  const classesTotal = parseInt(course.classesTotal, 10);
-  const classesDone = classesValue -  parseInt(course.classesDone, 10);
-  const hoursPracticed = classesDone * parseInt(course.hoursPerClass, 10);
-  const totalItemXP = parseInt(course.totalXP, 10);
-
-  let finished = false;
-  if(classesTotal === classesValue) {
-    finished = true;
+export const deleteSkill = ({ id }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/delete`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(deleteSkillDone({ id }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not delete skill - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not delete skill - ${e.message}`
+    }));
   }
+  dispatch(loadingEnd());
+}
 
-  const log = {
-    categoryType: CategoryType.Skills,
-    categoryIdentifier: skillTitle,
-    subType: SkillItemType.Course,
-    unit: hoursPracticed,
-    activityDate: Date.now(),
-    title: `${skillTitle} Course: ${itemTitle}`,
-    description: finished ? 'Finished the course!' : `Done ${classesDone} classes`
+export const editSkill = ({ id, property, value }) => async(dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/edit`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, property, value })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(editSkillDone({ id, property, value }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not edit skill - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not edit skill - ${e.message}`
+    }));
   }
-  
-  dispatch(updateSkillCourseDone({ 
-    skillIndex, 
-    itemIndex, 
-    currentClass: classesValue, 
-    hoursPracticed,
-    gainedXP: hoursPracticed * XP_PER_HOUR,
-    totalItemXP,
-    itemTitle: course.title,
-    finished,
-    log
-  }));
+  dispatch(loadingEnd());
+}
+
+export const updateSkillHours = ({ id, hoursValue }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user }, skillsStore: { skills } } = getState();
+    const { userName, password, loggedIn } = user;
+    const skill = skills[id];
+    const updatedSkill = updateSkillHoursLogic(skill, hoursValue);
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/update`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, updatedSkill })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(updateSkillDone({ id, updatedSkill }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not update skill - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not update skill - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
+}
+
+export const updateSkillBook = ({ id, itemTitle, pagesValue }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user }, skillsStore: { skills } } = getState();
+    const { userName, password, loggedIn } = user;
+    const skill = skills[id];
+    const updatedSkill = updateSkillBookLogic(skill, itemTitle, pagesValue);
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/update`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, updatedSkill })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(updateSkillDone({ id, updatedSkill }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not update skill book - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not update skill book - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
+}
+
+export const updateSkillCourse = ({ id, itemTitle, classesValue }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user }, skillsStore: { skills } } = getState();
+    const { userName, password, loggedIn } = user;
+    const skill = skills[id];
+    const updatedSkill = updateSkillCourseLogic(skill, itemTitle, classesValue);
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/skills/update`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, updatedSkill })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(updateSkillDone({ id, updatedSkill }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not update skill course - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not update skill course - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
 }

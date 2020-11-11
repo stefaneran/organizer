@@ -52,7 +52,7 @@ const HistoryLogItem = ({ log }: { log: SkillHistoryLog }) => {
     return (
       <div className={clsx(classes.iconContainer, (subType ? classes.iconContainerTwo : ''))}>
         {subType ? <BrainIconMedium /> : <BrainIconLarge />}
-        {subType ? subTypeIcon[subType] : null}
+        {subType ? subTypeIcon[subType] : undefined}
       </div>
     )
   }

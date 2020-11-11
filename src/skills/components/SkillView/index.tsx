@@ -15,7 +15,7 @@ import CreateSkillItemDialog from '@skills/components/dialogs/CreateSkillItemDia
 import UpdateSkillBookDialog from '@skills/components/dialogs/UpdateSkillBookDialog';
 import UpdateSkillCourseDialog from '@skills/components/dialogs/UpdateSkillCourseDialog';
 // Other 
-import { getRankByXP, getNextRank } from '@skills/utils';
+import { getRankByXP, getNextRank } from '@skills/utils/general';
 
 const { useState } = React;
 
@@ -38,9 +38,9 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
   const classes = useStyles();
 
   // Selected data states
-  const [currentItemType, setCurrentItemType] = useState(null);
-  const [currentBook, setCurrentBook] = useState(null);
-  const [currentCourse, setCurrentCourse] = useState(null);
+  const [currentItemType, setCurrentItemType] = useState(undefined);
+  const [currentBook, setCurrentBook] = useState(undefined);
+  const [currentCourse, setCurrentCourse] = useState(undefined);
 
   // Dialog open states
   const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
@@ -89,7 +89,7 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
           });
           saveData();
         }
-        setCurrentItemType(null);
+        setCurrentItemType(undefined);
       },
       // Update book dialog
       book: ({ isSubmit, pagesValue }) => {
@@ -102,7 +102,7 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
           });
           saveData();
         }
-        setCurrentBook(null);
+        setCurrentBook(undefined);
       },
       // Update course dialog
       course: ({ isSubmit, classesValue }) => {
@@ -115,7 +115,7 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
           });
           saveData();
         }
-        setCurrentCourse(null);
+        setCurrentCourse(undefined);
       }
     }
   }

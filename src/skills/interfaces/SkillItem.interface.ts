@@ -1,4 +1,4 @@
-import { ActivityType, PriorityType } from 'interfaces';
+import { ActivityType, PriorityType } from '@core/interfaces/general';
 
 export enum SkillItemType {
   Book = "Book",

@@ -1,4 +1,4 @@
-import { CategoryType } from '@core/components/node_modules/@interfaces';
+import { CategoryType } from '@core/interfaces/general';
 
 export interface SkillHistoryLog {
   // TODO - Remove because it's redundant

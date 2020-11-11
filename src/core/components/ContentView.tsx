@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import SkillContainer from '@skills/components/SkillContainer';
-import HistoryView from '@skills/components/HistoryView'
-import ContactsContainer from '@contacts/components/ContactsContainer';
+import ContentToolbar from '@core/components/ContentToolbar';
+import SkillsContainer from '@skills/components/SkillsContainer';
+import HistoryView from '@skills/components/HistoryView';
+import ContactsContainer from '@contacts/container';
 import { CategoryType } from '@core/interfaces/general'
 
 const { useState } = React;
@@ -19,31 +20,32 @@ const useStyles = makeStyles(theme => ({
   }
 })); 
 
-const ContentView = ({ store, tempDialog }) => {
+const ContentView = ({ setLoginDialog }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
   const [currentCategory, setCurrentCategory] = useState(CategoryType.Contacts);
 
-  const toolBarHandlers = {
-    viewSkills: () => setCurrentCategory(CategoryType.Skills),
-    viewContacts: () => setCurrentCategory(CategoryType.Contacts)
-  }
-
   return (
     <div className={classes.container}>
       <Grid className="fullHeight" container direction="column">
+        <ContentToolbar
+          setLoginDialog={setLoginDialog}
+          setCurrentCategory={setCurrentCategory}
+        />
         {currentCategory === CategoryType.Skills && (
+          {/* 
           <Grid className="fullHeight" container>
             <Grid item xs={9} className="fullHeight">
-              <SkillContainer store={store} toolBarHandlers={toolBarHandlers} tempDialog={tempDialog} />
+              <SkillsContainer />
             </Grid>
             <Grid item xs={3} className="fullHeight">
-              <HistoryView store={store} />
+              <HistoryView />
             </Grid>
-          </Grid>
+          </Grid> 
+          */}
         )}
         {currentCategory === CategoryType.Contacts &&
-          <ContactsContainer store={store} toolBarHandlers={toolBarHandlers} tempDialog={tempDialog} />
+          <ContactsContainer />
         }
       </Grid>
     </div>

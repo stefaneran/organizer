@@ -11,47 +11,57 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Filter {
+interface Filters {
   nameFilter: string;
   locationFilter: string;
-  selectedSubgroup: string;
+  selectedGroup: string;
   sortOrder: string;
 }
 
 interface Props {
-  contacts: Contact[]; 
-  filters: Filter;
-  selectedContact: Contact;
-  onSelectContact: (contact: Contact) => (event?) => void;
+  contacts: { [id: string]: Contact }; 
+  filters: Filters;
+  selectedContact: string;
+  onSelectContact: (contactId: string) => (event?) => void;
   onInteraction: (contactName: string, interactionType: InteractionType) => (event?) => void;
 }
 
 const ContactsTable = ({ contacts, filters, selectedContact, onSelectContact, onInteraction }: Props) => {
   const classes = useStyles();
+  const [filtered, setFiltered] = React.useState(Object.keys(contacts).map(contactId => contacts[contactId]));
 
-  const filterList = (contacts) => {
-    const { nameFilter, locationFilter, selectedSubgroup, sortOrder } = filters;
-    const subgroupMatch = (subgroups) =>
-      (selectedSubgroup !== 'All' && subgroups.includes(selectedSubgroup)) || selectedSubgroup === 'All';
+  // TODO - Move to separate function
+  React.useEffect(() => {
+    const { nameFilter, locationFilter, selectedGroup, sortOrder } = filters;
+
+    // Filter by groups
+    const groupMatch = (groups) =>
+      (selectedGroup !== 'All' && groups.includes(selectedGroup)) || selectedGroup === 'All';
+    // Filter by name
     const nameMatch = (name) => 
       (nameFilter.length && name.toLowerCase().includes(nameFilter.toLowerCase())) || !nameFilter.length;
+    // Filter by location
     const locationMatch = (location) => 
       (locationFilter.length && location.toLowerCase().includes(locationFilter.toLowerCase())) || !locationFilter.length;
 
-    let filtered = contacts.filter(contact => 
-      nameMatch(contact.name) && 
-      locationMatch(contact.location) &&
-      subgroupMatch(contact.subgroups)
-    );
+    // Apply filters
+    let newFiltered = Object.keys(contacts).filter(contactId => {
+      const { name, location, groups } = contacts[contactId];
+      return nameMatch(name) && locationMatch(location) && groupMatch(groups)
+    }).map(contactId => contacts[contactId]);
+
+    // Sort by activity date
     if (sortOrder) {
-      filtered = filtered.sort((a, b) => 
+      newFiltered = newFiltered.sort((a, b) => 
         sortOrder === 'descending' ? 
-          a.lastActivity - b.lastActivity :
-          b.lastActivity - a.lastActivity
+          a.lastInteraction - b.lastInteraction :
+          b.lastInteraction - a.lastInteraction
       )
     }
-    return filtered;
-  };
+
+    // Update state hook
+    setFiltered(newFiltered);
+  }, [filters]);
 
   return (
     <TableContainer component={Paper} className={classes.table}>
@@ -61,14 +71,14 @@ const ContactsTable = ({ contacts, filters, selectedContact, onSelectContact, on
             <TableCell align="center">Name</TableCell>
             <TableCell align="center">Last Contact</TableCell>
             <TableCell align="center">Location</TableCell>
-            <TableCell align="center">Priority</TableCell>
+            <TableCell align="center">Friendship</TableCell>
             <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {filterList(contacts).map(contact => (
+          {filtered.map(contact => (
             <ContactsTableRow 
-              key={contact.name}
+              key={contact.id}
               contact={contact} 
               selectedContact={selectedContact} 
               onSelectContact={onSelectContact}

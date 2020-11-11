@@ -5,13 +5,15 @@ const slice = createSlice({
   initialState: {
     version: '1.3.1',
     loading: false,
+    user: {
+      userName: undefined,
+      password: undefined,
+      loggedIn: false
+    },
     error: {
       active: false,
       message: 'Unknown Error'
-    },
-    loggedIn: false,
-    userName: null,
-    password: null // TODO CHANGE
+    }
   },
   reducers: {
     loadingStart: (state) => {
@@ -27,14 +29,14 @@ const slice = createSlice({
       }
     },
     loginDone: (state, { payload }) => {
-      state.loggedIn = true;
-      state.userName = payload.userName;
-      state.password = payload.password;
+      state.user.loggedIn = true;
+      state.user.userName = payload.userName;
+      state.user.password = payload.password;
     },
     logoutDone: (state) => {
-      state.loggedIn = false;
-      state.userName = null;
-      state.password = null;
+      state.user.loggedIn = false;
+      state.user.userName = undefined;
+      state.user.password = undefined;
     },
     // Validate data for any missing properties that were added during development
     /* validateData: (state) => {

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import DialogTypes from '@contacts/interfaces/DialogTypes.interface';
 import TextInput from '@core/components/FormInputs/TextInput';
 
 const { useState } = React;
@@ -18,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   pressed: {
     background: 'rgba(0, 0, 0, 0.2)'
+  },
+  add: {
+
   }
 }));
 
@@ -27,7 +32,8 @@ const ContactsTableToolbar = ({
   locationFilter, 
   onLocationChange,
   sortOrder,
-  onSort
+  onSort,
+  onOpenDialog
 }) => {
   const classes = useStyles();
 
@@ -36,6 +42,15 @@ const ContactsTableToolbar = ({
   return (
     <Paper className={classes.toolbar}>
       <Grid container>
+        <Grid item>
+          <IconButton 
+            className={classes.add} 
+            onClick={onOpenDialog(DialogTypes.CreateContact)} 
+            style={{ padding: '8px', marginRight: '0.5em' }}
+          >
+            <AddIcon />
+          </IconButton>
+        </Grid>
         <Grid item>
           <TextInput 
             className={classes.textInput}

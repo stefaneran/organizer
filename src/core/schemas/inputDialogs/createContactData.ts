@@ -13,8 +13,8 @@ export default {
       label: 'Location',
       helperText: 'Country and/or City'
     },
-    subgroups: {
-      name: 'subgroups', 
+    groups: {
+      name: 'groups', 
       type: 'textMultiSelect', 
       label: 'Groups',
       helperText: 'Social groups this contact belongs to (Coworkers, Pub Friends, Sidechicks)',

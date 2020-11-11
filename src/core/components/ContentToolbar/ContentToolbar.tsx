@@ -7,11 +7,30 @@ import {
 } from '@material-ui/icons';
 import { BrainIconSmall } from '@core/components/Icons/BrainIcon';
 import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
+import { CategoryType } from '@core/interfaces/general'
+import AppStore from '@core/interfaces/AppStore.interface';
+import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
+import SkillsStore from '@skills/interfaces/SkillsStore.interface';
 import downloadJSON from '@core/utils/downloadJSON';
 
-const { useRef } = React;
-
-export const exportedStyles = {
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    position: 'relative',
+    backgroundColor: theme.palette.primary.main
+  },
+  rightSection: {
+    display: 'flex',
+    marginLeft: 'auto',
+    alignSelf: 'center',
+    paddingRight: '1em'
+  },
+  version: {
+    alignSelf: 'center',
+    marginLeft: '1em'
+  },
+  userName: {
+    alignSelf: 'center',
+  },
   buttonContainer: {
     padding: '0.3em'
   },
@@ -36,72 +55,57 @@ export const exportedStyles = {
       marginRight: '0'
     }
   }
-}
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  container: {
-    position: 'relative',
-    backgroundColor: theme.palette.primary.main
-  },
-  rightSection: {
-    display: 'flex',
-    marginLeft: 'auto',
-    alignSelf: 'center',
-    paddingRight: '1em'
-  },
-  version: {
-    // position: 'absolute',
-    // right: '0.5em',
-    // top: '50%',
-    // transform: 'translateY(-50%)',
-    alignSelf: 'center',
-    marginLeft: '1em'
-  },
-  userName: {
-    alignSelf: 'center',
-  },
-  ...exportedStyles
 }));
 
 interface ToolBarProps {
-  store: any;
-  toolBarHandlers: any;
-  specializedButtons?: JSX.Element;
-  tempDialog: any;
+  app: AppStore;
+  contacts: ContactsStore;
+  skills: SkillsStore;
+  logout: any;
+  setCurrentCategory: (categoryType: CategoryType) => void;
+  setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
 }
 
-const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog }: ToolBarProps) => {
+const ContentToolbar = ({ 
+  app,
+  contacts,
+  skills,
+  logout,
+  setCurrentCategory,
+  setLoginDialog
+}: ToolBarProps) => {
   const classes = useStyles();
 
-  const inputRef = useRef(null);
-
-  const { user: { loggedIn, userName } } = store;
+  const inputRef = React.useRef(null);
 
   const upload = () => {
     inputRef.current.click();
   }
-  const onUpload = (event) => {
+
+  const handleUpload = (event) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       // @ts-ignore
       const data = JSON.parse(e.target.result); // TODO Deal with this typing
-      store.loadBackupData({ data });
-      store.saveData();
+      // loadBackupData({ data });
+      // saveData();
     };
     reader.readAsText(event.target.files[0]); 
+  }
+
+  const handleChangeCategory = (categoryType: CategoryType) => () => {
+    setCurrentCategory(categoryType)
   }
 
   return (
     <Paper className={classes.container}>
       <Grid container>
 
-        {specializedButtons}
-
         <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Skill View">
-            <IconButton className={classes.button} onClick={toolBarHandlers.viewSkills}>
+            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Skills)}>
               <BrainIconSmall />
             </IconButton>
           </Tooltip>
@@ -109,7 +113,7 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts View">
-            <IconButton className={classes.button} onClick={toolBarHandlers.viewContacts}>
+            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Contacts)}>
               <PeopleIconSmall />
             </IconButton>
           </Tooltip>
@@ -117,7 +121,7 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Download Backup">
-            <IconButton className={classes.button} onClick={downloadJSON(store)}>
+            <IconButton className={classes.button} onClick={downloadJSON({ app, contacts, skills })}>
               <SaveIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
             </IconButton>
           </Tooltip>
@@ -131,39 +135,51 @@ const ContentToolbar = ({ store, toolBarHandlers, specializedButtons, tempDialog
           </Tooltip>
         </Grid>
 
-        {!loggedIn ? (
+        {!app.user.loggedIn ? (
           <>
             <Grid item className={classes.buttonContainer}>
-              <Button className={classes.textButton} onClick={() => tempDialog({ type: 'register', isOpen: true })}>Register</Button>
+              <Button className={classes.textButton} onClick={setLoginDialog({ type: 'register', isOpen: true })}>
+                Register
+              </Button>
             </Grid>
 
             <Grid item className={classes.buttonContainer}>
-              <Button className={classes.textButton} onClick={() => tempDialog({ type: 'login', isOpen: true })}>Login</Button>
+              <Button className={classes.textButton} onClick={setLoginDialog({ type: 'login', isOpen: true })}>
+                Login
+              </Button>
             </Grid>
           </>
         ) : (
           <Grid item className={classes.buttonContainer}>
-            <Button className={classes.textButton} onClick={() => store.logout()}>Logout</Button>
+            <Button className={classes.textButton} onClick={logout}>
+              Logout
+            </Button>
           </Grid>
         )}
 
         <div className={classes.rightSection}>
 
-          {loggedIn && (
+          {app.user.loggedIn && (
             <span className={classes.userName}>
-              <Typography variant="subtitle1" style={{ color: '#fff' }}>{userName}</Typography>
+              <Typography variant="subtitle1" style={{ color: '#fff' }}>{app.user.userName}</Typography>
             </span>
           )}
 
           <span className={classes.version}>
-            <Typography variant="subtitle1" style={{ color: '#fff' }}>V{store.version}</Typography>
+            <Typography variant="subtitle1" style={{ color: '#fff' }}>V{app.version}</Typography>
           </span>
 
         </div>
 
       </Grid>
       <a id="downloadData" style={{ display: 'none' }} />
-      <input ref={inputRef} onChange={onUpload} type="file" id="uploadData" style={{ display: 'none' }} />
+      <input 
+        ref={inputRef} 
+        onChange={handleUpload} 
+        type="file" 
+        id="uploadData" 
+        style={{ display: 'none' }} 
+      />
     </Paper>
   )
 }

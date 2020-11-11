@@ -4,33 +4,33 @@ import TextMultiSelect from '@core/components/FormInputs/TextMultiSelect';
 
 const { useState } = React;
 
-const EditContactSubgroups = ({ isOpen, subgroups, onClose }) => {
+const EditContactGroups = ({ isOpen, onClose, groups, contactGroups }) => {
 
-  const [formData, setFormData] = useState({ subgroups: [] });
+  const [formData, setFormData] = useState({ groups: contactGroups });
 
-  const options = subgroups.map(subgroup => ({ label: subgroup, value: subgroup }));
+  const options = groups.map(group => ({ label: group, value: group }));
 
   const handleChange = (inputName, inputValue) => {
-    setFormData({ subgroups: inputValue });
+    setFormData({ groups: inputValue });
   }
 
   const handleClose = (options?) => () => {
     let isSubmit = options ? options.isSubmit : false;
     onClose({ 
       isSubmit, 
-      newSubgroups: formData.subgroups.map(subgroup => subgroup.value) 
+      formData: formData.groups.map(group => group.value) 
     });
   }
 
   return (
     <GenericDialog
       isOpen={isOpen} 
-      title={"Edit Contact Subgroups"}
+      title={"Edit Contact Groups"}
       onClose={handleClose}
       actionsType={'simpleForm'}
     >
       <TextMultiSelect
-        name={'subgroups'}
+        name={'groups'}
         label={'Groups'}
         options={options}
         handleChange={handleChange}
@@ -41,4 +41,4 @@ const EditContactSubgroups = ({ isOpen, subgroups, onClose }) => {
   );
 }
 
-export default EditContactSubgroups;
+export default EditContactGroups;

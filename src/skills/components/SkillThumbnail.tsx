@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { VerticalProgressBar } from '@skills/components/ProgressBar';
-import { getRankByXP } from '@skills/utils';
+import { getRankByXP } from '@skills/utils/general';
 import { getWeekHourGoalProgress, getDaysFromDate } from '@core/utils/dateUtils';
 import formatHourValue from '@core/utils/formatHourValue';
 

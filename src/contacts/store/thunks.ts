@@ -1,34 +1,133 @@
+import { updateError } from '@store/app';
 import {
   createContactDone,
-  addContactInteractionDone,
-  editContactSubgroupDone
+  editContactDone,
+  deleteContactDone,
+  addContactInteractionDone
 } from '.';
+import {
+  loadingStart,
+  loadingEnd
+} from '@store/app';
+import jsonFetch from '@store/utils/jsonFetch';
+import { v4 } from 'uuid';
 
-// TODO move to process.env
 const baseUrlLocal = "http://localhost:5001/sem-organizer/us-central1/default";
-const baseUrl = "https://us-central1-sem-organizer.cloudfunctions.net/default";
-
-//// ----- Contacts Thunks -----
+const baseUrlRemote = "https://us-central1-sem-organizer.cloudfunctions.net/default";
+const baseUrl = baseUrlLocal;
 
 export const createContact = ({ formData }) => async (dispatch, getState) => {
-  const { data: { contacts } } = getState();
-  const { name } = formData;
-  const match = contacts.find(contact => contact.name === name);
-  if (!match) {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const newId = v4();
     const contact = {
+      id: newId,
       ...formData,
       info: '',
-      lastActivity: null,
-      interactionHistory: []
+      lastInteraction: Date.now(),
+      hangouts: []
     }
-    dispatch(createContactDone({ contact }));
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/contacts/create`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, newId, contact })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(createContactDone({ newId, contact }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not create contact - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not create contact - ${e.message}`
+    }));
   }
+  dispatch(loadingEnd());
 }
 
-export const addContactInteraction = ({ contactName, interactionType }) => async dispatch => {
-  const log = {
-    type: interactionType,
-    activityDate: Date.now()
+export const deleteContact = ({ id }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/contacts/delete`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(deleteContactDone({ id }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not delete contact - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not delete contact - ${e.message}`
+    }));
   }
-  dispatch(addContactInteractionDone({ contactName, log }));
+  dispatch(loadingEnd());
+}
+
+export const editContact = ({ id, property, value }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/contacts/edit`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, property, value })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(editContactDone({ id, property, value }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not edit contact - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not edit contact - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
+}
+
+export const addContactInteraction = ({ id, interactionType }) => async (dispatch, getState) => {
+  dispatch(loadingStart());
+  try {
+    const { app: { user } } = getState();
+    const { userName, password, loggedIn } = user;
+    const response = loggedIn ? await jsonFetch({
+      url: `${baseUrl}/contacts/interaction`,
+      method: 'POST',
+      body: JSON.stringify({ userName, password, id, interactionType })
+    }) : { status: 200 };
+    if (response.status === 200) {
+      dispatch(addContactInteractionDone({ id, interactionType }));
+    } else {
+      dispatch(updateError({
+        active: true,
+        message: `Could not update interaction - Response Status ${response.status}`
+      }));
+    }
+  } catch (e) {
+    dispatch(updateError({
+      active: true,
+      message: `Could not update interaction - ${e.message}`
+    }));
+  }
+  dispatch(loadingEnd());
 }

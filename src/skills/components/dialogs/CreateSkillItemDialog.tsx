@@ -48,7 +48,7 @@ const CreateSkillItemDialog = ({ isOpen, onClose, itemType }: CreateSkillItemPro
     >
       <FormCreator 
         formData={getSimpleFormData(formModel, formData)}
-        formGrid={formModel.formGrid || null}
+        formGrid={formModel.formGrid || undefined}
         lastInputField={lastInputField}
         onChange={handleChange}
       />

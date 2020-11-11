@@ -3,7 +3,7 @@ import {
   getDefaultMiddleware
 } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import reducer, { initialState as preloadedState } from './reducer';
+import reducer from './reducer';
 
 export default () => {
 
@@ -12,7 +12,7 @@ export default () => {
   const store = configureStore({
     reducer,
     middleware,
-    preloadedState
+    // preloadedState
   });
 
   return store;

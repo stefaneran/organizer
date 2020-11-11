@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Chip } from '@material-ui/core';
-import getSubgroupsFromContacts from '@core/utils/getSubgroupsFromContacts';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chipGroup: {
@@ -20,12 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactsSubgroups = ({ contacts, selectedSubgroup, onChangeSubgroup }) => {
+const ContactsGroups = ({ groups, selectedGroup, onChangeGroup }) => {
   const classes = useStyles();
-  // TODO - Save subgroups to store
-  const subgroups = getSubgroupsFromContacts(contacts);
 
-  const isSelected = (chipName) => chipName === selectedSubgroup;
+  const isSelected = (chipName) => chipName === selectedGroup;
 
   return (
     <Grid container className={classes.chipGroup}>
@@ -34,16 +31,16 @@ const ContactsSubgroups = ({ contacts, selectedSubgroup, onChangeSubgroup }) => 
           className={!isSelected('All') ? classes.chip : ''} 
           color={isSelected('All') ? "primary" : undefined}
           label="All" 
-          onClick={onChangeSubgroup('All')} 
+          onClick={onChangeGroup('All')} 
         />
       </Grid>
-      {subgroups.length ? subgroups.map(subgroup => (
-        <Grid item key={subgroup} className={classes.chipContainer}>
+      {groups.length ? groups.map(group => (
+        <Grid item key={group} className={classes.chipContainer}>
           <Chip 
-            className={!isSelected(subgroup) && classes.chip} 
-            color={isSelected(subgroup) ? "primary" : undefined}
-            label={subgroup} 
-            onClick={onChangeSubgroup(subgroup)} 
+            className={!isSelected(group) && classes.chip} 
+            color={isSelected(group) ? "primary" : undefined}
+            label={group} 
+            onClick={onChangeGroup(group)} 
           />
         </Grid>
       )) : null}
@@ -51,4 +48,4 @@ const ContactsSubgroups = ({ contacts, selectedSubgroup, onChangeSubgroup }) => 
   );
 }
 
-export default ContactsSubgroups;
+export default ContactsGroups;

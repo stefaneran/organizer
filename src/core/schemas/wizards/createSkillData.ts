@@ -1,5 +1,5 @@
 import { PriorityType } from "@core/interfaces/general";
-import { getRankOptions } from '@skills/utils';
+import { getRankOptions } from '@skills/utils/general';
 
 export interface CreateSkillFormSchema {
   title: string;

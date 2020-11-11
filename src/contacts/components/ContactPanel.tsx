@@ -2,9 +2,8 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import InteractionLog from './InteractionLog';
+import DialogTypes from '@contacts/interfaces/DialogTypes.interface';
 import { formatDateClassic } from '@core/utils/dateUtils';
-
-const { useState } = React;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -31,18 +30,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const ContactPanel = ({ contact, openDialog }) => {
+const ContactPanel = ({ contact, onOpenDialog }) => {
   const classes = useStyles();
-  const { name, location, lastActivity, subgroups, relations, interactionHistory } = contact;
-  const [currentTab, setCurrentTab] = useState(1);
+  const { name, location, lastInteraction, groups, relations, hangouts } = contact;
+  const [currentTab, setCurrentTab] = React.useState(1);
 
-  const handleTabChange = (event, tab) => {
-    setCurrentTab(tab);
-  }
+  const handleTabChange = (event, tab) => setCurrentTab(tab)
 
   // TODO - Switch to clickable chips
-  const subgroupsString = 
-    subgroups.map((subgroup, index) => `${subgroup}${index < subgroups.length-1 ? ',' : ''} `);
+  const groupsString = 
+    groups.map((group, index) => `${group}${index < groups.length-1 ? ',' : ''} `);
 
   const relationsString = 
     relations.map(relation => <Typography key={relation} variant="subtitle1">- {relation}</Typography>);
@@ -56,14 +53,14 @@ const ContactPanel = ({ contact, openDialog }) => {
             <Divider />
             <Typography variant="subtitle1">{location}</Typography>
             <Divider />
-            <Typography variant="subtitle1">Last Contact: {formatDateClassic(lastActivity)}</Typography>
+            <Typography variant="subtitle1">Last Contact: {formatDateClassic(lastInteraction)}</Typography>
           </Paper>
           <Paper className={classes.info}>
             <Typography variant="subtitle1">
-              {subgroups.length ? `Subgroups: ${subgroupsString}` : 'No Subgroups'}
+              {groups.length ? `groups: ${groupsString}` : 'No groups'}
             </Typography>
-            <Button color="primary" variant="outlined" onClick={openDialog('editSubgroups')}>
-              {subgroups.length ? 'Edit' : 'Add'}
+            <Button color="primary" variant="outlined" onClick={onOpenDialog(DialogTypes.EditGroups)}>
+              {groups.length ? 'Edit' : 'Add'}
             </Button>
           </Paper>
           {relations.length ? (
@@ -85,8 +82,8 @@ const ContactPanel = ({ contact, openDialog }) => {
             <div>Bio</div>
           ) : (
             <div className={classes.historyContainer}>
-              {interactionHistory.slice().sort((a, b) => b.activityDate - a.activityDate).map((log, index) => (
-                <InteractionLog key={`${log.activityDate}-${index}`} log={log} />
+              {hangouts.slice().sort((a, b) => b - a).map(hangoutDate => (
+                <InteractionLog key={`${hangoutDate}`} hangoutDate={hangoutDate} />
               ))}
             </div>
           )}

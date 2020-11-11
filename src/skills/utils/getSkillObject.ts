@@ -1,8 +1,8 @@
 import { ActivityType, CategoryType } from '@core/interfaces/general';
 import { XP_PER_HOUR } from '@skills/constants';
-import { getRankInfoByRankNum } from '@skills/utils';
+import { getRankInfoByRankNum } from '@skills/utils/general';
 
-export default (formData) => {
+export default (formData, id) => {
   const { title, description, priority } = formData;
 
   const rank = getRankInfoByRankNum(formData.rank);
@@ -10,12 +10,13 @@ export default (formData) => {
   const totalXP = rank.min - 1;
 
   return {
+    id,
     title,
     description,
     categoryType: CategoryType.Skills,
     priority,
     activity: ActivityType.Unstarted,
-    lastActivity: null,
+    lastActivity: undefined,
     history: [],
     items: [],
     archive: [],
