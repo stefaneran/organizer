@@ -10,11 +10,8 @@ import {
   loadingEnd
 } from '@store/app';
 import jsonFetch from '@store/utils/jsonFetch';
+import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
-
-const baseUrlLocal = "http://localhost:5001/sem-organizer/us-central1/default";
-const baseUrlRemote = "https://us-central1-sem-organizer.cloudfunctions.net/default";
-const baseUrl = baseUrlLocal;
 
 export const createContact = ({ formData }) => async (dispatch, getState) => {
   dispatch(loadingStart());

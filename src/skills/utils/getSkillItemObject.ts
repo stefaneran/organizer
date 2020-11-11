@@ -44,11 +44,10 @@ const getCourseProperties = (formData) => ({
 
 export default (itemType, formData) => {
   const skillItemProperties = getPropertiesBySkillItemType(itemType, formData);
-  const { title, description, priority } = formData;
+  const { name, priority } = formData;
   return {
     itemType,
-    title,
-    description,
+    name,
     activity: ActivityType.Active,
     priority,
     dateCreated: Date.now(),

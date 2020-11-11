@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { logout } from '@store/app/thunks';
-import ContentToolbar from './ContentToolbar';
+import AppBar from './AppBar';
 
 const mapStateToProps = state => ({
   app: state.app,
@@ -15,4 +15,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContentToolbar);
+)(AppBar);

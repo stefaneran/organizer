@@ -4,6 +4,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Divider, Button } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { VerticalProgressBar } from '@skills/components/ProgressBar';
+import DialogTypes from '@skills/interfaces/DialogTypes.interface';
 import { getRankByXP } from '@skills/utils/general';
 import { getWeekHourGoalProgress, getDaysFromDate } from '@core/utils/dateUtils';
 import formatHourValue from '@core/utils/formatHourValue';
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
     width: '100%'
   },
-  title: {
+  name: {
     marginBottom: '0.5em'
   },
   activity: {
@@ -40,20 +41,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillThumbnail = ({ skill, globalDialogActions }) => {
+const SkillThumbnail = ({ skill, onOpenDialog }) => {
   const classes = useStyles();
 
-  const { title, totalXP, weekHourGoal, lastActivity } = skill;
+  const { id, name, totalXP, weekHourGoal, lastActivity } = skill;
 
   const rank = getRankByXP(totalXP);
   const weekProgress = getWeekHourGoalProgress(skill);
   const daysSinceLastActivity = getDaysFromDate(lastActivity);
 
+  const handlePractice = (e) => {
+    e.stopPropagation();
+    onOpenDialog(DialogTypes.UpdateHours, id)();
+  }
+
   return (
     <Paper className={classes.container}>
 
-      <Paper className={clsx(classes.paper, classes.title)}>
-        <Typography variant="subtitle1">{title}</Typography>
+      <Paper className={clsx(classes.paper, classes.name)}>
+        <Typography variant="subtitle1">{name}</Typography>
       </Paper>
 
       <Grid container spacing={1} style={{ marginBottom: '0.2em' }}> 
@@ -90,10 +96,7 @@ const SkillThumbnail = ({ skill, globalDialogActions }) => {
           variant="outlined" 
           color="primary" 
           endIcon={<UpdateIcon />} 
-          onClick={(e) => {
-            e.stopPropagation();
-            globalDialogActions.open({ type: 'updateHours', data: skill.title })();
-          }}
+          onClick={handlePractice}
         >
           Practice
         </Button>

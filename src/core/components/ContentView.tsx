@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import ContentToolbar from '@core/components/ContentToolbar';
-import SkillsContainer from '@skills/components/SkillsContainer';
-import HistoryView from '@skills/components/HistoryView';
+import AppBar from '@core/components/AppBar';
+import SkillsContainer from '@skills/container';
 import ContactsContainer from '@contacts/container';
-import { CategoryType } from '@core/interfaces/general'
-
-const { useState } = React;
+import { CategoryType } from '@core/interfaces/general';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -23,26 +20,17 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ setLoginDialog }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = useState(CategoryType.Contacts);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);
 
   return (
     <div className={classes.container}>
       <Grid className="fullHeight" container direction="column">
-        <ContentToolbar
+        <AppBar
           setLoginDialog={setLoginDialog}
           setCurrentCategory={setCurrentCategory}
         />
         {currentCategory === CategoryType.Skills && (
-          {/* 
-          <Grid className="fullHeight" container>
-            <Grid item xs={9} className="fullHeight">
-              <SkillsContainer />
-            </Grid>
-            <Grid item xs={3} className="fullHeight">
-              <HistoryView />
-            </Grid>
-          </Grid> 
-          */}
+          <SkillsContainer />
         )}
         {currentCategory === CategoryType.Contacts &&
           <ContactsContainer />

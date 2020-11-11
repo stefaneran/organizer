@@ -1,15 +1,7 @@
-import { CategoryType } from '@core/interfaces/general';
-
 export interface SkillHistoryLog {
-  // TODO - Remove because it's redundant
-  categoryType: CategoryType;
-  // Identifier
-  // - Skill: Title (string)
-  // TODO - Rename to identifier
-  categoryIdentifier: string; 
-  // Extra info 
-  // - Skill: Skill Item type (Book/Course)
-  // TODO - Rename for clarity
+  // Identifier (skill ID)
+  identifier: string; 
+  // Item type (Book or Course) if applicable
   subType?: string;
   // Unit of value to represent action
   unit?: number; 

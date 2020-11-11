@@ -2,15 +2,10 @@ import { PriorityType } from "@core/interfaces/general";
 
 export default {
   data: {
-    title: {
-      name: 'title', 
+    name: {
+      name: 'name', 
       type: 'text', 
-      label: 'Course Title'
-    },
-    description: {
-      name: 'description', 
-      type: 'text', 
-      label: 'Description (Optional)'
+      label: 'Course Name'
     },
     classesTotal: {
       name: 'classesTotal',
@@ -35,5 +30,5 @@ export default {
       ] 
     }
   },
-  formGrid: { x: 1, y: 5 }
+  formGrid: { x: 1, y: 4 }
 }

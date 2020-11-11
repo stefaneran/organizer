@@ -2,8 +2,8 @@ import { PriorityType } from "@core/interfaces/general";
 
 export default {
   data: {
-    title: {
-      name: 'title', 
+    name: {
+      name: 'name', 
       type: 'text', 
       label: 'Book Title'
     },
@@ -11,11 +11,6 @@ export default {
       name: 'author', 
       type: 'text', 
       label: 'Book Author (Optional)'
-    },
-    description: {
-      name: 'description', 
-      type: 'text', 
-      label: 'Description (Optional)'
     },
     pagesTotal: {
       name: 'pagesTotal',
@@ -34,5 +29,5 @@ export default {
       ] 
     }
   },
-  formGrid: { x: 1, y: 5 }
+  formGrid: { x: 1, y: 4 }
 }

@@ -8,8 +8,7 @@ export enum SkillItemType {
 
 export interface SkillItem {
   itemType: SkillItemType;
-  title: string;
-  description: string;
+  name: string;
   totalXP: number; // Total XP this item is worth (Time to complete XP + Bonus XP)
   dateCreated: number;
   dateFinished: number;

@@ -1,26 +1,13 @@
 import { PriorityType } from "@core/interfaces/general";
 import { getRankOptions } from '@skills/utils/general';
 
-export interface CreateSkillFormSchema {
-  title: string;
-  description: string;
-  priority: PriorityType;
-  rank: number;
-}
-
 export default {
   data: {
-    title: { 
-      name: 'title', 
+    name: { 
+      name: 'name', 
       type: 'text', 
-      label: 'Skill Title', 
+      label: 'Skill Name', 
       helperText: 'Name like "Cooking" or "Guitar"' 
-    },
-    description: { 
-      name: 'description', 
-      type: 'text', 
-      label: 'Skill Description', 
-      helperText: 'Extra info about this skill' 
     },
     weekHourGoal: {
       name: 'weekHourGoal',
@@ -51,8 +38,8 @@ export default {
   },
   steps: [
     {
-      fields: ['title', 'description', 'weekHourGoal'], 
-      formGrid: {x: 1, y: 3},
+      fields: ['name', 'weekHourGoal'], 
+      formGrid: {x: 1, y: 2},
       canSkip: false
     },
     {

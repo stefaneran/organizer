@@ -8,7 +8,15 @@ export default async ({ url, ...options }) => {
     headers,
     ...options
   });
-  const responseData = response.status === 204 ? {} : await response.json();
+  let responseData = {};
+  try {
+    responseData = response.status === 204 ? {} : await response.json();
+  } catch (e) {
+    return {
+      data: responseData,
+      status: response.status
+    };
+  }
   return {
     data: responseData,
     status: response.status

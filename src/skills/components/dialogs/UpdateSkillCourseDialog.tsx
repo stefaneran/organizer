@@ -4,13 +4,11 @@ import updateSkillCourse from '@core/schemas/inputDialogs/updateSkillCourseData'
 import { getDefaultFormData } from '@core/utils/formDataUtils';
 import SliderInput from '@core/components/FormInputs/SliderInput';
 
-const { useState } = React;
-
 const UpdateSkillCourseDialog = ({ isOpen, course, onClose }) => {
 
   const skillCourse = updateSkillCourse(course);
 
-  const [formData, setFormData] = useState(getDefaultFormData(skillCourse));
+  const [formData, setFormData] = React.useState(getDefaultFormData(skillCourse));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });

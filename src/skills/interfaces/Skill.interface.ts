@@ -1,11 +1,9 @@
-import { PriorityType, CategoryType, ActivityType } from '@core/interfaces/general';
+import { PriorityType, ActivityType } from '@core/interfaces/general';
 import { SkillHistoryLog } from '@skills/interfaces/SkillHistoryLog.interface';
 
 export interface Skill {
-  title: string;
-  description: string;
+  name: string;
   lastActivity: number;
-  categoryType: CategoryType;
   priority: PriorityType;
   activity: ActivityType;
   history: SkillHistoryLog[];
@@ -19,10 +17,8 @@ export interface Skill {
 
 // Used in validation
 export const skillModel: Skill = {
-  title: '',
-  description: '',
+  name: '',
   lastActivity: Date.now(),
-  categoryType: CategoryType.Skills,
   priority: PriorityType.Low,
   activity: ActivityType.Active,
   history: [],

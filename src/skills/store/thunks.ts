@@ -18,11 +18,8 @@ import {
 import getSkillObject from '@skills/utils/getSkillObject';
 import getSkillItemObject from '@skills/utils/getSkillItemObject';
 import jsonFetch from '@store/utils/jsonFetch';
+import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
-
-const baseUrlLocal = "http://localhost:5001/sem-organizer/us-central1/default";
-const baseUrlRemote = "https://us-central1-sem-organizer.cloudfunctions.net/default";
-const baseUrl = baseUrlLocal;
 
 // TODO try this out
 const genericRequest = async (
@@ -172,6 +169,7 @@ export const editSkill = ({ id, property, value }) => async(dispatch, getState) 
 }
 
 export const updateSkillHours = ({ id, hoursValue }) => async (dispatch, getState) => {
+  console.log(id, hoursValue)
   dispatch(loadingStart());
   try {
     const { app: { user }, skillsStore: { skills } } = getState();
@@ -200,13 +198,15 @@ export const updateSkillHours = ({ id, hoursValue }) => async (dispatch, getStat
   dispatch(loadingEnd());
 }
 
-export const updateSkillBook = ({ id, itemTitle, pagesValue }) => async (dispatch, getState) => {
+export const updateSkillBook = ({ id, itemName, pagesValue }) => async (dispatch, getState) => {
   dispatch(loadingStart());
   try {
     const { app: { user }, skillsStore: { skills } } = getState();
     const { userName, password, loggedIn } = user;
     const skill = skills[id];
-    const updatedSkill = updateSkillBookLogic(skill, itemTitle, pagesValue);
+    console.log('a')
+    const updatedSkill = updateSkillBookLogic(skill, itemName, pagesValue);
+    console.log('b')
     const response = loggedIn ? await jsonFetch({
       url: `${baseUrl}/skills/update`,
       method: 'POST',
@@ -229,13 +229,13 @@ export const updateSkillBook = ({ id, itemTitle, pagesValue }) => async (dispatc
   dispatch(loadingEnd());
 }
 
-export const updateSkillCourse = ({ id, itemTitle, classesValue }) => async (dispatch, getState) => {
+export const updateSkillCourse = ({ id, itemName, classesValue }) => async (dispatch, getState) => {
   dispatch(loadingStart());
   try {
     const { app: { user }, skillsStore: { skills } } = getState();
     const { userName, password, loggedIn } = user;
     const skill = skills[id];
-    const updatedSkill = updateSkillCourseLogic(skill, itemTitle, classesValue);
+    const updatedSkill = updateSkillCourseLogic(skill, itemName, classesValue);
     const response = loggedIn ? await jsonFetch({
       url: `${baseUrl}/skills/update`,
       method: 'POST',

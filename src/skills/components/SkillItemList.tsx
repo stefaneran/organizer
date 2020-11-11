@@ -1,11 +1,10 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid, AppBar, Tabs, Tab, Button } from '@material-ui/core';
+import { Grid, AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import SkillItem from './SkillItem';
-
-const { useState } = React;
+import DialogTypes from '@skills/interfaces/DialogTypes.interface';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   tab: {
@@ -19,10 +18,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillItemList = ({ items = [], archive = [], openDialog }) => {
+const SkillItemList = ({ 
+  skill,
+  onOpenDialog,
+  setSelectedItem
+}) => {
   const classes = useStyles();
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   const handleTabChange = (event, tab) => {
     setCurrentTab(tab);
@@ -39,7 +42,7 @@ const SkillItemList = ({ items = [], archive = [], openDialog }) => {
       <Grid container direction="column">
         <Grid className={clsx(classes.toolbar, 'gridRow')} item xs={1}>
           <Button
-            onClick={openDialog({ type: 'chooseItemType' })} 
+            onClick={onOpenDialog(DialogTypes.ChooseSkillItemType)} 
             endIcon={<AddIcon />}
             style={{ color: '#fff' }}
           >
@@ -48,22 +51,22 @@ const SkillItemList = ({ items = [], archive = [], openDialog }) => {
         </Grid>
         {currentTab === 0 ? (
           <Grid className={'gridRow'} item xs={9}>
-            {items && items.map(item => (
+            {skill.items && skill.items.map(item => (
               <SkillItem 
-                key={`${item.title}-${item.itemType}`} 
+                key={`${item.title}-${item.itemType}`}
                 item={item} 
-                openDialog={openDialog}
+                onOpenDialog={onOpenDialog}
                 type="active"
+                setSelected={setSelectedItem}
               />
             ))}
           </Grid>
         ) : (
           <Grid className={'gridRow'} item xs={9}>
-            {archive && archive.map(item => (
+            {skill.archive && skill.archive.map(item => (
               <SkillItem 
                 key={`${item.title}-${item.itemType}`}
-                item={item} 
-                openDialog={openDialog}
+                item={item}
                 type="archive"
               />
             ))}

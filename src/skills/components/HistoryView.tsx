@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import HistoryLogItem from '@skills/components/HistoryLogItem';
-import { getHistory } from '@store/accessors';
+import getHistory from '@skills/utils/getHistory';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 })); 
 
-const HistoryView = ({ store }) => {
+const HistoryView = ({ skills }) => {
   const classes = useStyles();
-  const history = getHistory(store, 25);
+  const history = getHistory(skills, 25);
 
   return (
     <div className={classes.container}>

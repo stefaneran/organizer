@@ -4,11 +4,9 @@ import updateSkillHoursData from '@core/schemas/inputDialogs/updateSkillHoursDat
 import { getDefaultFormData } from '@core/utils/formDataUtils';
 import SliderInput from '@core/components/FormInputs/SliderInput';
 
-const { useState } = React;
-
 const UpdateSkillHoursDialog = ({ isOpen, onClose }) => {
 
-  const [formData, setFormData] = useState(getDefaultFormData(updateSkillHoursData));
+  const [formData, setFormData] = React.useState(getDefaultFormData(updateSkillHoursData));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });

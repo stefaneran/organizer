@@ -5,8 +5,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-const { useState } = React;
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
@@ -39,14 +37,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'absolute',
     right: '1em',
     top: '1em'
-  },
-  actions: {}
+  }
 }));
 
-const SkillNotes = ({ store, title, notes }) => {
+const SkillNotes = ({ notes, onEditSave }) => {
   const classes = useStyles();
-  const [isEdit, setIsEdit] = useState(false);
-  const [notesText, setNotesText] = useState(notes);
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [notesText, setNotesText] = React.useState(notes);
 
   const handleNotesInput = (event) => {
     setNotesText(event.target.value);
@@ -58,9 +55,7 @@ const SkillNotes = ({ store, title, notes }) => {
 
   const handleEndEdit = (isSave: boolean) => () => {
     if(isSave) {
-      const { updateSkillNotes, saveData } = store;
-      updateSkillNotes({ title, newNotes: notesText });
-      saveData();
+      onEditSave({ property: 'notes', value: notesText })
     }
     else {
       setNotesText(notes);
@@ -86,7 +81,7 @@ const SkillNotes = ({ store, title, notes }) => {
           </Grid>
           <Grid item className={classes.content}>
             {isEdit ? (
-              <TextField className={classes.notes} value={notesText} onChange={handleNotesInput} multiline />
+              <TextField className={classes.notes} value={notesText} onChange={handleNotesInput}  rows={10} multiline />
             ) : (
               <Typography variant="subtitle2">{formatNotes()}</Typography>
             )}

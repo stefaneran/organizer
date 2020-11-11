@@ -2,11 +2,9 @@ import * as React from 'react';
 import { GenericDialog } from '@core/components/GenericDialog';
 import TextMultiSelect from '@core/components/FormInputs/TextMultiSelect';
 
-const { useState } = React;
-
 const EditContactGroups = ({ isOpen, onClose, groups, contactGroups }) => {
 
-  const [formData, setFormData] = useState({ groups: contactGroups });
+  const [formData, setFormData] = React.useState({ groups: contactGroups });
 
   const options = groups.map(group => ({ label: group, value: group }));
 

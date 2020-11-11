@@ -66,7 +66,7 @@ interface ToolBarProps {
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
 }
 
-const ContentToolbar = ({ 
+const AppBar = ({ 
   app,
   contacts,
   skills,
@@ -184,4 +184,4 @@ const ContentToolbar = ({
   )
 }
 
-export default ContentToolbar;
+export default AppBar;

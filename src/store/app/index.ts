@@ -29,6 +29,7 @@ const slice = createSlice({
       }
     },
     loginDone: (state, { payload }) => {
+      console.log('loginDone ', payload)
       state.user.loggedIn = true;
       state.user.userName = payload.userName;
       state.user.password = payload.password;

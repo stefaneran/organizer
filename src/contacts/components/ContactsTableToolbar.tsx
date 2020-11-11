@@ -7,8 +7,6 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import DialogTypes from '@contacts/interfaces/DialogTypes.interface';
 import TextInput from '@core/components/FormInputs/TextInput';
 
-const { useState } = React;
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   toolbar: {
     padding: '0.4em 0.3em',

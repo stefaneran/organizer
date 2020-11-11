@@ -3,21 +3,13 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
 // Overview components
-import SkillProgressBars from './SkillProgressBars';
-import SkillGeneralInfo from './SkillGeneralInfo';
-import SkillNotes from './SkillNotes';
-import SkillStats from './SkillStats';
-import SkillItemList from './SkillItemList';
-// Dialogs
-import UpdateSkillWeeklyGoalDialog from '@skills/components/dialogs/UpdateSkillWeeklyGoalDialog';
-import ChooseSkillItemTypeDialog from '@skills/components/dialogs/ChooseSkillItemTypeDialog';
-import CreateSkillItemDialog from '@skills/components/dialogs/CreateSkillItemDialog';
-import UpdateSkillBookDialog from '@skills/components/dialogs/UpdateSkillBookDialog';
-import UpdateSkillCourseDialog from '@skills/components/dialogs/UpdateSkillCourseDialog';
+import SkillProgressBars from '../SkillProgressBars';
+import SkillGeneralInfo from '../SkillGeneralInfo';
+import SkillNotes from '../SkillNotes';
+import SkillStats from '../SkillStats';
+import SkillItemList from '../SkillItemList';
 // Other 
 import { getRankByXP, getNextRank } from '@skills/utils/general';
-
-const { useState } = React;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   innerContainer: {
@@ -34,98 +26,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillView = ({ store, skill, globalDialogActions }) => {
+const SkillView = ({ 
+  skill, 
+  onOpenDialog, 
+  onEditSave, 
+  onDeleteSkill, 
+  setSelectedItem
+}) => {
   const classes = useStyles();
-
-  // Selected data states
-  const [currentItemType, setCurrentItemType] = useState(undefined);
-  const [currentBook, setCurrentBook] = useState(undefined);
-  const [currentCourse, setCurrentCourse] = useState(undefined);
-
-  // Dialog open states
-  const [chooseItemTypeDialogOpen, setChooseItemTypeDialogOpen] = useState(false);
-  
-  const [updateGoalDialogOpen, setUpdateGoalDialogOpen] = useState(false);
 
   const rank = getRankByXP(skill.totalXP) || { title: "Error: No Rank"};
   const nextRank = getNextRank(rank) || { title: "Error: No Rank" };
-
-  const dialogActions = {
-    open: ({ type, data }: { type: string; data? }) => () => {
-      const map = {
-        updateGoal: setUpdateGoalDialogOpen,
-        chooseItemType: setChooseItemTypeDialogOpen,
-        updateBook: setCurrentBook,
-        updateCourse: setCurrentCourse
-      }
-      map[type](data || true);
-    },
-    close: {
-      // Change week goal dialog
-      goal: ({ isSubmit, weeklyGoal }) => {
-        setUpdateGoalDialogOpen(false);
-        if(isSubmit) {
-          const { updateWeeklyGoal, saveData } = store;
-          updateWeeklyGoal({ 
-            title: skill.title, 
-            weeklyGoal
-          });
-          saveData();
-        }
-      },
-      // Choose item type on creation dialog
-      chooseItemType: ({ itemType }) => {
-        setCurrentItemType(itemType);
-        setChooseItemTypeDialogOpen(false);
-      },
-      // Create item wizard dialog
-      createItem: ({ isSubmit, formData }) => {
-        const { addSkillItem, saveData } = store;
-        if(isSubmit) {
-          addSkillItem({ 
-            title: skill.title, 
-            itemType: currentItemType, 
-            formData 
-          });
-          saveData();
-        }
-        setCurrentItemType(undefined);
-      },
-      // Update book dialog
-      book: ({ isSubmit, pagesValue }) => {
-        const { updateSkillBook, saveData } = store;
-        if(isSubmit) {
-          updateSkillBook({
-            skillTitle: skill.title,
-            itemTitle: currentBook.title,
-            pagesValue
-          });
-          saveData();
-        }
-        setCurrentBook(undefined);
-      },
-      // Update course dialog
-      course: ({ isSubmit, classesValue }) => {
-        const { updateSkillCourse, saveData } = store;
-        if(isSubmit) {
-          updateSkillCourse({
-            skillTitle: skill.title,
-            itemTitle: currentCourse.title,
-            classesValue
-          });
-          saveData();
-        }
-        setCurrentCourse(undefined);
-      }
-    }
-  }
-
-  const handleDeleteSkill = () => {
-    // TODO - Add confirmation dialog
-    const { deleteSkill, saveData } = store;
-    deleteSkill({ title: skill.title });
-    saveData();
-  }
 
   return (
     <Grid className={classes.innerContainer} container item spacing={1} xs={11}>
@@ -151,14 +62,13 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
             <SkillGeneralInfo 
               skill={skill} 
               rank={rank} 
-              dialogActions={dialogActions} 
-              globalDialogActions={globalDialogActions} 
-              onDelete={handleDeleteSkill}
+              onOpenDialog={onOpenDialog}
+              onDelete={onDeleteSkill}
             />
           </Grid>
           
           <Grid className={'gridRow'} xs={5} style={{ maxHeight: '42%' }} container item direction="column">
-            <SkillNotes store={store} title={skill.title} notes={skill.notes} />
+            <SkillNotes notes={skill.notes} onEditSave={onEditSave} />
           </Grid>
 
           <Grid className={'gridRow'} xs={2} container item>
@@ -169,30 +79,11 @@ const SkillView = ({ store, skill, globalDialogActions }) => {
       </Grid>
       <Grid item xs={4}>
         <SkillItemList 
-          items={skill.items} 
-          archive={skill.archive} 
-          openDialog={dialogActions.open}
+          skill={skill}
+          onOpenDialog={onOpenDialog}
+          setSelectedItem={setSelectedItem}
         />
       </Grid>
-    
-      {/* Dialogs only below this line */}
-
-      
-      {updateGoalDialogOpen && (
-        <UpdateSkillWeeklyGoalDialog isOpen={updateGoalDialogOpen} onClose={dialogActions.close.goal} />
-      )}
-
-      <ChooseSkillItemTypeDialog isOpen={chooseItemTypeDialogOpen} onClose={dialogActions.close.chooseItemType} />
-      {currentItemType && (
-        <CreateSkillItemDialog isOpen={Boolean(currentItemType)} onClose={dialogActions.close.createItem} itemType={currentItemType} />
-      )}
-
-      {currentBook && (
-        <UpdateSkillBookDialog isOpen={Boolean(currentBook)} book={currentBook} onClose={dialogActions.close.book} />
-      )}
-      {currentCourse && (
-        <UpdateSkillCourseDialog isOpen={Boolean(currentCourse)} course={currentCourse} onClose={dialogActions.close.course} />
-      )}
     </Grid>
   )
 }

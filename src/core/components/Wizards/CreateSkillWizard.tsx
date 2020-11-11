@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { GenericDialog } from '@core/components/GenericDialog';
 import { FormCreator } from '@core/components/FormCreator';
-import createSkillSchema, { CreateSkillFormSchema } from '@core/schemas/wizards/createSkillData';
+import createSkillSchema from '@core/schemas/wizards/createSkillData';
 import { getDefaultFormData, getStepFormData } from '@core/utils/formDataUtils';
 import getIndexByDirection from '@core/utils/getIndexByDirection';
 
-const { useState } = React;
-
 interface CloseProps {
   isSubmit: boolean;
-  formData: CreateSkillFormSchema | {};
+  formData: any;
 }
 
 export interface WizardProps {
@@ -19,11 +17,11 @@ export interface WizardProps {
 const CreateSkillWizard = ({ isOpen, onClose }: WizardProps) => {
 
   // The form data of all fields across all steps
-  const [formData, setFormData] = useState(getDefaultFormData(createSkillSchema));
+  const [formData, setFormData] = React.useState(getDefaultFormData(createSkillSchema));
   // Current wizard step index
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = React.useState(0);
   // Last input changed
-  const [lastInputField, setLastInputField] = useState('');
+  const [lastInputField, setLastInputField] = React.useState('');
 
   // Handle change in form input
   const handleChange = (inputName, inputValue) => {

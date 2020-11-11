@@ -5,11 +5,11 @@ import {
   format
 } from 'date-fns';
 
-export const getWeekHourGoalProgress = (category) => {
+export const getWeekHourGoalProgress = (skill) => {
   let progress = 0;
   const start = startOfWeek(Date.now(), { weekStartsOn: 1 });
   const end = endOfWeek(Date.now(), { weekStartsOn: 1 });
-  category.history.forEach(log => {
+  skill.history.forEach(log => {
     const { activityDate, unit } = log;
     if(activityDate >= start && activityDate <= end) {
       progress += unit;
@@ -21,7 +21,7 @@ export const getWeekHourGoalProgress = (category) => {
 export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new Date(timestamp));
 
 export const formatDateBasic = (timestamp) => 
-  format(new Date(timestamp), 'EEEE - do MMMM');
+  timestamp ? format(new Date(timestamp), 'EEEE - do MMMM') : 'Error';
 
 export const formatDateClassic = (timestamp) => 
-  format(new Date(timestamp), 'dd/MM/yy');
+  timestamp ? format(new Date(timestamp), 'dd/MM/yy') : 'Error';

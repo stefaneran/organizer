@@ -4,6 +4,7 @@ import { Paper, Grid, Typography, Divider, Button, IconButton, Tooltip } from '@
 import EditIcon from '@material-ui/icons/Edit';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
+import DialogTypes from '@skills/interfaces/DialogTypes.interface';
 import { getWeekHourGoalProgress, formatDateBasic } from '@core/utils/dateUtils';
 import formatHourValue from '@core/utils/formatHourValue';
 
@@ -28,10 +29,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onDelete }) => {
+const SkillGeneralInfo = ({ skill, rank, onOpenDialog, onDelete }) => {
   const classes = useStyles();
 
-  const { title, weekHourGoal, lastActivity } = skill;
+  const { name, weekHourGoal, lastActivity } = skill;
   const weekHourProgress = getWeekHourGoalProgress(skill);
 
   return (
@@ -41,7 +42,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onD
         <Grid item className={'gridRow'} style={{ marginBottom: '1em' }}>
           <Paper className={classes.innerContainer}>
             <Typography variant="h5">
-              {title || "Error: No Title"}
+              {name || "Error: No name"}
             </Typography>
           </Paper>
         </Grid>
@@ -59,7 +60,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onD
             <Grid item className={'gridRow'}>
               <Typography variant="subtitle1" className={classes.infoLine}>
                 Week Goal: {`${formatHourValue(weekHourProgress)} / ${formatHourValue(weekHourGoal)}`}
-                <IconButton className={classes.editBtn} onClick={dialogActions.open({ type: 'updateGoal' })}>
+                <IconButton className={classes.editBtn} onClick={onOpenDialog(DialogTypes.UpdateGoal)}>
                   <EditIcon />
                 </IconButton>
               </Typography>
@@ -84,7 +85,7 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onD
                   variant="outlined" 
                   color="primary" 
                   endIcon={<UpdateIcon />} 
-                  onClick={globalDialogActions.open({ type: 'updateHours', data: title })}
+                  onClick={onOpenDialog(DialogTypes.UpdateHours)}
                 >
                   Practice
                 </Button>
@@ -109,7 +110,6 @@ const SkillGeneralInfo = ({ skill, rank, dialogActions, globalDialogActions, onD
         </Grid>
 
       </Grid>
-
     </Paper>
   )
 }

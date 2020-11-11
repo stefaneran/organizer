@@ -29,8 +29,6 @@ const ContactsContainer = ({
 }) => {
   const classes = useStyles();
 
-  console.log(contacts);
-
   const [openDialog, setOpenDialog] = React.useState('');
 
   const [selectedContact, setSelectedContact] = React.useState(undefined);
@@ -55,7 +53,6 @@ const ContactsContainer = ({
   }
 
   React.useEffect(() => {
-    console.log('================== updateGroups')
     updateGroups(getGroupsFromContacts(contacts));
   }, [contacts]);
 

@@ -6,16 +6,13 @@ import {
   updateError
 } from '.';
 import jsonFetch from '@store/utils/jsonFetch';
-
-// TODO move to process.env
-const baseUrlLocal = "http://localhost:5001/sem-organizer/us-central1/default";
-const baseUrl = "https://us-central1-sem-organizer.cloudfunctions.net/default";
+import baseUrl from '@store/baseUrl';
 
 export const register = ({ userName, password }) => async (dispatch) => {
   dispatch(loadingStart());
   try {
     const response = await jsonFetch({
-      url: `${baseUrl}/register`,
+      url: `${baseUrl}/app/register`,
       method: 'POST',
       body: JSON.stringify({ userName, password })
     });
@@ -41,7 +38,7 @@ export const login = ({ userName, password }) => async (dispatch) => {
   dispatch(loadingStart());
   try {
     const response = await jsonFetch({
-      url: `${baseUrl}/login`,
+      url: `${baseUrl}/app/login`,
       method: 'POST',
       body: JSON.stringify({ userName, password })
     });

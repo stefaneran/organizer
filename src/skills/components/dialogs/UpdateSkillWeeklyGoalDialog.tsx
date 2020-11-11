@@ -4,11 +4,9 @@ import updateSkillWeeklyGoalData from '@core/schemas/inputDialogs/updateSkillWee
 import { getDefaultFormData } from '@core/utils/formDataUtils';
 import SliderInput from '@core/components/FormInputs/SliderInput';
 
-const { useState } = React;
-
 const UpdateSkillWeeklyGoalDialog = ({ isOpen, onClose }) => {
 
-  const [formData, setFormData] = useState(getDefaultFormData(updateSkillWeeklyGoalData));
+  const [formData, setFormData] = React.useState(getDefaultFormData(updateSkillWeeklyGoalData));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });

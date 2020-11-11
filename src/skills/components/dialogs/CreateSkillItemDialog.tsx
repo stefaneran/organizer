@@ -6,8 +6,6 @@ import { SkillItemType } from '@skills/interfaces/SkillItem.interface';
 import createSkillBook from '@core/schemas/inputDialogs/createSkillBookData';
 import createSkillCourse from '@core/schemas/inputDialogs/createSkillCourseData';
 
-const { useState } = React;
-
 interface CreateSkillItemProps {
   isOpen: boolean;
   onClose: any;
@@ -26,8 +24,8 @@ const CreateSkillItemDialog = ({ isOpen, onClose, itemType }: CreateSkillItemPro
 
   const formModel = skillItemFormModelMap(itemType);
 
-  const [formData, setFormData] = useState(getDefaultFormData(formModel));
-  const [lastInputField, setLastInputField] = useState('');
+  const [formData, setFormData] = React.useState(getDefaultFormData(formModel));
+  const [lastInputField, setLastInputField] = React.useState('');
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });

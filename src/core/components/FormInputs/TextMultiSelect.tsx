@@ -6,8 +6,6 @@ import {
   FormHelperText 
 } from '@material-ui/core';
 
-const { useState } = React;
-
 interface Props {
   name: string;
   label: string;
@@ -34,8 +32,8 @@ const TextMultiSelect = ({
   size 
 }: Props) => {
 
-  const [currentOptions, setCurrentOptions] = useState(options);
-  const [currentValue, setCurrentValue] = useState([]);
+  const [currentOptions, setCurrentOptions] = React.useState(options);
+  const [currentValue, setCurrentValue] = React.useState([]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && canAdd) {

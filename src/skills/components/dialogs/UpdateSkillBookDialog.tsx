@@ -4,13 +4,11 @@ import updateSkillBook from '@core/schemas/inputDialogs/updateSkillBookData';
 import { getDefaultFormData } from '@core/utils/formDataUtils';
 import SliderInput from '@core/components/FormInputs/SliderInput';
 
-const { useState } = React;
-
 const UpdateSkillBookDialog = ({ isOpen, book, onClose }) => {
-
+  
   const skillBook = updateSkillBook(book);
 
-  const [formData, setFormData] = useState(getDefaultFormData(skillBook));
+  const [formData, setFormData] = React.useState(getDefaultFormData(skillBook));
 
   const handleChange = (inputName, inputValue) => {
     setFormData({ ...formData, [inputName]: inputValue });
