@@ -88,7 +88,7 @@ const SkillItem = ({ item, type, onOpenDialog, setSelected }: Props) => {
         <Grid item xs={type === 'active' ? 8 : 10}>
           <Paper className={classes.itemInfo}>
             <Typography variant="subtitle1" className={classes.itemLine}>
-              {item.title}
+              {item.name}
             </Typography>
             <Divider />
             <Typography variant="subtitle1" className={classes.itemLine}>

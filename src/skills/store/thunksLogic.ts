@@ -45,7 +45,7 @@ export const updateSkillBookLogic = (skill, itemName, pagesValue) => {
   }
   
   const log = {
-    identifier: skill.title,
+    identifier: skill.id,
     subType: SkillItemType.Book,
     unit: hoursRead,
     activityDate: Date.now(),

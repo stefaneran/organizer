@@ -1,4 +1,4 @@
-import { SkillItem } from '@interfaces/skill/SkillItem.interface';
+import { SkillItem } from '@skills/interfaces/SkillItem.interface';
 
 interface SkillBook extends SkillItem {
   author?: string;

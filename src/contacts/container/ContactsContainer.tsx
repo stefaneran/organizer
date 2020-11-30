@@ -5,8 +5,7 @@ import ContactsGroups from '@contacts/components/ContactsGroups';
 import ContactsTableToolbar from '@contacts/components/ContactsTableToolbar';
 import ContactsTable from '@contacts/components/ContactsTable';
 import ContactPanel from '@contacts/components/ContactPanel';
-import CreateContactDialog from '@contacts/components/dialogs/CreateContactDialog';
-import EditContactGroups from '@contacts/components/dialogs/EditContactGroups';
+import ContactsDialogs from '@contacts/components/dialogs';
 import DialogTypes from '@contacts/interfaces/DialogTypes.interface';
 import getGroupsFromContacts from '@contacts/utils/getGroupsFromContacts';
 
@@ -30,6 +29,7 @@ const ContactsContainer = ({
   const classes = useStyles();
 
   const [openDialog, setOpenDialog] = React.useState('');
+  console.log(contacts)
 
   const [selectedContact, setSelectedContact] = React.useState(undefined);
   const [selectedGroup, setSelectedGroup] = React.useState('All');
@@ -65,7 +65,11 @@ const ContactsContainer = ({
       createContact({ formData: props.formData });
     }
     if (openDialog === DialogTypes.EditGroups && isSubmit) {
-      editContact({ property: 'groups', value: props.formData });
+      editContact({ 
+        id: selectedContact, 
+        property: 'groups', 
+        value: props.formData 
+      });
     }
     setOpenDialog('');
   }
@@ -110,25 +114,13 @@ const ContactsContainer = ({
         )}
       </Grid>
 
-      {/* Dialogs and Pop-Ups below this line  */}
-
-      {openDialog === DialogTypes.CreateContact && (
-        <CreateContactDialog
-          isOpen
-          onClose={handleCloseDialog}
-          contacts={contacts}
-          groups={groups}
-        />
-      )}
-
-      {openDialog === DialogTypes.EditGroups && (
-        <EditContactGroups
-          isOpen
-          onClose={handleCloseDialog}
-          groups={groups}
-          contactGroups={contacts[selectedContact].groups}
-        />
-      )}
+      <ContactsDialogs
+        openDialog={openDialog}
+        onCloseDialog={handleCloseDialog}
+        selectedContact={selectedContact}
+        contacts={contacts} 
+        groups={groups}
+      />
 
     </>
   )

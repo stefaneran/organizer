@@ -1,5 +1,5 @@
-import { updateError } from '@store/app';
 import {
+  getAllSkillsDone,
   createSkillDone,
   createSkillItemDone,
   deleteSkillDone,
@@ -8,7 +8,8 @@ import {
 } from '.';
 import {
   loadingStart,
-  loadingEnd
+  loadingEnd,
+  updateError
 } from '@store/app';
 import {
   updateSkillHoursLogic,
@@ -17,159 +18,75 @@ import {
 } from './thunksLogic';
 import getSkillObject from '@skills/utils/getSkillObject';
 import getSkillItemObject from '@skills/utils/getSkillItemObject';
+import genericRequest from '@store/utils/genericRequest';
 import jsonFetch from '@store/utils/jsonFetch';
 import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
 
-// TODO try this out
-const genericRequest = async (
-  dispatch, 
-  getState, 
-  url, 
-  params, 
-  dispatchFunction, 
-  dispatchParams,
-  errorMessage
-) => {
-  dispatch(loadingStart());
-  try {
-    const { app: { user } } = getState();
-    const { userName, password, loggedIn } = user;
-    const response = loggedIn ? await jsonFetch({
-      url,
-      method: 'POST',
-      body: JSON.stringify({ userName, password, ...params })
-    }) : { status: 200 };
-    if (response.status === 200) {
-      dispatch(dispatchFunction({ ...dispatchParams }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `${errorMessage} - Response Status ${response.status}`
-      }));
-    }
-  } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `${errorMessage} - ${e.message}`
-    }));
-  }
-  dispatch(loadingEnd());
+export const getAllSkills = () => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/getAll`,
+    {},
+    getAllSkillsDone,
+    {},
+    `Could not get all skills`
+  );
 }
 
 export const createSkill = ({ formData }) => async (dispatch, getState) => {
-  dispatch(loadingStart());
-  try {
-    const { app: { user } } = getState();
-    const { userName, password, loggedIn } = user;
-    const newId = v4();
-    const skill = getSkillObject(formData, newId);
-    const response = loggedIn ? await jsonFetch({
-      url: `${baseUrl}/skills/create`,
-      method: 'POST',
-      body: JSON.stringify({ userName, password, newId, skill })
-    }) : { status: 200 };
-    if (response.status === 200) {
-      dispatch(createSkillDone({ newId, skill }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not create skill - Response Status ${response.status}`
-      }));
-    }
-  } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not create skill - ${e.message}`
-    }));
-  }
-  dispatch(loadingEnd());
+  const newId = v4();
+  const skill = getSkillObject(formData, newId);
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/create`,
+    { newId, skill },
+    createSkillDone,
+    { newId, skill },
+    `Could not create skill`
+  );
 }
 
 export const createSkillItem = ({ id, itemType, formData }) => async (dispatch, getState) => {
-  dispatch(loadingStart());
-  try {
-    const { app: { user } } = getState();
-    const { userName, password, loggedIn } = user;
-    const skillItem = getSkillItemObject(itemType, formData);
-    const response = loggedIn ? await jsonFetch({
-      url: `${baseUrl}/skills/createItem`,
-      method: 'POST',
-      body: JSON.stringify({ userName, password, id, skillItem })
-    }) : { status: 200 };
-    if (response.status === 200) {
-      dispatch(createSkillItemDone({ id, skillItem }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not create skill item (${itemType}) - Response Status ${response.status}`
-      }));
-    }
-  } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not create skill item (${itemType}) - ${e.message}`
-    }));
-  }
-  dispatch(loadingEnd());
+  const skillItem = getSkillItemObject(itemType, formData);
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/createItem`,
+    { id, skillItem },
+    createSkillItemDone,
+    { id, skillItem },
+    `Could not create skill item (${itemType})`
+  );
 }
 
 export const deleteSkill = ({ id }) => async (dispatch, getState) => {
-  dispatch(loadingStart());
-  try {
-    const { app: { user } } = getState();
-    const { userName, password, loggedIn } = user;
-    const response = loggedIn ? await jsonFetch({
-      url: `${baseUrl}/skills/delete`,
-      method: 'POST',
-      body: JSON.stringify({ userName, password, id })
-    }) : { status: 200 };
-    if (response.status === 200) {
-      dispatch(deleteSkillDone({ id }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not delete skill - Response Status ${response.status}`
-      }));
-    }
-  } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not delete skill - ${e.message}`
-    }));
-  }
-  dispatch(loadingEnd());
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/delete`,
+    { id },
+    deleteSkillDone,
+    { id },
+    `Could not delete skill`
+  );
 }
 
 export const editSkill = ({ id, property, value }) => async(dispatch, getState) => {
-  dispatch(loadingStart());
-  try {
-    const { app: { user } } = getState();
-    const { userName, password, loggedIn } = user;
-    const response = loggedIn ? await jsonFetch({
-      url: `${baseUrl}/skills/edit`,
-      method: 'POST',
-      body: JSON.stringify({ userName, password, id, property, value })
-    }) : { status: 200 };
-    if (response.status === 200) {
-      dispatch(editSkillDone({ id, property, value }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not edit skill - Response Status ${response.status}`
-      }));
-    }
-  } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not edit skill - ${e.message}`
-    }));
-  }
-  dispatch(loadingEnd());
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/edit`,
+    { id, property, value },
+    editSkillDone,
+    { id, property, value },
+    `Could not edit skill`
+  );
 }
 
 export const updateSkillHours = ({ id, hoursValue }) => async (dispatch, getState) => {
-  console.log(id, hoursValue)
   dispatch(loadingStart());
   try {
     const { app: { user }, skillsStore: { skills } } = getState();
@@ -204,9 +121,7 @@ export const updateSkillBook = ({ id, itemName, pagesValue }) => async (dispatch
     const { app: { user }, skillsStore: { skills } } = getState();
     const { userName, password, loggedIn } = user;
     const skill = skills[id];
-    console.log('a')
     const updatedSkill = updateSkillBookLogic(skill, itemName, pagesValue);
-    console.log('b')
     const response = loggedIn ? await jsonFetch({
       url: `${baseUrl}/skills/update`,
       method: 'POST',
@@ -256,4 +171,16 @@ export const updateSkillCourse = ({ id, itemName, classesValue }) => async (disp
     }));
   }
   dispatch(loadingEnd());
+}
+
+export const uploadSkills = ({ skills }) => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/skills/upload`,
+    { skills },
+    undefined,
+    {},
+    `Could not upload skills from file`
+  );
 }

@@ -17,6 +17,7 @@ interface Props {
   helperText?: string;
   variant?: any;
   size?: any;
+  defaultValue?: any;
 }
 
 const TextMultiSelect = ({
@@ -29,11 +30,12 @@ const TextMultiSelect = ({
   canAdd,
   helperText, 
   variant, 
-  size 
+  size,
+  defaultValue
 }: Props) => {
 
   const [currentOptions, setCurrentOptions] = React.useState(options);
-  const [currentValue, setCurrentValue] = React.useState([]);
+  const [currentValue, setCurrentValue] = React.useState(defaultValue ? defaultValue : []);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && canAdd) {

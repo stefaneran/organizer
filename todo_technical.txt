@@ -1,17 +1,22 @@
 
 
-- Create separate stores
+- Add back option to skill view
+- More QA
 
 - Data:
-  - Change shape for API
-  - Add compression
   - Migrate data
+  - Add compression
+  
+- UI:
+  - Make UI better on desktop
+  - Make mobile UI (contacts only for now)
 
-- Get rid of form creator/form wizard
+- Refactor:
+  - Get rid of form creator
+
+- Make a new wizard (for tutorials)
 
 - Add detailed loading dialog on load 
-
-- Mobile version
 
 
 ============================================================
@@ -38,7 +43,6 @@
 
 === Weekend ===
 
-- Separate store to several stores
 - Wizard step progression
 - Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
 - Note taking - Overhaul (custom note? Dialog?)

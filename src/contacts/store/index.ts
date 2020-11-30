@@ -10,6 +10,12 @@ const slice = createSlice({
     groups: []
   },
   reducers: {
+    getAllContactsDone: (state, { payload }) => {
+      state.contacts = payload;
+    },
+    clearContacts: state => {
+      state.contacts = {};
+    },
     createContactDone: (state, { payload }) => {
       const { newId, contact } = payload;
       const { contacts } = state;
@@ -42,6 +48,8 @@ const slice = createSlice({
 });
 
 export const {
+  getAllContactsDone,
+  clearContacts,
   createContactDone,
   editContactDone,
   deleteContactDone,

@@ -116,9 +116,11 @@ const SkillsContainer = ({ skills, ...actions }) => {
     // In this case we move on to another dialog so we return
     if (openDialog === DialogTypes.ChooseSkillItemType) {
       const { itemType } = props;
-      setSelectedItemType(itemType);
-      setOpenDialog(DialogTypes.CreateSkillItem);
-      return;
+      if (itemType) {
+        setSelectedItemType(itemType);
+        setOpenDialog(DialogTypes.CreateSkillItem);
+        return;
+      }
     }
     setOpenDialog('');
   }

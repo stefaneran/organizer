@@ -1,6 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, Typography, Tooltip, IconButton, Button } from '@material-ui/core';
+import { 
+  Paper, 
+  Grid, 
+  Divider, 
+  Typography, 
+  Tooltip, 
+  IconButton, 
+  Button, 
+  CircularProgress 
+} from '@material-ui/core';
 import {
   Save as SaveIcon,
   Publish as PublishIcon
@@ -12,6 +21,7 @@ import AppStore from '@core/interfaces/AppStore.interface';
 import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
 import SkillsStore from '@skills/interfaces/SkillsStore.interface';
 import downloadJSON from '@core/utils/downloadJSON';
+import dataMigration from '@store/utils/dataMigration';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -30,6 +40,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   userName: {
     alignSelf: 'center',
+  },
+  loading: {
+    width: '40px',
+    color: '#fff',
+    marginLeft: '1em',
+    '&>div': {
+      padding: '0.3em'
+    }
   },
   buttonContainer: {
     padding: '0.3em'
@@ -61,18 +79,22 @@ interface ToolBarProps {
   app: AppStore;
   contacts: ContactsStore;
   skills: SkillsStore;
-  logout: any;
+  uploadContacts: any;
+  uploadSkills: any;
   setCurrentCategory: (categoryType: CategoryType) => void;
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
+  onLogout: () => void;
 }
 
 const AppBar = ({ 
   app,
   contacts,
   skills,
-  logout,
+  uploadContacts,
+  uploadSkills,
   setCurrentCategory,
-  setLoginDialog
+  setLoginDialog,
+  onLogout
 }: ToolBarProps) => {
   const classes = useStyles();
 
@@ -87,8 +109,9 @@ const AppBar = ({
     reader.onload = (e) => {
       // @ts-ignore
       const data = JSON.parse(e.target.result); // TODO Deal with this typing
-      // loadBackupData({ data });
-      // saveData();
+      const { contacts, skills } = dataMigration(data);
+      uploadContacts({ contacts });
+      uploadSkills({ skills });
     };
     reader.readAsText(event.target.files[0]); 
   }
@@ -151,7 +174,7 @@ const AppBar = ({
           </>
         ) : (
           <Grid item className={classes.buttonContainer}>
-            <Button className={classes.textButton} onClick={logout}>
+            <Button className={classes.textButton} onClick={onLogout}>
               Logout
             </Button>
           </Grid>
@@ -168,6 +191,12 @@ const AppBar = ({
           <span className={classes.version}>
             <Typography variant="subtitle1" style={{ color: '#fff' }}>V{app.version}</Typography>
           </span>
+
+          <div className={classes.loading}>
+            {app.loading && (
+              <CircularProgress color="inherit" />
+            )}
+          </div>
 
         </div>
 

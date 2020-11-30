@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '1.3.1',
+    version: '1.4.0',
     loading: false,
     user: {
       userName: undefined,
@@ -29,7 +29,6 @@ const slice = createSlice({
       }
     },
     loginDone: (state, { payload }) => {
-      console.log('loginDone ', payload)
       state.user.loggedIn = true;
       state.user.userName = payload.userName;
       state.user.password = payload.password;

@@ -53,7 +53,7 @@ const SkillItemList = ({
           <Grid className={'gridRow'} item xs={9}>
             {skill.items && skill.items.map(item => (
               <SkillItem 
-                key={`${item.title}-${item.itemType}`}
+                key={`${item.name}-${item.itemType}`}
                 item={item} 
                 onOpenDialog={onOpenDialog}
                 type="active"
@@ -65,7 +65,7 @@ const SkillItemList = ({
           <Grid className={'gridRow'} item xs={9}>
             {skill.archive && skill.archive.map(item => (
               <SkillItem 
-                key={`${item.title}-${item.itemType}`}
+                key={`${item.name}-${item.itemType}`}
                 item={item}
                 type="archive"
               />

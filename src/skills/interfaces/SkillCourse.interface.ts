@@ -1,4 +1,4 @@
-import { SkillItem } from '@interfaces/skill/SkillItem.interface';
+import { SkillItem } from '@skills/interfaces/SkillItem.interface';
 
 interface SkillCourse extends SkillItem {
   classesTotal: number;

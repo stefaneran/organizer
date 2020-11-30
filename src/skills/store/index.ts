@@ -6,6 +6,12 @@ const slice = createSlice({
     skills: {}
   },
   reducers: {
+    getAllSkillsDone: (state, { payload }) => {
+      state.skills = payload;
+    },
+    clearSkills: state => {
+      state.skills = {};
+    },
     createSkillDone: (state, { payload }) => {
       const { newId, skill } = payload;
       const { skills } = state;
@@ -59,6 +65,8 @@ const slice = createSlice({
 });
 
 export const {
+  getAllSkillsDone,
+  clearSkills,
   createSkillDone,
   createSkillItemDone,
   deleteSkillDone,

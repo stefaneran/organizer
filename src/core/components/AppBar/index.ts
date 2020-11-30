@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { logout } from '@store/app/thunks';
 import AppBar from './AppBar';
+import { uploadContacts } from '@contacts/store/thunks';
+import { uploadSkills } from '@skills/store/thunks';
 
 const mapStateToProps = state => ({
   app: state.app,
@@ -9,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  logout
+  uploadContacts,
+  uploadSkills
 }
 
 export default connect(

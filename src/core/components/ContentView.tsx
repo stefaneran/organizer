@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 })); 
 
-const ContentView = ({ setLoginDialog }) => {
+const ContentView = ({ setLoginDialog, onLogout }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
   const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);
@@ -28,6 +28,7 @@ const ContentView = ({ setLoginDialog }) => {
         <AppBar
           setLoginDialog={setLoginDialog}
           setCurrentCategory={setCurrentCategory}
+          onLogout={onLogout}
         />
         {currentCategory === CategoryType.Skills && (
           <SkillsContainer />
