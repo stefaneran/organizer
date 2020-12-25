@@ -18,6 +18,7 @@ module.exports = {
       "@core": path.resolve(__dirname, './src/core'),
       "@contacts": path.resolve(__dirname, './src/contacts'),
       "@skills": path.resolve(__dirname, './src/skills'),
+      "@inventory": path.resolve(__dirname, './src/inventory'),
       "@store": path.resolve(__dirname, './src/store')
     },
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']

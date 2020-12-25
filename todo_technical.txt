@@ -1,22 +1,15 @@
 
-
-- Add back option to skill view
-- More QA
-
-- Data:
-  - Migrate data
-  - Add compression
-  
-- UI:
-  - Make UI better on desktop
-  - Make mobile UI (contacts only for now)
-
-- Refactor:
-  - Get rid of form creator
-
-- Make a new wizard (for tutorials)
-
-- Add detailed loading dialog on load 
+- Make whole tab clickable (not just title) 
+- Make un-nested list (with category as subtitle)
+- Make "Available" and "All Items" collapsible
+- Collapse "All Items" by default
+- Figure out a way to add category when adding item
+- Render list for cart 
+- Make autocomplete component 
+- Make "Add" for cart 
+- Make "Add" for inventory
+- Make "Remove" for cart 
+- Make "Remove" for inventory 
 
 
 ============================================================

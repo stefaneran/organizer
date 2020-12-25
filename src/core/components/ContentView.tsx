@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 import AppBar from '@core/components/AppBar';
 import SkillsContainer from '@skills/container';
 import ContactsContainer from '@contacts/container';
+import InventoryContainer from '@inventory/container';
 import { CategoryType } from '@core/interfaces/general';
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ setLoginDialog, onLogout }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
 
   return (
     <div className={classes.container}>
@@ -35,6 +36,9 @@ const ContentView = ({ setLoginDialog, onLogout }) => {
         )}
         {currentCategory === CategoryType.Contacts &&
           <ContactsContainer />
+        }
+        {currentCategory === CategoryType.Inventory &&
+          <InventoryContainer />
         }
       </Grid>
     </div>

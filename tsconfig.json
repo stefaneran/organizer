@@ -6,6 +6,7 @@
 			"@core/*": ["src/core/*"],
 			"@contacts/*": ["src/contacts/*"],
 			"@skills/*": ["src/skills/*"],
+			"@inventory/*": ["src/inventory/*"],
       "@store/*": ["src/store/*"]
 		}
 	},

@@ -16,6 +16,7 @@ import {
 } from '@material-ui/icons';
 import { BrainIconSmall } from '@core/components/Icons/BrainIcon';
 import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
+import { CartIconSmall } from '@core/components/Icons/CartIcon';
 import { CategoryType } from '@core/interfaces/general'
 import AppStore from '@core/interfaces/AppStore.interface';
 import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
@@ -127,7 +128,7 @@ const AppBar = ({
         <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
 
         <Grid item className={classes.buttonContainer}>
-          <Tooltip title="Show Skill View">
+          <Tooltip title="Show Skills">
             <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Skills)}>
               <BrainIconSmall />
             </IconButton>
@@ -135,9 +136,17 @@ const AppBar = ({
         </Grid>
 
         <Grid item className={classes.buttonContainer}>
-          <Tooltip title="Show Contacts View">
+          <Tooltip title="Show Contacts">
             <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Contacts)}>
               <PeopleIconSmall />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Show Inventory">
+            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Inventory)}>
+              <CartIconSmall />
             </IconButton>
           </Tooltip>
         </Grid>
