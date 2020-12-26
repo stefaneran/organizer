@@ -1,75 +1,64 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, FormControlLabel, Switch, Divider } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 import AvailableItems from '@inventory/components/AvailableItems';
 import AllItems from '@inventory/components/AllItems';
-import AddItemInput from '@inventory/components/AddItemInput';
 import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     padding: '1em',
     display: 'inline-block',
-    overflowX: 'hidden',
-    overflowY: 'auto',
+    overflow: 'hidden',
     transition: 'width 300ms'
   },
-  title: {
-    cursor: 'pointer'
+  contentContainer: {
+    height: '95%',
+    overflowY: 'auto'
   },
-  availableContainer: {
-    display: 'flex'
+  divider: {
+    margin: '1em'
   }
 }))
 
-const Inventory = ({ allItems, availableItems, actions, selected, setSelected }) => {
+const Inventory = ({ 
+  allItems, 
+  availableItems, 
+  cart, 
+  actions, 
+  isSelectedTab, 
+  setSelectedTab 
+}) => {
   const classes = useStyles();
-
-  const [isNested, setIsNested] = React.useState(true);
-
-  const toggleNested = () => setIsNested(!isNested);
-
   return (
     <div 
       className={classes.container} 
       style={{ 
-        width: selected ? '80%' : '20%',
-        background: selected ? '' : 'rgba(0, 0, 0, 0.05)'
+        width: isSelectedTab ? '80%' : '20%',
+        background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
+        cursor: isSelectedTab ? '' : 'pointer'
       }}
+      onClick={!isSelectedTab && setSelectedTab(InventoryTabs.Inventory)}
     >
-      <Typography 
-        variant="h4" 
-        className={classes.title} 
-        onClick={setSelected(InventoryTabs.Inventory)}
-      >
+      <Typography variant="h4">
         Inventory
       </Typography>
-      <div className={classes.availableContainer}>
-        <div style={{ flexGrow: selected ? 3 : 1 }}>
-          <AvailableItems 
-            allItems={allItems} 
-            availableItems={availableItems} 
-            nested={isNested}
-          />
-          <AddItemInput allItems={allItems} onSubmit={() => {}} />
-        </div>
-        <Divider orientation="vertical" />
-        {selected && (
-          <div style={{ flexGrow: 1 }}>
-            <FormControlLabel 
-              label="Nested List"
-              control={
-                <Switch 
-                  checked={isNested} 
-                  onChange={toggleNested} 
-                  color="primary" 
-                />
-              }
-            />
-          </div>
-        )}
+      <div className={classes.contentContainer}>
+        <AvailableItems 
+          isSelectedTab={isSelectedTab}
+          allItems={allItems} 
+          availableItems={availableItems}
+          actions={actions}
+        />
+        <Divider className={classes.divider} />
+        <AllItems 
+          isSelectedTab={isSelectedTab}
+          allItems={allItems} 
+          availableItems={availableItems}
+          cart={cart}
+          actions={actions}
+        />
       </div>
-      <AllItems allItems={allItems} />
     </div>
   )
 }

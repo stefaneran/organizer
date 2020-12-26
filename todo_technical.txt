@@ -1,15 +1,12 @@
 
-- Make whole tab clickable (not just title) 
-- Make un-nested list (with category as subtitle)
-- Make "Available" and "All Items" collapsible
-- Collapse "All Items" by default
-- Figure out a way to add category when adding item
-- Render list for cart 
-- Make autocomplete component 
-- Make "Add" for cart 
+- On mount, open groups that have checked items
 - Make "Add" for inventory
 - Make "Remove" for cart 
 - Make "Remove" for inventory 
+- Figure out a way to add category when adding item
+
+- "Show missing" button
+- "Add all missing" button
 
 
 ============================================================

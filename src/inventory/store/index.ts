@@ -11,8 +11,9 @@ const slice = createSlice({
       '5': { category: 'Veggies', name: 'Oranges' },
       '6': { category: 'Misc', name: 'Toilet Paper' },
     },
-    availableItems: ['1', '2', '4', '6'],
-    cart: []
+    availableItems: ['1', '2', '6'],
+    cart: ['3', '5'],
+    selectedInCart: []
   },
   reducers: {
     getAllItemsDone: (state, { payload }) => {
@@ -30,7 +31,12 @@ const slice = createSlice({
       state.availableItems = payload;
     },
     addToAvailableDone: (state, { payload }) => {
-      state.availableItems.push(payload);
+      const { itemIds } = payload;
+      itemIds.forEach(itemId => {
+        if (!state.availableItems.includes(itemId)) {
+          state.availableItems.push(itemId);
+        }
+      })
     },
     removeFromAvailableDone: (state, { payload }) => {
       const { id } = payload;
@@ -40,12 +46,29 @@ const slice = createSlice({
       state.cart = payload;
     },
     addToCartDone: (state, { payload }) => {
-      state.cart.push(payload);
+      const { itemIds } = payload;
+      itemIds.forEach(itemId => {
+        if (!state.cart.includes(itemId)) {
+          state.cart.push(itemId);
+        }
+      })
     },
     removeFromCartDone: (state, { payload }) => {
       const { id } = payload;
       state.cart.filter(itemId => itemId !== id);
-    }
+    },
+    updateSelectedInCartDone: (state, { payload }) => {
+      const { selected } = payload;
+      state.selectedInCart = selected;
+    },
+    finishShoppingDone: (state) => {
+      state.cart.forEach(itemId => {
+        if (!state.availableItems.includes(itemId)) {
+          state.availableItems.push(itemId)
+        }
+      })
+      state.cart = [];
+    },
   }
 });
 
@@ -58,7 +81,9 @@ export const {
   removeFromAvailableDone,
   getCartDone,
   addToCartDone,
-  removeFromCartDone
+  removeFromCartDone,
+  updateSelectedInCartDone,
+  finishShoppingDone
 } = slice.actions;
 
 export default slice.reducer;

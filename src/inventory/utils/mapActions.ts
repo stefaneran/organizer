@@ -5,11 +5,15 @@ export default (props) => ({
     removeFromAll: props.removeFromAllItems,
     getAvailable: props.getAvailable,
     addToAvailable: props.addToAvailable,
+    addNewToAvailable: props.addNewToAvailable,
     removeFromAvailable: props.removeFromAvailable
   },
   cart: {
     get: props.getCart,
     add: props.addToCart,
-    remove: props.removeFromCart
+    addNew: props.addNewToCart,
+    remove: props.removeFromCart,
+    updateSelected: props.updateSelectedInCart,
+    finishShopping: props.finishShopping
   }
 })

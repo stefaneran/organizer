@@ -8,6 +8,7 @@ import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
+    height: '100%',
     marginTop: '1em',
     display: 'flex',
     textAlign: 'center'
@@ -15,9 +16,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const InventoryContainer = (props) => {
+  
   const classes = useStyles();
-
-  const { cart, availableItems, allItems } = props;
+  const {
+    availableItems, 
+    allItems, 
+    cart,
+    selectedInCart
+  } = props;
   const actions = mapActions(props);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);
@@ -28,16 +34,19 @@ const InventoryContainer = (props) => {
     <Paper className={classes.container}>
       <Cart 
         cart={cart} 
-        actions={actions.cart} 
-        selected={selectedTab === InventoryTabs.Cart}
-        setSelected={handleSelectTab}
+        selectedInCart={selectedInCart}
+        actions={actions} 
+        allItems={allItems}
+        isSelectedTab={selectedTab === InventoryTabs.Cart}
+        setSelectedTab={handleSelectTab}
       />
       <Inventory 
+        cart={cart} 
         availableItems={availableItems} 
         allItems={allItems}
-        actions={actions.inventory} 
-        selected={selectedTab === InventoryTabs.Inventory}
-        setSelected={handleSelectTab}
+        actions={actions} 
+        isSelectedTab={selectedTab === InventoryTabs.Inventory}
+        setSelectedTab={handleSelectTab}
       />
     </Paper>
   )

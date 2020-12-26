@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import AppBar from '@core/components/AppBar';
 import SkillsContainer from '@skills/container';
 import ContactsContainer from '@contacts/container';
@@ -10,11 +9,11 @@ import { CategoryType } from '@core/interfaces/general';
 const useStyles = makeStyles(theme => ({
   container: {
     height: '100%',
-    '& > div': {
-      height: '100%',
-      width: '100%',
-      padding: '0.8em'
-    }
+    width: '100%',
+    padding: '0.8em'
+  },
+  contentContainer: {
+    height: '90%'
   }
 })); 
 
@@ -25,12 +24,12 @@ const ContentView = ({ setLoginDialog, onLogout }) => {
 
   return (
     <div className={classes.container}>
-      <Grid className="fullHeight" container direction="column">
-        <AppBar
-          setLoginDialog={setLoginDialog}
-          setCurrentCategory={setCurrentCategory}
-          onLogout={onLogout}
-        />
+      <AppBar
+        setLoginDialog={setLoginDialog}
+        setCurrentCategory={setCurrentCategory}
+        onLogout={onLogout}
+      />
+      <div className={classes.contentContainer}>
         {currentCategory === CategoryType.Skills && (
           <SkillsContainer />
         )}
@@ -40,7 +39,7 @@ const ContentView = ({ setLoginDialog, onLogout }) => {
         {currentCategory === CategoryType.Inventory &&
           <InventoryContainer />
         }
-      </Grid>
+      </div>
     </div>
   )
 }
