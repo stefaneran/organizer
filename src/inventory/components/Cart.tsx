@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Tooltip } from '@material-ui/core';
 import ItemList from '@inventory/components/ItemList';
-import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
+import { AddBagIconXS } from '@core/components/Icons/BagIcon';
+import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -21,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex'
   },
   button: {
-    display: 'block',
     margin: 'auto'
   }
 }))
@@ -55,9 +56,9 @@ const Cart = ({
   const handleRemoveSelected = () => {
     actions.cart.remove(selectedInCart);
   }
-  const handleFinishShopping = (e) => {
+  const handleFinishShopping = ({ onlyChecked }) => (e) => {
     e.stopPropagation();
-    actions.cart.finishShopping();
+    actions.cart.finishShopping(onlyChecked);
   }
 
   return (
@@ -86,24 +87,42 @@ const Cart = ({
         </div>
         {isSelectedTab && hasSelectedItems && (
           <div style={{ flexGrow: 1 }}>
-            <Button 
-              className={classes.button}
-              variant="outlined" 
-              color="primary" 
-              onClick={handleRemoveSelected}
-            >
-              Remove Selected
-            </Button>
+            <Tooltip title="Remove Selected">
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={handleRemoveSelected}
+                startIcon={<CheckBoxOutlinedIcon />}
+              >
+                Remove
+              </Button>
+            </Tooltip>
           </div>
         )}
       </div>
-      <Button 
-        variant="outlined" 
-        color="primary" 
-        onClick={handleFinishShopping}
-      >
-        Finish Shopping (All)
-      </Button>
+      <Tooltip title="Add All to Available">
+        <Button 
+          style={{ marginRight: '2em' }}
+          variant="outlined" 
+          color="primary" 
+          onClick={handleFinishShopping({ onlyChecked: false })}
+          endIcon={<AddBagIconXS />}
+        >
+          Finish
+        </Button>
+      </Tooltip>
+      <Tooltip title="Add Only Selected to Available">
+        <Button 
+          variant="outlined" 
+          color="primary" 
+          onClick={handleFinishShopping({ onlyChecked: true })}
+          startIcon={<CheckBoxOutlinedIcon />}
+          endIcon={<AddBagIconXS />}
+        >
+          Finish
+        </Button>
+      </Tooltip>
     </div>
   )
 }

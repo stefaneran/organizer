@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexGrow: 1
   },
   input: {
-    marginBottom: '0.5em'
+    marginBottom: '0.5em',
+    width: '99%'
   },
   button: {
     marginTop: '1em'

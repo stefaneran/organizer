@@ -75,6 +75,6 @@ export const updateSelectedInCart = (selected) => async (dispatch, getState) => 
   dispatch(updateSelectedInCartDone({ selected }))
 }
 
-export const finishShopping = (selected) => async (dispatch, getState) => {
-  dispatch(finishShoppingDone());
+export const finishShopping = (onlyChecked) => async (dispatch, getState) => {
+  dispatch(finishShoppingDone({ onlyChecked }));
 }

@@ -64,13 +64,22 @@ const slice = createSlice({
       const { selected } = payload;
       state.selectedInCart = selected;
     },
-    finishShoppingDone: (state) => {
+    finishShoppingDone: (state, { payload }) => {
+      const { onlyChecked } = payload;
       state.cart.forEach(itemId => {
-        if (!state.availableItems.includes(itemId)) {
+        const notAvailable = !state.availableItems.includes(itemId);
+        const isSelected = state.selectedInCart.includes(itemId);
+        if (onlyChecked && isSelected && notAvailable) {
+          state.availableItems.push(itemId)
+        } else if (!onlyChecked && notAvailable) {
           state.availableItems.push(itemId)
         }
       })
-      state.cart = [];
+      if (onlyChecked) {
+        state.cart = state.cart.filter(itemId => !state.selectedInCart.includes(itemId));
+      } else {
+        state.cart = [];
+      }
     },
   }
 });

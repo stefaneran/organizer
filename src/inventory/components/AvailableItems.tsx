@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, FormControlLabel, Switch, Collapse, Button } from '@material-ui/core';
+import { 
+  List, ListItem, ListItemText, ListItemIcon,
+  FormControlLabel, Switch, Collapse, Button, Tooltip, Divider 
+} from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import NestedItemList from '@inventory/components/NestedItemList';
 import ItemList from '@inventory/components/ItemList';
 import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
-import { RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
+import { BagIconSmall, RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
+import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -17,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 'bold'
   },
   button: {
-    display: 'block',
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: '1.5em'
   }
 }));
 
@@ -68,9 +73,12 @@ const AvailableItems = ({
 
   return (
     <div className={classes.listContainer}>
-      <div style={{ flexGrow: isSelectedTab ? 3 : 1 }}>
+      <div style={{ width: isSelectedTab && isOpen ? '65%' : '100%' }}>
         <List component="div" disablePadding>
           <ListItem button onClick={toggleOpen} className={classes.title}>
+            <ListItemIcon>
+              <BagIconSmall />
+            </ListItemIcon>
             <ListItemText primary={"Available"} />
             {isOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -101,8 +109,8 @@ const AvailableItems = ({
           </Collapse>
         </List>
       </div>
-      {isSelectedTab && (
-        <div style={{ flexGrow: 1 }}>
+      {isSelectedTab && isOpen && (
+        <div style={{ width: '35%' }}>
           <FormControlLabel 
             label="Grouped by Category"
             control={
@@ -113,24 +121,33 @@ const AvailableItems = ({
               />
             }
           />
+          <Divider />
           {hasSelectedItems && (
             <>
-              <Button 
-                className={classes.button}
-                variant="outlined" 
-                color="primary" 
-                onClick={addSelectedToCart}
-              >
-                Add Selected (Cart)
-              </Button>
-              <Button 
-                className={classes.button}
-                variant="outlined" 
-                color="primary" 
-                onClick={removeSelected}
-              >
-                Remove Selected (Delete)
-              </Button>
+              <Tooltip title="Add Selected to Cart">
+                <Button 
+                  className={classes.button}
+                  variant="outlined" 
+                  color="primary" 
+                  onClick={addSelectedToCart}
+                  startIcon={<CheckBoxOutlinedIcon />}
+                  endIcon={<AddCartIconXS />}
+                >
+                  Add To
+                </Button>
+              </Tooltip>
+              <br />
+              <Tooltip title="Remove Selected">
+                <Button 
+                  className={classes.button}
+                  variant="outlined" 
+                  color="primary" 
+                  onClick={removeSelected}
+                  startIcon={<CheckBoxOutlinedIcon />}
+                >
+                  Remove 
+                </Button>
+              </Tooltip>
             </>
           )}
         </div>

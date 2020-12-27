@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, FormControlLabel, Switch, Collapse, Button, Divider } from '@material-ui/core';
+import { 
+  List, ListItem, ListItemText, ListItemIcon, Collapse,
+  FormControlLabel, Switch, Button, Divider, Tooltip 
+} from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import NestedItemList from '@inventory/components/NestedItemList';
 import ItemList from '@inventory/components/ItemList';
 import AddNewItemInput from '@inventory/components/AddNewItemInput';
+import { AddCartIconXS } from '@core/components/Icons/CartIcon';
+import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import { DeleteIconSmall } from '@core/components/Icons/DeleteIcon';
+import { DatabaseIconSmall } from '@core/components/Icons/DatabaseIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -17,8 +24,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 'bold'
   },
   button: {
-    display: 'block',
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: '1.5em'
   }
 }));
 
@@ -28,6 +35,19 @@ const allItemsToArray = (allItems) =>
     name: allItems[id].name, 
     category: allItems[id].category  
   }))
+
+// Check if any items are missing from both available, and cart
+const checkIfItemsMissing = (allItems, availableItems, cart) => {
+  for (let i = 0; i < Object.keys(allItems).length; i += 1) {
+    const id = Object.keys(allItems)[i];
+    const isItemAvailable = availableItems.includes(id);
+    const isItemInCart = cart.includes(id);
+    if (!isItemAvailable && !isItemInCart) {
+      return true;
+    }
+  }
+  return false;
+} 
 
 const AllItems = ({ 
   isSelectedTab,
@@ -45,11 +65,9 @@ const AllItems = ({
   const [isOpen, setIsOpen] = React.useState(true);
 
   const listItems = allItemsToArray(allItems);
-  const hasSelectedItems = Boolean(selectedItems.length)
+  const hasSelectedItems = Boolean(selectedItems.length);
+  const hasMissingItems = checkIfItemsMissing(allItems, availableItems, cart);
 
-  const handleItemSelection = (newSelected) => {
-    setSelectedItems(newSelected);
-  }
   const toggleOpen = (e) => {
     e.stopPropagation();
     setIsOpen(!isOpen)
@@ -57,20 +75,23 @@ const AllItems = ({
   const toggleNested = () => {
     setIsNested(!isNested);
   }
-  const addSelectedToCart = () => {
+  const handleItemSelection = (newSelected) => {
+    setSelectedItems(newSelected);
+  }
+  const handleAddSelectedToCart = () => {
     onAddToCart(selectedItems)
   }
   const handleAddNew = ({ name, category }) => {
     actions.inventory.addToAll({ name, category });
   }
-  const addSelectedToAvailable = () => {
+  const handleAddSelectedToAvailable = () => {
     actions.inventory.addToAvailable(selectedItems);
   }
-  const addMissingToCart = () => {
+  const handleAddMissingToCart = () => {
     const missing = listItems.filter(item => !availableItems.includes(item.id)).map(item => item.id);
     onAddToCart(missing);
   }
-  const removeSelected = () => {
+  const handleRemoveSelected = () => {
     actions.inventory.removeFromAll(selectedItems);
   }
   const handleRemove = (itemId) => {
@@ -79,9 +100,12 @@ const AllItems = ({
 
   return (
     <div className={classes.listContainer}>
-      <div style={{ flexGrow: isSelectedTab ? 3 : 1 }}>
+      <div style={{ width: isSelectedTab && isOpen ? '65%' : '100%' }}>
         <List component="div" disablePadding>
           <ListItem button onClick={toggleOpen} className={classes.title}>
+            <ListItemIcon>
+              <DatabaseIconSmall />
+            </ListItemIcon>
             <ListItemText primary={"All items"} />
             {isOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -112,8 +136,8 @@ const AllItems = ({
           </Collapse>
         </List>
       </div>
-      {isSelectedTab && (
-        <div style={{ flexGrow: 1 }}>
+      {isSelectedTab && isOpen && (
+        <div style={{ width: '35%' }}>
           <FormControlLabel 
             label="Grouped by Category"
             control={
@@ -124,44 +148,62 @@ const AllItems = ({
               />
             }
           />
+          <Divider />
           <AddNewItemInput allItems={allItems} onSubmit={handleAddNew} />
           <Divider />
           {hasSelectedItems && (
             <>
-              <Button 
-                className={classes.button}
-                variant="outlined" 
-                color="primary" 
-                onClick={addSelectedToCart}
-              >
-                Add Selected To Cart
-              </Button>
-              <Button 
-                className={classes.button}
-                variant="outlined" 
-                color="primary" 
-                onClick={addSelectedToAvailable}
-              >
-                Add Selected To Available
-              </Button>
-              <Button 
-                className={classes.button}
-                variant="outlined" 
-                color="primary" 
-                onClick={removeSelected}
-              >
-                Remove Selected
-              </Button>
+              <Tooltip title="Add Selected to Cart">
+                <Button 
+                  className={classes.button}
+                  variant="outlined" 
+                  color="primary" 
+                  onClick={handleAddSelectedToCart}
+                  startIcon={<CheckBoxOutlinedIcon />}
+                  endIcon={<AddCartIconXS />}
+                >
+                  Add To 
+                </Button>
+              </Tooltip>
+              <br />
+              <Tooltip title="Add Selected to Available">
+                <Button 
+                  className={classes.button}
+                  variant="outlined" 
+                  color="primary" 
+                  onClick={handleAddSelectedToAvailable}
+                  startIcon={<CheckBoxOutlinedIcon />}
+                  endIcon={<AddBagIconXS />}
+                >
+                  Add To
+                </Button>
+              </Tooltip>
+              <br />
+              <Tooltip title="Delete Selected">
+                <Button 
+                  className={classes.button}
+                  variant="outlined" 
+                  color="primary" 
+                  onClick={handleRemoveSelected}
+                  startIcon={<CheckBoxOutlinedIcon />}
+                >
+                  Delete
+                </Button>
+              </Tooltip>
+              <br />
             </>
           )}
-          <Button 
-            className={classes.button}
-            variant="outlined" 
-            color="primary" 
-            onClick={addMissingToCart}
-          >
-            Add All Missing To Cart
-          </Button>
+          {hasMissingItems && (
+            <Button 
+              className={classes.button}
+              variant="outlined" 
+              color="primary" 
+              onClick={handleAddMissingToCart}
+              endIcon={<AddCartIconXS />}
+            >
+              Add Missing To
+            </Button>
+          )}
         </div>
       )}
     </div>

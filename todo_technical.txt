@@ -1,21 +1,18 @@
 
-
-
 - Add 
   - Individual
     - From All to Inventory
     - From All to Cart
-  - New to Cart
-  - New to Inventory
-- Finish Shopping - Only add to inventory checked 
-- Only show "Add missing" if there are any missing
+- Autocomplete Add Item
+  - Cart
+  - Available
 - Add "De-select All" button
 - Add tooltips to list buttons
-- Figure out a way to add category when adding new item
 - Confirmation dialog when remove from All
 - Text filter
   - Available
   - All
+- Make control panel fixed so it doesnt disappear on scroll
 
 
 ============================================================

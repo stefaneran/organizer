@@ -1,13 +1,32 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { BagFill } from '@styled-icons/bootstrap/BagFill';
 import { BagX } from '@styled-icons/bootstrap/BagX';
 import { BagPlus } from '@styled-icons/bootstrap/BagPlus';
+
+const BagSmall = styled(BagFill)`
+  height: 1.5em;
+  color: #3f51b5;
+`;
+export const BagIconSmall = () => <BagSmall />
+
+const RemoveBagXS = styled(BagX)`
+  height: 0.9em;
+  color: #3f51b5;
+`;
+export const RemoveBagIconXS = () => <RemoveBagXS />
 
 const RemoveBagSmall = styled(BagX)`
   height: 1.5em;
   color: #3f51b5;
 `;
 export const RemoveBagIconSmall = () => <RemoveBagSmall />
+
+const AddBagXS = styled(BagPlus)`
+  height: 0.9em;
+  color: #3f51b5;
+`;
+export const AddBagIconXS = () => <AddBagXS />
 
 const AddBagSmall = styled(BagPlus)`
   height: 1.5em;

@@ -16,6 +16,12 @@ const RemoveCartSmall = styled(CartX)`
 `;
 export const RemoveCartIconSmall = () => <RemoveCartSmall />
 
+const AddCartXS = styled(CartPlus)`
+  height: 0.9em;
+  color: #3f51b5;
+`;
+export const AddCartIconXS = () => <AddCartXS />
+
 const AddCartSmall = styled(CartPlus)`
   height: 1.5em;
   color: #3f51b5;
