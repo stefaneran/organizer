@@ -30,11 +30,20 @@ const Inventory = ({
   setSelectedTab 
 }) => {
   const classes = useStyles();
+
+  const handleAddToCart = (itemIds) => {
+    if (!Array.isArray(itemIds)) {
+      actions.cart.add([itemIds]);
+    } else {
+      actions.cart.add(itemIds);
+    }
+  }
+
   return (
     <div 
       className={classes.container} 
       style={{ 
-        width: isSelectedTab ? '80%' : '20%',
+        width: isSelectedTab ? '70%' : '30%',
         background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
         cursor: isSelectedTab ? '' : 'pointer'
       }}
@@ -49,6 +58,7 @@ const Inventory = ({
           allItems={allItems} 
           availableItems={availableItems}
           actions={actions}
+          onAddToCart={handleAddToCart}
         />
         <Divider className={classes.divider} />
         <AllItems 
@@ -57,6 +67,7 @@ const Inventory = ({
           availableItems={availableItems}
           cart={cart}
           actions={actions}
+          onAddToCart={handleAddToCart}
         />
       </div>
     </div>

@@ -28,6 +28,10 @@ interface Props {
   cart?;
   selectedItems?;
   onItemSelection?;
+  onRemoveItem?;
+  removeIcon?;
+  onAddItem?;
+  addIcon?;
 }
 
 const Collapsible = ({ 
@@ -37,18 +41,23 @@ const Collapsible = ({
   availableItems, 
   cart,
   selectedItems, 
-  onItemSelection 
+  onItemSelection,
+  onRemoveItem,
+  removeIcon,
+  onAddItem,
+  addIcon
 }) => {
 
   const classes = useStyles();
   // Should check if item is in available list
   const shouldCheckAvailable = Boolean(availableItems);
   const hasSelection = Boolean(selectedItems);
+  const canRemove = Boolean(onRemoveItem);
+  const canAdd = Boolean(onAddItem);
 
   const [isOpen, setIsOpen] = React.useState(hasSelection ? isSelectedItemInGroup(items, selectedItems) : false);
 
-  const handleSelection = (id) => (e) => {
-    e.stopPropagation();
+  const handleSelection = (id) => () => {
     const newSelected = 
       selectedItems.includes(id) ? 
         selectedItems.filter(itemId => itemId !== id) : 
@@ -59,6 +68,16 @@ const Collapsible = ({
   const toggleOpen = (e) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
+  }
+
+  const handleRemove = (id) => (e) => {
+    e.stopPropagation();
+    onRemoveItem(id);
+  }
+
+  const handleAdd = (id) => (e) => {
+    e.stopPropagation();
+    onAddItem(id);
   }
 
   return (
@@ -93,6 +112,16 @@ const Collapsible = ({
                 </ListItemIcon>
               )}
               <ListItemText primary={item.name} />
+              {canRemove && (
+                <ListItemIcon onClick={handleRemove(item.id)}>
+                  {removeIcon()}
+                </ListItemIcon>
+              )}
+              {canAdd && (
+                <ListItemIcon onClick={handleAdd(item.id)}>
+                  {addIcon()}
+                </ListItemIcon>
+              )}
             </ListItem>
             )
           )}
@@ -108,14 +137,18 @@ const NestedItemList = ({
   availableItems, 
   cart,
   selectedItems, 
-  onItemSelection 
+  onItemSelection,
+  onRemoveItem,
+  removeIcon,
+  onAddItem,
+  addIcon
 }: Props) => {
   const categories = categorizeItems(listItems);
-
   return (
     <List component="div" disablePadding>
       {categories && Object.keys(categories).map(category => (
         <Collapsible 
+          key={category}
           isSelectedTab={isSelectedTab}
           category={category} 
           items={categories[category]} 
@@ -123,6 +156,10 @@ const NestedItemList = ({
           cart={cart}
           selectedItems={selectedItems}
           onItemSelection={onItemSelection}
+          onRemoveItem={onRemoveItem}
+          removeIcon={removeIcon}
+          onAddItem={onAddItem}
+          addIcon={addIcon}
         />
       ))}
     </List>

@@ -5,7 +5,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import NestedItemList from '@inventory/components/NestedItemList';
 import ItemList from '@inventory/components/ItemList';
-import AddItemInput from '@inventory/components/AddItemInput';
+import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
+import { RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 'bold'
   },
   button: {
-    display: 'block'
+    display: 'block',
+    margin: 'auto'
   }
 }));
 
@@ -31,7 +33,8 @@ const AvailableItems = ({
   isSelectedTab,
   allItems, 
   availableItems,
-  actions
+  actions,
+  onAddToCart
 }) => {
   const classes = useStyles();
 
@@ -54,7 +57,13 @@ const AvailableItems = ({
     setIsNested(!isNested);
   }
   const addSelectedToCart = () => {
-    actions.cart.add(selectedItems)
+    onAddToCart(selectedItems)
+  }
+  const removeSelected = () => {
+    actions.inventory.removeFromAvailable(selectedItems);
+  }
+  const handleRemove = (itemId) => {
+    actions.inventory.removeFromAvailable([itemId]);
   }
 
   return (
@@ -72,6 +81,10 @@ const AvailableItems = ({
               listItems={listItems} 
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
+              onRemoveItem={handleRemove}
+              removeIcon={RemoveBagIconSmall}
+              onAddItem={onAddToCart}
+              addIcon={AddCartIconSmall}
             />
           ) : (
             <ItemList 
@@ -79,11 +92,14 @@ const AvailableItems = ({
               listItems={listItems} 
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
+              onRemoveItem={handleRemove}
+              removeIcon={RemoveBagIconSmall}
+              onAddItem={onAddToCart}
+              addIcon={AddCartIconSmall}
             />
           )}
           </Collapse>
         </List>
-        <AddItemInput allItems={allItems} onSubmit={() => {}} />
       </div>
       {isSelectedTab && (
         <div style={{ flexGrow: 1 }}>
@@ -98,14 +114,24 @@ const AvailableItems = ({
             }
           />
           {hasSelectedItems && (
-            <Button 
-              className={classes.button}
-              variant="outlined" 
-              color="primary" 
-              onClick={addSelectedToCart}
-            >
-              Add Selected To Cart
-            </Button>
+            <>
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={addSelectedToCart}
+              >
+                Add Selected (Cart)
+              </Button>
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={removeSelected}
+              >
+                Remove Selected (Delete)
+              </Button>
+            </>
           )}
         </div>
       )}

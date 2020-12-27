@@ -24,8 +24,10 @@ const slice = createSlice({
       state.allItems[id] = item;
     },
     removeFromAllItemsDone: (state, { payload }) => {
-      const { id } = payload;
-      delete state.allItems[id];
+      const { itemIds } = payload;
+      itemIds.forEach(itemId => {
+        delete state.allItems[itemId];
+      })
     },
     getAvailableDone: (state, { payload }) => {
       state.availableItems = payload;
@@ -39,8 +41,8 @@ const slice = createSlice({
       })
     },
     removeFromAvailableDone: (state, { payload }) => {
-      const { id } = payload;
-      state.availableItems.filter(itemId => itemId !== id);
+      const { itemIds } = payload;
+      state.availableItems = state.availableItems.filter(itemId => !itemIds.includes(itemId));
     },
     getCartDone: (state, { payload }) => {
       state.cart = payload;
@@ -54,8 +56,9 @@ const slice = createSlice({
       })
     },
     removeFromCartDone: (state, { payload }) => {
-      const { id } = payload;
-      state.cart.filter(itemId => itemId !== id);
+      const { itemIds } = payload;
+      state.cart = state.cart.filter(itemId => !itemIds.includes(itemId));
+      state.selectedInCart = state.selectedInCart.filter(itemId => !itemIds.includes(itemId))
     },
     updateSelectedInCartDone: (state, { payload }) => {
       const { selected } = payload;

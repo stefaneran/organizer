@@ -127,6 +127,7 @@ const AppBar = ({
 
         <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
 
+        {/* TODO - Will decide what to do with this in the future
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Skills">
             <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Skills)}>
@@ -134,6 +135,7 @@ const AppBar = ({
             </IconButton>
           </Tooltip>
         </Grid>
+        */}
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts">

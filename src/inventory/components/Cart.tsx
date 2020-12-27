@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core';
 import ItemList from '@inventory/components/ItemList';
 import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
+import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -13,10 +14,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   contentContainer: {
     height: '85%',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    display: 'flex'
   },
   listContainer: {
     display: 'flex'
+  },
+  button: {
+    display: 'block',
+    margin: 'auto'
   }
 }))
 
@@ -38,9 +44,16 @@ const Cart = ({
 
   const classes = useStyles();
   const listItems = cartItemsToArray(cart, allItems)
+  const hasSelectedItems = Boolean(selectedInCart.length);
 
   const handleItemSelection = (newSelected) => {
     actions.cart.updateSelected(newSelected);
+  }
+  const handleRemoveItem = (id) => {
+    actions.cart.remove([id]);
+  }
+  const handleRemoveSelected = () => {
+    actions.cart.remove(selectedInCart);
   }
   const handleFinishShopping = (e) => {
     e.stopPropagation();
@@ -51,7 +64,7 @@ const Cart = ({
     <div 
       className={classes.container} 
       style={{
-        width: isSelectedTab ? '80%' : '20%',
+        width: isSelectedTab ? '70%' : '30%',
         background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
         cursor: isSelectedTab ? '' : 'pointer'
       }}
@@ -61,19 +74,35 @@ const Cart = ({
         Cart
       </Typography>
       <div className={classes.contentContainer}>
-        <ItemList 
-          isSelectedTab={isSelectedTab}
-          listItems={listItems} 
-          selectedItems={selectedInCart} 
-          onItemSelection={handleItemSelection} 
-        />
+        <div style={{ flexGrow: isSelectedTab ? 3 : 1 }}>
+          <ItemList 
+            isSelectedTab={isSelectedTab}
+            listItems={listItems} 
+            selectedItems={selectedInCart} 
+            onItemSelection={handleItemSelection} 
+            onRemoveItem={handleRemoveItem}
+            removeIcon={RemoveCartIconSmall}
+          />
+        </div>
+        {isSelectedTab && hasSelectedItems && (
+          <div style={{ flexGrow: 1 }}>
+            <Button 
+              className={classes.button}
+              variant="outlined" 
+              color="primary" 
+              onClick={handleRemoveSelected}
+            >
+              Remove Selected
+            </Button>
+          </div>
+        )}
       </div>
       <Button 
         variant="outlined" 
         color="primary" 
         onClick={handleFinishShopping}
       >
-        Finish Shopping
+        Finish Shopping (All)
       </Button>
     </div>
   )

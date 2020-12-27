@@ -31,8 +31,10 @@ export const addToAllItems = (item) => async (dispatch, getState) => {
   return id;
 }
 
-export const removeFromAllItems = (id) => async (dispatch, getState) => {
-  dispatch(removeFromAllItemsDone({ id }))
+export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
+  dispatch(removeFromAllItemsDone({ itemIds }))
+  dispatch(removeFromCart(itemIds))
+  dispatch(removeFromAvailable(itemIds))
 }
 
 export const getAvailable = () => async (dispatch, getState) => {
@@ -48,8 +50,8 @@ export const addNewToAvailable = (item) => async (dispatch, getState) => {
   dispatch(addToAvailableDone({ itemIds: [id] }));
 }
 
-export const removeFromAvailable = (id) => async (dispatch, getState) => {
-  dispatch(removeFromAvailableDone({ id }))
+export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
+  dispatch(removeFromAvailableDone({ itemIds }))
 }
 
 export const getCart = () => async (dispatch, getState) => {
@@ -65,8 +67,8 @@ export const addNewToCart = (item) => async (dispatch, getState) => {
   dispatch(addToCartDone({ itemIds: [id] }));
 }
 
-export const removeFromCart = (id) => async (dispatch, getState) => {
-  dispatch(removeFromCartDone({ id }))
+export const removeFromCart = (itemIds) => async (dispatch, getState) => {
+  dispatch(removeFromCartDone({ itemIds }))
 }
 
 export const updateSelectedInCart = (selected) => async (dispatch, getState) => {

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, FormControlLabel, Switch, Collapse, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText, FormControlLabel, Switch, Collapse, Button, Divider } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import NestedItemList from '@inventory/components/NestedItemList';
 import ItemList from '@inventory/components/ItemList';
+import AddNewItemInput from '@inventory/components/AddNewItemInput';
+import { DeleteIconSmall } from '@core/components/Icons/DeleteIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -15,7 +17,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 'bold'
   },
   button: {
-    display: 'block'
+    display: 'block',
+    margin: 'auto'
   }
 }));
 
@@ -31,7 +34,8 @@ const AllItems = ({
   allItems, 
   availableItems,
   cart,
-  actions
+  actions,
+  onAddToCart
 }) => {
   const classes = useStyles();
 
@@ -54,11 +58,23 @@ const AllItems = ({
     setIsNested(!isNested);
   }
   const addSelectedToCart = () => {
-    actions.cart.add(selectedItems)
+    onAddToCart(selectedItems)
+  }
+  const handleAddNew = ({ name, category }) => {
+    actions.inventory.addToAll({ name, category });
+  }
+  const addSelectedToAvailable = () => {
+    actions.inventory.addToAvailable(selectedItems);
   }
   const addMissingToCart = () => {
     const missing = listItems.filter(item => !availableItems.includes(item.id)).map(item => item.id);
-    actions.cart.add(missing);
+    onAddToCart(missing);
+  }
+  const removeSelected = () => {
+    actions.inventory.removeFromAll(selectedItems);
+  }
+  const handleRemove = (itemId) => {
+    actions.inventory.removeFromAll([itemId]);
   }
 
   return (
@@ -78,6 +94,8 @@ const AllItems = ({
               cart={cart}
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
+              onRemoveItem={handleRemove}
+              removeIcon={DeleteIconSmall}
             />
           ) : (
             <ItemList 
@@ -87,6 +105,8 @@ const AllItems = ({
               cart={cart}
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
+              onRemoveItem={handleRemove}
+              removeIcon={DeleteIconSmall}
             />
           )}
           </Collapse>
@@ -104,15 +124,35 @@ const AllItems = ({
               />
             }
           />
+          <AddNewItemInput allItems={allItems} onSubmit={handleAddNew} />
+          <Divider />
           {hasSelectedItems && (
-            <Button 
-              className={classes.button}
-              variant="outlined" 
-              color="primary" 
-              onClick={addSelectedToCart}
-            >
-              Add Selected To Cart
-            </Button>
+            <>
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={addSelectedToCart}
+              >
+                Add Selected To Cart
+              </Button>
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={addSelectedToAvailable}
+              >
+                Add Selected To Available
+              </Button>
+              <Button 
+                className={classes.button}
+                variant="outlined" 
+                color="primary" 
+                onClick={removeSelected}
+              >
+                Remove Selected
+              </Button>
+            </>
           )}
           <Button 
             className={classes.button}
