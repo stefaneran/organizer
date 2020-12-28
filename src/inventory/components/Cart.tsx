@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import ItemList from '@inventory/components/ItemList';
+import AddItemInput from '@inventory/components/AddItemInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
 import { AddBagIconXS } from '@core/components/Icons/BagIcon';
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transition: 'width 300ms'
   },
   contentContainer: {
-    height: '85%',
+    height: '75%',
     overflowY: 'auto',
     display: 'flex'
   },
@@ -56,9 +57,12 @@ const Cart = ({
   const handleRemoveSelected = () => {
     actions.cart.remove(selectedInCart);
   }
-  const handleFinishShopping = ({ onlyChecked }) => (e) => {
+  const handleAddToCart = (id) => {
+    actions.cart.add([id]);
+  }
+  const handleFinishShopping = (e) => {
     e.stopPropagation();
-    actions.cart.finishShopping(onlyChecked);
+    actions.cart.finishShopping();
   }
 
   return (
@@ -75,18 +79,19 @@ const Cart = ({
         Cart
       </Typography>
       <div className={classes.contentContainer}>
-        <div style={{ flexGrow: isSelectedTab ? 3 : 1 }}>
+        <div style={{ width: isSelectedTab && hasSelectedItems ? '65%' : '100%' }}>
           <ItemList 
             isSelectedTab={isSelectedTab}
             listItems={listItems} 
             selectedItems={selectedInCart} 
-            onItemSelection={handleItemSelection} 
-            onRemoveItem={handleRemoveItem}
-            removeIcon={RemoveCartIconSmall}
+            onItemSelection={handleItemSelection}
+            iconActions={[
+              { icon: RemoveCartIconSmall, handler: handleRemoveItem }
+            ]}
           />
         </div>
         {isSelectedTab && hasSelectedItems && (
-          <div style={{ flexGrow: 1 }}>
+          <div style={{ width: '35%' }}>
             <Tooltip title="Remove Selected">
               <Button 
                 className={classes.button}
@@ -101,26 +106,19 @@ const Cart = ({
           </div>
         )}
       </div>
-      <Tooltip title="Add All to Available">
-        <Button 
-          style={{ marginRight: '2em' }}
-          variant="outlined" 
-          color="primary" 
-          onClick={handleFinishShopping({ onlyChecked: false })}
-          endIcon={<AddBagIconXS />}
-        >
-          Finish
-        </Button>
-      </Tooltip>
-      <Tooltip title="Add Only Selected to Available">
+      <AddItemInput 
+        allItems={allItems} 
+        targetCollection={cart} 
+        onChange={handleAddToCart} 
+      />
+      <Tooltip title="Add to Available">
         <Button 
           variant="outlined" 
           color="primary" 
-          onClick={handleFinishShopping({ onlyChecked: true })}
-          startIcon={<CheckBoxOutlinedIcon />}
+          onClick={handleFinishShopping}
           endIcon={<AddBagIconXS />}
         >
-          Finish
+          Finish Shopping
         </Button>
       </Tooltip>
     </div>

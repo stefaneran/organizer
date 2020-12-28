@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import getWarningColor from '@inventory/utils/getWarningColor';
+import genericSort from '@core/utils/genericSort';
 
 interface Props {
   listItems;
@@ -9,29 +10,21 @@ interface Props {
   cart?;
   selectedItems?;
   onItemSelection?;
-  onRemoveItem?;
-  removeIcon?;
-  onAddItem?;
-  addIcon?;
+  iconActions?;
 }
 
 const ItemList = ({ 
-  isSelectedTab, 
   listItems, 
+  isSelectedTab,
   availableItems, 
   cart,
   selectedItems, 
   onItemSelection,
-  onRemoveItem,
-  removeIcon,
-  onAddItem,
-  addIcon
+  iconActions
 }: Props) => {
 
   const shouldCheckAvailable = Boolean(availableItems);
   const hasSelection = Boolean(selectedItems);
-  const canRemove = Boolean(onRemoveItem);
-  const canAdd = Boolean(onAddItem);
 
   const handleSelection = (id) => () => {
     const newSelected = 
@@ -41,19 +34,14 @@ const ItemList = ({
     onItemSelection(newSelected);
   }
 
-  const handleRemove = (id) => (e) => {
+  const handleIconAction = (id, handler) => (e) => {
     e.stopPropagation();
-    onRemoveItem(id);
-  }
-
-  const handleAdd = (id) => (e) => {
-    e.stopPropagation();
-    onAddItem(id);
+    handler(id);
   }
 
   return (
     <List component="div">
-      {listItems && listItems.map(item => (
+      {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(item => (
         <ListItem 
           key={item.id}
           button 
@@ -71,17 +59,12 @@ const ItemList = ({
               />
             </ListItemIcon>
           )}
-          <ListItemText primary={item.name} />
-          {canRemove && (
-            <ListItemIcon onClick={handleRemove(item.id)}>
-              {removeIcon()}
+          <ListItemText primary={item.name} secondary={item.category} />
+          {iconActions && iconActions.map((iconAction, index) => (
+            <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, iconAction.handler)}>
+              {iconAction.icon()}
             </ListItemIcon>
-          )}
-          {canAdd && (
-            <ListItemIcon onClick={handleAdd(item.id)}>
-              {addIcon()}
-            </ListItemIcon>
-          )}
+          ))}
         </ListItem>
       ))}
     </List>

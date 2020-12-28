@@ -1,18 +1,7 @@
 
-- Add 
-  - Individual
-    - From All to Inventory
-    - From All to Cart
-- Autocomplete Add Item
-  - Cart
-  - Available
-- Add "De-select All" button
-- Add tooltips to list buttons
 - Confirmation dialog when remove from All
-- Text filter
-  - Available
-  - All
-- Make control panel fixed so it doesnt disappear on scroll
+- Add "De-select All" button
+- Fix controls to handle long lists better
 
 
 ============================================================

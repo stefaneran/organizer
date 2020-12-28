@@ -5,6 +5,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import categorizeItems from '@inventory/utils/categorizeItems';
 import getWarningColor from '@inventory/utils/getWarningColor';
+import genericSort from '@core/utils/genericSort';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   item: {
@@ -21,6 +22,15 @@ const isSelectedItemInGroup = (items, selectedItems) => {
   return false;
 }
 
+const shouldBeOpen = (textFilter, hasSelection, items, selectedItems) => {
+  if (textFilter && textFilter.length) {
+    return true;
+  } else if(hasSelection) {
+    return isSelectedItemInGroup(items, selectedItems);
+  }
+  return false;
+}
+
 interface Props {
   listItems;
   isSelectedTab;
@@ -28,10 +38,8 @@ interface Props {
   cart?;
   selectedItems?;
   onItemSelection?;
-  onRemoveItem?;
-  removeIcon?;
-  onAddItem?;
-  addIcon?;
+  iconActions?;
+  textFilter?;
 }
 
 const Collapsible = ({ 
@@ -42,20 +50,20 @@ const Collapsible = ({
   cart,
   selectedItems, 
   onItemSelection,
-  onRemoveItem,
-  removeIcon,
-  onAddItem,
-  addIcon
+  iconActions,
+  textFilter
 }) => {
 
   const classes = useStyles();
   // Should check if item is in available list
   const shouldCheckAvailable = Boolean(availableItems);
   const hasSelection = Boolean(selectedItems);
-  const canRemove = Boolean(onRemoveItem);
-  const canAdd = Boolean(onAddItem);
 
-  const [isOpen, setIsOpen] = React.useState(hasSelection ? isSelectedItemInGroup(items, selectedItems) : false);
+  const [isOpen, setIsOpen] = React.useState(shouldBeOpen(textFilter, hasSelection, items, selectedItems));
+
+  React.useEffect(() => {
+    setIsOpen(shouldBeOpen(textFilter, hasSelection, items, selectedItems));
+  }, [textFilter])
 
   const handleSelection = (id) => () => {
     const newSelected = 
@@ -70,14 +78,9 @@ const Collapsible = ({
     setIsOpen(!isOpen);
   }
 
-  const handleRemove = (id) => (e) => {
+  const handleIconAction = (id, handler) => (e) => {
     e.stopPropagation();
-    onRemoveItem(id);
-  }
-
-  const handleAdd = (id) => (e) => {
-    e.stopPropagation();
-    onAddItem(id);
+    handler(id);
   }
 
   return (
@@ -93,7 +96,7 @@ const Collapsible = ({
       </ListItem>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" className={classes.item}>
-          {items && items.map(item => (
+          {items && items.sort((a, b) => genericSort(a.name, b.name)).map(item => (
             <ListItem 
               key={item.id}
               button 
@@ -112,16 +115,11 @@ const Collapsible = ({
                 </ListItemIcon>
               )}
               <ListItemText primary={item.name} />
-              {canRemove && (
-                <ListItemIcon onClick={handleRemove(item.id)}>
-                  {removeIcon()}
+              {iconActions && iconActions.map((iconAction, index) => (
+                <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, iconAction.handler)}>
+                  {iconAction.icon()}
                 </ListItemIcon>
-              )}
-              {canAdd && (
-                <ListItemIcon onClick={handleAdd(item.id)}>
-                  {addIcon()}
-                </ListItemIcon>
-              )}
+              ))}
             </ListItem>
             )
           )}
@@ -132,21 +130,19 @@ const Collapsible = ({
 }
 
 const NestedItemList = ({ 
-  isSelectedTab, 
   listItems, 
+  isSelectedTab,
   availableItems, 
   cart,
   selectedItems, 
   onItemSelection,
-  onRemoveItem,
-  removeIcon,
-  onAddItem,
-  addIcon
+  iconActions,
+  textFilter
 }: Props) => {
   const categories = categorizeItems(listItems);
   return (
     <List component="div" disablePadding>
-      {categories && Object.keys(categories).map(category => (
+      {categories && Object.keys(categories).sort((a, b) => genericSort(a, b)).map(category => (
         <Collapsible 
           key={category}
           isSelectedTab={isSelectedTab}
@@ -156,10 +152,8 @@ const NestedItemList = ({
           cart={cart}
           selectedItems={selectedItems}
           onItemSelection={onItemSelection}
-          onRemoveItem={onRemoveItem}
-          removeIcon={removeIcon}
-          onAddItem={onAddItem}
-          addIcon={addIcon}
+          iconActions={iconActions}
+          textFilter={textFilter}
         />
       ))}
     </List>

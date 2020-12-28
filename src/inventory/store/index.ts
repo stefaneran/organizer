@@ -9,7 +9,7 @@ const slice = createSlice({
       '3': { category: 'Meats', name: 'Pork' },
       '4': { category: 'Veggies', name: 'Apples' },
       '5': { category: 'Veggies', name: 'Oranges' },
-      '6': { category: 'Misc', name: 'Toilet Paper' },
+      '6': { category: 'Misc', name: 'Toilet Paper' }
     },
     availableItems: ['1', '2', '6'],
     cart: ['3', '5'],
@@ -64,8 +64,8 @@ const slice = createSlice({
       const { selected } = payload;
       state.selectedInCart = selected;
     },
-    finishShoppingDone: (state, { payload }) => {
-      const { onlyChecked } = payload;
+    finishShoppingDone: (state) => {
+      const onlyChecked = state.selectedInCart.length;
       state.cart.forEach(itemId => {
         const notAvailable = !state.availableItems.includes(itemId);
         const isSelected = state.selectedInCart.includes(itemId);
@@ -77,6 +77,7 @@ const slice = createSlice({
       })
       if (onlyChecked) {
         state.cart = state.cart.filter(itemId => !state.selectedInCart.includes(itemId));
+        state.selectedInCart = [];
       } else {
         state.cart = [];
       }

@@ -50,13 +50,19 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
     setCurrentNameValue(e.target.value);
   }
   const handleCategorySelect = (e, newValue) => {
-    setCurrentCategoryValue(newValue);
+    if (newValue) {
+      setCurrentCategoryValue(newValue);
+    }
   }
   const handleCategoryInput = (e) => {
     setCurrentCategoryValue(e.target.value);
   }
   const handleSubmit = () => {
-    onSubmit({ name: currentNameValue, category: currentCategoryValue })
+    const hasName = currentNameValue && currentNameValue.length;
+    const hasCategory = currentCategoryValue && currentCategoryValue.length
+    if (hasName && hasCategory) {
+      onSubmit({ name: currentNameValue, category: currentCategoryValue })
+    }
   }
 
   return (
@@ -68,7 +74,7 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
           onChange={handleNameInput}
           label="Name" 
           size="small" 
-          variant="standard" 
+          variant="outlined" 
           fullWidth
         />
         <Autocomplete
@@ -83,7 +89,7 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
               onChange={handleCategoryInput} 
               label="Category"  
               size="small" 
-              variant={'standard'} 
+              variant={'outlined'} 
             />
           }
         />

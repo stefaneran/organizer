@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     overflowY: 'auto'
   },
   divider: {
-    margin: '1em'
+    margin: '1em 0'
   }
 }))
 
@@ -30,15 +30,6 @@ const Inventory = ({
   setSelectedTab 
 }) => {
   const classes = useStyles();
-
-  const handleAddToCart = (itemIds) => {
-    if (!Array.isArray(itemIds)) {
-      actions.cart.add([itemIds]);
-    } else {
-      actions.cart.add(itemIds);
-    }
-  }
-
   return (
     <div 
       className={classes.container} 
@@ -58,7 +49,6 @@ const Inventory = ({
           allItems={allItems} 
           availableItems={availableItems}
           actions={actions}
-          onAddToCart={handleAddToCart}
         />
         <Divider className={classes.divider} />
         <AllItems 
@@ -67,7 +57,6 @@ const Inventory = ({
           availableItems={availableItems}
           cart={cart}
           actions={actions}
-          onAddToCart={handleAddToCart}
         />
       </div>
     </div>

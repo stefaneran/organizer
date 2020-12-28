@@ -12,13 +12,13 @@ export const BagIconSmall = () => <BagSmall />
 
 const RemoveBagXS = styled(BagX)`
   height: 0.9em;
-  color: #3f51b5;
+  color: rgb(255, 89, 100);
 `;
 export const RemoveBagIconXS = () => <RemoveBagXS />
 
 const RemoveBagSmall = styled(BagX)`
   height: 1.5em;
-  color: #3f51b5;
+  color: rgb(255, 89, 100);
 `;
 export const RemoveBagIconSmall = () => <RemoveBagSmall />
 

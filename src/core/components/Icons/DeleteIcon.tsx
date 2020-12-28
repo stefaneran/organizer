@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Delete } from '@styled-icons/feather/Delete';
+import { DeleteBack2 } from '@styled-icons/remix-line/DeleteBack2';
 
-const DeleteSmall = styled(Delete)`
+const DeleteSmall = styled(DeleteBack2)`
   height: 1.5em;
-  color: #3f51b5;
+  color: rgb(255, 89, 100);
 `;
 export const DeleteIconSmall = () => <DeleteSmall />
