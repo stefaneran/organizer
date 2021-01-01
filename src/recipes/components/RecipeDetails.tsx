@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, Divider, Button } from '@material-ui/core';
+import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
+import { TrashIconSmall } from '@core/components/Icons/DeleteIcon';
 import RecipeIngredients from '@recipes/components/RecipeIngredients';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
@@ -9,6 +12,13 @@ import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsContainer: {
     width: '100%'
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  headerTitles: {
+    maxWidth: '75%'
   },
   subtitle: {
     color: 'rgba(0, 0, 0, 0.54)',
@@ -35,7 +45,10 @@ const RecipeDetails = ({
   allItems, 
   availableItems, 
   cart, 
-  addToCart 
+  addToCart,
+  onOpenEditRecipe,
+  onSelectRecipe,
+  onDeleteRecipe
 }) => {
   const classes = useStyles();
 
@@ -62,12 +75,28 @@ const RecipeDetails = ({
     <>
     {hasRecipe && (
       <div className={classes.detailsContainer}>
-        <Typography variant="h4">
-          {recipe.name}
-        </Typography>
-        <Typography variant="subtitle1" className={classes.subtitle}>
-          {`${recipe.nationality} - ${recipe.category}`}
-        </Typography>
+        <div className={classes.header}>
+          <div className={classes.headerTitles}>
+            <Typography variant="h4">
+              {recipe.name}
+            </Typography>
+            <Typography variant="subtitle1" className={classes.subtitle}>
+              {`${recipe.nationality} - ${recipe.category}`}
+            </Typography>
+          </div>
+          <div>
+            <Tooltip title="Edit Recipe Details">
+              <IconButton onClick={onOpenEditRecipe('edit')}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Close Details">
+              <IconButton onClick={onSelectRecipe('')}>
+                <CloseIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </div>
         <Divider />
         <Typography variant="body1" className={classes.instructions}>
           {recipe.instructions}
@@ -82,16 +111,28 @@ const RecipeDetails = ({
           />
         </div>
         {hasMissingItems && !hasMissingInCart && (
-          <div className={classes.buttonContainer}>
-            <Button
-              variant="outlined"
-              color="primary"
-              endIcon={<AddCartIconXS />}
-              onClick={handleAddMissingToCart}
-            >
-              Add Missing
-            </Button>
-          </div>
+          <>
+            <div className={classes.buttonContainer}>
+              <Button
+                variant="outlined"
+                color="primary"
+                endIcon={<AddCartIconXS />}
+                onClick={handleAddMissingToCart}
+              >
+                Add Missing
+              </Button>
+            </div>
+            <div className={classes.buttonContainer}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                endIcon={<TrashIconSmall />}
+                onClick={onDeleteRecipe}
+              >
+                Delete
+              </Button>
+            </div>
+          </>
         )}
       </div>
     )}

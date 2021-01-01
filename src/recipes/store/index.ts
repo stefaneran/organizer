@@ -34,26 +34,23 @@ const slice = createSlice({
           { itemId: '4', amount: '3' },
           { itemId: '8', amount: '1 Table Spoon' }
         ]
-      }
+      },
     }
   },
   reducers: {
-    addRecipeDone: (state, { payload }) => {
-      const { recipe, id } = payload;
-      state.recipes[id] = recipe;
-    },
-    editRecipeDone: (state, { payload }) => {
-
+    updateRecipes: (state, { payload }) => {
+      const { recipe, recipeId } = payload;
+      state.recipes[recipeId] = recipe;
     },
     removeRecipeDone: (state, { payload }) => {
-
+      const { recipeId } = payload;
+      delete state.recipes[recipeId];
     }
   }
 });
 
 export const {
-  addRecipeDone,
-  editRecipeDone,
+  updateRecipes,
   removeRecipeDone
 } = slice.actions;
 

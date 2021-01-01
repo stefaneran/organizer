@@ -1,6 +1,5 @@
 import {
-  addRecipeDone,
-  editRecipeDone,
+  updateRecipes,
   removeRecipeDone
 } from '.';
 import {
@@ -33,19 +32,37 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
     }
     ingredients.push({ itemId, amount });
   });
-  console.log(ingredients)
-  const id = v4();
+  const recipeId = v4();
   const newRecipe = {
     ...recipe,
     ingredients
   }
-  dispatch(addRecipeDone({ recipe: newRecipe, id }));
+  dispatch(updateRecipes({ recipe: newRecipe, recipeId }));
 }
 
-export const editRecipe = (recipe) => async (dispatch, getState) => {
-  dispatch(editRecipeDone({ recipe }))
+export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
+  const { inventoryStore: { allItems } } = getState();
+  const ingredients = [];
+  // Verify each ingredient and get its existing/newly created itemId
+  // TODO - Use Promise.all() and ensure it works properly
+  recipe.ingredients.forEach(async ingredient => {
+    const { name, amount } = ingredient;
+    if (!name.length) {
+      return;
+    }
+    let itemId = getIngredientIdByName(name, allItems);
+    if (!itemId) {
+      itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+    }
+    ingredients.push({ itemId, amount });
+  });
+  const updatedRecipe = {
+    ...recipe,
+    ingredients
+  }
+  dispatch(updateRecipes({ recipe: updatedRecipe, recipeId }))
 }
 
-export const removeRecipe = (id) => async (dispatch, getState) => {
-  dispatch(removeRecipeDone({ id }))
+export const removeRecipe = (recipeId) => async (dispatch, getState) => {
+  dispatch(removeRecipeDone({ recipeId }))
 }

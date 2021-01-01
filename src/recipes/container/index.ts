@@ -4,10 +4,7 @@ import {
   editRecipe,
   removeRecipe
 } from '@recipes/store/thunks';
-import {
-  addToAllItems,
-  addToCart
-} from '@inventory/store/thunks';
+import { addToCart } from '@inventory/store/thunks';
 import RecipesContainer from './RecipesContainer';
 
 const mapStateToProps = state => ({
@@ -21,7 +18,6 @@ const mapDispatchToProps = {
   addRecipe,
   editRecipe,
   removeRecipe,
-  addToAllItems,
   addToCart
 }
 

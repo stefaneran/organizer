@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, TextField, IconButton } from '@material-ui/core';
+import { Paper, TextField, Button } from '@material-ui/core';
+import { FoodIconXS } from '@core/components/Icons/FoodIcon';
+import { TrashIconSmall } from '@core/components/Icons/DeleteIcon';
 import Nationalities from '@recipes/components/Nationalities';
 import CategoryFilter from '@recipes/components/CategoryFilter';
 import RecipesList from '@recipes/components/RecipesList';
 import EditRecipe from '@recipes/components/EditRecipe';
 import RecipeDetails from '@recipes/components/RecipeDetails';
-import AddIcon from '@material-ui/icons/Add';
+import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 import defaultRecipeData from '@recipes/utils/defaultRecipeData';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -19,26 +21,29 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transition: 'width 300ms',
     height: '100%',
     overflowY: 'auto',
-    padding: '0 2em'
+    paddingRight: '1em',
+    paddingLeft: '2em'
   },
   secondaryContainer: {
     transition: 'width 300ms',
     height: '100%',
     overflowY: 'auto',
-    paddingRight: '2em'
+    paddingRight: '2em',
+    paddingLeft: '1em'
   },
   filtersContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '1em'
+    padding: '1em 1em 0 1em'
   },
   rightFilters: {
     display: 'flex'
   },
   contentContainer: {
     display: 'flex',
-    height: '90%',
-    transition: 'width 300ms'
+    height: '88%',
+    transition: 'width 300ms',
+    paddingTop: '1em'
   }
 }));
 
@@ -68,7 +73,6 @@ const RecipesContainer = (props) => {
     addRecipe,
     editRecipe,
     removeRecipe,
-    addToAllItems,
     addToCart
   } = actions;
 
@@ -76,15 +80,22 @@ const RecipesContainer = (props) => {
   const [selectedNationality, setSelectedNationality] = React.useState('All');
   const [selectedCategory, setSelectedCategory] = React.useState('');
   const [textFilter, setTextFilter] = React.useState('');
-  const [newRecipe, setNewRecipe] = React.useState(false);
+  const [editRecipeMode, setEditRecipeMode] = React.useState('');
   const [editRecipeData, setEditRecipeData] = React.useState(defaultRecipeData);
+  const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
   const categories = getCategoryOptions(recipes);
 
+  const toggleConfirmationDialog = () => {
+    setConfirmationOpen(!isConfirmationOpen);
+  }
   const handleSelectRecipe = (id) => () => {
     if (selectedRecipe !== id) {
+      if (editRecipeMode.length) {
+        setEditRecipeMode('');
+      }
       setSelectedRecipe(id);
     } else {
       setSelectedRecipe('');
@@ -99,11 +110,35 @@ const RecipesContainer = (props) => {
   const handleTextFilterInput = (e) => {
     setTextFilter(e.target.value);
   }
-  const toggleNewRecipe = () => {
-    setNewRecipe(!newRecipe)
+  const handleOpenEditRecipe = (mode) => () => {
+    setEditRecipeMode(mode);
+    if (mode === 'new') {
+      setEditRecipeData(defaultRecipeData)
+    } 
+    // Map existing recipe's data to state hook
+    else if (mode === 'edit') {
+      const recipe = { ...recipes[selectedRecipe] };
+      const ingredients = recipe.ingredients.map(ingredient => {
+        const { itemId, amount } = ingredient;
+        const { name } = allItems[itemId];
+        return { name, amount };
+      })
+      recipe.ingredients = ingredients;
+      setEditRecipeData(recipe);
+    }
   }
   const handleSubmitEditRecipe = () => {
-    addRecipe(editRecipeData);
+    setEditRecipeMode('');
+    if (editRecipeMode === 'new') {
+      addRecipe(editRecipeData);
+    } else if (editRecipeMode === 'edit') {
+      editRecipe(editRecipeData, selectedRecipe);
+    }
+  }
+  const handleRemoveRecipe = () => {
+    removeRecipe(selectedRecipe);
+    setSelectedRecipe('');
+    toggleConfirmationDialog()
   }
 
   return (
@@ -121,22 +156,28 @@ const RecipesContainer = (props) => {
             onChange={handleSelectCategory}
           />
           <TextField
-            style={{ width: '160px' }}
+            style={{ width: '160px', marginRight: '1em' }}
             value={textFilter}
             onChange={handleTextFilterInput}
             variant="outlined"
             size="small"
             placeholder="Name Filter"
           />
-          <IconButton onClick={toggleNewRecipe}>
-            <AddIcon />
-          </IconButton>
+          <Button 
+            style={{ height: '40px' }}
+            onClick={handleOpenEditRecipe('new')}
+            variant="outlined"
+            color="primary"
+            endIcon={<FoodIconXS />}
+          >
+            New
+          </Button>
         </div>
       </div>
       <div className={classes.contentContainer}>
         <div 
           className={classes.primaryContainer}
-          style={{ width: hasSelectedRecipe || newRecipe ? '60%' : '100%' }}
+          style={{ width: hasSelectedRecipe || editRecipeMode.length ? '60%' : '100%' }}
         >
           <RecipesList 
             recipes={recipes}
@@ -152,15 +193,16 @@ const RecipesContainer = (props) => {
         </div>
         <div 
           className={classes.secondaryContainer} 
-          style={{ width: hasSelectedRecipe || newRecipe ? '40%' : '0%' }}
+          style={{ width: hasSelectedRecipe || editRecipeMode.length ? '40%' : '0%' }}
         >
-          {newRecipe ? (
-            <EditRecipe 
+          {editRecipeMode.length ? (
+            <EditRecipe
               editRecipeData={editRecipeData}
               setEditRecipeData={setEditRecipeData}
               categoryOptions={categories}
               allItems={allItems}
               onSubmitEditRecipe={handleSubmitEditRecipe}
+              onOpenEditRecipe={handleOpenEditRecipe}
             />
           ) : (
             <RecipeDetails 
@@ -169,10 +211,26 @@ const RecipesContainer = (props) => {
               availableItems={availableItems}
               cart={cart}
               addToCart={addToCart}
+              onOpenEditRecipe={handleOpenEditRecipe}
+              onSelectRecipe={handleSelectRecipe}
+              onDeleteRecipe={toggleConfirmationDialog}
             />
           )}
         </div>
       </div>
+      {isConfirmationOpen && (
+        <ConfirmationDialog 
+          isOpen 
+          onClose={toggleConfirmationDialog}
+          confirmationTitle={'Confirm To Delete Recipe'}
+          confirmationText={`Are you sure you want to delete ${selectedRecipe.length && recipes[selectedRecipe].name}?`}
+          secondaryIcon={<TrashIconSmall />}
+          primaryText="Cancel"
+          secondaryText="Delete"
+          onPrimaryAction={toggleConfirmationDialog}
+          onSecondaryAction={handleRemoveRecipe}
+        />
+      )}
     </Paper>
   )
 }

@@ -10,7 +10,7 @@ interface DialogProps {
   onClose(options?: any): (event?) => void;
   children: React.ReactNode;
   actionsType?: string;
-  actionsData?: any; // Can vary from type to type (refer to typeToActionsMap.tsx)
+  actionsData?: any; // Can vary from type to type (refer to mapTypeToActions.tsx)
   maxWidth?: string;
 }
 

@@ -5,10 +5,13 @@ import { Chip } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    display: 'flex'
+    display: 'flex',
+    maxWidth: '60%',
+    flexWrap: 'wrap'
   },
   chipContainer: {
-    marginRight: '1em'
+    marginRight: '1em',
+    marginBottom: '1em'
   },
   chip: {
     cursor: 'pointer',

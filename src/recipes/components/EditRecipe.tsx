@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Divider, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import CloseIcon from '@material-ui/icons/Close';
 import { FoodIconXS } from '@core/components/Icons/FoodIcon';
 import EditIngredients from '@recipes/components/EditIngredients';
 import countries from '@core/data/countries';
@@ -15,19 +16,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginBottom: '1em'
   },
   finishButtonContainer: {
+    marginTop: '1em',
     textAlign: 'center'
   },
   finishButton: {
-    marginTop: '1em'
+    marginRight: '1em'
   }
 }))
 
-const EditRecipe = ({ 
+const EditRecipe = ({
   editRecipeData, 
   setEditRecipeData, 
   categoryOptions, 
   allItems,
-  onSubmitEditRecipe
+  onSubmitEditRecipe,
+  onOpenEditRecipe
 }) => {
   const classes = useStyles();
 
@@ -41,7 +44,7 @@ const EditRecipe = ({
     handleDataChange('name', e.target.value);
   }
   const handleNationalityChange = (e, newValue) => {
-    handleDataChange('nationality', newValue ? newValue.name : '');
+    handleDataChange('nationality', newValue ? newValue : '');
   }
   const handleCategoryChange = (e, newValue) => {
     handleDataChange('category', newValue ? newValue : '');
@@ -80,9 +83,10 @@ const EditRecipe = ({
       />
       <Autocomplete
         className={classes.input}
-        options={countries}
+        value={editRecipeData.nationality}
+        options={countries.map(c => c.name)}
         onChange={handleNationalityChange}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option}
         renderInput={(params) => 
           <TextField 
             {...params}
@@ -127,14 +131,22 @@ const EditRecipe = ({
         onIngredientsChange={handleIngredientsChange}
       />
       <div className={classes.finishButtonContainer}>
-        <Button 
+        <Button
           className={classes.finishButton}
           variant="outlined" 
           color="primary"
           onClick={onSubmitEditRecipe}
           endIcon={<FoodIconXS />}
         >
-          Finish Creating
+          Finish
+        </Button>
+        <Button
+          variant="outlined" 
+          color="secondary"
+          onClick={onOpenEditRecipe('')}
+          endIcon={<CloseIcon />}
+        >
+          Cancel
         </Button>
       </div>
     </div>
