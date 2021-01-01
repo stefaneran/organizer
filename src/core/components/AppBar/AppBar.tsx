@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
   Paper, 
@@ -7,7 +8,7 @@ import {
   Typography, 
   Tooltip, 
   IconButton, 
-  Button, 
+  Button,
   CircularProgress 
 } from '@material-ui/core';
 import {
@@ -17,6 +18,7 @@ import {
 import { BrainIconSmall } from '@core/components/Icons/BrainIcon';
 import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
 import { CartIconSmall } from '@core/components/Icons/CartIcon';
+import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
 import { CategoryType } from '@core/interfaces/general'
 import AppStore from '@core/interfaces/AppStore.interface';
 import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
@@ -50,6 +52,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: '0.3em'
     }
   },
+  saveButton: {
+    borderLeft: '2px solid rgba(255,255,255,0.6)',
+  },
+  uploadButton: {
+    borderRight: '2px solid rgba(255,255,255,0.6)',
+  },
   buttonContainer: {
     padding: '0.3em'
   },
@@ -57,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: '0.2em',
     '&:hover': {
       background: 'rgba(255,255,255,0.2)'
-    }
+    },
   },
   buttonIcon: {
     width: '1.5em',
@@ -154,6 +162,14 @@ const AppBar = ({
         </Grid>
 
         <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Show Recipes">
+            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Recipes)}>
+              <FoodIconSmall />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+
+        <Grid item className={clsx(classes.buttonContainer, classes.saveButton)}>
           <Tooltip title="Download Backup">
             <IconButton className={classes.button} onClick={downloadJSON({ app, contacts, skills })}>
               <SaveIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />
@@ -161,7 +177,7 @@ const AppBar = ({
           </Tooltip>
         </Grid>
 
-        <Grid item className={classes.buttonContainer}>
+        <Grid item className={clsx(classes.buttonContainer, classes.uploadButton)}>
           <Tooltip title="Upload Backup">
             <IconButton className={classes.button} onClick={upload}>
               <PublishIcon className={classes.buttonIcon} style={{ height: '1.5em', color: '#fff' }} />

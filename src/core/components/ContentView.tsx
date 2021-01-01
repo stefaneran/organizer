@@ -4,6 +4,7 @@ import AppBar from '@core/components/AppBar';
 import SkillsContainer from '@skills/container';
 import ContactsContainer from '@contacts/container';
 import InventoryContainer from '@inventory/container';
+import RecipesContainer from '@recipes/container';
 import { CategoryType } from '@core/interfaces/general';
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ setLoginDialog, onLogout }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Recipes);
 
   return (
     <div className={classes.container}>
@@ -38,6 +39,9 @@ const ContentView = ({ setLoginDialog, onLogout }) => {
         }
         {currentCategory === CategoryType.Inventory &&
           <InventoryContainer />
+        }
+        {currentCategory === CategoryType.Recipes &&
+          <RecipesContainer />
         }
       </div>
     </div>

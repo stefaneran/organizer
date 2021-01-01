@@ -1,7 +1,29 @@
 
-- Confirmation dialog when remove from All
+Recipes:
+- Edit existing recipe 
+- Ensure Nationalities overflows properly
+- X button on RecipeDetails
+- Ensure title has max width to not overlap X button
+- Add nationality flags to options/chips
+- Memoize stuff (categories, etc)
+- MOBILE
+
+Inventory:
+- Change Nested list switch to 2 icons
+- Change "Delete" icon in All Items to white if missing (becomes invisible)
+- Confirmation dialog when remove from All Items
 - Add "De-select All" button
-- Fix controls to handle long lists better
+- Controls UI - Handle long lists better (fixed position, or whatever)
+- Memoize stuff (categories, etc)
+- MOBILE
+
+Both: 
+- Make Autocomplete not show options for new strings
+
+Sofia:
+- Make APIs for Inventory
+- Make APIs for Recipes
+- Use Promise.all() in create recipe Thunk
 
 
 ============================================================

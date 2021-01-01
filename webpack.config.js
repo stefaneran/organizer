@@ -19,6 +19,7 @@ module.exports = {
       "@contacts": path.resolve(__dirname, './src/contacts'),
       "@skills": path.resolve(__dirname, './src/skills'),
       "@inventory": path.resolve(__dirname, './src/inventory'),
+      "@recipes": path.resolve(__dirname, './src/recipes'),
       "@store": path.resolve(__dirname, './src/store')
     },
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']

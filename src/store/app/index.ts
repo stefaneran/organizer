@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '1.4.0',
+    version: '2.0.0',
     loading: false,
     user: {
       userName: undefined,

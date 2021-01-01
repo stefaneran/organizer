@@ -1,7 +1,8 @@
 export enum CategoryType {
   Skills = "Skills",
   Contacts = "Contacts",
-  Inventory = "Inventory"
+  Inventory = "Inventory",
+  Recipes = "Recipes"
 }
 
 export enum PriorityType {

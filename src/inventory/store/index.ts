@@ -9,9 +9,11 @@ const slice = createSlice({
       '3': { category: 'Meats', name: 'Pork' },
       '4': { category: 'Veggies', name: 'Apples' },
       '5': { category: 'Veggies', name: 'Oranges' },
-      '6': { category: 'Misc', name: 'Toilet Paper' }
+      '6': { category: 'Misc', name: 'Toilet Paper' },
+      '7': { category: 'Pasta', name: 'Spaghetti' },
+      '8': { category: 'Condiments', name: 'Ketchup' }
     },
-    availableItems: ['1', '2', '6'],
+    availableItems: ['1', '2', '6', '7'],
     cart: ['3', '5'],
     selectedInCart: []
   },
