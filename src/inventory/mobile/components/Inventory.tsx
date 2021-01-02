@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
-import { RemoveBagIconMedium } from '@core/components/Icons/BagIcon';
-import { AddCartIconMedium } from '@core/components/Icons/CartIcon';
+import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
+import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import ItemList from '@inventory/mobile/components/ItemList';
 import availableItemsToArray from '@inventory/utils/availableItemsToArray';
 
@@ -49,8 +49,8 @@ const Inventory = ({ availableItems, allItems, actions }) => {
           listItems={listItems}
           selectedItems={undefined}
           iconActions={[
-            { icon: <RemoveBagIconMedium />, handler: handleRemoveItem },
-            { icon: <AddCartIconMedium />, handler: handleAddToCart }
+            { icon: <RemoveBagIconLarge />, handler: handleRemoveItem },
+            { icon: <AddCartIconLarge />, handler: handleAddToCart }
           ]}
         />
       </div>

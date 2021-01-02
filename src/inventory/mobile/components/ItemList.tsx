@@ -5,18 +5,18 @@ import genericSort from '@core/utils/genericSort';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   checkbox: {
-    marginRight: '1em',
+    marginRight: '2em',
     '& svg': {
-      width: '1.5em',
-      height: '1.5em'
+      width: '2.5em',
+      height: '2.5em'
     }
   },
   text: {
     '& span': {
-      fontSize: '1.5em'
+      fontSize: '3.5em'
     },
     '& p': {
-      fontSize: '1.2em'
+      fontSize: '2.5em'
     }
   }
 }));
@@ -70,7 +70,11 @@ const ItemList = ({
           )}
           <ListItemText className={classes.text} primary={item.name} secondary={item.category} />
           {iconActions && iconActions.map((iconAction, index) => (
-            <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, iconAction.handler)}>
+            <ListItemIcon 
+              style={{ marginRight: '2.5em' }}
+              key={`${item.id}-${index}`} 
+              onClick={handleIconAction(item.id, iconAction.handler)}
+            >
               {iconAction.icon}
             </ListItemIcon>
           ))}

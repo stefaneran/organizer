@@ -12,11 +12,11 @@ const CartSmall = styled(Cart4)`
 `;
 export const CartIconSmall = () => <CartSmall />
 
-const CartMediumFill = styled(CartFill)`
-height: 2.5em;
+const CartLargeFill = styled(CartFill)`
+height: 4em;
 color: #3f51b5;
 `;
-export const CartIconMediumFill = () => <CartMediumFill />
+export const CartIconLargeFill = () => <CartLargeFill />
 
 const RemoveCartSmall = styled(CartX)`
   height: 1.5em;
@@ -29,6 +29,12 @@ const RemoveCartMedium = styled(CartX)`
   color: rgb(255, 89, 100);
 `;
 export const RemoveCartIconMedium = () => <RemoveCartMedium />
+
+const RemoveCartLarge = styled(CartX)`
+  height: 4em;
+  color: rgb(255, 89, 100);
+`;
+export const RemoveCartIconLarge = () => <RemoveCartLarge />
 
 // used in recipes
 const WarningCartSmallFill = styled(CartPlusFill)`
@@ -54,6 +60,12 @@ const AddCartMedium = styled(CartPlus)`
   color: #3f51b5;
 `;
 export const AddCartIconMedium = () => <AddCartMedium />
+
+const AddCartLarge = styled(CartPlus)`
+  height: 4em;
+  color: #3f51b5;
+`;
+export const AddCartIconLarge = () => <AddCartLarge />
 
 const AddCartSmallWhite = styled(CartPlus)`
   height: 1.5em;

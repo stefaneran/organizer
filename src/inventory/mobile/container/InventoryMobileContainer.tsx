@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { BagIconMedium } from '@core/components/Icons/BagIcon';
-import { CartIconMediumFill } from '@core/components/Icons/CartIcon';
+import { BagIconLarge } from '@core/components/Icons/BagIcon';
+import { CartIconLargeFill } from '@core/components/Icons/CartIcon';
 import Cart from '@inventory/mobile/components/Cart';
 import Inventory from '@inventory/mobile/components/Inventory';
 import mapActions from '@inventory/utils/mapActions';
@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   navRight: {
     position: 'absolute',
-    right: '2em',
-    top: '0.5em'
+    right: '3em',
+    top: '-1em'
   },
   arrowIcon: {
-    width: '2em', 
-    height: '2em', 
+    width: '4em', 
+    height: '4em', 
     position: 'relative', 
-    top: '0.9em', 
+    top: '2em', 
     color: '#3f51b5'
   }
 }));
@@ -63,7 +63,7 @@ const InventoryMobileContainer = ({
   return (
     <div className={classes.container}>
       <div className={classes.header}>
-        <Typography variant="h3">
+        <Typography variant="h1">
           {currentView}
         </Typography>
         <div 
@@ -72,13 +72,13 @@ const InventoryMobileContainer = ({
         >
           {isCart ? (
             <>
-              <BagIconMedium />
+              <BagIconLarge />
               <ChevronRightIcon className={classes.arrowIcon} />
             </>
           ) : (
             <>
               <ChevronLeftIcon className={classes.arrowIcon} />
-              <CartIconMediumFill />
+              <CartIconLargeFill />
             </>
           )}
         </div>

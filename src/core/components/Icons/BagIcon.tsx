@@ -19,6 +19,12 @@ const BagMedium = styled(BagFill)`
 `;
 export const BagIconMedium = () => <BagMedium />
 
+const BagLarge = styled(BagFill)`
+  height: 4em;
+  color: #3f51b5;
+`;
+export const BagIconLarge = () => <BagLarge />
+
 const RemoveBagXS = styled(BagX)`
   height: 0.9em;
   color: rgb(255, 89, 100);
@@ -37,6 +43,12 @@ const RemoveBagMedium = styled(BagX)`
 `;
 export const RemoveBagIconMedium = () => <RemoveBagMedium />
 
+const RemoveBagLarge = styled(BagX)`
+  height: 4em;
+  color: rgb(255, 89, 100);
+`;
+export const RemoveBagIconLarge = () => <RemoveBagLarge />
+
 const RemoveBagSmallFill = styled(BagXFill)`
   height: 1.5em;
   color: rgb(255, 89, 100);
@@ -54,6 +66,12 @@ const AddBagSmall = styled(BagPlus)`
   color: #3f51b5;
 `;
 export const AddBagIconSmall = () => <AddBagSmall />
+
+const AddBagMedium = styled(BagPlus)`
+  height: 2.5em;
+  color: #3f51b5;
+`;
+export const AddBagIconMedium = () => <AddBagMedium />
 
 const CheckBagSmall = styled(BagCheck)`
   height: 1.5em;

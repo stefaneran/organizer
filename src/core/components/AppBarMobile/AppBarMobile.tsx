@@ -10,7 +10,7 @@ import {
 import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
 import { CartIconSmall } from '@core/components/Icons/CartIcon';
 import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
-import { ListIconMedium } from '@core/components/Icons/ListIcon';
+import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
 import { CategoryType } from '@core/interfaces/general'
 import AppStore from '@core/interfaces/AppStore.interface';
 import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
@@ -75,7 +75,7 @@ const AppBar = ({
         <div className={classes.menuExit} onClick={toggleMenuOpen} />
       </div>
       <IconButton className={classes.hamburger} onClick={toggleMenuOpen}>
-        <ListIconMedium />
+        <HamburgerIconLarge />
       </IconButton>
     </>
   )

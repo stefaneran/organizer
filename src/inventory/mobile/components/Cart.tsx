@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { AddBagIconSmall } from '@core/components/Icons/BagIcon';
-import { RemoveCartIconMedium } from '@core/components/Icons/CartIcon';
+import { AddBagIconMedium } from '@core/components/Icons/BagIcon';
+import { RemoveCartIconLarge } from '@core/components/Icons/CartIcon';
 import AddItemInput from '@inventory/mobile/components/AddItemInput';
 import ItemList from '@inventory/mobile/components/ItemList';
 import cartItemsToArray from '@inventory/utils/cartItemsToArray';
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   finishButton: {
     marginTop: '0.5em',
-    fontSize: '1.7em'
+    fontSize: '3.5em'
   }
 }));
 
@@ -53,7 +53,7 @@ const Cart = ({
           selectedItems={selectedInCart} 
           onItemSelection={handleItemSelection}
           iconActions={[
-            { icon: <RemoveCartIconMedium />, handler: handleRemoveItem }
+            { icon: <RemoveCartIconLarge />, handler: handleRemoveItem }
           ]}
         />
       </div>
@@ -63,7 +63,7 @@ const Cart = ({
         color="primary" 
         fullWidth
         onClick={handleFinishShopping}
-        endIcon={<AddBagIconSmall />}
+        endIcon={<AddBagIconMedium />}
       >
         Finish Shopping
       </Button>

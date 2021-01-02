@@ -4,5 +4,26 @@
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAv4iK8CVhg5LfzTh8o8TlPES0aiMocx_s",
+        authDomain: "sem-organizer.firebaseapp.com",
+        databaseURL: "https://sem-organizer.firebaseio.com",
+        projectId: "sem-organizer",
+        storageBucket: "sem-organizer.appspot.com",
+        messagingSenderId: "905778874300",
+        appId: "1:905778874300:web:6f2ac262d1d40625f40db9"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
   <script type="text/javascript" src="./build.js"></script></body>
 </html>
