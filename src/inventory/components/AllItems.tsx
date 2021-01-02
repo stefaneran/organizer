@@ -2,11 +2,8 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
   List, ListItem, ListItemText, ListItemIcon, Collapse,
-  FormControlLabel, Switch, Button, Divider, Tooltip, TextField
+  Switch, Button, Divider, Tooltip, TextField
 } from '@material-ui/core';
-import NestedItemList from '@inventory/components/NestedItemList';
-import ItemList from '@inventory/components/ItemList';
-import AddNewItemInput from '@inventory/components/AddNewItemInput';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
@@ -14,8 +11,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { AddCartIconXS, AddCartIconSmall } from '@core/components/Icons/CartIcon';
 import { AddBagIconXS, AddBagIconSmall } from '@core/components/Icons/BagIcon';
-import { DeleteIconSmall } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import { DatabaseIconSmall } from '@core/components/Icons/DatabaseIcon';
+import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
+import NestedItemList from '@inventory/components/NestedItemList';
+import ItemList from '@inventory/components/ItemList';
+import AddNewItemInput from '@inventory/components/AddNewItemInput';
+import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -34,6 +36,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   filter: {
     paddingLeft: '1em'
+  },
+  switchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& > svg': {
+      position: 'relative',
+      top: '8px'
+    }
   },
   controlsSwitch: {
     width: '4%',
@@ -98,6 +108,7 @@ const AllItems = ({
   const [isNested, setIsNested] = React.useState(true);
   const [isOpen, setIsOpen] = React.useState(false);
   const [isControlsOpen, setIsControlsOpen] = React.useState(true);
+  const [isConfirmationOpen, setConfirmationOpen] = React.useState({ isOpen: false, itemId: undefined });
 
   const listItems = allItemsToArray(allItems, textFilter);
   const hasSelectedItems = Boolean(selectedItems.length);
@@ -112,6 +123,16 @@ const AllItems = ({
   }
   const toggleNested = () => {
     setIsNested(!isNested);
+  }
+  const toggleConfirmationDialog = (e?) => {
+    const { isOpen } = isConfirmationOpen;
+    // From lists we receive the itemId as an argument, but everywhere else we receive event object
+    const itemId = typeof e === 'string' ? e : undefined;
+    // If clicked on "Delete" row action, but there are selected, clear selection so they don't all get deleted
+    if (itemId && selectedItems) {
+      setSelectedItems([])
+    }
+    setConfirmationOpen({ isOpen: !isOpen, itemId });
   }
   const handleItemSelection = (newSelected) => {
     setSelectedItems(newSelected);
@@ -134,15 +155,19 @@ const AllItems = ({
   }
   const handleRemoveSelected = () => {
     actions.inventory.removeFromAll(selectedItems);
+    setSelectedItems([]);
+    toggleConfirmationDialog();
+  }
+  const handleRemove = (itemId) => () => {
+    actions.inventory.removeFromAll([itemId]);
+    setSelectedItems(selectedItems.filter(id => id !== itemId));
+    toggleConfirmationDialog();
   }
   const handleAddToAvailable = (id) => {
     actions.inventory.addToAvailable([id]);
   }
   const handleAddToCart = (id) => {
     actions.cart.add([id]);
-  }
-  const handleRemove = (itemId) => {
-    actions.inventory.removeFromAll([itemId]);
   }
 
   return (
@@ -171,9 +196,9 @@ const AllItems = ({
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
               iconActions={[
-                { icon: DeleteIconSmall, handler: handleRemove },
-                { icon: AddBagIconSmall, handler: handleAddToAvailable },
-                { icon: AddCartIconSmall, handler: handleAddToCart }
+                { isDelete: true, handler: toggleConfirmationDialog }, // One-Time exception
+                { icon: <AddBagIconSmall />, handler: handleAddToAvailable },
+                { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
               textFilter={textFilter}
             />
@@ -186,9 +211,9 @@ const AllItems = ({
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection} 
               iconActions={[
-                { icon: DeleteIconSmall, handler: handleRemove },
-                { icon: AddBagIconSmall, handler: handleAddToAvailable },
-                { icon: AddCartIconSmall, handler: handleAddToCart }
+                { isDelete: true, handler: toggleConfirmationDialog }, // One-Time exception
+                { icon: <AddBagIconSmall />, handler: handleAddToAvailable },
+                { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
             />
           )}
@@ -210,16 +235,17 @@ const AllItems = ({
               width: isControlsOpen ? '35%' : '0%' 
             }}
           >
-            <FormControlLabel 
-              label="Grouped by Category"
-              control={
+            <Tooltip title="View by Category or All" placement="top">
+              <div className={classes.switchContainer}>
+                <ListIconSmall />
                 <Switch 
                   checked={isNested} 
                   onChange={toggleNested} 
                   color="primary" 
                 />
-              }
-            />
+                <NestedIconSmall />
+              </div>
+            </Tooltip>
             <Divider className={classes.divider} />
             <div className={classes.filter}>
               <TextField 
@@ -267,7 +293,7 @@ const AllItems = ({
                     className={classes.button}
                     variant="outlined" 
                     color="secondary" 
-                    onClick={handleRemoveSelected}
+                    onClick={toggleConfirmationDialog}
                     startIcon={<CheckBoxOutlinedIcon />}
                   >
                     Delete
@@ -289,6 +315,19 @@ const AllItems = ({
             )}
           </div>
         </>
+      )}
+      {isConfirmationOpen.isOpen && (
+        <ConfirmationDialog 
+          isOpen 
+          onClose={toggleConfirmationDialog}
+          confirmationTitle={'Confirm To Delete Item(s)'}
+          confirmationText={`Are you sure you want to delete ${hasSelectedItems ? 'these items' : 'this item'}?`}
+          secondaryIcon={<TrashIconXS />}
+          primaryText="Cancel"
+          secondaryText="Delete"
+          onPrimaryAction={toggleConfirmationDialog}
+          onSecondaryAction={hasSelectedItems ? handleRemoveSelected : handleRemove(isConfirmationOpen.itemId)}
+        />
       )}
     </div>
   )

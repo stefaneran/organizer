@@ -27,11 +27,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const getCategories = (allItems) => {
+const getCategories = (categoryValue, allItems) => {
   const categories = [];
   Object.keys(allItems).forEach(id => {
     const { category } = allItems[id];
-    if (!categories.includes(category)) {
+    const containsValue = categoryValue.length ? 
+      category.toLowerCase().includes(categoryValue.toLowerCase()) : true;
+    if (!categories.includes(category) && containsValue) {
       categories.push(category);
     }
   })
@@ -44,7 +46,7 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
   const [currentNameValue, setCurrentNameValue] = React.useState('');
   const [currentCategoryValue, setCurrentCategoryValue] = React.useState('');
 
-  const categoryOptions = getCategories(allItems);
+  const categoryOptions = getCategories(currentCategoryValue, allItems);
 
   const handleNameInput = (e) => {
     setCurrentNameValue(e.target.value);
@@ -83,6 +85,7 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
           options={categoryOptions}
           onChange={handleCategorySelect}
           getOptionLabel={(option) => option}
+          noOptionsText={<></>}
           renderInput={(params) => 
             <TextField 
               {...params} 

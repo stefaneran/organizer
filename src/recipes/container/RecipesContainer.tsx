@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, TextField, Button } from '@material-ui/core';
 import { FoodIconXS } from '@core/components/Icons/FoodIcon';
-import { TrashIconSmall } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import Nationalities from '@recipes/components/Nationalities';
 import CategoryFilter from '@recipes/components/CategoryFilter';
 import RecipesList from '@recipes/components/RecipesList';
@@ -224,7 +224,7 @@ const RecipesContainer = (props) => {
           onClose={toggleConfirmationDialog}
           confirmationTitle={'Confirm To Delete Recipe'}
           confirmationText={`Are you sure you want to delete ${selectedRecipe.length && recipes[selectedRecipe].name}?`}
-          secondaryIcon={<TrashIconSmall />}
+          secondaryIcon={<TrashIconXS />}
           primaryText="Cancel"
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}

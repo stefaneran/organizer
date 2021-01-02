@@ -4,7 +4,7 @@ import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/c
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
-import { TrashIconSmall } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import RecipeIngredients from '@recipes/components/RecipeIngredients';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
@@ -126,7 +126,7 @@ const RecipeDetails = ({
               <Button
                 variant="outlined"
                 color="secondary"
-                endIcon={<TrashIconSmall />}
+                endIcon={<TrashIconXS />}
                 onClick={onDeleteRecipe}
               >
                 Delete

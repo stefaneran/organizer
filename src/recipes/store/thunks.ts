@@ -20,47 +20,46 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredients = [];
   // Verify each ingredient and get its existing/newly created itemId
-  // TODO - Use Promise.all() and ensure it works properly
-  recipe.ingredients.forEach(async ingredient => {
+  Promise.all(recipe.ingredients.map(async ingredient => {
     const { name, amount } = ingredient;
-    if (!name.length) {
-      return;
+    if (name.length) {
+      let itemId = getIngredientIdByName(name, allItems);
+      if (!itemId) {
+        itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+      }
+      console.log(itemId)
+      ingredients.push({ itemId, amount });
     }
-    let itemId = getIngredientIdByName(name, allItems);
-    if (!itemId) {
-      itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+  })).then(() => {
+    const recipeId = v4();
+    const newRecipe = {
+      ...recipe,
+      ingredients
     }
-    ingredients.push({ itemId, amount });
+    dispatch(updateRecipes({ recipe: newRecipe, recipeId }));
   });
-  const recipeId = v4();
-  const newRecipe = {
-    ...recipe,
-    ingredients
-  }
-  dispatch(updateRecipes({ recipe: newRecipe, recipeId }));
 }
 
 export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredients = [];
   // Verify each ingredient and get its existing/newly created itemId
-  // TODO - Use Promise.all() and ensure it works properly
-  recipe.ingredients.forEach(async ingredient => {
+  Promise.all(recipe.ingredients.map(async ingredient => {
     const { name, amount } = ingredient;
-    if (!name.length) {
-      return;
+    if (name.length) {
+      let itemId = getIngredientIdByName(name, allItems);
+      if (!itemId) {
+        itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+      }
+      ingredients.push({ itemId, amount });
     }
-    let itemId = getIngredientIdByName(name, allItems);
-    if (!itemId) {
-      itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+  })).then(() => {
+    const updatedRecipe = {
+      ...recipe,
+      ingredients
     }
-    ingredients.push({ itemId, amount });
+    dispatch(updateRecipes({ recipe: updatedRecipe, recipeId }))
   });
-  const updatedRecipe = {
-    ...recipe,
-    ingredients
-  }
-  dispatch(updateRecipes({ recipe: updatedRecipe, recipeId }))
 }
 
 export const removeRecipe = (recipeId) => async (dispatch, getState) => {

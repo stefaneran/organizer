@@ -9,8 +9,20 @@ const DeleteSmall = styled(DeleteBack2)`
 `;
 export const DeleteIconSmall = () => <DeleteSmall />
 
-const TrashSmall = styled(Trash)`
+const TrashXS = styled(Trash)`
   height: 1em;
   color: rgb(255, 89, 100);
 `;
+export const TrashIconXS = () => <TrashXS />
+
+const TrashSmall = styled(Trash)`
+  height: 1.8em;
+  color: rgb(255, 89, 100);
+`;
 export const TrashIconSmall = () => <TrashSmall />
+
+const TrashSmallWhite = styled(Trash)`
+  height: 1.8em;
+  color: #fff;
+`;
+export const TrashIconSmallWhite = () => <TrashSmallWhite />

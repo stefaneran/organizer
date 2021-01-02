@@ -2,19 +2,20 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
   List, ListItem, ListItemText, ListItemIcon,
-  FormControlLabel, Switch, Collapse, Button, Tooltip, Divider, TextField
+  Switch, Collapse, Button, Tooltip, Divider, TextField
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import NestedItemList from '@inventory/components/NestedItemList';
-import ItemList from '@inventory/components/ItemList';
-import AddItemInput from '@inventory/components/AddItemInput';
 import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
 import { BagIconSmall, RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
+import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
+import NestedItemList from '@inventory/components/NestedItemList';
+import ItemList from '@inventory/components/ItemList';
+import AddItemInput from '@inventory/components/AddItemInput';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -33,6 +34,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   filter: {
     paddingLeft: '1em'
+  },
+  switchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& > svg': {
+      position: 'relative',
+      top: '8px'
+    }
   },
   controlsSwitch: {
     width: '4%',
@@ -108,9 +117,11 @@ const AvailableItems = ({
   }
   const handleRemoveSelected = () => {
     actions.inventory.removeFromAvailable(selectedItems);
+    setSelectedItems([]);
   }
   const handleRemove = (itemId) => {
     actions.inventory.removeFromAvailable([itemId]);
+    setSelectedItems(selectedItems.filter(id => id !== itemId));
   }
   const handleAddToCart = (id) => {
     actions.cart.add([id]);
@@ -143,8 +154,8 @@ const AvailableItems = ({
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection}
               iconActions={[
-                { icon: RemoveBagIconSmall, handler: handleRemove },
-                { icon: AddCartIconSmall, handler: handleAddToCart }
+                { icon: <RemoveBagIconSmall />, handler: handleRemove },
+                { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
               textFilter={textFilter}
             />
@@ -155,8 +166,8 @@ const AvailableItems = ({
               selectedItems={selectedItems} 
               onItemSelection={handleItemSelection}
               iconActions={[
-                { icon: RemoveBagIconSmall, handler: handleRemove },
-                { icon: AddCartIconSmall, handler: handleAddToCart }
+                { icon: <RemoveBagIconSmall />, handler: handleRemove },
+                { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
             />
           )}
@@ -178,16 +189,17 @@ const AvailableItems = ({
               width: isControlsOpen ? '35%' : '0%' 
             }}
           >
-            <FormControlLabel 
-              label="Grouped by Category"
-              control={
+            <Tooltip title="View by Category or All" placement="top">
+              <div className={classes.switchContainer}>
+                <ListIconSmall />
                 <Switch 
                   checked={isNested} 
                   onChange={toggleNested} 
                   color="primary" 
                 />
-              }
-            />
+                <NestedIconSmall />
+              </div>
+            </Tooltip>
             <Divider className={classes.divider} />
             <div className={classes.filter}>
               <TextField 

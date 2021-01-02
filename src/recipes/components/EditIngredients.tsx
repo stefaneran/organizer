@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, IconButton, Button } from '@material-ui/core';
-import { TrashIconSmall } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputGroup: {
@@ -21,11 +21,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const getItemsOptions = (allItems) => {
+const getItemsOptions = (ingredientName, allItems) => {
   const items = [];
   Object.keys(allItems).forEach(itemId => {
     const { name } = allItems[itemId];
-    if (!items.includes(name)) {
+    const containsValue = ingredientName.length ?
+      name.toLowerCase().includes(ingredientName.toLowerCase()) : true;
+    if (!items.includes(name) && containsValue) {
       items.push(name);
     }
   })
@@ -73,10 +75,11 @@ const EditIngredients = ({
         <div key={index} className={classes.inputGroup}>
           <Autocomplete
             className={classes.input}
-            options={getItemsOptions(allItems)}
+            options={getItemsOptions(ingredient.name, allItems)}
             value={ingredient.name}
             onChange={handleItemSelect(index)}
             getOptionLabel={(option) => option}
+            noOptionsText={<></>}
             renderInput={(params) => 
               <TextField 
                 {...params}
@@ -103,7 +106,7 @@ const EditIngredients = ({
               onClick={handleDeleteIngredient(index)} 
               className={classes.deleteButton}
             >
-              <TrashIconSmall />
+              <TrashIconXS />
             </IconButton>
           )}
         </div>

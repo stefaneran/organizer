@@ -103,6 +103,7 @@ const EditRecipe = ({
         options={categoryOptions}
         onChange={handleCategoryChange}
         getOptionLabel={(option) => option}
+        noOptionsText={<></>}
         renderInput={(params) => 
           <TextField 
             {...params}

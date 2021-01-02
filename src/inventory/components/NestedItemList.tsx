@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemIcon, Collapse, Checkbox } from '@material-ui/core';
+import { TrashIconSmall, TrashIconSmallWhite } from '@core/components/Icons/DeleteIcon';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import categorizeItems from '@inventory/utils/categorizeItems';
@@ -42,6 +43,17 @@ interface Props {
   textFilter?;
 }
 
+const getIcon = (iconAction, background) => {
+  // Dirty exception for Delete icon in items with red background
+  if (iconAction.isDelete && background === 'rgb(255, 89, 100)') {
+    return <TrashIconSmallWhite />
+  } else if (iconAction.isDelete) {
+    return <TrashIconSmall />
+  }
+  const { icon } = iconAction;
+  return icon;
+}
+
 const Collapsible = ({ 
   isSelectedTab, 
   category, 
@@ -64,6 +76,9 @@ const Collapsible = ({
   React.useEffect(() => {
     setIsOpen(shouldBeOpen(textFilter, hasSelection, items, selectedItems));
   }, [textFilter])
+
+  // Used only in case of AllItems
+  const itemBackground = (item) => shouldCheckAvailable ? getWarningColor(item, cart, availableItems) : '';
 
   const handleSelection = (id) => () => {
     const newSelected = 
@@ -117,7 +132,7 @@ const Collapsible = ({
               <ListItemText primary={item.name} />
               {iconActions && iconActions.map((iconAction, index) => (
                 <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, iconAction.handler)}>
-                  {iconAction.icon()}
+                  {getIcon(iconAction, itemBackground(item))}
                 </ListItemIcon>
               ))}
             </ListItem>

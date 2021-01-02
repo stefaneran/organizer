@@ -86,7 +86,7 @@ const Cart = ({
             selectedItems={selectedInCart} 
             onItemSelection={handleItemSelection}
             iconActions={[
-              { icon: RemoveCartIconSmall, handler: handleRemoveItem }
+              { icon: <RemoveCartIconSmall />, handler: handleRemoveItem }
             ]}
           />
         </div>
