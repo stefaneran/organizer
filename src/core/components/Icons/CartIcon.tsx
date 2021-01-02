@@ -18,6 +18,12 @@ color: #3f51b5;
 `;
 export const CartIconLargeFill = () => <CartLargeFill />
 
+const CartXLFill = styled(CartFill)`
+height: 7em;
+color: #3f51b5;
+`;
+export const CartIconXLFill = () => <CartXLFill />
+
 const RemoveCartSmall = styled(CartX)`
   height: 1.5em;
   color: rgb(255, 89, 100);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import {
   Dialog, 
   DialogTitle, 
@@ -9,13 +10,46 @@ import {
   TextField 
 } from '@material-ui/core';
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  mobile: {
+    '& > div > div': {
+      width: '100%',
+      height: '100%',
+      maxWidth: 'none',
+      maxHeight: 'none',
+      margin: '0'
+    }
+  },
+  mobileContent: {
+    textAlign: 'center'
+  },
+  mobileTextInput: {
+    '&:first-child': {
+      marginTop: '6em',
+      marginBottom: '4em'
+    },
+    '& input': {
+      fontSize: '4em'
+    }
+  },
+  mobileActions: {
+    justifyContent: 'space-around',
+    marginBottom: '14em'
+  },
+  mobileButton: {
+    fontSize: '4em'
+  }
+}));
+
 const RegistrationDialog = ({ 
+  isMobile,
   dialogType,
   dialogInputs, 
   handleSubmit, 
   setDialogInputs, 
   setDialog 
 }) => {
+  const classes = useStyles();
 
   const handleChange = (type) => (event) => {
     if (type === 'username') {
@@ -26,27 +60,41 @@ const RegistrationDialog = ({
   }
 
   return (
-    <Dialog open>
+    <Dialog open className={isMobile && classes.mobile}>
       <DialogTitle>
         <Typography></Typography>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={isMobile && classes.mobileContent}>
         <TextField 
+          className={isMobile && classes.mobileTextInput}
           value={dialogInputs.userName} 
-          onChange={handleChange('username')} 
+          variant="outlined"
           placeholder="User Name" 
+          onChange={handleChange('username')}
         />
         <br /><br />
         <TextField 
+          className={isMobile && classes.mobileTextInput}
           value={dialogInputs.password} 
+          variant="outlined"
           placeholder="Password" 
           type="password"
           onChange={handleChange('password')} 
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setDialog({ type: undefined, isOpen: false })}>Cancel</Button>
-        <Button onClick={handleSubmit}>{dialogType === 'login' ? "Login" : "Register"}</Button>
+      <DialogActions className={isMobile && classes.mobileActions}>
+        <Button 
+          className={isMobile && classes.mobileButton}
+          onClick={() => setDialog({ type: undefined, isOpen: false })}
+        >
+          Cancel
+        </Button>
+        <Button 
+          className={isMobile && classes.mobileButton}
+          onClick={handleSubmit}
+        >
+          {dialogType === 'login' ? "Login" : "Register"}
+        </Button>
       </DialogActions>
     </Dialog>
   )

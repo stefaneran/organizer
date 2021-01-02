@@ -27,7 +27,13 @@ const PeopleMedium = styled(People)`
 export const PeopleIconMedium = () => <PeopleMedium />
 
 const PeopleLarge = styled(People)`
-    height: 2em;
-    color: #fff;
+    height: 4em;
+    color: #3f51b5;
   `;
 export const PeopleIconLarge = () => <PeopleLarge />
+
+const PeopleXL = styled(People)`
+    height: 7em;
+    color: #3f51b5;
+  `;
+export const PeopleIconXL = () => <PeopleXL />

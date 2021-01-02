@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
-  Divider, 
-  Typography,
-  IconButton, 
-  Button,
-  CircularProgress 
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Button
 } from '@material-ui/core';
-import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
-import { CartIconSmall } from '@core/components/Icons/CartIcon';
-import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
 import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
-import { CategoryType } from '@core/interfaces/general'
-import AppStore from '@core/interfaces/AppStore.interface';
-import ContactsStore from '@contacts/interfaces/ContactsStore.interface';
-import SkillsStore from '@skills/interfaces/SkillsStore.interface';
+import { PeopleIconXL } from '@core/components/Icons/PeopleIcon';
+import { CartIconXLFill } from '@core/components/Icons/CartIcon';
+import { FoodIconXL } from '@core/components/Icons/FoodIcon';
+import { LogInIconXL } from '@core/components/Icons/LoginIcon';
+import { CategoryType } from '@core/interfaces/general';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hamburger: {
@@ -34,20 +33,36 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   menuContent: {
     height: '100%',
     width: '75%',
-    background: '#cdd0cb'
+    background: '#cdd0cb',
+    padding: '10em 3em'
   },
   menuExit: {
     height: '100%',
     width: '25%'
+  },
+  listItem: {
+    marginBottom: '1em'
+  },
+  listItemText: {
+    '& span': {
+      fontSize: '4em',
+      paddingLeft: '1em'
+    }
+  },
+  login: {
+    position: 'absolute',
+    bottom: '0'
+  },
+  logInButton: {
+    marginRight: '1em',
+    fontSize: '3em',
+  },
+  registerButton: {
+    fontSize: '3em',
   }
 }));
 
-const AppBar = ({ 
-  app,
-  contacts,
-  skills,
-  uploadContacts,
-  uploadSkills,
+const AppBarMobile = ({
   setCurrentCategory,
   setLoginDialog,
   onLogout
@@ -70,7 +85,46 @@ const AppBar = ({
         className={classes.menu}
       >
         <div className={classes.menuContent}>
+          <List component="div">
 
+            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Contacts)}>
+              <ListItemIcon>
+                <PeopleIconXL />
+              </ListItemIcon>
+              <ListItemText className={classes.listItemText} primary={CategoryType.Contacts} />
+            </ListItem>
+
+            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Inventory)}>
+              <ListItemIcon>
+                <CartIconXLFill />
+              </ListItemIcon>
+              <ListItemText className={classes.listItemText} primary={CategoryType.Inventory} />
+            </ListItem>
+
+            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Recipes)}>
+              <ListItemIcon>
+                <FoodIconXL />
+              </ListItemIcon>
+              <ListItemText className={classes.listItemText} primary={CategoryType.Recipes} />
+            </ListItem>
+
+          </List>
+          
+          <div className={classes.login}>
+            <Button
+              className={classes.logInButton}
+              onClick={setLoginDialog({ type: 'login', isOpen: true })}
+              startIcon={<LogInIconXL />}
+            >
+              Log In
+            </Button>
+            <Button
+              className={classes.registerButton}
+              onClick={setLoginDialog({ type: 'register', isOpen: true })}
+            >
+              Register
+            </Button>
+          </div>
         </div>
         <div className={classes.menuExit} onClick={toggleMenuOpen} />
       </div>
@@ -81,4 +135,4 @@ const AppBar = ({
   )
 }
 
-export default AppBar;
+export default AppBarMobile;

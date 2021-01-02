@@ -27,7 +27,11 @@ const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
       className={classes.container}
     >
       {isMobile ? (
-        <AppBarMobile />
+        <AppBarMobile 
+          setLoginDialog={setLoginDialog}
+          setCurrentCategory={setCurrentCategory}
+          onLogout={onLogout}
+        />
       ) : (
         <AppBar
           setLoginDialog={setLoginDialog}

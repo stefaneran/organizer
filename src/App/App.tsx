@@ -80,6 +80,7 @@ const App = ({
           />
           {dialog.isOpen && (
             <RegistrationDialog 
+              isMobile={isMobile}
               dialogType={dialog.type}
               dialogInputs={dialogInputs}
               handleSubmit={handleSubmit}

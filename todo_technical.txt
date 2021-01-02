@@ -4,7 +4,6 @@ Recipes:
 - Bonus: Filter by available ingredients, etc
 - Bonus: Add nationality flags to options/chips
 - Refactor: Find duplicate util functions and move to /utils
-- MOBILE
 
 Inventory:
 - Edit Item category
@@ -15,6 +14,17 @@ Inventory:
 - Refactor: Find way to generalize AllItems and AvailableItems cause there's tons of repetition
 - Refactor: Generalize inventory control panels to one component
 - Refactor: Find duplicate util functions and move to /utils
+
+Mobile: 
+- Log in/Log Out
+- Register
+- Recipes:
+  - Show Recipes
+  - Open a Recipes
+  - Filter Page:
+    - By Name
+    - By nationality 
+    - By Category
 
 Sofia:
 - Make APIs for Inventory
