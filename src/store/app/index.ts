@@ -5,6 +5,7 @@ const slice = createSlice({
   initialState: {
     version: '2.0.0',
     loading: false,
+    isMobile: false,
     user: {
       userName: undefined,
       password: undefined,
@@ -22,6 +23,10 @@ const slice = createSlice({
     loadingEnd: (state) => {
       state.loading = false;
     },
+    setIsMobile: (state, { payload }) => {
+      const { isMobile } = payload;
+      state.isMobile = isMobile;
+    },
     updateError: (state, { payload }) => {
       state.error = {
         active: !payload.success,
@@ -37,26 +42,14 @@ const slice = createSlice({
       state.user.loggedIn = false;
       state.user.userName = undefined;
       state.user.password = undefined;
-    },
-    // Validate data for any missing properties that were added during development
-    /* validateData: (state) => {
-      const { skills } = state.data;
-      // Iterate through skills
-      skills.forEach(skill => {
-        // Iterate through model
-        Object.keys(skillModel).forEach(property => {
-          if(!skill[property]) {
-            skill[property] = skillModel[property];
-          }
-        });
-      })
-    }, */
+    }
   }
 });
 
 export const {
   loadingStart,
   loadingEnd,
+  setIsMobile,
   updateError,
   loginDone,
   logoutDone

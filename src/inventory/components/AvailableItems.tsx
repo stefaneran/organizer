@@ -16,6 +16,7 @@ import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon'
 import NestedItemList from '@inventory/components/NestedItemList';
 import ItemList from '@inventory/components/ItemList';
 import AddItemInput from '@inventory/components/AddItemInput';
+import availableItemsToArray from '@inventory/utils/availableItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -63,20 +64,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     overflowX: 'hidden',
   }
 }));
-
-const availableItemsToArray = (availableItems, allItems, textFilter) => {
-  let listItems = availableItems.map(id => ({ 
-    id, 
-    name: allItems[id].name, 
-    category: allItems[id].category  
-  }))
-  if (textFilter.length) {
-    listItems = listItems.filter(item => 
-      item.name.toLowerCase().includes(textFilter.toLowerCase())
-    )
-  }
-  return listItems;
-}
 
 const AvailableItems = ({ 
   isSelectedTab,

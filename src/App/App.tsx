@@ -3,6 +3,7 @@ import './styles.scss';
 import { loadUserFromLocalStorage } from '@store/utils/localstorage';
 import ContentView from '@core/components/ContentView';
 import RegistrationDialog from '@core/components/RegistrationDialog';
+import checkIsMobile from '@core/utils/checkIsMobile';
 
 const App = ({
   error,
@@ -10,13 +11,13 @@ const App = ({
   register,
   login,
   logout,
+  isMobile,
+  setIsMobile,
   getAllContacts,
   getAllSkills,
   clearContacts,
   clearSkills
 }) => {
-  const [isDataValidated, setValidated] = React.useState(false);
-  const [isActivityUpdated, setActivityUpdated] = React.useState(false);
 
   const [dialog, setDialog] = React.useState({
     type: undefined, // 'register' or 'login'
@@ -36,6 +37,10 @@ const App = ({
         login(loadResult.user)
       }
     }
+    const isMobile = checkIsMobile();
+    if (isMobile) {
+      setIsMobile({ isMobile })
+    }
   }, []);
 
   React.useEffect(() => {
@@ -43,25 +48,7 @@ const App = ({
       getAllContacts();
       getAllSkills();
     }
-  }, [loggedIn])
-
-  // Validate for any missing properties due to changes
-  /*
-  useEffect(() => {
-    const { validateData, updateActivity, data } = store;
-    const { skills } = data;
-    // Only run after loadData is done
-    if(!isDataValidated && skills.length) {
-      validateData();
-      setValidated(true);
-    }
-    // Run after data is loaded and validated
-    if(!isActivityUpdated && isDataValidated) {
-      // updateActivity();
-      setActivityUpdated(true);
-    }
-  }, [store, isDataValidated]);
-  */
+  }, [loggedIn]);
 
   const handleChangeLoginDialog = (props: { type: string; isOpen: boolean; }) => () => {
     setDialog(props);
@@ -87,6 +74,7 @@ const App = ({
       ) : (
         <div className="appContainer">
           <ContentView 
+            isMobile={isMobile}
             setLoginDialog={handleChangeLoginDialog} 
             onLogout={handleLogout}
           />

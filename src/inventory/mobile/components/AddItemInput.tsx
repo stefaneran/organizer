@@ -6,9 +6,8 @@ import getNameOptions from '@inventory/utils/getNameOptions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {
-    margin: '1.5em 0',
-    paddingLeft: '1em',
-    width: '99%'
+    margin: '1em 0 0.5em 0',
+    width: '100%'
   }
 }))
 
@@ -33,7 +32,7 @@ const AddItemInput = ({ allItems, targetCollection, onChange }) => {
         <TextField 
           {...params}
           label="Item To Add"  
-          size="small" 
+          size="medium" 
           variant="outlined" 
         />
       }

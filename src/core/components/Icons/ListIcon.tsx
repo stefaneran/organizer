@@ -9,6 +9,12 @@ const ListSmall = styled(ListUl)`
 `;
 export const ListIconSmall = () => <ListSmall />
 
+const ListMedium = styled(ListUl)`
+  height: 2.5em;
+  color: #3f51b5;
+`;
+export const ListIconMedium = () => <ListMedium />
+
 const NestedSmall = styled(ListNested)`
   height: 1.5em;
   color: #3f51b5;

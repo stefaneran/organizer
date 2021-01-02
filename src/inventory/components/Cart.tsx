@@ -7,6 +7,7 @@ import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
 import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
+import cartItemsToArray from '@inventory/utils/cartItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -27,13 +28,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: 'auto'
   }
 }))
-
-const cartItemsToArray = (cart, allItems) => 
-  cart.map(id => ({ 
-    id, 
-    name: allItems[id].name, 
-    category: allItems[id].category  
-  }))
 
 const Cart = ({ 
   cart, 

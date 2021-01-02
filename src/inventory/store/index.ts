@@ -14,7 +14,7 @@ const slice = createSlice({
       '8': { category: 'Condiments', name: 'Ketchup' }
     },
     availableItems: ['1', '2', '6', '7'],
-    cart: ['3', '5'],
+    cart: ['1', '2', '3', '4', '5', '6', '7', '8'],
     selectedInCart: []
   },
   reducers: {

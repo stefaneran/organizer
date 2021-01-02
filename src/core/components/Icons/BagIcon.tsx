@@ -13,6 +13,12 @@ const BagSmall = styled(BagFill)`
 `;
 export const BagIconSmall = () => <BagSmall />
 
+const BagMedium = styled(BagFill)`
+  height: 2.5em;
+  color: #3f51b5;
+`;
+export const BagIconMedium = () => <BagMedium />
+
 const RemoveBagXS = styled(BagX)`
   height: 0.9em;
   color: rgb(255, 89, 100);
@@ -24,6 +30,12 @@ const RemoveBagSmall = styled(BagX)`
   color: rgb(255, 89, 100);
 `;
 export const RemoveBagIconSmall = () => <RemoveBagSmall />
+
+const RemoveBagMedium = styled(BagX)`
+  height: 2.5em;
+  color: rgb(255, 89, 100);
+`;
+export const RemoveBagIconMedium = () => <RemoveBagMedium />
 
 const RemoveBagSmallFill = styled(BagXFill)`
   height: 1.5em;

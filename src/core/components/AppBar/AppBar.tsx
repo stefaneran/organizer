@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface ToolBarProps {
+interface AppBarProps {
   app: AppStore;
   contacts: ContactsStore;
   skills: SkillsStore;
@@ -104,7 +104,7 @@ const AppBar = ({
   setCurrentCategory,
   setLoginDialog,
   onLogout
-}: ToolBarProps) => {
+}: AppBarProps) => {
   const classes = useStyles();
 
   const inputRef = React.useRef(null);

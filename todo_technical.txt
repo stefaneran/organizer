@@ -15,12 +15,10 @@ Inventory:
 - Refactor: Find way to generalize AllItems and AvailableItems cause there's tons of repetition
 - Refactor: Generalize inventory control panels to one component
 - Refactor: Find duplicate util functions and move to /utils
-- MOBILE
 
 Sofia:
 - Make APIs for Inventory
 - Make APIs for Recipes
-- Use Promise.all() in create recipe Thunk
 
 
 ============================================================

@@ -4,6 +4,7 @@ import { Cart4 } from '@styled-icons/bootstrap/Cart4';
 import { CartX } from '@styled-icons/bootstrap/CartX';
 import { CartPlus } from '@styled-icons/bootstrap/CartPlus';
 import { CartPlusFill } from '@styled-icons/bootstrap/CartPlusFill'
+import { CartFill } from '@styled-icons/bootstrap/CartFill'
 
 const CartSmall = styled(Cart4)`
   height: 1.5em;
@@ -11,11 +12,23 @@ const CartSmall = styled(Cart4)`
 `;
 export const CartIconSmall = () => <CartSmall />
 
+const CartMediumFill = styled(CartFill)`
+height: 2.5em;
+color: #3f51b5;
+`;
+export const CartIconMediumFill = () => <CartMediumFill />
+
 const RemoveCartSmall = styled(CartX)`
   height: 1.5em;
   color: rgb(255, 89, 100);
 `;
 export const RemoveCartIconSmall = () => <RemoveCartSmall />
+
+const RemoveCartMedium = styled(CartX)`
+  height: 2.5em;
+  color: rgb(255, 89, 100);
+`;
+export const RemoveCartIconMedium = () => <RemoveCartMedium />
 
 // used in recipes
 const WarningCartSmallFill = styled(CartPlusFill)`
@@ -35,6 +48,12 @@ const AddCartSmall = styled(CartPlus)`
   color: #3f51b5;
 `;
 export const AddCartIconSmall = () => <AddCartSmall />
+
+const AddCartMedium = styled(CartPlus)`
+  height: 2.5em;
+  color: #3f51b5;
+`;
+export const AddCartIconMedium = () => <AddCartMedium />
 
 const AddCartSmallWhite = styled(CartPlus)`
   height: 1.5em;
