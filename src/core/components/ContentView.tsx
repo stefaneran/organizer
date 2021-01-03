@@ -7,6 +7,7 @@ import ContactsContainer from '@contacts/container';
 import InventoryContainer from '@inventory/container';
 import InventoryMobileContainer from '@inventory/mobile/container';
 import RecipesContainer from '@recipes/container';
+import RecipesMobileContainer from '@recipes/mobile/container';
 import { CategoryType } from '@core/interfaces/general';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Recipes);
 
   return (
     <div 
@@ -57,9 +58,15 @@ const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
           )}
           </>
         )}
-        {currentCategory === CategoryType.Recipes &&
-          <RecipesContainer />
-        }
+        {currentCategory === CategoryType.Recipes && (
+          <>
+          {isMobile ? (
+            <RecipesMobileContainer />
+          ) : (
+            <RecipesContainer />
+          )}
+          </>
+        )}
       </div>
     </div>
   )

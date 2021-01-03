@@ -17,7 +17,7 @@ const NestedSmall = styled(ListNested)`
 export const NestedIconSmall = () => <NestedSmall />
 
 const HamburgerLarge = styled(List)`
-  height: 4em;
+  height: 5em;
   color: #3f51b5;
 `;
 export const HamburgerIconLarge = () => <HamburgerLarge />

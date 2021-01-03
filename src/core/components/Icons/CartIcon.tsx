@@ -49,6 +49,13 @@ const WarningCartSmallFill = styled(CartPlusFill)`
 `;
 export const WarningCartIconSmallFill = () => <WarningCartSmallFill />
 
+// used in recipes (mobile)
+const WarningCartLargeFill = styled(CartPlusFill)`
+  height: 4em;
+  color: rgb(255, 231, 76);
+`;
+export const WarningCartIconLargeFill = () => <WarningCartLargeFill />
+
 const AddCartXS = styled(CartPlus)`
   height: 0.9em;
   color: #3f51b5;

@@ -55,6 +55,12 @@ const RemoveBagSmallFill = styled(BagXFill)`
 `;
 export const RemoveBagIconSmallFill = () => <RemoveBagSmallFill />
 
+const RemoveBagLargeFill = styled(BagXFill)`
+  height: 4em;
+  color: rgb(255, 89, 100);
+`;
+export const RemoveBagIconLargeFill = () => <RemoveBagLargeFill />
+
 const AddBagXS = styled(BagPlus)`
   height: 0.9em;
   color: #3f51b5;
@@ -84,3 +90,9 @@ const CheckBagSmallFill = styled(BagCheckFill)`
   color: #AEF78E;
 `;
 export const CheckBagIconSmallFill = () => <CheckBagSmallFill />
+
+const CheckBagLargeFill = styled(BagCheckFill)`
+  height: 4em;
+  color: #AEF78E;
+`;
+export const CheckBagIconLargeFill = () => <CheckBagLargeFill />

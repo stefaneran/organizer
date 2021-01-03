@@ -31,14 +31,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     zIndex: 10
   },
   menuContent: {
+    position: 'relative',
     height: '100%',
     width: '75%',
     background: '#cdd0cb',
-    padding: '10em 3em'
   },
   menuExit: {
     height: '100%',
     width: '25%'
+  },
+  listContainer: {
+    padding: '10em 3em'
   },
   listItem: {
     marginBottom: '1em'
@@ -50,11 +53,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
   },
   login: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-around',
     position: 'absolute',
-    bottom: '0'
+    bottom: '6em'
   },
   logInButton: {
-    marginRight: '1em',
     fontSize: '3em',
   },
   registerButton: {
@@ -85,7 +90,7 @@ const AppBarMobile = ({
         className={classes.menu}
       >
         <div className={classes.menuContent}>
-          <List component="div">
+          <List component="div" className={classes.listContainer}>
 
             <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Contacts)}>
               <ListItemIcon>
@@ -115,12 +120,16 @@ const AppBarMobile = ({
               className={classes.logInButton}
               onClick={setLoginDialog({ type: 'login', isOpen: true })}
               startIcon={<LogInIconXL />}
+              variant="outlined"
+              color="primary"
             >
               Log In
             </Button>
             <Button
               className={classes.registerButton}
               onClick={setLoginDialog({ type: 'register', isOpen: true })}
+              variant="outlined"
+              color="primary"
             >
               Register
             </Button>
