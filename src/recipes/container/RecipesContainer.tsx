@@ -10,6 +10,8 @@ import EditRecipe from '@recipes/components/EditRecipe';
 import RecipeDetails from '@recipes/components/RecipeDetails';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 import defaultRecipeData from '@recipes/utils/defaultRecipeData';
+import getNationalityOptions from '@recipes/utils/getNationalityOptions';
+import getCategoryOptions from '@recipes/utils/getCategoryOptions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -47,17 +49,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const getCategoryOptions = (recipes) => {
-  const categories = [];
-  Object.keys(recipes).map(recipeId => {
-    const { category } = recipes[recipeId];
-    if (!categories.includes(category)) {
-      categories.push(category);
-    }
-  })
-  return categories;
-}
-
 const RecipesContainer = (props) => {
   const classes = useStyles();
 
@@ -86,6 +77,7 @@ const RecipesContainer = (props) => {
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
+  const nationalities = getNationalityOptions(recipes)
   const categories = getCategoryOptions(recipes);
 
   const toggleConfirmationDialog = () => {
@@ -145,13 +137,12 @@ const RecipesContainer = (props) => {
     <Paper className={classes.container}>
       <div className={classes.filtersContainer}>
         <Nationalities 
-          recipes={recipes}
+          nationalityOptions={nationalities}
           selectedNationality={selectedNationality}
           onSelectNationality={handleSelectNationality}
         />
         <div className={classes.rightFilters}>
           <CategoryFilter
-            recipes={recipes}
             categoryOptions={categories}
             onChange={handleSelectCategory}
           />

@@ -7,7 +7,12 @@ import getNameOptions from '@inventory/utils/getNameOptions';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {
     margin: '1em 0 0.5em 0',
-    width: '100%'
+    '& label': {
+      fontSize: '3rem'
+    },
+    '& > div > div': {
+      fontSize: '3rem'
+    }
   }
 }))
 
@@ -28,6 +33,7 @@ const AddItemInput = ({ allItems, targetCollection, onChange }) => {
       options={nameOptions}
       onChange={handleNameSelect}
       getOptionLabel={(option) => option.label}
+      fullWidth
       renderInput={(params) => 
         <TextField 
           {...params}

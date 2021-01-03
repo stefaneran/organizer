@@ -8,10 +8,17 @@ import availableItemsToArray from '@inventory/utils/availableItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   textFilter: {
-    margin: '1em 0 0.5em 0'
+    margin: '0.5em 0 0.5em 0',
+    fontSize: '3rem',
+    '& label': {
+      fontSize: '3rem'
+    },
+    '& > div': {
+      fontSize: '3rem'
+    }
   },
   list: {
-    height: '90%',
+    height: '85%',
     overflowY: 'auto'
   }
 }));

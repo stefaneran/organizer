@@ -2,7 +2,7 @@ import * as React from 'react';
 import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 
-const CategoryFilter = ({ recipes, categoryOptions, onChange }) => {
+const CategoryFilter = ({ categoryOptions, onChange }) => {
 
   const handleSelect = (e, newValue) => {
     onChange(newValue);

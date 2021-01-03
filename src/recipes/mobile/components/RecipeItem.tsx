@@ -68,10 +68,10 @@ const RecipeItem = ({
     >
       {tag}
       <div className={classes.textContainer}>
-        <Typography variant="h1">
+        <Typography variant="h2">
           {recipe.name}
         </Typography>
-        <Typography variant="h2" className={'subtitle'}>
+        <Typography variant="h3" className={'subtitle'}>
           {`${recipe.nationality} - ${recipe.category}`}
         </Typography>
       </div>

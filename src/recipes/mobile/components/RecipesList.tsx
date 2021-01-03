@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RecipeItem from '@recipes/components/RecipeItem';
+import RecipeItem from '@recipes/mobile/components/RecipeItem';
 import ItemTag from '@recipes/components/ItemTag';
 import filterRecipes from '@recipes/utils/filterRecipes';
 
@@ -34,6 +34,7 @@ const RecipesList = ({
             recipe={recipes[recipeId]} 
             availableItems={availableItems} 
             cart={cart} 
+            style={{ marginRight: '1.5em' }}
             isMobile
           />
         }

@@ -86,12 +86,16 @@ const RegistrationDialog = ({
         <Button 
           className={isMobile && classes.mobileButton}
           onClick={() => setDialog({ type: undefined, isOpen: false })}
+          variant="outlined"
+          color="primary"
         >
           Cancel
         </Button>
         <Button 
           className={isMobile && classes.mobileButton}
           onClick={handleSubmit}
+          variant="outlined"
+          color="primary"
         >
           {dialogType === 'login' ? "Login" : "Register"}
         </Button>

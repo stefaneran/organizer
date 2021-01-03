@@ -23,13 +23,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const getNationalities = (recipes) => 
-  Object.keys(recipes).map(recipeId => recipes[recipeId].nationality)
-
-const Nationalities = ({ recipes, selectedNationality, onSelectNationality }) => {
+const Nationalities = ({ nationalityOptions, selectedNationality, onSelectNationality }) => {
   const classes = useStyles();
-  const nationalities = getNationalities(recipes);
+
   const isSelected = (nationality) => selectedNationality === nationality;
+
   return (
     <div className={classes.container}>
       <div className={classes.chipContainer}>
@@ -40,7 +38,7 @@ const Nationalities = ({ recipes, selectedNationality, onSelectNationality }) =>
           onClick={onSelectNationality('All')} 
         />
       </div>
-      {nationalities.map(nationality => (
+      {nationalityOptions.map(nationality => (
         <div key={nationality} className={classes.chipContainer}>
           <Chip 
             key={nationality} 
