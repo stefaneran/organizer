@@ -18,14 +18,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: '1.5em',
     position: 'relative'
   },
-  header: {
-    textAlign: 'center'
-  },
-  content: {
-    height: '91%',
-    overflowY: 'auto',
-    marginTop: '1em'
-  },
   navRight: {
     position: 'absolute',
     right: '3em'
@@ -36,6 +28,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative', 
     top: '2em', 
     color: '#3f51b5'
+  },
+  header: {
+    textAlign: 'center'
+  },
+  contentContainer: {
+    height: '91%',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    marginTop: '1em',
+    position: 'relative'
+  },
+  contentWindow: {
+    width: '100%', 
+    height: '100%', 
+    position: 'absolute', 
+    transition: 'left 300ms',
+    padding: '1.5em'
   },
   filtersDrawer: {
     height: '100%',
@@ -48,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   filtersContent: {
     height: '100%',
     width: '75%',
-    background: '#cdd0cb',
+    background: '#ecedf0',
     padding: '10em 8em'
   },
   filtersExit: {
@@ -94,8 +103,8 @@ const RecipesMobileContainer = (props) => {
   const handleSelectNationality = (e) => {
     setSelectedNationality(e.target.value);
   }
-  const handleSelectCategory = (e, category) => {
-    setSelectedCategory(category || '');
+  const handleSelectCategory = (e) => {
+    setSelectedCategory(e.target.value === 'All' ? '' : e.target.value);
   }
   const handleTextFilterInput = (e) => {
     setTextFilter(e.target.value);
@@ -122,8 +131,8 @@ const RecipesMobileContainer = (props) => {
           )}
         </div>
       </div>
-      <div className={classes.content}>
-        {hasSelectedRecipe ? (
+      <div className={classes.contentContainer}>
+        <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '0%' : '100%' }}>
           <RecipeDetails 
             recipe={recipes[selectedRecipe]} 
             allItems={allItems} 
@@ -131,7 +140,8 @@ const RecipesMobileContainer = (props) => {
             cart={cart} 
             addToCart={addToCart}
           />
-        ) : (
+        </div>
+        <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '-100%' : '0%'}}>
           <RecipesList
             recipes={recipes}
             selectedNationality={selectedNationality}
@@ -143,7 +153,7 @@ const RecipesMobileContainer = (props) => {
             cart={cart}
             addToCart={addToCart}
           />
-        )}
+        </div>
       </div>
       <div 
         className={classes.filtersDrawer}

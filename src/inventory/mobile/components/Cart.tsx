@@ -9,7 +9,7 @@ import cartItemsToArray from '@inventory/utils/cartItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   list: {
-    height: '76%',
+    height: '73%',
     overflowY: 'auto'
   },
   finishButton: {

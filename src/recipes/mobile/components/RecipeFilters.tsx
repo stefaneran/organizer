@@ -1,26 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Select, MenuItem } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import MobileAutocomplete from '@core/components/MobileAutocomplete';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileSelect: {
-    marginBottom: '2em',
+    marginBottom: '100px',
     fontSize: '3rem'
   },
-  mobileAutocomplete: {
-    marginBottom: '2em',
+  mobileSelectOption: {
     fontSize: '3rem',
-    '& label': {
-      fontSize: '3rem'
-    },
-    '& > div > div': {
-      fontSize: '3rem'
-    }
   },
   mobileTextField: {
-    marginBottom: '2em',
+    marginBottom: '100px',
     '& > div': {
       fontSize: '3rem'
     }
@@ -68,16 +61,56 @@ const RecipeFilters = ({
         className={classes.mobileSelect}
         fullWidth
       >
-        <MenuItem value={'All'}>
+        <MenuItem value={'All'} className={classes.mobileSelectOption}>
           All
         </MenuItem>
         {nationalityOptions.map(nationality => (
-          <MenuItem value={nationality}>
+          <MenuItem 
+            key={nationality} 
+            value={nationality} 
+            className={classes.mobileSelectOption}
+          >
             {nationality}
           </MenuItem>
         ))}
       </Select>
-      <Autocomplete
+      <Select 
+        value={selectedCategory === '' ? 'All' : selectedCategory} 
+        onChange={onSelectCategory}
+        variant="outlined"
+        className={classes.mobileSelect}
+        fullWidth
+      >
+        <MenuItem value={'All'} className={classes.mobileSelectOption}>
+          All
+        </MenuItem>
+        {categoryOptions.map(category => (
+          <MenuItem 
+            key={category} 
+            value={category} 
+            className={classes.mobileSelectOption}
+          >
+            {category}
+          </MenuItem>
+        ))}
+      </Select>
+      <TextField
+        value={textFilter}
+        onChange={onTextFilterInput}
+        className={classes.mobileTextField}
+        variant="outlined"
+        size="medium"
+        placeholder="Name Filter"
+        fullWidth
+      />
+    </>
+  )
+}
+
+export default RecipeFilters;
+
+/*
+<Autocomplete
         options={categoryOptions}
         value={selectedCategory}
         onChange={onSelectCategory}
@@ -93,17 +126,4 @@ const RecipeFilters = ({
           />
         }
       />
-      <TextField
-        value={textFilter}
-        onChange={onTextFilterInput}
-        className={classes.mobileTextField}
-        variant="outlined"
-        size="medium"
-        placeholder="Name Filter"
-        fullWidth
-      />
-    </>
-  )
-}
-
-export default RecipeFilters;
+*/

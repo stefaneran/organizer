@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
     width: '100%',
-    background: '#fff',
-    padding: '1.5em'
+    background: '#fff'
   },
   header: {
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingTop: '1.5em'
   },
   navRight: {
     position: 'absolute',
@@ -30,6 +30,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative', 
     top: '2em', 
     color: '#3f51b5'
+  },
+  contentContainer: {
+    height: '95%', 
+    position: 'relative'
+  },
+  contentWindow: {
+    width: '100%', 
+    height: '100%', 
+    position: 'absolute', 
+    transition: 'left 300ms',
+    padding: '1.5em'
   }
 }));
 
@@ -83,21 +94,22 @@ const InventoryMobileContainer = ({
           )}
         </div>
       </div>
-      <div style={{ height: '95%' }}>
-        {isCart ? (
+      <div className={classes.contentContainer}>
+        <div className={classes.contentWindow} style={{ left: isCart ? '0%' : '-100%' }}>
           <Cart 
             cart={cart}
             selectedInCart={selectedInCart}
             allItems={allItems}
             actions={actions}
           />
-        ) : (
+        </div>
+        <div className={classes.contentWindow} style={{ left: isCart ? '100%' : '0%'}}>
           <Inventory 
             availableItems={availableItems}
             allItems={allItems}
             actions={actions}
           />
-        )}
+        </div>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography, IconButton } from '@material-ui/core';
-import { AddCartIconSmall, AddCartIconSmallWhite } from '@core/components/Icons/CartIcon';
+import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
 
@@ -41,7 +41,6 @@ const RecipeItem = ({
 }) => {
 
   const classes = useStyles();
-  const isSelected = selectedRecipe === recipeId;
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
   const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
 
@@ -77,11 +76,7 @@ const RecipeItem = ({
       </div>
       {hasMissingItems && !hasMissingInCart && (
         <IconButton className={classes.cartButton} onClick={handleAddMissingToCart}>
-          {isSelected ? (
-            <AddCartIconSmallWhite />
-          ) : (
-            <AddCartIconSmall />
-          )}
+          <AddCartIconLarge />
         </IconButton>
       )}
     </Paper>

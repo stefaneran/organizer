@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
     height: '100%',
     width: '75%',
-    background: '#cdd0cb',
+    background: '#ecedf0',
   },
   menuExit: {
     height: '100%',
@@ -81,6 +81,7 @@ const AppBarMobile = ({
   }
   const handleChangeCategory = (categoryType: CategoryType) => () => {
     setCurrentCategory(categoryType)
+    toggleMenuOpen();
   }
 
   return (

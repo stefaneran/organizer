@@ -8,7 +8,7 @@ import availableItemsToArray from '@inventory/utils/availableItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   textFilter: {
-    margin: '0.5em 0 0.5em 0',
+    margin: '0.2em 0 0.5em 0',
     fontSize: '3rem',
     '& label': {
       fontSize: '3rem'
@@ -46,7 +46,7 @@ const Inventory = ({ availableItems, allItems, actions }) => {
         className={classes.textFilter}
         value={textFilter}
         onChange={handleTextFilterInput}
-        label="Text Search"
+        placeholder="Text Search"
         variant="outlined"
         size="medium"
         fullWidth

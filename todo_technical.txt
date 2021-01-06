@@ -15,16 +15,10 @@ Inventory:
 - Refactor: Generalize inventory control panels to one component
 - Refactor: Find duplicate util functions and move to /utils
 
-Mobile: 
-- Log in/Log Out
-- Register
-- Recipes:
-  - Show Recipes
-  - Open a Recipes
-  - Filter Page:
-    - By Name
-    - By nationality 
-    - By Category
+Mobile:
+- Recipes: Add Filter Labels in Recipes (nationality/category)
+- Recipes: Move name filter above recipes list
+- Add logout option
 
 Sofia:
 - Make APIs for Inventory

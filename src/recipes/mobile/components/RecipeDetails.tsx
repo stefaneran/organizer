@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: '1.5em'
   },
   buttonContainer: {
-    marginTop: '1.5em',
-    marginBottom: '1.5em',
+    marginTop: '2.5em',
+    marginBottom: '2.5em',
     textAlign: 'center'
   },
   button: {
