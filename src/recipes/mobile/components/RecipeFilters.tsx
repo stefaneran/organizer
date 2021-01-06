@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Select, MenuItem } from '@material-ui/core';
-import MobileAutocomplete from '@core/components/MobileAutocomplete';
+import { InputLabel, Select, MenuItem } from '@material-ui/core';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -12,11 +11,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileSelectOption: {
     fontSize: '3rem',
   },
-  mobileTextField: {
-    marginBottom: '100px',
-    '& > div': {
-      fontSize: '3rem'
-    }
+  label: {
+    fontSize: '3em',
+    marginBottom: '0.5em'
   },
   navRight: {
     position: 'absolute',
@@ -33,8 +30,6 @@ interface Props {
   onSelectNationality;
   selectedCategory: string;
   onSelectCategory;
-  textFilter: string;
-  onTextFilterInput;
 }
 
 const RecipeFilters = ({
@@ -44,9 +39,7 @@ const RecipeFilters = ({
   selectedNationality,
   onSelectNationality,
   selectedCategory,
-  onSelectCategory,
-  textFilter,
-  onTextFilterInput
+  onSelectCategory
 }: Props) => {
   const classes = useStyles();
   return (
@@ -54,6 +47,7 @@ const RecipeFilters = ({
       <div className={classes.navRight} onClick={toggleFilterMenuOpen}>
         <FilterListIconLarge />
       </div>
+      <InputLabel className={classes.label}>Nationality</InputLabel>
       <Select 
         value={selectedNationality} 
         onChange={onSelectNationality}
@@ -74,6 +68,7 @@ const RecipeFilters = ({
           </MenuItem>
         ))}
       </Select>
+      <InputLabel className={classes.label}>Category</InputLabel>
       <Select 
         value={selectedCategory === '' ? 'All' : selectedCategory} 
         onChange={onSelectCategory}
@@ -94,15 +89,6 @@ const RecipeFilters = ({
           </MenuItem>
         ))}
       </Select>
-      <TextField
-        value={textFilter}
-        onChange={onTextFilterInput}
-        className={classes.mobileTextField}
-        variant="outlined"
-        size="medium"
-        placeholder="Name Filter"
-        fullWidth
-      />
     </>
   )
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
@@ -32,8 +32,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   header: {
     textAlign: 'center'
   },
+  mobileTextField: {
+    marginTop: '20px',
+    '& > div': {
+      fontSize: '3rem'
+    }
+  },
   contentContainer: {
-    height: '91%',
+    height: '80%',
     overflowY: 'auto',
     overflowX: 'hidden',
     marginTop: '1em',
@@ -58,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '100%',
     width: '75%',
     background: '#ecedf0',
-    padding: '10em 8em'
+    padding: '14em 8em'
   },
   filtersExit: {
     height: '100%',
@@ -131,6 +137,15 @@ const RecipesMobileContainer = (props) => {
           )}
         </div>
       </div>
+      <TextField
+        value={textFilter}
+        onChange={handleTextFilterInput}
+        className={classes.mobileTextField}
+        variant="outlined"
+        size="medium"
+        placeholder="Name Filter"
+        fullWidth
+      />
       <div className={classes.contentContainer}>
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '0%' : '100%' }}>
           <RecipeDetails 

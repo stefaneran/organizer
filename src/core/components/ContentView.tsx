@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Recipes);
 
   return (
     <div 
