@@ -16,8 +16,6 @@ Inventory:
 - Refactor: Find duplicate util functions and move to /utils
 
 Mobile:
-- Recipes: Add Filter Labels in Recipes (nationality/category)
-- Recipes: Move name filter above recipes list
 - Add logout option
 
 Sofia:
