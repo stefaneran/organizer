@@ -76,6 +76,7 @@ const RecipesMobileContainer = (props) => {
   const classes = useStyles();
 
   const {
+    loggedIn,
     recipes,
     availableItems, 
     allItems, 
@@ -83,7 +84,16 @@ const RecipesMobileContainer = (props) => {
     ...actions
   } = props;
 
-  const { addToCart } = actions;
+  const { 
+    getAllRecipes, 
+    addToCart 
+  } = actions;
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      getAllRecipes();
+    }
+  }, [loggedIn]);
 
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
   const [selectedNationality, setSelectedNationality] = React.useState('All');

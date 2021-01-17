@@ -1,80 +1,136 @@
 import {
-  getAllItemsDone,
+  getAllDone,
   addToAllItemsDone,
   removeFromAllItemsDone,
-  getAvailableDone,
   addToAvailableDone,
   removeFromAvailableDone,
-  getCartDone,
   addToCartDone,
   removeFromCartDone,
   updateSelectedInCartDone,
   finishShoppingDone
 } from '.';
-import {
-  loadingStart,
-  loadingEnd,
-  updateError
-} from '@store/app';
 import genericRequest from '@store/utils/genericRequest';
-import jsonFetch from '@store/utils/jsonFetch';
 import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
 
-export const getAllItems = () => async (dispatch, getState) => {
-  dispatch(getAllItemsDone({}))
+export const getAll = () => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/getAll`,
+    {},
+    getAllDone,
+    {},
+    `Could not get inventory`
+  );
 }
 
 export const addToAllItems = (item) => async (dispatch, getState) => {
-  const id = v4();
-  dispatch(addToAllItemsDone({ id, item }))
-  return id;
+  const itemId = v4();
+  await genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/addDB`,
+    { itemId, item },
+    addToAllItemsDone,
+    { itemId, item },
+    `Could not create item`
+  );
+  return itemId;
 }
 
 export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
-  dispatch(removeFromAllItemsDone({ itemIds }))
-  dispatch(removeFromCart(itemIds))
-  dispatch(removeFromAvailable(itemIds))
-}
-
-export const getAvailable = () => async (dispatch, getState) => {
-  dispatch(getAvailableDone([]))
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/removeDB`,
+    { itemIds },
+    removeFromAllItemsDone,
+    { itemIds },
+    `Could not delete item`
+  );
 }
 
 export const addToAvailable = (itemIds) => async (dispatch, getState) => {
-  dispatch(addToAvailableDone({ itemIds }));
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/addAvailable`,
+    { itemIds },
+    addToAvailableDone,
+    { itemIds },
+    `Could not add to inventory`
+  );
 }
 
+// TODO - USE THIS
 export const addNewToAvailable = (item) => async (dispatch, getState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToAvailableDone({ itemIds: [id] }));
 }
 
 export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
-  dispatch(removeFromAvailableDone({ itemIds }))
-}
-
-export const getCart = () => async (dispatch, getState) => {
-  dispatch(getCartDone([]))
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/removeAvailable`,
+    { itemIds },
+    removeFromAvailableDone,
+    { itemIds },
+    `Could not remove from inventory`
+  );
 }
 
 export const addToCart = (itemIds) => async (dispatch, getState) => {
-  dispatch(addToCartDone({ itemIds }));
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/addCart`,
+    { itemIds },
+    addToCartDone,
+    { itemIds },
+    `Could not add to cart`
+  );
 }
 
+// TODO - USE THIS
 export const addNewToCart = (item) => async (dispatch, getState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToCartDone({ itemIds: [id] }));
 }
 
 export const removeFromCart = (itemIds) => async (dispatch, getState) => {
-  dispatch(removeFromCartDone({ itemIds }))
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/removeCart`,
+    { itemIds },
+    removeFromCartDone,
+    { itemIds },
+    `Could not remove from cart`
+  );
 }
 
 export const updateSelectedInCart = (selected) => async (dispatch, getState) => {
-  dispatch(updateSelectedInCartDone({ selected }))
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/updateSelectedCart`,
+    { selected },
+    updateSelectedInCartDone,
+    { selected },
+    `Could not update cart selection`
+  );
 }
 
-export const finishShopping = (onlyChecked) => async (dispatch, getState) => {
-  dispatch(finishShoppingDone());
+export const finishShopping = () => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/finishShopping`,
+    {},
+    finishShoppingDone,
+    {},
+    `Could not finalize shopping`
+  );
 }

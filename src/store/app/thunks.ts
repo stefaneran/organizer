@@ -46,10 +46,7 @@ export const login = ({ userName, password }) => async (dispatch) => {
       dispatch(loginDone({ userName, password }))
       localStorage.setItem('user', JSON.stringify({ userName, password }));
     } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not login - Response Status ${response.status}`
-      }));
+      localStorage.removeItem('user');
     }
   } catch (e) {
     dispatch(updateError({

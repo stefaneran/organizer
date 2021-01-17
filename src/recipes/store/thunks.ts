@@ -1,20 +1,27 @@
 import {
-  updateRecipes,
+  getAllRecipesDone,
+  updateRecipe,
   removeRecipeDone
 } from '.';
 import {
   addToAllItems
 } from '@inventory/store/thunks';
-import {
-  loadingStart,
-  loadingEnd,
-  updateError
-} from '@store/app';
 import genericRequest from '@store/utils/genericRequest';
-import jsonFetch from '@store/utils/jsonFetch';
 import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
 import getIngredientIdByName from '@recipes/utils/getIngredientIdByName';
+
+export const getAllRecipes = () => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/recipes/getAll`,
+    {},
+    getAllRecipesDone,
+    {},
+    `Could not get all recipes`
+  );
+}
 
 export const addRecipe = (recipe) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
@@ -27,16 +34,23 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
       if (!itemId) {
         itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
       }
-      console.log(itemId)
       ingredients.push({ itemId, amount });
     }
   })).then(() => {
-    const recipeId = v4();
+    const newId = v4();
     const newRecipe = {
       ...recipe,
       ingredients
     }
-    dispatch(updateRecipes({ recipe: newRecipe, recipeId }));
+    genericRequest(
+      dispatch,
+      getState,
+      `${baseUrl}/recipes/add`,
+      { newId, recipe: newRecipe },
+      updateRecipe,
+      { recipeId: newId, recipe: newRecipe, },
+      `Could not add recipe`
+    );
   });
 }
 
@@ -58,10 +72,26 @@ export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
       ...recipe,
       ingredients
     }
-    dispatch(updateRecipes({ recipe: updatedRecipe, recipeId }))
+    genericRequest(
+      dispatch,
+      getState,
+      `${baseUrl}/recipes/edit`,
+      { recipeId, recipe: updatedRecipe },
+      updateRecipe,
+      { recipeId, recipe: updatedRecipe, },
+      `Could not edit recipe`
+    );
   });
 }
 
 export const removeRecipe = (recipeId) => async (dispatch, getState) => {
-  dispatch(removeRecipeDone({ recipeId }))
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/recipes/delete`,
+    { recipeId },
+    removeRecipeDone,
+    { recipeId },
+    `Could not remove recipe`
+  );
 }

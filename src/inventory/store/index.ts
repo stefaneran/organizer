@@ -3,36 +3,30 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'inventoryStore',
   initialState: {
-    allItems: {
-      '1': { category: 'Meats', name: 'Chicken' },
-      '2': { category: 'Meats', name: 'Beef' },
-      '3': { category: 'Meats', name: 'Pork' },
-      '4': { category: 'Veggies', name: 'Apples' },
-      '5': { category: 'Veggies', name: 'Oranges' },
-      '6': { category: 'Misc', name: 'Toilet Paper' },
-      '7': { category: 'Pasta', name: 'Spaghetti' },
-      '8': { category: 'Condiments', name: 'Ketchup' }
-    },
-    availableItems: ['1', '2', '6', '7'],
-    cart: ['1', '2', '3', '4', '5', '6', '7', '8'],
+    allItems: {},
+    availableItems: [],
+    cart: [],
     selectedInCart: []
   },
   reducers: {
-    getAllItemsDone: (state, { payload }) => {
-      state.allItems = payload;
+    getAllDone: (state, { payload }) => {
+      state.allItems = payload.allItems;
+      state.availableItems = payload.availableItems;
+      state.cart = payload.cart;
+      state.selectedInCart = payload.selectedInCart;
     },
     addToAllItemsDone: (state, { payload }) => {
-      const { id, item } = payload;
-      state.allItems[id] = item;
+      const { itemId, item } = payload;
+      state.allItems[itemId] = item;
     },
     removeFromAllItemsDone: (state, { payload }) => {
       const { itemIds } = payload;
       itemIds.forEach(itemId => {
         delete state.allItems[itemId];
-      })
-    },
-    getAvailableDone: (state, { payload }) => {
-      state.availableItems = payload;
+      });
+      state.availableItems = state.availableItems.filter(itemId => !itemIds.includes(itemId));
+      state.cart = state.cart.filter(itemId => !itemIds.includes(itemId));
+      state.selectedInCart = state.selectedInCart.filter(itemId => !itemIds.includes(itemId));
     },
     addToAvailableDone: (state, { payload }) => {
       const { itemIds } = payload;
@@ -45,9 +39,6 @@ const slice = createSlice({
     removeFromAvailableDone: (state, { payload }) => {
       const { itemIds } = payload;
       state.availableItems = state.availableItems.filter(itemId => !itemIds.includes(itemId));
-    },
-    getCartDone: (state, { payload }) => {
-      state.cart = payload;
     },
     addToCartDone: (state, { payload }) => {
       const { itemIds } = payload;
@@ -88,13 +79,11 @@ const slice = createSlice({
 });
 
 export const {
-  getAllItemsDone,
+  getAllDone,
   addToAllItemsDone,
   removeFromAllItemsDone,
-  getAvailableDone,
   addToAvailableDone,
   removeFromAvailableDone,
-  getCartDone,
   addToCartDone,
   removeFromCartDone,
   updateSelectedInCartDone,
