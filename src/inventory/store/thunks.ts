@@ -90,8 +90,7 @@ export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     removeFromAvailableDone,
     { itemIds },
-    `Could not remove from inventory`,
-    true
+    `Could not remove from inventory`
   );
 }
 
@@ -103,8 +102,7 @@ export const addToCart = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     addToCartDone,
     { itemIds },
-    `Could not add to cart`,
-    true
+    `Could not add to cart`
   );
 }
 
@@ -122,8 +120,7 @@ export const removeFromCart = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     removeFromCartDone,
     { itemIds },
-    `Could not remove from cart`,
-    true
+    `Could not remove from cart`
   );
 }
 
@@ -135,8 +132,7 @@ export const updateSelectedInCart = (selected) => async (dispatch, getState) => 
     { selected },
     updateSelectedInCartDone,
     { selected },
-    `Could not update cart selection`,
-    true
+    `Could not update cart selection`
   );
 }
 
@@ -148,7 +144,6 @@ export const finishShopping = () => async (dispatch, getState) => {
     {},
     finishShoppingDone,
     {},
-    `Could not finalize shopping`,
-    true
+    `Could not finalize shopping`
   );
 }

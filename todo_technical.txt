@@ -1,6 +1,8 @@
 
 
 General:
+- (Mobile) Add logout option
+- *Add patchnotes dialog/button
 - *Change local storage to cookies 
 - *Get rid of skills
 - *Make landing page
