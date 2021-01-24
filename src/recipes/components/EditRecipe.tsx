@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Divider, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import { FoodIconXS } from '@core/components/Icons/FoodIcon';

@@ -14,8 +14,8 @@ import { AddBagIconXS, AddBagIconSmall } from '@core/components/Icons/BagIcon';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import { DatabaseIconSmall } from '@core/components/Icons/DatabaseIcon';
 import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
-import NestedItemList from '@inventory/components/NestedItemList';
-import ItemList from '@inventory/components/ItemList';
+import NestedList from '@inventory/components/NestedList';
+import SimpleList from '@inventory/components/SimpleList';
 import AddNewItemInput from '@inventory/components/AddNewItemInput';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 
@@ -188,9 +188,10 @@ const AllItems = ({
           </ListItem>
           <Collapse in={isOpen} timeout="auto" unmountOnExit>
           {isNested ? (
-            <NestedItemList 
+            <NestedList 
               isSelectedTab={isSelectedTab}
               listItems={listItems} 
+              allItems={allItems}
               availableItems={availableItems} 
               cart={cart}
               selectedItems={selectedItems} 
@@ -201,11 +202,13 @@ const AllItems = ({
                 { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
               textFilter={textFilter}
+              onEdit={actions.inventory.edit}
             />
           ) : (
-            <ItemList 
+            <SimpleList 
               isSelectedTab={isSelectedTab}
               listItems={listItems} 
+              allItems={allItems}
               availableItems={availableItems} 
               cart={cart}
               selectedItems={selectedItems} 
@@ -215,6 +218,7 @@ const AllItems = ({
                 { icon: <AddBagIconSmall />, handler: handleAddToAvailable },
                 { icon: <AddCartIconSmall />, handler: handleAddToCart }
               ]}
+              onEdit={actions.inventory.edit}
             />
           )}
           </Collapse>

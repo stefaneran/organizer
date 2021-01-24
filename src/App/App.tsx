@@ -14,9 +14,11 @@ const App = ({
   isMobile,
   setIsMobile,
   getAllContacts,
-  getAllSkills,
   clearContacts,
-  clearSkills
+  getAllRecipes,
+  clearRecipes,
+  getAllInventory,
+  clearInventory
 }) => {
 
   const [dialog, setDialog] = React.useState({
@@ -46,7 +48,8 @@ const App = ({
   React.useEffect(() => {
     if (loggedIn) {
       getAllContacts();
-      getAllSkills();
+      getAllInventory();
+      getAllRecipes();
     }
   }, [loggedIn]);
 
@@ -64,7 +67,8 @@ const App = ({
   const handleLogout = () => {
     logout();
     clearContacts();
-    clearSkills();
+    clearInventory();
+    clearRecipes();
   }
 
   return (

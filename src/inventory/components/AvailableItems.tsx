@@ -13,8 +13,8 @@ import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
 import { BagIconSmall, RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
-import NestedItemList from '@inventory/components/NestedItemList';
-import ItemList from '@inventory/components/ItemList';
+import NestedList from '@inventory/components/NestedList';
+import SimpleList from '@inventory/components/SimpleList';
 import AddItemInput from '@inventory/components/AddItemInput';
 import availableItemsToArray from '@inventory/utils/availableItemsToArray';
 
@@ -135,7 +135,7 @@ const AvailableItems = ({
           </ListItem>
           <Collapse in={isOpen} timeout="auto" unmountOnExit>
           {isNested ? (
-            <NestedItemList 
+            <NestedList 
               isSelectedTab={isSelectedTab}
               listItems={listItems} 
               selectedItems={selectedItems} 
@@ -147,7 +147,7 @@ const AvailableItems = ({
               textFilter={textFilter}
             />
           ) : (
-            <ItemList 
+            <SimpleList 
               isSelectedTab={isSelectedTab}
               listItems={listItems} 
               selectedItems={selectedItems} 

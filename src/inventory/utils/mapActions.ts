@@ -1,11 +1,11 @@
 export default (props) => ({
-  getAll: props.getAll,
   inventory: {
     addToAll: props.addToAllItems,
     removeFromAll: props.removeFromAllItems,
     addToAvailable: props.addToAvailable,
     addNewToAvailable: props.addNewToAvailable,
-    removeFromAvailable: props.removeFromAvailable
+    removeFromAvailable: props.removeFromAvailable,
+    edit: props.editItem
   },
   cart: {
     add: props.addToCart,

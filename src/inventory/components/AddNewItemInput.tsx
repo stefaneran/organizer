@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, Button } from '@material-ui/core';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import genericSort from '@core/utils/genericSort';
+import getCategoryOptions from '@inventory/utils/getCategoryOptions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -27,26 +27,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const getCategories = (categoryValue, allItems) => {
-  const categories = [];
-  Object.keys(allItems).forEach(id => {
-    const { category } = allItems[id];
-    const containsValue = categoryValue.length ? 
-      category.toLowerCase().includes(categoryValue.toLowerCase()) : true;
-    if (!categories.includes(category) && containsValue) {
-      categories.push(category);
-    }
-  })
-  return categories.sort((a, b) => genericSort(a, b));
-}
-
 const AddNewItemInput = ({ allItems, onSubmit }) => {
   const classes = useStyles();
 
   const [currentNameValue, setCurrentNameValue] = React.useState('');
   const [currentCategoryValue, setCurrentCategoryValue] = React.useState('');
 
-  const categoryOptions = getCategories(currentCategoryValue, allItems);
+  const categoryOptions = getCategoryOptions(currentCategoryValue, allItems);
 
   const handleNameInput = (e) => {
     setCurrentNameValue(e.target.value);

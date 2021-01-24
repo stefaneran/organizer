@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import {
-  getAllRecipes,
   addRecipe,
   editRecipe,
   removeRecipe
@@ -9,7 +8,6 @@ import { addToCart } from '@inventory/store/thunks';
 import RecipesContainer from './RecipesContainer';
 
 const mapStateToProps = state => ({
-  loggedIn: state.app.user.loggedIn,
   recipes: state.recipesStore.recipes,
   allItems: state.inventoryStore.allItems,
   availableItems: state.inventoryStore.availableItems,
@@ -17,7 +15,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getAllRecipes,
   addRecipe,
   editRecipe,
   removeRecipe,

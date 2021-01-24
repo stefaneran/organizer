@@ -38,7 +38,7 @@ const Inventory = ({
         background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
         cursor: isSelectedTab ? '' : 'pointer'
       }}
-      onClick={!isSelectedTab && setSelectedTab(InventoryTabs.Inventory)}
+      onClick={!isSelectedTab ? setSelectedTab(InventoryTabs.Inventory) : undefined}
     >
       <Typography variant="h4">
         Inventory

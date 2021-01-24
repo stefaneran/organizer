@@ -49,8 +49,7 @@ enum ViewType {
   Inventory = "Inventory"
 }
 
-const InventoryMobileContainer = ({ 
-  loggedIn,
+const InventoryMobileContainer = ({
   allItems,
   availableItems,
   cart,
@@ -59,12 +58,6 @@ const InventoryMobileContainer = ({
  }) => {
   const classes = useStyles();
   const actions = mapActions(props);
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      actions.getAll();
-    }
-  }, [loggedIn]);
 
   const [currentView, setCurrentView] = React.useState(ViewType.Cart);
 

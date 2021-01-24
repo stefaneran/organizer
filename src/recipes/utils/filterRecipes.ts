@@ -8,8 +8,8 @@ export default (recipes, selectedNationality, selectedCategory, textFilter) => {
       (selectedNationality !== 'All' && recipe.nationality === selectedNationality);
 
     const passedCategory = 
-      selectedCategory === '' ||
-      (selectedCategory.length && recipe.category.toLowerCase().includes(selectedCategory.toLowerCase()))
+      selectedCategory === 'All' ||
+      (selectedCategory !== 'All' && recipe.category === selectedCategory);
 
     const passesTextFilter = 
       textFilter === '' ||

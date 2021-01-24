@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@core/components/AppBar';
 import AppBarMobile from '@core/components/AppBarMobile';
-import SkillsContainer from '@skills/container';
 import ContactsContainer from '@contacts/container';
 import InventoryContainer from '@inventory/container';
 import InventoryMobileContainer from '@inventory/mobile/container';
@@ -19,8 +18,8 @@ const useStyles = makeStyles(theme => ({
 
 const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
   const classes = useStyles();
-  // "Skills" or "Contacts"
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Recipes);
+  
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
 
   return (
     <div 
@@ -43,9 +42,6 @@ const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
       <div 
         style={{ height: isMobile ? '100%' : '90%' }}
       >
-        {currentCategory === CategoryType.Skills && (
-          <SkillsContainer />
-        )}
         {currentCategory === CategoryType.Contacts &&
           <ContactsContainer />
         }

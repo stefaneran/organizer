@@ -15,7 +15,13 @@ const slice = createSlice({
       state.cart = payload.cart;
       state.selectedInCart = payload.selectedInCart;
     },
-    addToAllItemsDone: (state, { payload }) => {
+    clearInventory: state => {
+      state.allItems = {};
+      state.availableItems = [];
+      state.cart = [];
+      state.selectedInCart = [];
+    },
+    setItem: (state, { payload }) => {
       const { itemId, item } = payload;
       state.allItems[itemId] = item;
     },
@@ -80,7 +86,8 @@ const slice = createSlice({
 
 export const {
   getAllDone,
-  addToAllItemsDone,
+  clearInventory,
+  setItem,
   removeFromAllItemsDone,
   addToAvailableDone,
   removeFromAvailableDone,

@@ -19,19 +19,12 @@ const InventoryContainer = (props) => {
   
   const classes = useStyles();
   const {
-    loggedIn,
     availableItems, 
     allItems, 
     cart,
     selectedInCart
   } = props;
   const actions = mapActions(props);
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      actions.getAll();
-    }
-  }, [loggedIn]);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);
 

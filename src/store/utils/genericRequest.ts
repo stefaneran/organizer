@@ -12,19 +12,23 @@ export default async (
   params, 
   dispatchFunction, 
   dispatchParams,
-  errorMessage
+  errorMessage,
+  skipWait?: boolean // Should skip waiting for response before dispatching store action
 ) => {
   dispatch(loadingStart());
   try {
     const { app: { user } } = getState();
     const { userName, password, loggedIn } = user;
+    if (skipWait) {
+      dispatch(dispatchFunction(dispatchParams));
+    }
     const response = loggedIn ? await jsonFetch({
       url,
       method: 'POST',
       body: JSON.stringify({ userName, password, ...params })
     }) : { status: 200, data: {} };
     if (response.status === 200) {
-      if (dispatchFunction) {
+      if (dispatchFunction && !skipWait) {
         const hasDispatchParams = Boolean(Object.keys(dispatchParams).length);
         dispatch(dispatchFunction(hasDispatchParams ? dispatchParams : response.data));
       }

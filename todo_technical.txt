@@ -1,68 +1,40 @@
 
+
+General:
+- *Change local storage to cookies 
+- *Get rid of skills
+- *Make landing page
+- Make error action work
+- Add unit tests
+- Add linting and fix lints
+- Use MUI theme and make Dark theme
+- More TypeScript 
+
+===============================================================
+
 Recipes:
+- Add new ingredient with category
+- Filter by available ingredients option, etc
+- Sort recipes alphabeticaly 
+-----------------------------------------------
 - Optimize: Memoize stuff (categories, etc)
-- Bonus: Filter by available ingredients, etc
 - Bonus: Add nationality flags to options/chips
 - Refactor: Find duplicate util functions and move to /utils
 
+===============================================================
+
 Inventory:
-- Edit Item category
+- Add "De-select All" button
+- Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
+-----------------------------------------------
 - Optimize: Memoize stuff (categories, etc)
-- Bonus: Add "De-select All" button
 - Refactor: Move everything from <Inventory /> to <InventoryContainer />
 - Refactor: Find way to generalize AllItems and AvailableItems cause there's tons of repetition
 - Refactor: Generalize inventory control panels to one component
 - Refactor: Find duplicate util functions and move to /utils
 
+===============================================================
+
 Mobile:
 - Add logout option
-
-Sofia:
-- Make APIs for Inventory
-- Make APIs for Recipes
-
-
-============================================================
-======= Minor Features / Bugs / Improvements / TODOs =======
-============================================================
-
-....check TODO
-
-=== Morning ===
-
-= Put all interfaces/enums in individual files and set as default exports
-= Implement interfaces more
-= Rename properties of SkillHistoryLog
-= Title validation on add new skill (Avoid duplicate)
-= Backup - Auto download every 24h
-= Backup - Prefix with "Backup" 
-= Implement compression for localstorage data
-- Use Context for "global" dialog Actions
-- Add ticks to Slider + dynamic label below
-- History log scrollbar style
-- History General/Current tabs 
-- Abstract simple input dialogs
-- (After fixing FormCreator) Disable Next/Finish in wizard if required inputs not filled
-
-=== Weekend ===
-
-- Wizard step progression
-- Check bug with numbers being saved in store as strings (maybe localstorage screwing it up)
-- Note taking - Overhaul (custom note? Dialog?)
-- Add unit tests
-- Add linting and fix lints
-- Use MUI theme and make themes
-- Use compose/decorator pattern (Start with components that use content toolbar handlers)
-
-==============================
-======= Major Features =======
-==============================
-
-- Filtering (Category, history, and items)
-  - By type
-  - By priority
-  - By name (auto)
-- Make EOD Report Wizard 
-- Social category
-- Automated alerts

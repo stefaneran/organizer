@@ -53,7 +53,6 @@ const RecipesContainer = (props) => {
   const classes = useStyles();
 
   const {
-    loggedIn,
     recipes,
     availableItems, 
     allItems, 
@@ -62,22 +61,15 @@ const RecipesContainer = (props) => {
   } = props;
 
   const {
-    getAllRecipes,
     addRecipe,
     editRecipe,
     removeRecipe,
     addToCart
   } = actions;
 
-  React.useEffect(() => {
-    if (loggedIn) {
-      getAllRecipes();
-    }
-  }, [loggedIn]);
-
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
   const [selectedNationality, setSelectedNationality] = React.useState('All');
-  const [selectedCategory, setSelectedCategory] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [textFilter, setTextFilter] = React.useState('');
   const [editRecipeMode, setEditRecipeMode] = React.useState('');
   const [editRecipeData, setEditRecipeData] = React.useState(defaultRecipeData);
@@ -104,8 +96,8 @@ const RecipesContainer = (props) => {
   const handleSelectNationality = (nationality) => () => {
     setSelectedNationality(nationality);
   }
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category || '');
+  const handleSelectCategory = (e) => {
+    setSelectedCategory(e.target.value);
   }
   const handleTextFilterInput = (e) => {
     setTextFilter(e.target.value);
@@ -151,8 +143,9 @@ const RecipesContainer = (props) => {
         />
         <div className={classes.rightFilters}>
           <CategoryFilter
+            selectedCategory={selectedCategory}
             categoryOptions={categories}
-            onChange={handleSelectCategory}
+            onSelectCategory={handleSelectCategory}
           />
           <TextField
             style={{ width: '160px', marginRight: '1em' }}

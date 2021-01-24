@@ -9,6 +9,9 @@ const slice = createSlice({
     getAllRecipesDone: (state, { payload }) => {
       state.recipes = payload;
     },
+    clearRecipes: state => {
+      state.recipes = {};
+    },
     updateRecipe: (state, { payload }) => {
       const { recipeId, recipe } = payload;
       state.recipes[recipeId] = recipe;
@@ -22,6 +25,7 @@ const slice = createSlice({
 
 export const {
   getAllRecipesDone,
+  clearRecipes,
   updateRecipe,
   removeRecipeDone
 } = slice.actions;

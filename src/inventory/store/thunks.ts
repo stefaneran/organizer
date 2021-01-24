@@ -1,6 +1,6 @@
 import {
   getAllDone,
-  addToAllItemsDone,
+  setItem,
   removeFromAllItemsDone,
   addToAvailableDone,
   removeFromAvailableDone,
@@ -13,7 +13,7 @@ import genericRequest from '@store/utils/genericRequest';
 import baseUrl from '@store/baseUrl';
 import { v4 } from 'uuid';
 
-export const getAll = () => async (dispatch, getState) => {
+export const getAllInventory = () => async (dispatch, getState) => {
   genericRequest(
     dispatch,
     getState,
@@ -30,11 +30,24 @@ export const addToAllItems = (item) => async (dispatch, getState) => {
   await genericRequest(
     dispatch,
     getState,
-    `${baseUrl}/inventory/addDB`,
+    `${baseUrl}/inventory/setItem`,
     { itemId, item },
-    addToAllItemsDone,
+    setItem,
     { itemId, item },
     `Could not create item`
+  );
+  return itemId;
+}
+
+export const editItem = (itemId, item) => async (dispatch, getState) => {
+  await genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/inventory/setItem`,
+    { itemId, item },
+    setItem,
+    { itemId, item },
+    `Could not edit item`
   );
   return itemId;
 }
@@ -43,7 +56,7 @@ export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
   genericRequest(
     dispatch,
     getState,
-    `${baseUrl}/inventory/removeDB`,
+    `${baseUrl}/inventory/deleteItem`,
     { itemIds },
     removeFromAllItemsDone,
     { itemIds },
@@ -77,7 +90,8 @@ export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     removeFromAvailableDone,
     { itemIds },
-    `Could not remove from inventory`
+    `Could not remove from inventory`,
+    true
   );
 }
 
@@ -89,7 +103,8 @@ export const addToCart = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     addToCartDone,
     { itemIds },
-    `Could not add to cart`
+    `Could not add to cart`,
+    true
   );
 }
 
@@ -107,7 +122,8 @@ export const removeFromCart = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     removeFromCartDone,
     { itemIds },
-    `Could not remove from cart`
+    `Could not remove from cart`,
+    true
   );
 }
 
@@ -119,7 +135,8 @@ export const updateSelectedInCart = (selected) => async (dispatch, getState) => 
     { selected },
     updateSelectedInCartDone,
     { selected },
-    `Could not update cart selection`
+    `Could not update cart selection`,
+    true
   );
 }
 
@@ -131,6 +148,7 @@ export const finishShopping = () => async (dispatch, getState) => {
     {},
     finishShoppingDone,
     {},
-    `Could not finalize shopping`
+    `Could not finalize shopping`,
+    true
   );
 }

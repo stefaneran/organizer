@@ -4,8 +4,10 @@ import { setIsMobile } from '@store/app';
 import { register, login, logout } from '@store/app/thunks';
 import { getAllContacts } from '@contacts/store/thunks';
 import { clearContacts } from '@contacts/store';
-import { getAllSkills } from '@skills/store/thunks';
-import { clearSkills } from '@skills/store';
+import { getAllRecipes } from '@recipes/store/thunks';
+import { clearRecipes } from '@recipes/store';
+import { getAllInventory } from '@inventory/store/thunks';
+import { clearInventory } from '@inventory/store';
 
 const mapStateToProps = state => ({
   error: state.app.error,
@@ -20,8 +22,10 @@ const mapDispatchToProps = {
   setIsMobile,
   getAllContacts,
   clearContacts,
-  getAllSkills,
-  clearSkills
+  getAllRecipes,
+  clearRecipes,
+  getAllInventory,
+  clearInventory
 }
 
 export default connect(

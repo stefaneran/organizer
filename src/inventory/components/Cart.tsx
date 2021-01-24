@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Button, Tooltip } from '@material-ui/core';
-import ItemList from '@inventory/components/ItemList';
+import SimpleList from '@inventory/components/SimpleList';
 import AddItemInput from '@inventory/components/AddItemInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
@@ -67,14 +67,14 @@ const Cart = ({
         background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
         cursor: isSelectedTab ? '' : 'pointer'
       }}
-      onClick={!isSelectedTab && setSelectedTab(InventoryTabs.Cart)}
+      onClick={!isSelectedTab ? setSelectedTab(InventoryTabs.Cart) : undefined}
     >
       <Typography variant="h4">
         Cart
       </Typography>
       <div className={classes.contentContainer}>
         <div style={{ width: isSelectedTab && hasSelectedItems ? '65%' : '100%' }}>
-          <ItemList 
+          <SimpleList 
             isSelectedTab={isSelectedTab}
             listItems={listItems} 
             selectedItems={selectedInCart} 
