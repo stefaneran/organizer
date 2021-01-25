@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '2.1.0',
+    version: '2.1.1',
     loading: false,
     isMobile: false,
     user: {
@@ -28,9 +28,10 @@ const slice = createSlice({
       state.isMobile = isMobile;
     },
     updateError: (state, { payload }) => {
+      const { active, message } = payload;
       state.error = {
-        active: !payload.success,
-        message: ''
+        active,
+        message
       }
     },
     loginDone: (state, { payload }) => {

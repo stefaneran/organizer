@@ -1,4 +1,7 @@
 export default (props) => ({
+  recipes: {
+    removeIngredient: props.removeIngredient
+  },
   inventory: {
     addToAll: props.addToAllItems,
     removeFromAll: props.removeFromAllItems,

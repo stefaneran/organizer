@@ -26,8 +26,9 @@ export const getAllRecipes = () => async (dispatch, getState) => {
 export const addRecipe = (recipe) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredients = [];
+
   // Verify each ingredient and get its existing/newly created itemId
-  Promise.all(recipe.ingredients.map(async ingredient => {
+  for await (const ingredient of recipe.ingredients) {
     const { name, amount } = ingredient;
     if (name.length) {
       let itemId = getIngredientIdByName(name, allItems);
@@ -36,29 +37,28 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
       }
       ingredients.push({ itemId, amount });
     }
-  })).then(() => {
-    const newId = v4();
-    const newRecipe = {
-      ...recipe,
-      ingredients
-    }
-    genericRequest(
-      dispatch,
-      getState,
-      `${baseUrl}/recipes/add`,
-      { newId, recipe: newRecipe },
-      updateRecipe,
-      { recipeId: newId, recipe: newRecipe, },
-      `Could not add recipe`
-    );
-  });
+  }
+  const newId = v4();
+  const newRecipe = {
+    ...recipe,
+    ingredients
+  }
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/recipes/add`,
+    { newId, recipe: newRecipe },
+    updateRecipe,
+    { recipeId: newId, recipe: newRecipe, },
+    `Could not add recipe`
+  );
 }
 
 export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredients = [];
   // Verify each ingredient and get its existing/newly created itemId
-  Promise.all(recipe.ingredients.map(async ingredient => {
+  for await (const ingredient of recipe.ingredients) {
     const { name, amount } = ingredient;
     if (name.length) {
       let itemId = getIngredientIdByName(name, allItems);
@@ -67,21 +67,20 @@ export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
       }
       ingredients.push({ itemId, amount });
     }
-  })).then(() => {
-    const updatedRecipe = {
-      ...recipe,
-      ingredients
-    }
-    genericRequest(
-      dispatch,
-      getState,
-      `${baseUrl}/recipes/edit`,
-      { recipeId, recipe: updatedRecipe },
-      updateRecipe,
-      { recipeId, recipe: updatedRecipe, },
-      `Could not edit recipe`
-    );
-  });
+  }
+  const updatedRecipe = {
+    ...recipe,
+    ingredients
+  }
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/recipes/edit`,
+    { recipeId, recipe: updatedRecipe },
+    updateRecipe,
+    { recipeId, recipe: updatedRecipe, },
+    `Could not edit recipe`
+  );
 }
 
 export const removeRecipe = (recipeId) => async (dispatch, getState) => {

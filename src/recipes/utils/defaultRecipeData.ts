@@ -1,6 +1,6 @@
 export default {
   name: '',
-  nationality: '',
+  nationality: 'Other',
   category: '',
   instructions: '',
   // 

@@ -5,7 +5,6 @@
 		"paths": {
 			"@core/*": ["src/core/*"],
 			"@contacts/*": ["src/contacts/*"],
-			"@skills/*": ["src/skills/*"],
 			"@inventory/*": ["src/inventory/*"],
 			"@recipes/*": ["src/recipes/*"],
       "@store/*": ["src/store/*"]

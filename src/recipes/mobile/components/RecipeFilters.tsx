@@ -70,7 +70,7 @@ const RecipeFilters = ({
       </Select>
       <InputLabel className={classes.label}>Category</InputLabel>
       <Select 
-        value={selectedCategory === '' ? 'All' : selectedCategory} 
+        value={selectedCategory} 
         onChange={onSelectCategory}
         variant="outlined"
         className={classes.mobileSelect}

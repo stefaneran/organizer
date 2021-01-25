@@ -56,7 +56,7 @@ const ItemList = ({
         <ListItem 
           key={item.id}
           button 
-          onClick={hasSelection && handleSelection(item.id)}
+          onClick={hasSelection ? handleSelection(item.id) : undefined}
         >
           {hasSelection && (
             <ListItemIcon>

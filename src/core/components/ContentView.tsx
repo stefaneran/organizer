@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@core/components/AppBar';
 import AppBarMobile from '@core/components/AppBarMobile';
-import ContactsContainer from '@contacts/container';
 import InventoryContainer from '@inventory/container';
 import InventoryMobileContainer from '@inventory/mobile/container';
 import RecipesContainer from '@recipes/container';
@@ -16,11 +15,10 @@ const useStyles = makeStyles(theme => ({
   }
 })); 
 
-const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
+const ContentView = ({ app, setLoginDialog, onLogout }) => {
   const classes = useStyles();
-  
+  const { isMobile } = app;
   const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Inventory);
-
   return (
     <div 
       style={{ padding: isMobile ? '' : '0.8em' }}
@@ -28,12 +26,14 @@ const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
     >
       {isMobile ? (
         <AppBarMobile 
+          app={app}
           setLoginDialog={setLoginDialog}
           setCurrentCategory={setCurrentCategory}
           onLogout={onLogout}
         />
       ) : (
         <AppBar
+          app={app}
           setLoginDialog={setLoginDialog}
           setCurrentCategory={setCurrentCategory}
           onLogout={onLogout}
@@ -42,9 +42,6 @@ const ContentView = ({ isMobile, setLoginDialog, onLogout }) => {
       <div 
         style={{ height: isMobile ? '100%' : '90%' }}
       >
-        {currentCategory === CategoryType.Contacts &&
-          <ContactsContainer />
-        }
         {currentCategory === CategoryType.Inventory && (
           <>
           {isMobile ? (

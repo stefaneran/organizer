@@ -6,20 +6,18 @@ import RegistrationDialog from '@core/components/RegistrationDialog';
 import checkIsMobile from '@core/utils/checkIsMobile';
 
 const App = ({
-  error,
-  loggedIn,
+  app,
   register,
   login,
   logout,
-  isMobile,
   setIsMobile,
-  getAllContacts,
-  clearContacts,
   getAllRecipes,
   clearRecipes,
   getAllInventory,
   clearInventory
 }) => {
+
+  const { user: { loggedIn }, isMobile, error } = app;
 
   const [dialog, setDialog] = React.useState({
     type: undefined, // 'register' or 'login'
@@ -47,7 +45,6 @@ const App = ({
 
   React.useEffect(() => {
     if (loggedIn) {
-      getAllContacts();
       getAllInventory();
       getAllRecipes();
     }
@@ -66,7 +63,6 @@ const App = ({
 
   const handleLogout = () => {
     logout();
-    clearContacts();
     clearInventory();
     clearRecipes();
   }
@@ -74,11 +70,13 @@ const App = ({
   return (
     <>
       {error.active ? (
-        <p> There was a critical error - {error.message} </p>
+        <p style={{ padding: '1.5em', fontSize: '2em' }}> 
+          There was a critical error - {error.message} 
+        </p>
       ) : (
         <div className="appContainer">
           <ContentView 
-            isMobile={isMobile}
+            app={app}
             setLoginDialog={handleChangeLoginDialog} 
             onLogout={handleLogout}
           />

@@ -155,11 +155,13 @@ const AllItems = ({
   }
   const handleRemoveSelected = () => {
     actions.inventory.removeFromAll(selectedItems);
+    actions.recipes.removeIngredient(selectedItems);
     setSelectedItems([]);
     toggleConfirmationDialog();
   }
-  const handleRemove = (itemId) => () => {
+  const handleRemove = (itemId) => async () => {
     actions.inventory.removeFromAll([itemId]);
+    actions.recipes.removeIngredient([itemId]);
     setSelectedItems(selectedItems.filter(id => id !== itemId));
     toggleConfirmationDialog();
   }

@@ -1,10 +1,9 @@
 
 
 General:
-- (Mobile) Add logout option
+- # Prepare a demo account
 - *Add patchnotes dialog/button
-- *Change local storage to cookies 
-- *Get rid of skills
+- *Change local storage to cookies
 - *Make landing page
 - Make error action work
 - Add unit tests
@@ -15,9 +14,11 @@ General:
 ===============================================================
 
 Recipes:
+- # Sort recipes alphabeticaly 
+- # Add possibility to delete first ingredient
+- Alternative ingredients
 - Add new ingredient with category
 - Filter by available ingredients option, etc
-- Sort recipes alphabeticaly 
 -----------------------------------------------
 - Optimize: Memoize stuff (categories, etc)
 - Bonus: Add nationality flags to options/chips
@@ -26,7 +27,8 @@ Recipes:
 ===============================================================
 
 Inventory:
-- Add "De-select All" button
+- # Group items by category (simple list)
+- # Add "De-select All" button
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
 -----------------------------------------------
@@ -37,6 +39,3 @@ Inventory:
 - Refactor: Find duplicate util functions and move to /utils
 
 ===============================================================
-
-Mobile:
-- Add logout option

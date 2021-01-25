@@ -88,7 +88,7 @@ const RecipesMobileContainer = (props) => {
 
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
   const [selectedNationality, setSelectedNationality] = React.useState('All');
-  const [selectedCategory, setSelectedCategory] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [textFilter, setTextFilter] = React.useState('');
   const [filterMenuOpen, setFilterMenuOpen] = React.useState(false);
 
@@ -111,7 +111,7 @@ const RecipesMobileContainer = (props) => {
     setSelectedNationality(e.target.value);
   }
   const handleSelectCategory = (e) => {
-    setSelectedCategory(e.target.value === 'All' ? '' : e.target.value);
+    setSelectedCategory(e.target.value);
   }
   const handleTextFilterInput = (e) => {
     setTextFilter(e.target.value);

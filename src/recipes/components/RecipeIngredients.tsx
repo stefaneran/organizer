@@ -41,7 +41,7 @@ const RecipeIngredients = ({
             isMobile={isMobile}
           />
           <ListItemText 
-            primary={allItems[ingredient.itemId].name} 
+            primary={allItems[ingredient.itemId] ? allItems[ingredient.itemId].name : ''} 
             secondary={ingredient.amount}
             className={isMobile && classes.mobileText}
           />

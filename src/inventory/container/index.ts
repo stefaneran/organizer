@@ -12,6 +12,7 @@ import {
   updateSelectedInCart,
   finishShopping
 } from '@inventory/store/thunks';
+import { removeIngredient } from '@recipes/store';
 import InventoryContainer from './InventoryContainer';
 
 const mapStateToProps = state => ({
@@ -32,7 +33,8 @@ const mapDispatchToProps = {
   addNewToCart,
   removeFromCart,
   updateSelectedInCart,
-  finishShopping
+  finishShopping,
+  removeIngredient
 }
 
 export default connect(

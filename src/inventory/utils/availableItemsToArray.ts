@@ -1,8 +1,8 @@
 export default (availableItems, allItems, textFilter) => {
   let listItems = availableItems.map(id => ({ 
     id, 
-    name: allItems[id].name, 
-    category: allItems[id].category  
+    name: allItems[id] ? allItems[id].name : '', 
+    category: allItems[id] ? allItems[id].category : ''  
   }))
   if (textFilter.length) {
     listItems = listItems.filter(item => 

@@ -1,4 +1,5 @@
 export default [ 
+  {name: 'Other', code: 'OTHER'},
   {name: 'Afghani', code: 'AF'}, 
   {name: 'Åland Islands', code: 'AX'}, 
   {name: 'Albanian', code: 'AL'}, 

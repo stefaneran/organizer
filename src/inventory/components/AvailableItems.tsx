@@ -76,7 +76,7 @@ const AvailableItems = ({
   const [selectedItems, setSelectedItems] = React.useState([]);
   const [textFilter, setTextFilter] = React.useState('');
   // Should group items by category
-  const [isNested, setIsNested] = React.useState(false);
+  const [isNested, setIsNested] = React.useState(true);
   const [isOpen, setIsOpen] = React.useState(false);
   const [isControlsOpen, setIsControlsOpen] = React.useState(true);
 

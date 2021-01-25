@@ -111,29 +111,27 @@ const RecipeDetails = ({
           />
         </div>
         {hasMissingItems && !hasMissingInCart && (
-          <>
-            <div className={classes.buttonContainer}>
-              <Button
-                variant="outlined"
-                color="primary"
-                endIcon={<AddCartIconXS />}
-                onClick={handleAddMissingToCart}
-              >
-                Add Missing
-              </Button>
-            </div>
-            <div className={classes.buttonContainer}>
-              <Button
-                variant="outlined"
-                color="secondary"
-                endIcon={<TrashIconXS />}
-                onClick={onDeleteRecipe}
-              >
-                Delete
-              </Button>
-            </div>
-          </>
+          <div className={classes.buttonContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              endIcon={<AddCartIconXS />}
+              onClick={handleAddMissingToCart}
+            >
+              Add Missing
+            </Button>
+          </div>
         )}
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            endIcon={<TrashIconXS />}
+            onClick={onDeleteRecipe}
+          >
+            Delete
+          </Button>
+        </div>
       </div>
     )}
     </>

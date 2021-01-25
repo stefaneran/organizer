@@ -41,7 +41,7 @@ export default async (
   } catch (e) {
     dispatch(updateError({
       active: true,
-      message: `${errorMessage} - ${e.message}`
+      message: `${errorMessage} - ${e}`
     }));
   }
   dispatch(loadingEnd());
