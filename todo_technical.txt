@@ -1,7 +1,6 @@
 
 
 General:
-- # Prepare a demo account
 - *Add patchnotes dialog/button
 - *Change local storage to cookies
 - *Make landing page
@@ -16,6 +15,7 @@ General:
 Recipes:
 - # Sort recipes alphabeticaly 
 - # Add possibility to delete first ingredient
+- Optional ingredient type
 - Alternative ingredients
 - Add new ingredient with category
 - Filter by available ingredients option, etc
@@ -27,7 +27,7 @@ Recipes:
 ===============================================================
 
 Inventory:
-- # Group items by category (simple list)
+- # Cart: Group items by category (simple list)
 - # Add "De-select All" button
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
