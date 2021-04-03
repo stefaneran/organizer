@@ -39,3 +39,14 @@ Inventory:
 - Refactor: Find duplicate util functions and move to /utils
 
 ===============================================================
+
+Contacts:
+- Add group chips
+- Add event 
+- Filters:
+  - name
+  - location 
+- Allow selecting several contacts
+
+Acivities:
+- 
