@@ -3,7 +3,8 @@ import ContactsContainer from './ContactsContainer';
 import { createContact, editContact, deleteContact } from '@contacts/store/thunks';
 
 const mapStateToProps = state => ({
-  contacts: state.contactsStore.contacts
+  contacts: state.contactsStore.contacts,
+  activities: state.activitiesStore.activities
 });
 
 const mapDispatchToProps = {

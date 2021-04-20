@@ -17,7 +17,7 @@ const slice = createSlice({
       const { recipeId, recipe } = payload;
       state.recipes[recipeId] = recipe;
     },
-    removeRecipeDone: (state, { payload }) => {
+    deleteRecipeDone: (state, { payload }) => {
       const { recipeId } = payload;
       delete state.recipes[recipeId];
     },
@@ -39,7 +39,7 @@ export const {
   getAllRecipesDone,
   clearRecipes,
   updateRecipe,
-  removeRecipeDone,
+  deleteRecipeDone,
   removeIngredient
 } = slice.actions;
 

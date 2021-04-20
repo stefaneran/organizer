@@ -7,7 +7,6 @@ export const createContact = (contact) => async (dispatch) => {
 }
 
 export const editContact = (contactId, contact) => async (dispatch) => {
-  console.log(contact)
   dispatch(updateContactDone({ id: contactId, ...contact }));
 }
 

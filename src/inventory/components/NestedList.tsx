@@ -4,7 +4,7 @@ import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import CustomListItem from '@inventory/components/CustomListItem';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import categorizeItems from '@inventory/utils/categorizeItems';
+import categorizeItems from '@core/utils/categorizeItems';
 import genericSort from '@core/utils/genericSort';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -23,6 +23,7 @@ const isSelectedItemInGroup = (items, selectedItems) => {
 }
 
 const shouldBeOpen = (textFilter, hasSelection, items, selectedItems) => {
+  // We only check for the existence of a text filter because the filtering is done outside the component, so we only receive results
   if (textFilter && textFilter.length) {
     return true;
   } else if(hasSelection) {
@@ -128,7 +129,7 @@ const NestedList = ({
   textFilter,
   onEdit
 }: Props) => {
-  const categories = categorizeItems(listItems);
+  const categories = React.useMemo(() => categorizeItems(listItems, "category"), [listItems]);
   return (
     <List component="div" disablePadding>
       {categories && Object.keys(categories).sort((a, b) => genericSort(a, b)).map(category => (

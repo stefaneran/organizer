@@ -2,18 +2,19 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
   Paper, 
-  Grid, 
-  Divider, 
+  Grid,
   Typography, 
   Tooltip, 
   IconButton, 
   Button,
   CircularProgress 
 } from '@material-ui/core';
+import LocalActivityIcon from '@material-ui/icons/LocalActivity';
+import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
 import { CartIconSmall } from '@core/components/Icons/CartIcon';
 import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
 import { LogInIconSmall } from '@core/components/Icons/LoginIcon';
-import { CategoryType } from '@core/interfaces/general'
+import CategoryType from '@core/interfaces/CategoryType.enum'
 import AppStore from '@core/interfaces/AppStore.interface';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -72,6 +73,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       marginLeft: '0',
       marginRight: '0'
     }
+  },
+  activitiesIcon: {
+    height: '1.5em',
+    width: '1.5em',
+    color: '#fff'
   }
 }));
 
@@ -98,9 +104,14 @@ const AppBar = ({
     <Paper className={classes.container}>
       <Grid container>
 
-        <Divider orientation="vertical" flexItem style={{ backgroundColor: 'rgba(255,255,255,0.5)' }} />
+      <Grid item className={classes.buttonContainer}>
+        <Tooltip title="Show Activities">
+          <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Activities)}>
+            <LocalActivityIcon className={classes.activitiesIcon} />
+          </IconButton>
+        </Tooltip>
+      </Grid>
 
-        {/*
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts">
             <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Contacts)}>
@@ -108,7 +119,6 @@ const AppBar = ({
             </IconButton>
           </Tooltip>
         </Grid>
-        */}
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Inventory">

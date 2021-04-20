@@ -110,7 +110,7 @@ const AllItems = ({
   const [isControlsOpen, setIsControlsOpen] = React.useState(true);
   const [isConfirmationOpen, setConfirmationOpen] = React.useState({ isOpen: false, itemId: undefined });
 
-  const listItems = allItemsToArray(allItems, textFilter);
+  const listItems = React.useMemo(() => allItemsToArray(allItems, textFilter), [allItems, textFilter]);
   const hasSelectedItems = Boolean(selectedItems.length);
   const hasMissingItems = checkIfItemsMissing(allItems, availableItems, cart);
 

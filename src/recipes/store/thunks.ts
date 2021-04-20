@@ -1,7 +1,7 @@
 import {
   getAllRecipesDone,
   updateRecipe,
-  removeRecipeDone
+  deleteRecipeDone
 } from '.';
 import {
   addToAllItems
@@ -83,13 +83,13 @@ export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
   );
 }
 
-export const removeRecipe = (recipeId) => async (dispatch, getState) => {
+export const deleteRecipe = (recipeId) => async (dispatch, getState) => {
   genericRequest(
     dispatch,
     getState,
     `${baseUrl}/recipes/delete`,
     { recipeId },
-    removeRecipeDone,
+    deleteRecipeDone,
     { recipeId },
     `Could not remove recipe`
   );

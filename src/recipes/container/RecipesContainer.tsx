@@ -19,6 +19,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: '1em',
     overflow: 'hidden'
   },
+  filtersContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1em 1em 0 1em'
+  },
+  contentContainer: {
+    display: 'flex',
+    height: '88%',
+    transition: 'width 300ms',
+    paddingTop: '1em'
+  },
   primaryContainer: {
     transition: 'width 300ms',
     height: '100%',
@@ -33,19 +44,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingRight: '2em',
     paddingLeft: '1em'
   },
-  filtersContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1em 1em 0 1em'
-  },
   rightFilters: {
     display: 'flex'
-  },
-  contentContainer: {
-    display: 'flex',
-    height: '88%',
-    transition: 'width 300ms',
-    paddingTop: '1em'
   }
 }));
 
@@ -63,7 +63,7 @@ const RecipesContainer = (props) => {
   const {
     addRecipe,
     editRecipe,
-    removeRecipe,
+    deleteRecipe,
     addToCart
   } = actions;
 
@@ -103,7 +103,6 @@ const RecipesContainer = (props) => {
     setTextFilter(e.target.value);
   }
   const handleOpenEditRecipe = (mode) => () => {
-    setEditRecipeMode(mode);
     if (mode === 'new') {
       setEditRecipeData(defaultRecipeData)
     } 
@@ -118,6 +117,7 @@ const RecipesContainer = (props) => {
       recipe.ingredients = ingredients;
       setEditRecipeData(recipe);
     }
+    setEditRecipeMode(mode);
   }
   const handleSubmitEditRecipe = () => {
     setEditRecipeMode('');
@@ -127,8 +127,8 @@ const RecipesContainer = (props) => {
       editRecipe(editRecipeData, selectedRecipe);
     }
   }
-  const handleRemoveRecipe = () => {
-    removeRecipe(selectedRecipe);
+  const handleDeleteRecipe = () => {
+    deleteRecipe(selectedRecipe);
     setSelectedRecipe('');
     toggleConfirmationDialog()
   }
@@ -220,7 +220,7 @@ const RecipesContainer = (props) => {
           primaryText="Cancel"
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}
-          onSecondaryAction={handleRemoveRecipe}
+          onSecondaryAction={handleDeleteRecipe}
         />
       )}
     </Paper>

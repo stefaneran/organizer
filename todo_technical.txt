@@ -17,8 +17,9 @@ Recipes:
 - # Add possibility to delete first ingredient
 - Optional ingredient type
 - Alternative ingredients
-- Add new ingredient with category
+- Add new ingredient (with category)
 - Filter by available ingredients option, etc
+- When creating new recipe, set as selected to avoid confusion
 -----------------------------------------------
 - Optimize: Memoize stuff (categories, etc)
 - Bonus: Add nationality flags to options/chips
@@ -27,7 +28,7 @@ Recipes:
 ===============================================================
 
 Inventory:
-- # Cart: Group items by category (simple list)
+- # Cart & Inventory: Add option to switch between sort by alphabetical or category
 - # Add "De-select All" button
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
@@ -41,12 +42,44 @@ Inventory:
 ===============================================================
 
 Contacts:
-- Add group chips
-- Add event 
-- Filters:
-  - name
-  - location 
-- Allow selecting several contacts
 
-Acivities:
-- 
+Stage 1 - Activities
+
+- Add activityType icons to list headers
+- Highlight selected activity in the list
+
+Stage 2 - Contacts
+
+- Change UI so both panels come from right side (filters and contact info)
+- Contact Filters:
+  - Name
+  - Location 
+
+Stage 3 - Events
+
+- Declare an event (interface)
+  - People 
+  - Activity 
+  - Activity Location 
+  - Date/Time 
+- Events UI
+  - Events view (mocked)
+  - Reminders view (empty)
+- Add event button/UI/Redux 
+- Create new activity automatically
+- Edit event 
+- Delete event 
+- Turn event to reminder
+
+Stage 4 - Reminders
+
+- Declare reminder 
+  - People 
+  - Type (Event/Maintenance)
+  - Activity 
+  - Reminder period 
+- Mock reminders 
+- Add reminder button/UI/Redux 
+- Edit reminder 
+- Delete reminder 
+- Turn reminder to event

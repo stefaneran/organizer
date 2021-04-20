@@ -12,7 +12,7 @@ import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
 import { CartIconXLFill } from '@core/components/Icons/CartIcon';
 import { FoodIconXL } from '@core/components/Icons/FoodIcon';
 import { LogInIconXL } from '@core/components/Icons/LoginIcon';
-import { CategoryType } from '@core/interfaces/general';
+import CategoryType from '@core/interfaces/CategoryType.enum';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hamburger: {

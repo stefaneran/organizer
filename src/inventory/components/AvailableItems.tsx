@@ -80,7 +80,7 @@ const AvailableItems = ({
   const [isOpen, setIsOpen] = React.useState(false);
   const [isControlsOpen, setIsControlsOpen] = React.useState(true);
 
-  const listItems = availableItemsToArray(availableItems, allItems, textFilter);
+  const listItems = React.useMemo(() => availableItemsToArray(availableItems, allItems, textFilter), [availableItems, allItems, textFilter]);
   const hasSelectedItems = Boolean(selectedItems.length)
 
   const toggleOpen = (e) => {

@@ -52,7 +52,7 @@ const ItemList = ({
 
   return (
     <List component="div">
-      {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(item => (
+      {listItems && listItems.sort((a, b) => genericSort(a.category, b.category)).map(item => (
         <ListItem 
           key={item.id}
           button 

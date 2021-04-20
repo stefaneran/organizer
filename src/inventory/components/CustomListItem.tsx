@@ -90,7 +90,6 @@ const CustomListItem = ({
 
   return (
     <ListItem 
-      key={item.id}
       button 
       onClick={hasSelection && !isEditing ? onSelect(item.id) : undefined}
       style={{ 

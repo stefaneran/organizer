@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {
   addRecipe,
   editRecipe,
-  removeRecipe
+  deleteRecipe
 } from '@recipes/store/thunks';
 import { addToCart } from '@inventory/store/thunks';
 import RecipesContainer from './RecipesContainer';
@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   addRecipe,
   editRecipe,
-  removeRecipe,
+  deleteRecipe,
   addToCart
 }
 

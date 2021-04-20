@@ -28,10 +28,7 @@ const CategoryFilter = ({ selectedCategory, categoryOptions, onSelectCategory })
         All
       </MenuItem>
       {categoryOptions.map(category => (
-        <MenuItem 
-          key={category} 
-          value={category}
-        >
+        <MenuItem key={category} value={category}>
           {category}
         </MenuItem>
       ))}
