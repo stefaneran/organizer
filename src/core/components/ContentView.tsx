@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 const ContentView = ({ app, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   const { isMobile } = app;
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Activities);
+  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);
   return (
     <div 
       style={{ padding: isMobile ? '' : '0.8em' }}

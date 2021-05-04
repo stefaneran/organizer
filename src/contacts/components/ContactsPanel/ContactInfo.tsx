@@ -4,23 +4,24 @@ import { TextField, Typography, IconButton, Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import ContactInfoGroupsChips from './ContactInfoGroupsChips';
-import { Contact, defaultProps } from '@contacts/interfaces/Contact.interface';
+import ContactInfoGroups from './ContactInfoGroups';
+import Contact from '@contacts/interfaces/Contact.interface';
+import defaultContactProps from '@contacts/utils/defaultContactProps';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
-    width: '70%',
+    width: '100%',
     height: '100%',
     position: 'absolute',
     top: '0',
-    transition: 'left 300ms',
+    transition: 'right 300ms',
     background: '#ecedf0'
   },
   topButtons: {
     textAlign: 'right'
   },
   textValues: {
-    padding: '0 1em 1em 1em',
+    padding: '0 1em 0 1em',
     textAlign: 'left'
   },
   input: {
@@ -38,33 +39,33 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   contact: Contact;
   contactId: string;
-  allGroups: string[];
+  groups: string[];
   isOpen: boolean;
   onClose: ()=>void;
   createContact: Function;
   editContact: Function;
-  deleteContact: Function;
+  onDeleteContact: () => void;
 }
 
-const ContactInfoSidePanel = ({ 
+const ContactInfo = ({ 
   contact,
   contactId,
-  allGroups,
+  groups,
   isOpen,
   onClose,
   createContact,
   editContact,
-  deleteContact
+  onDeleteContact
  }: Props) => {
   const classes = useStyles();
   const isCreate = Boolean(!contactId);
 
-  const [isEdit, setIsEdit] = React.useState(false);
-  const [contactData, setContactData] = React.useState(defaultProps)
+  const [isEdit, setIsEdit] = React.useState(isCreate);
+  const [contactData, setContactData] = React.useState(defaultContactProps);
 
   React.useEffect(() => {
     if (isCreate) {
-      setContactData(defaultProps);
+      setContactData(defaultContactProps);
       setIsEdit(true);
     } else {
       setContactData({ ...contact });
@@ -72,8 +73,9 @@ const ContactInfoSidePanel = ({
     }
   }, [contactId])
 
-  const toggleEdit = () => setIsEdit(!isEdit);
-
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
+  }
   const handleChangeContactData = (property) => (eventOrValue) => {
     if (property === 'groups') {
       setContactData({
@@ -87,17 +89,10 @@ const ContactInfoSidePanel = ({
       })
     }
   }
-
   const handleClose = () => {
     setIsEdit(false);
     onClose();
   }
-
-  const handleDelete = () => {
-    deleteContact(contactId);
-    handleClose();
-  }
-
   const handleSubmit = () => {
     if (isCreate) {
       createContact(contactData);
@@ -108,7 +103,7 @@ const ContactInfoSidePanel = ({
   }
 
   return (
-    <div className={classes.sidepanel} style={{ left: isOpen ? '0%' : '-100%' }}>
+    <div className={classes.sidepanel} style={{ right: isOpen ? '0%' : '-100%' }}>
       <div className={classes.topButtons}>
         {!isCreate ? (
           <IconButton onClick={toggleEdit}>
@@ -120,16 +115,22 @@ const ContactInfoSidePanel = ({
         </IconButton>
       </div>
       <div className={classes.textValues}>
+        
         {isEdit ? (
-          <TextField
-            value={contactData.name}
-            onChange={handleChangeContactData('name')}
-            className={classes.input}
-            variant="outlined"
-            size="small"
-            placeholder="Name"
-            fullWidth
-          />
+          <>
+            <Typography variant="h4" style={{ marginBottom: '0.5em' }}>
+              {isCreate ? 'Add New Contact' : `Edit ${contactData.name}'s Details`}
+            </Typography>
+            <TextField
+              value={contactData.name}
+              onChange={handleChangeContactData('name')}
+              className={classes.input}
+              variant="outlined"
+              size="small"
+              placeholder="Name"
+              fullWidth
+            />
+          </>
         ) : (
           <Typography variant="h4">{contact?.name}</Typography>
         )}
@@ -147,9 +148,9 @@ const ContactInfoSidePanel = ({
           <Typography variant="h5">{contact?.location}</Typography>
         )}
       </div>
-      <ContactInfoGroupsChips 
+      <ContactInfoGroups 
         contactGroups={contact?.groups} 
-        allGroups={allGroups}
+        groups={groups}
         isEdit={isEdit} 
         onChange={handleChangeContactData}
       />
@@ -168,7 +169,7 @@ const ContactInfoSidePanel = ({
               className={classes.button}
               variant="outlined" 
               color="secondary"
-              onClick={handleDelete}
+              onClick={onDeleteContact}
               endIcon={<TrashIconXS />}
             >
               Delete
@@ -188,4 +189,4 @@ const ContactInfoSidePanel = ({
   )
 }
 
-export default ContactInfoSidePanel;
+export default ContactInfo;

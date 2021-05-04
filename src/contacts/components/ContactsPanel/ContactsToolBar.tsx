@@ -16,7 +16,7 @@ const ContactsToolBar = ({
   isFiltersOpen, 
   onOpenFilters, 
   onCloseFilters,
-  allGroups,
+  groups,
   onChangeFilter
 }) => {
   const classes = useStyles();
@@ -33,7 +33,7 @@ const ContactsToolBar = ({
         </IconButton>
       </Tooltip>
       <ContactsGroupsChips 
-        allGroups={allGroups} 
+        groups={groups} 
         onSelect={onChangeFilter}
       />
     </div>

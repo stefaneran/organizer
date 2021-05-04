@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import ContactsPanel from '@contacts/components/ContactsPanel';
-import EventsPanel from '@contacts/components/EventsPanel';
+import ContactsPanel from '@contacts/container/ContactsPanel';
+import EventsPanel from '@contacts/container//EventsPanel';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -14,17 +14,35 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactsContainer = ({ contacts, createContact, editContact, deleteContact }) => {
+const ContactsContainer = ({ 
+  contacts, 
+  groups, 
+  events, 
+  activities,
+  ...actions
+}) => {
   const classes = useStyles();
+
+  // Initialize contact groups when receving contacts
+  React.useEffect(() => {
+    if (!groups.length) {
+      actions.initGroups();
+    }
+  }, [contacts])
+
   return (
     <Paper className={classes.container}>
       <ContactsPanel 
         contacts={contacts} 
-        createContact={createContact}
-        editContact={editContact}
-        deleteContact={deleteContact}
+        groups={groups}
+        actions={actions}
       />
-      <EventsPanel />
+      <EventsPanel 
+        events={events}
+        contacts={contacts} 
+        activities={activities}
+        actions={actions}
+      />
     </Paper>
   )
 }

@@ -9,7 +9,7 @@ import RecipesList from '@recipes/components/RecipesList';
 import EditRecipe from '@recipes/components/EditRecipe';
 import RecipeDetails from '@recipes/components/RecipeDetails';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
-import defaultRecipeData from '@recipes/utils/defaultRecipeData';
+import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
 
@@ -72,7 +72,7 @@ const RecipesContainer = (props) => {
   const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [textFilter, setTextFilter] = React.useState('');
   const [editRecipeMode, setEditRecipeMode] = React.useState('');
-  const [editRecipeData, setEditRecipeData] = React.useState(defaultRecipeData);
+  const [editRecipeData, setEditRecipeData] = React.useState(defaultRecipeProps);
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
@@ -104,7 +104,7 @@ const RecipesContainer = (props) => {
   }
   const handleOpenEditRecipe = (mode) => () => {
     if (mode === 'new') {
-      setEditRecipeData(defaultRecipeData)
+      setEditRecipeData(defaultRecipeProps)
     } 
     // Map existing recipe's data to state hook
     else if (mode === 'edit') {

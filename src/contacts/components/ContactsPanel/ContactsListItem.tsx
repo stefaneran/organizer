@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListItem, ListItemText, ListItemIcon, Checkbox, TextField } from '@material-ui/core';
+import { ListItem, ListItemText } from '@material-ui/core';
 
 const ContactsListItem = ({ contact, onOpenInfo }) => {
 

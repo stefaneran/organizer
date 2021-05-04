@@ -6,7 +6,7 @@ interface Activity {
   name: string;
   locations: ActivityLocation[];
   activityType: ActivityType;
-  participantType: ParticipantType[]; 
+  participantType: ParticipantType[];
 }
 
 export default Activity;

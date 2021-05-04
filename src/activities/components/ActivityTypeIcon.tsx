@@ -26,7 +26,7 @@ const ActivityTypeIcon = ({ activityType, style = {} }) => {
     [ActivityType.Other]: <StarIcon style={style} />
   }
 
-  return iconMap[activityType];
+  return iconMap[activityType] || null;
 }
 
 export default ActivityTypeIcon;

@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactInfoGroupsChips = ({ 
-  allGroups, 
+const ContactInfoGroups = ({ 
+  groups, 
   contactGroups, 
   isEdit, 
   onChange 
@@ -26,13 +26,13 @@ const ContactInfoGroupsChips = ({
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} style={{ marginTop: isEdit ? '' : '1em' }}>
       {isEdit ? (
         <TextMultiSelect
           label="Groups"
           onChange={handleChange}
           defaultValue={contactGroups ? contactGroups.map(group => ({ label: group, value: group })) : []}
-          options={allGroups.map(group => ({ label: group, value: group }))}
+          options={groups.map(group => ({ label: group, value: group }))}
           canAdd
           helperText="Groups this contact belongs to. Hint: Press enter to add new non-existant group."
           size="small"
@@ -53,4 +53,4 @@ const ContactInfoGroupsChips = ({
   )
 }
 
-export default ContactInfoGroupsChips;
+export default ContactInfoGroups;

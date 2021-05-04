@@ -104,18 +104,18 @@ const AppBar = ({
     <Paper className={classes.container}>
       <Grid container>
 
-      <Grid item className={classes.buttonContainer}>
-        <Tooltip title="Show Activities">
-          <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Activities)}>
-            <LocalActivityIcon className={classes.activitiesIcon} />
-          </IconButton>
-        </Tooltip>
-      </Grid>
-
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts">
             <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Contacts)}>
               <PeopleIconSmall />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+
+        <Grid item className={classes.buttonContainer}>
+          <Tooltip title="Show Activities">
+            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Activities)}>
+              <LocalActivityIcon className={classes.activitiesIcon} />
             </IconButton>
           </Tooltip>
         </Grid>

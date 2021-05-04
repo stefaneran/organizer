@@ -88,7 +88,7 @@ const RecipeItem = ({
         <Typography variant="h6">
           {recipe.name}
         </Typography>
-        <Typography variant="subtitle2" className={'subtitle'}>
+        <Typography variant="subtitle2" className="subtitle">
           {`${recipe.nationality} - ${recipe.category}`}
         </Typography>
       </div>

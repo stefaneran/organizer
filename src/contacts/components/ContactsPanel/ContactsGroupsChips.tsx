@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactInfoGroupsChips = ({ allGroups, onSelect }) => {
+const ContactInfoGroupsChips = ({ groups, onSelect }) => {
   const classes = useStyles();
 
   const handleSelect = (group) => () => {
@@ -26,7 +26,7 @@ const ContactInfoGroupsChips = ({ allGroups, onSelect }) => {
         label="All"
         color="primary"
       />
-      {allGroups ? allGroups.map(group => (
+      {groups.length ? groups.map(group => (
         <Chip 
           onClick={handleSelect(group)}
           className={classes.chip}

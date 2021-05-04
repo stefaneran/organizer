@@ -64,7 +64,7 @@ const EditLocations = ({ locations, onLocationsChange }) => {
             className={classes.input}
             value={location.address}
             onChange={handleAddressInput(index)}
-            label="Address"
+            label="Address/Link"
             variant="outlined"
             size="small"
             fullWidth

@@ -20,8 +20,8 @@ export const getWeekHourGoalProgress = (skill) => {
 
 export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new Date(timestamp));
 
-export const formatDateBasic = (timestamp) => 
-  timestamp ? format(new Date(timestamp), 'EEEE - do MMMM') : 'Error';
+export const formatEventDate = (timestamp) => 
+  timestamp ? format(new Date(timestamp), 'EEEE (dd/MM)') : 'Error';
 
 export const formatDateClassic = (timestamp) => 
   timestamp ? format(new Date(timestamp), 'dd/MM/yy') : 'Error';

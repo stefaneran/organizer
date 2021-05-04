@@ -1,3 +1,4 @@
+// Empty recipe object for creation
 export default {
   name: '',
   nationality: 'Other',

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import MapIcon from '@material-ui/icons/Map';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import LinkIcon from '@material-ui/icons/Link';
 
 const LocationLink = ({ address }) => {
   const styles = {
@@ -12,10 +12,16 @@ const LocationLink = ({ address }) => {
     top: '0.1em',
     marginRight: '0.3em'
   }
+  const isAddress = !Boolean(address.includes('http'))
+  const link = isAddress ? `https://www.google.com/maps/place/${address}` : address;
   return (
     <div style={{ display: 'flex' }}>
-      <MapIcon style={styles} />
-      <a target="_blank" href={`https://www.google.com/maps/place/${address}`}>{address}</a>
+      {isAddress ? (
+        <LocationOnIcon style={styles} />
+      ) : (
+        <LinkIcon style={styles} />
+      )}
+      <a target="_blank" href={link}>{address}</a>
     </div>
   )
 }

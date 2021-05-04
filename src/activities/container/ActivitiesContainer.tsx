@@ -8,7 +8,7 @@ import EditActivity from '@activities/components/EditActivity';
 import ActivityDetails from '@activities/components/ActivityDetails';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 import activitiesToArray from '@activities/utils/activitiesToArray';
-import defaultActivityData from '@activities/utils/defaultActivityData';
+import defaultActivityProps from '@activities/utils/defaultActivityProps';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -45,7 +45,7 @@ const ActivitiesContainer = ({ activities, addActivity, editActivity, deleteActi
   const [textFilter, setTextFilter] = React.useState("");
   const [participantFilter, setParticipantFilter] = React.useState("All");
   const [editActivityMode, setEditActivityMode] = React.useState("");
-  const [editActivityData, setEditActivityData] = React.useState(defaultActivityData);
+  const [editActivityData, setEditActivityData] = React.useState(defaultActivityProps);
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const hasSelectedActivity = Boolean(selectedActivity.length);
@@ -75,7 +75,7 @@ const ActivitiesContainer = ({ activities, addActivity, editActivity, deleteActi
   }
   const handleOpenEditActivity = (mode) => () => {
     if (mode === 'new') {
-      setEditActivityData(defaultActivityData)
+      setEditActivityData(defaultActivityProps)
     } 
     // Map existing recipe's data to state hook
     else if (mode === 'edit') {
