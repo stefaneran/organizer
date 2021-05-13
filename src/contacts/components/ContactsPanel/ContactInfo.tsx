@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import ContactInfoGroups from './ContactInfoGroups';
+import ContactInfoGroupsEdit from './ContactInfoGroupsEdit';
 import Contact from '@contacts/interfaces/Contact.interface';
 import defaultContactProps from '@contacts/utils/defaultContactProps';
 
@@ -58,7 +59,7 @@ const ContactInfo = ({
   onDeleteContact
  }: Props) => {
   const classes = useStyles();
-  const isCreate = Boolean(!contactId);
+  const isCreate = !Boolean(contactId);
 
   const [isEdit, setIsEdit] = React.useState(isCreate);
   const [contactData, setContactData] = React.useState(defaultContactProps);
@@ -77,20 +78,12 @@ const ContactInfo = ({
     setIsEdit(!isEdit);
   }
   const handleChangeContactData = (property) => (eventOrValue) => {
-    if (property === 'groups') {
-      setContactData({
-        ...contactData,
-        groups: eventOrValue
-      })
-    } else {
-      setContactData({
-        ...contactData,
-        [property]: eventOrValue.target.value
-      })
-    }
+    setContactData({
+      ...contactData,
+      [property]: property === 'groups' ? eventOrValue : eventOrValue.target.value
+    })
   }
   const handleClose = () => {
-    setIsEdit(false);
     onClose();
   }
   const handleSubmit = () => {
@@ -148,12 +141,16 @@ const ContactInfo = ({
           <Typography variant="h5">{contact?.location}</Typography>
         )}
       </div>
-      <ContactInfoGroups 
-        contactGroups={contact?.groups} 
-        groups={groups}
-        isEdit={isEdit} 
-        onChange={handleChangeContactData}
-      />
+      {isEdit ? (
+        <ContactInfoGroupsEdit
+          contactGroups={contactData.groups} 
+          groups={groups}
+          onChange={handleChangeContactData}
+        />
+      ) : (
+        <ContactInfoGroups contactGroups={contactData.groups} />
+      )}
+      
       {isEdit ? (
         <div className={classes.buttonContainer}>
           <Button

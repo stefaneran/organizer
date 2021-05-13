@@ -43,14 +43,14 @@ const iconStyles = {
 
 interface Props {
   event: Event;
-  getActivity: (id: string) => Activity;
+  activities;
   onOpenInfo: (id: string) => void;
 }
 
-const EventListItem = ({ event, getActivity, onOpenInfo }: Props) => {
+const EventListItem = ({ event, activities, onOpenInfo }: Props) => {
   const classes = useStyles();
   
-  const activity = getActivity(event.activityId);
+  const activity: Activity = activities[event.activityId];
 
   const handleOpenInfo = () => {
     onOpenInfo(event.id);

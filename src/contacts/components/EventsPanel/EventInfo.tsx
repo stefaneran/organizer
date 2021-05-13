@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, IconButton, Select, MenuItem } from '@material-ui/core';
+import { Typography, IconButton, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import TextMultiSelect from '@core/components/TextMultiSelect';
+import SelectInput from '@core/components/SelectInput';
 import Event from '@contacts/interfaces/Event.interface';
 import Activity from '@activities/interfaces/Activity.interface';
 import ActivityType from '@activities/interfaces/ActivityType.enum';
 import defaultEventProps from '@contacts/utils/defaultEventProps';
+import ActivityLocation from '@activities/interfaces/ActivityLocation.interface';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -16,24 +18,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'absolute',
     top: '0',
     transition: 'left 300ms',
-    background: '#ecedf0'
+    background: '#ecedf0',
+    padding: '1em'
   },
   topButtons: {
     textAlign: 'right'
   },
-  editActivity: {
-    display: 'flex'
-  },
-  select: { 
-    height: '2.5em',
-    width: '150px',
+  activityTop: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '1em',
     '& > div': {
-      paddingTop: '0',
-      paddingBottom: '0'
+      flexGrow: 1
     }
   },
-  autocomplete: {
-    width: '200px'
+  typeSelect: {
+    marginRight: '1em'
+  },
+  locationSelect: {
+    width: '100%'
   }
 }));
 
@@ -41,35 +44,49 @@ interface Props {
   event: Event;
   eventId: string;
   activities;
-  getActivity: (id: string) => Activity;
+  contacts;
   isOpen: boolean;
   onClose: () => void;
 }
 
+// TODO - Do I need this anymore?
 const convertEventToFormData = (event, activity) => ({
   ...event
 });
+
+const getActivityType = (activities, activityId) => {
+  return activities[activityId].activityType
+}
 
 const getActivityOptions = (activities, activityType) => {
   const matches = [];
   for (const id of Object.keys(activities)) {
     const activity = activities[id];
     if (activity.activityType === activityType) {
-      matches.push({ label: activity.name, value: activity.name });
+      matches.push({ label: activity.name, value: id });
     }
   }
   return matches;
+}
+
+const getActivityLocations = (activities, activityId): ActivityLocation[] => {
+  const activity = activities[activityId];
+  if (activity) {
+    return activity.locations;
+  }
+  return [];
 }
 
 const EventInfo = ({ 
   event, 
   eventId, 
   activities,
+  contacts,
   isOpen, 
   onClose 
 }: Props) => {
   const classes = useStyles();
-  const isCreate = Boolean(!eventId);
+  const isCreate = !Boolean(eventId);
 
   const [isEdit, setIsEdit] = React.useState(false);
   const [eventData, setEventData] = React.useState(defaultEventProps);
@@ -78,8 +95,6 @@ const EventInfo = ({
 
   const activityTypes = Object.keys(ActivityType).map(type => type);
   const activity = activities[eventData.activityId];
-
-  console.log(activityOptions)
 
   React.useEffect(() => {
     if (isCreate) {
@@ -92,6 +107,13 @@ const EventInfo = ({
   }, [eventId]);
 
   React.useEffect(() => {
+    if (isEdit && !isCreate) {
+      setActivityType(getActivityType(activities, eventId));
+      setEventData(convertEventToFormData(event, activity));
+    }
+  }, [isEdit])
+
+  React.useEffect(() => {
     setActivityOptions(getActivityOptions(activities, activityType));
   }, [activityType])
   
@@ -100,6 +122,11 @@ const EventInfo = ({
   }
   const handleChangeActivityType = (e) => {
     setActivityType(e.target.value);
+    setEventData({ 
+      ...eventData,  
+      activityId: '',
+      activityLocationIndex: 0
+    })
   }
   const handleChangeEventData = (property) => (eventOrValue) => {
     setEventData({
@@ -108,7 +135,6 @@ const EventInfo = ({
     });
   }
   const handleClose = () => {
-    setIsEdit(false);
     onClose();
   }
 
@@ -126,31 +152,57 @@ const EventInfo = ({
       </div>
 
       {isEdit ? (
-        <div className={classes.editActivity}>
-          <Select
-            value={activityType}
-            onChange={handleChangeActivityType}
-            className={classes.select}
-            label="Activity Type"
-            variant="outlined"
-          >
-            {activityTypes?.map(type => (
-              <MenuItem key={type} value={type}>{type}</MenuItem>
-            ))}
-          </Select>
-          <TextMultiSelect
-            className={classes.autocomplete}
-            label="Activity"
-            onChange={(e) => { console.log(e) }}
-            defaultValue={[]}
-            options={activityOptions}
-            size="small"
-          />
+        <Typography variant="h4" style={{ marginBottom: '0.5em' }}>
+          {isCreate ? 'Create New Event' : 'Edit Event Details'}
+        </Typography>
+      ) : null}
+
+      {isEdit ? (
+        <div>
+          <div className={classes.activityTop}>
+            <SelectInput
+              className={classes.typeSelect}
+              value={activityType}
+              onChange={handleChangeActivityType}
+              label="Activity Type"
+              options={activityTypes || []}
+              getOptionKey={(option) => option}
+              getOptionValue={(option) => option} 
+              getOptionLabel={(option) => option}
+            />
+            <SelectInput
+              value={eventData.activityId}
+              onChange={handleChangeEventData('activityId')}
+              label="Activity"
+              options={activityOptions || []}
+              getOptionKey={(option) => option.value}
+              getOptionValue={(option) => option.value} 
+              getOptionLabel={(option) => option.label}
+            />
+          </div>
+          {activity ? (
+            <SelectInput
+              className={classes.locationSelect}
+              value={eventData.activityLocationIndex}
+              onChange={handleChangeEventData('activityLocationIndex')}
+              label="Location"
+              options={getActivityLocations(activities, eventData.activityId)}
+              getOptionKey={(option) => option.name}
+              getOptionValue={(option, index) => index} 
+              getOptionLabel={(option) => option.name}
+            />
+          ) : null}
         </div>
       ) : (
         <Typography variant="h4">
           {activity?.name}
         </Typography>
+      )}
+
+      {isEdit ? (
+        <div></div>
+      ) : (
+        <div></div>
       )}
 
     </div>

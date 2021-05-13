@@ -13,23 +13,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactInfoGroups = ({ contactGroups }) => {
+const EventInfoParticipants = ({ participants = [] }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
       <>
-        {contactGroups ? contactGroups.map(group => (
+        {participants.map(participant => (
           <Chip 
             className={classes.chip}
-            key={group} 
-            label={group}
+            key={participant} 
+            label={participant}
             color="primary"
           />
-        )) : null}
+        ))}
       </>
     </div>
   )
 }
 
-export default ContactInfoGroups;
+export default EventInfoParticipants;

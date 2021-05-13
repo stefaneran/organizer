@@ -1,14 +1,14 @@
 import * as React from 'react';
 import EventListItem from '@contacts/components/EventsPanel/EventListItem';
 
-const EventsList = ({ eventsList, getActivity, onOpenInfo }) => {
+const EventsList = ({ eventsList, activities, onOpenInfo }) => {
   return (
     <div>
       {eventsList.map(event => (
         <EventListItem 
           key={event.id} 
           event={event} 
-          getActivity={getActivity} 
+          activities={activities} 
           onOpenInfo={onOpenInfo}
         />
       ))}

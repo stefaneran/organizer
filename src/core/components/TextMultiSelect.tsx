@@ -30,8 +30,12 @@ const TextMultiSelect = ({
   defaultValue
 }: Props) => {
 
-  const [currentOptions, setCurrentOptions] = React.useState(options);
-  const [currentValue, setCurrentValue] = React.useState(defaultValue ? defaultValue : []);
+  const [currentOptions, setCurrentOptions] = React.useState(options || []);
+  const [currentValue, setCurrentValue] = React.useState(defaultValue || []);
+
+  React.useEffect(() => {
+    setCurrentOptions(options);
+  }, [options])
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && canAdd) {
@@ -60,6 +64,7 @@ const TextMultiSelect = ({
         onChange={handleInput}
         onKeyPress={handleKeyPress}
         getOptionLabel={(option) => option.label}
+        getOptionSelected={(option, value) => option.label === value.label}
         renderInput={(params) => <TextField {...params} size={size} variant={variant || 'outlined'} label={label} />}
       />
       {helperText && (

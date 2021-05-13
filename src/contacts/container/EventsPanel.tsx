@@ -22,9 +22,6 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
 
   const eventsList = getEventsArray(events);
 
-  const getActivityInfoFromId = (activityId) => {
-    return activities[activityId];
-  }
   const handleOpenInfoPanel = (eventId) => {
     setSelectedEvent(typeof eventId === 'string' ? eventId : '');
     setInfoPanelOpen(true);
@@ -39,7 +36,7 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
       <EventsToolbar onOpenInfo={handleOpenInfoPanel} />
       <EventsList 
         eventsList={eventsList} 
-        getActivity={getActivityInfoFromId} 
+        activities={activities} 
         onOpenInfo={handleOpenInfoPanel}
       />
       {/* Sliding Panel */}
@@ -47,7 +44,7 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
         event={events[selectedEvent]}
         eventId={selectedEvent}
         activities={activities}
-        getActivity={getActivityInfoFromId}
+        contacts={contacts}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
       />
