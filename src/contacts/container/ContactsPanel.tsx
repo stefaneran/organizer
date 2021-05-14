@@ -85,8 +85,7 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
         groups={groups}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
-        createContact={actions.createContact}
-        editContact={actions.editContact}
+        actions={actions}
         onDeleteContact={toggleConfirmationDialog}
       />
       <ContactsFilters 
@@ -99,7 +98,7 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
         <ConfirmationDialog 
           isOpen 
           onClose={toggleConfirmationDialog}
-          confirmationTitle={'Confirm To Delete Activity'}
+          confirmationTitle={'Confirm To Delete Contact'}
           confirmationText={`Are you sure you want to delete ${selectedContact.length && contacts[selectedContact].name}?`}
           secondaryIcon={<TrashIconXS />}
           primaryText="Cancel"

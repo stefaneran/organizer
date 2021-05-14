@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ContactsContainer from './ContactsContainer';
-import { createContact, editContact, deleteContact } from '@contacts/store/thunks';
+import { createContact, editContact, deleteContact, createEvent, editEvent, deleteEvent } from '@contacts/store/thunks';
 import { initGroups } from '@contacts/store';
 
 const mapStateToProps = state => ({
@@ -14,7 +14,10 @@ const mapDispatchToProps = {
   initGroups,
   createContact,
   editContact,
-  deleteContact
+  deleteContact,
+  createEvent,
+  editEvent,
+  deleteEvent
 }
 
 export default connect(

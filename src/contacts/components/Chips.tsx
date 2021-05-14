@@ -4,7 +4,6 @@ import { Chip } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    padding: '0 1em 1em 1em',
     textAlign: 'left',
     marginTop: '1em'
   },
@@ -13,23 +12,32 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactInfoGroups = ({ contactGroups }) => {
+interface Props {
+  memo: () => any[]; // useMemo function that returns collection
+  deps: any[]; // Dependencies for the useMemo
+  getKey: (chip: any) => string;
+  getLabel: (chip: any) => string;
+}
+
+const Chips = ({ memo, deps, getKey, getLabel }: Props) => {
   const classes = useStyles();
+
+  const chips = React.useMemo(() => memo(), [...deps])
 
   return (
     <div className={classes.container}>
       <>
-        {contactGroups ? contactGroups.map(group => (
+        {chips.map(chip => (
           <Chip 
             className={classes.chip}
-            key={group} 
-            label={group}
+            key={getKey(chip)} 
+            label={getLabel(chip)}
             color="primary"
           />
-        )) : null}
+        ))}
       </>
     </div>
   )
 }
 
-export default ContactInfoGroups;
+export default Chips;

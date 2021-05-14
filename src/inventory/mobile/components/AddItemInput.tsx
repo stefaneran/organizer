@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import MobileAutocomplete from '@core/components/MobileAutocomplete';
+import MobileAutocomplete from '@core/components/inputs/MobileAutocomplete';
 import getNameOptions from '@inventory/utils/getNameOptions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

@@ -44,23 +44,18 @@ Inventory:
 ===============================================================
 
 Contacts:
-- Highlight selected activity in the list
-- Fix contacts toolbar look
-- Fix bug with contacts groups (repro: Edit existing contact, close, open create new contact)
-- Add "Filters" title to filter sidepanel
-- Add contact gender (+ filter)
-- Add contact relationship status (+ filter)
-- Add contact if you can see them one on one or only with groups (+ filter)
-- Let user set current Location
-- See number of contacts (and num of ones in current location)
-- Make autocomplete not show selected options
-- Code Design: Make Info and EditInfo 2 separate components (contacts and events)
+- Activities: Highlight selected activity in the list
+- Contacts: Fix contacts toolbar look
+- Contacts: Add "Filters" title to filter sidepanel
+- Contacts: Add contact gender (+ filter)
+- Contacts: Add contact relationship status (+ filter)
+- Contacts: Add contact if you can see them one on one or only with groups (+ filter)
+- Contacts: Let user set current Location
+- Contacts: See number of contacts (and num of ones in current location)
+- Events: Don't show activity types that have no items
 
 Stage 3 - Events
 
-- Add event button/UI/Redux 
-- Edit event 
-- Delete event 
 - Filter events by future/past (default future)
 
 

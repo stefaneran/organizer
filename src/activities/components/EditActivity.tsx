@@ -6,7 +6,7 @@ import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import EditLocations from '@activities/components/EditLocations';
 import ActivityType from '@activities/interfaces/ActivityType.enum';
 import ParticipantType from '@activities/interfaces/ParticipantType.enum';
-import TextMultiSelect from '@core/components/TextMultiSelect';
+import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {
@@ -94,7 +94,7 @@ const EditActivity = ({
         label="Participants"
         onChange={handleParticipantChange}
         defaultValue={
-          editActivityData.participantType ? editActivityData.participantType.map(type => ({ label: type, value: type })) : []
+          editActivityData.participantType && editActivityData.participantType.map(type => ({ label: type, value: type }))
         }
         options={Object.keys(ParticipantType).map(type => ({ label: type, value: type }))}
         helperText="Number of participants for this activity (You alone, a date, or a hang out with several people)"

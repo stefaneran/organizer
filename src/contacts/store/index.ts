@@ -39,7 +39,7 @@ const slice = createSlice({
   initialState: {
     // All individual contacts serialized by UUID
     contacts: mockContacts,
-    // All events (past and future)
+    // All events (past and future) serialized by UUID
     events: mockEvents,
     // Array of all unique contact group names (eg: Friends, Coworkers)
     groups: []
@@ -56,6 +56,14 @@ const slice = createSlice({
     deleteContactDone: (state, { payload }) => {
       const { id } = payload;
       delete state.contacts[id];
+    },
+    updateEventDone: (state, { payload }) => {
+      const { id } = payload;
+      state.events[id] = { ...payload };
+    },
+    deleteEventDone: (state, { payload }) => {
+      const { id } = payload;
+      delete state.events[id];
     }
   }
 });
@@ -63,7 +71,9 @@ const slice = createSlice({
 export const {
   initGroups,
   updateContactDone,
-  deleteContactDone
+  deleteContactDone,
+  updateEventDone,
+  deleteEventDone
 } = slice.actions;
 
 export default slice.reducer;
