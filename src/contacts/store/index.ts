@@ -1,50 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getAllGroups from '@contacts/utils/getAllGroups';
 
-const mockContacts = {
-  '1': {
-    name: 'Stefan Milenkovic',
-    location: 'Sofia',
-    groups: ['Weirdos']
-  },
-  '2': {
-    name: 'Nick Zviadadze',
-    location: 'Tbilisi',
-    groups: ['AUBG']
-  },
-  '3': {
-    name: 'Nina Troncheva',
-    location: 'Sofia',
-    groups: ['Friends']
-  }
-}
-
-const mockEvents = {
-  '1': {
-    participants: ['1', '2'],
-    activityId: '1',
-    activityLocationIndex: '0',
-    date: 1919005133732
-  },
-  '2': {
-    participants: ['1'],
-    activityId: '2',
-    activityLocationIndex: '0',
-    date: 1919005133732
-  }
-}
-
 const slice = createSlice({
   name: 'contactsStore',
   initialState: {
     // All individual contacts serialized by UUID
-    contacts: mockContacts,
+    contacts: {},
     // All events (past and future) serialized by UUID
-    events: mockEvents,
-    // Array of all unique contact group names (eg: Friends, Coworkers)
+    events: {},
+    // Array of all unique group names (eg: Friends, Coworkers) derived from contacts
     groups: []
   },
   reducers: {
+    getAllDone: (state, { payload }) => {
+      state.contacts = payload.contacts;
+      state.events = payload.events;
+    },
+    clearContactsAndEvents: (state) => {
+      state.contacts = {};
+      state.events = {};
+    },
     initGroups: (state) => {
       state.groups = getAllGroups(state.contacts);
     },
@@ -69,6 +44,8 @@ const slice = createSlice({
 });
 
 export const {
+  getAllDone,
+  clearContactsAndEvents,
   initGroups,
   updateContactDone,
   deleteContactDone,

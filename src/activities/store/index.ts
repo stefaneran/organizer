@@ -1,30 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const mockActivities = {
-  '1': {
-    name: 'Paintball',
-    locations: [{ name: 'Parking Garage', address: 'ul. "Uoshbarn" 31' }],
-    activityType: "Sport",
-    participantType: ["Group"]
-  },
-  '2': {
-    name: 'Mexican Food',
-    locations: [
-      { name: 'Carlos\' Mexican Restaurant', address: 'ul. "Vidini kuli" 2' },
-      { name: 'Rodrigo\'s Chilli Fiesta', address: 'ul. "Filip Totyu" 13' }
-    ],
-    activityType: "Food",
-    participantType: ["Group", "Pair", "Alone"]
-  }
-}
-
 const slice = createSlice({
   name: 'activitiesStore',
   initialState: {
     // All individual activities serialized by UUID
-    activities: mockActivities
+    activities: {}
   },
   reducers: {
+    getAllDone: (state, { payload }) => {
+      state.activities = payload;
+    },
+    clearActivities: (state) => {
+      state.activities = {};
+    },
     updateActivityDone: (state, { payload }) => {
       const { id } = payload;
       state.activities[id] = { ...payload };
@@ -37,6 +25,8 @@ const slice = createSlice({
 });
 
 export const {
+  getAllDone,
+  clearActivities,
   updateActivityDone,
   deleteActivityDone
 } = slice.actions;

@@ -11,10 +11,7 @@ const App = ({
   login,
   logout,
   setIsMobile,
-  getAllRecipes,
-  clearRecipes,
-  getAllInventory,
-  clearInventory
+  ...actions
 }) => {
 
   const { user: { loggedIn }, isMobile, error } = app;
@@ -45,8 +42,10 @@ const App = ({
 
   React.useEffect(() => {
     if (loggedIn) {
-      getAllInventory();
-      getAllRecipes();
+      actions.getAllActivities();
+      actions.getAllContactsAndEvents();
+      actions.getAllInventory();
+      actions.getAllRecipes();
     }
   }, [loggedIn]);
 
@@ -63,8 +62,10 @@ const App = ({
 
   const handleLogout = () => {
     logout();
-    clearInventory();
-    clearRecipes();
+    actions.clearActivities();
+    actions.clearContactsAndEvents();
+    actions.clearInventory();
+    actions.clearRecipes();
   }
 
   return (

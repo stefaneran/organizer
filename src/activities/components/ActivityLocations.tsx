@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText, Link } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 
-export const LocationLink = ({ address }) => {
+export const LocationLink = ({ address = '' }) => {
   const styles = {
     color: '#000', 
     height: '0.7em', 

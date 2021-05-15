@@ -66,7 +66,7 @@ const EventInfo = ({
   const isCreate = !Boolean(eventId);
 
   const [eventData, setEventData] = React.useState(isCreate ? defaultEventProps : event);
-  const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : activities[event.activityId].activityType);
+  const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : activities[event.activityId]?.activityType);
   const [activityOptions, setActivityOptions] = React.useState(getActivityOptions(activities, activityType));
 
   const activityTypes: ActivityType[] = Object.keys(ActivityType).map((type: ActivityType) => type);

@@ -4,6 +4,7 @@ General:
 - *Add patchnotes dialog/button
 - *Change local storage to cookies
 - *Make landing page
+- *Use mongoose in back-end
 - Remove PeopleIcon and use material UI equivalent
 - Make error action work
 - Add unit tests
@@ -48,11 +49,10 @@ Inventory:
 
 Contacts:
 
-- Add API
-- (MVP) Events: Show more event details in info panel
-
+- (Bug) Activities: Change selects to be medium
+- (Bug) Events: ListItem undefined values (show something nicer)
+- (MVP) Events: Show more details in info
 - (MVP) Contacts: Show more details in info
-  - One-On-One 
   - Last hangout (days ago)
   - Avg hang out per week/month
 - (MVP) Contacts: Add "snoozed" property and snooze action to reset neglect timer
