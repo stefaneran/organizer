@@ -6,6 +6,7 @@ import ContactsList from '@contacts/components/ContactsPanel/ContactsList';
 import ContactInfo from '@contacts/components/ContactsPanel/ContactInfo';
 import ContactsFilters from '@contacts/components/ContactsPanel/ContactsFilters';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import defaultContactFilters from '@contacts/utils/defaultContactFilters';
 import getContactsArray from '@contacts/utils/getContactsArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -17,23 +18,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const defaultFilters = {
-  group: 'All',
-  name: '',
-  location: ''
-}
-
 const ContactsPanel = ({ contacts, groups, actions }) => {
   const classes = useStyles();
 
   const [selectedContact, setSelectedContact] = React.useState('');
-  const [contactsFilters, setContactsFilters] = React.useState(defaultFilters);
+  const [contactsFilters, setContactsFilters] = React.useState(defaultContactFilters);
   const [isInfoPanelOpen, setInfoPanelOpen] = React.useState(false);
   const [isFiltersPanelOpen, setFiltersPanelOpen] = React.useState(false);
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const contactsList = React.useMemo(() => getContactsArray(contacts, contactsFilters), [contacts, contactsFilters]);
 
+  const toggleFilterPanel = () => {
+    setFiltersPanelOpen(!isFiltersPanelOpen);
+  }
   const toggleConfirmationDialog = () => {
     setConfirmationOpen(!isConfirmationOpen);
   }
@@ -45,13 +43,8 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
     setSelectedContact('');
     setInfoPanelOpen(false);
   }
-  const handleOpenFiltersPanel = () => {
-    setFiltersPanelOpen(true);
-  }
-  const handleCloseFiltersPanel = () => {
-    setFiltersPanelOpen(false);
-  }
-  const handleChangeFilter = (property) => (value) => {
+  const handleChangeFilter = (property) => (eventOrValue) => {
+    const value = eventOrValue.target?.value ?? eventOrValue;
     setContactsFilters({
       ...contactsFilters,
       [property]: value
@@ -67,9 +60,7 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
     <div className={classes.container}>
       <ContactsToolBar 
         onOpenInfo={handleOpenInfoPanel}
-        isFiltersOpen={isFiltersPanelOpen}
-        onOpenFilters={handleOpenFiltersPanel}
-        onCloseFilters={handleCloseFiltersPanel}
+        toggleFilterPanel={toggleFilterPanel}
         groups={groups}
         onChangeFilter={handleChangeFilter}
       />
@@ -90,7 +81,7 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
       />
       <ContactsFilters 
         isOpen={isFiltersPanelOpen}
-        onClose={handleCloseFiltersPanel}
+        onClose={toggleFilterPanel}
         contactsFilters={contactsFilters}
         onChangeFilter={handleChangeFilter}
       />

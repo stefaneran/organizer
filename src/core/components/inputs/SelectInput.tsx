@@ -15,9 +15,10 @@ interface Props {
   className?; 
   label?;
   options; 
-  getOptionKey; 
-  getOptionValue; 
-  getOptionLabel; 
+  // Accessors for specific values - Defaults to direct access if none provided
+  getOptionKey?; 
+  getOptionValue?; 
+  getOptionLabel?; 
 }
 
 const SelectInput = ({ 
@@ -26,9 +27,7 @@ const SelectInput = ({
   className, 
   label, 
   options, 
-  getOptionKey, 
-  getOptionValue, 
-  getOptionLabel 
+  ...accessors 
 }: Props) => {
   const classes = useStyles();
   return (
@@ -43,12 +42,12 @@ const SelectInput = ({
       >
         {options?.map((option, index) => (
           <MenuItem 
-            key={getOptionKey(option, index)} 
-            value={getOptionValue(option, index)}
+            key={accessors.getOptionKey?.(option, index) ?? option} 
+            value={accessors.getOptionValue?.(option, index) ?? option}
           >
-            {getOptionLabel(option, index)}
+            {accessors.getOptionLabel?.(option, index) ?? option}
           </MenuItem>
-        ))}
+        )) ?? null}
       </Select>
     </FormControl>
   )

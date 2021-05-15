@@ -18,5 +18,17 @@ export default (contacts, filters?): Contact[] => {
   if (filters && filters.location.length) {
     filteredContacts = filteredContacts.filter(contact => contact.location.toLowerCase().includes(filters.location.toLowerCase()))
   }
+  // Filter by gender
+  if (filters && filters.gender !== 'All') {
+    filteredContacts = filteredContacts.filter(contact => contact.gender === filters.gender)
+  }
+  // Filter by relationship status
+  if (filters && filters.relationshipStatus !== 'All') {
+    filteredContacts = filteredContacts.filter(contact => contact.relationshipStatus === filters.relationshipStatus)
+  }
+  // Filter by abillity to see contact one-on-one
+  if (filters && filters.oneOnOne) {
+    filteredContacts = filteredContacts.filter(contact => contact.oneOnOne)
+  }
   return filteredContacts;
 }

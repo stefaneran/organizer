@@ -2,28 +2,42 @@
 Main Questions:
 ===============
 
-1) Who should I see? 
-  1a) Who do I see often?
-  1b) Who do I neglect?
+- Who should I see? 
+  - Who do I see often?
+  - Who do I neglect?
 
-2) When do we hangout?
+- How do I want to use it on mobile?
 
-3) How do we hang out?
-  3a) When do we hang out?
-  3b) Where do we hang out?
-  3c) What will we do?  
+- How can the app be smart?
 
 =============
 Main Answers:
 =============
 
-1) Contacts View
-  a) Full list of contacts 
-  b) Suggestions Dashboard - Randomized from a selection of fitting group 
+- "Who should I see?": Contacts View
+  - Full list of contacts 
+  - Suggestions Dashboard - Randomized from a selection of fitting group 
     - Neglected (> 2 months, but have hung out with)
     - Lost Touch (> 2 months - Never hung out or hung out over 6 months ago)
     - Good Friends (Hang out once every 1 month on average or more)
 
-2) Calendar / Scheduler 
+- "How do I want to use it on mobile?"
+  - See activities 
+  - See events 
+  - See contacts 
+  - Add reminders 
+
+- "How can the app be smart?"
+  - Suggest people to an existing event
+    - People in same location as participants 
+    - People who have been in the same event as one of the participants
+    - People you haven't seen in a while
+    - Gender specific based on gender ratio
+  - Random event generator 
+    - Random activity 
+    - Random roster
+  - Show Facebook events in activities page
+  - Questionaire to give event ideas
+
   
   

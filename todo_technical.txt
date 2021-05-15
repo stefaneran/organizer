@@ -4,11 +4,12 @@ General:
 - *Add patchnotes dialog/button
 - *Change local storage to cookies
 - *Make landing page
+- Remove PeopleIcon and use material UI equivalent
 - Make error action work
 - Add unit tests
 - Add linting and fix lints
 - Use MUI theme and make Dark theme
-- More TypeScript 
+- More TypeScript (and more advanced too)
 - Add sync button in appbar to update info
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
@@ -23,6 +24,7 @@ Recipes:
 - Filter by available ingredients option, etc
 - When creating new recipe, set as selected to avoid confusion
 -----------------------------------------------
+- Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
 - Bonus: Add nationality flags to options/chips
 - Refactor: Find duplicate util functions and move to /utils
@@ -35,6 +37,7 @@ Inventory:
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
 -----------------------------------------------
+- Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
 - Refactor: Move everything from <Inventory /> to <InventoryContainer />
 - Refactor: Find way to generalize AllItems and AvailableItems cause there's tons of repetition
@@ -44,20 +47,23 @@ Inventory:
 ===============================================================
 
 Contacts:
-- Activities: Highlight selected activity in the list
-- Contacts: Fix contacts toolbar look
-- Contacts: Add "Filters" title to filter sidepanel
-- Contacts: Add contact gender (+ filter)
-- Contacts: Add contact relationship status (+ filter)
-- Contacts: Add contact if you can see them one on one or only with groups (+ filter)
+
+- Add API
+- (MVP) Events: Show more event details in info panel
+
+- (MVP) Contacts: Show more details in info
+  - One-On-One 
+  - Last hangout (days ago)
+  - Avg hang out per week/month
+- (MVP) Contacts: Add "snoozed" property and snooze action to reset neglect timer
+- (MVP) Events: Don't show activity types that have no items + Add 'All' option
+- (MVP) Events: Show virtualized list of past events
+- (MVP) Contacts: Sort by: Time since last hangout (take snooze into account)
+
+- Events: Filters - Activity Type / Date range (before/after)
+- Events: Show male/female ratio + suggestion how many to add to achieve balance
 - Contacts: Let user set current Location
 - Contacts: See number of contacts (and num of ones in current location)
-- Events: Don't show activity types that have no items
-
-Stage 3 - Events
-
-- Filter events by future/past (default future)
-
 
 Stage 4 - Reminders
 

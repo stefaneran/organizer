@@ -2,9 +2,10 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
+import ParticipantsChip from '@contacts/components/EventsPanel/ParticipantsChip';
 import Event from '@contacts/interfaces/Event.interface';
 import Activity from '@activities/interfaces/Activity.interface';
-import { formatEventDate } from '@core/utils/dateUtils';
+import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       transition: 'color 300ms',
     },
     '&:hover': {
-      background: theme.palette.primary.light,
+      background: theme.palette.primary.main,
       color: '#fff',
       '& .subtitle': {
         color: '#fff',
@@ -26,10 +27,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
   },
   iconContainer: {
-    marginRight: '0.5em'
+    marginRight: '1em'
   },
   infoContainer: {
     textAlign: 'left'
+  },
+  secondLine: {
+    display: 'flex'
   }
 }));
 
@@ -37,17 +41,18 @@ const iconStyles = {
   position: 'relative',
   top: '50%',
   transform: 'translateY(-50%)',
-  height: '1.5em',
-  width: '1.5em'
+  height: '2em',
+  width: '2em'
 }
 
 interface Props {
   event: Event;
   activities;
+  contacts;
   onOpenInfo: (id: string) => void;
 }
 
-const EventListItem = ({ event, activities, onOpenInfo }: Props) => {
+const EventListItem = ({ event, activities, contacts, onOpenInfo }: Props) => {
   const classes = useStyles();
   
   const activity: Activity = activities[event.activityId];
@@ -63,11 +68,21 @@ const EventListItem = ({ event, activities, onOpenInfo }: Props) => {
       </div>
       <div className={classes.infoContainer}>
         <Typography variant="h6">
-          {`${activity?.name} - ${formatEventDate(event?.date)}`}
+          {`${event?.title ? `${event?.title} - ` : ''}${activity?.name} - ${formatEventDate(event?.date)}`}
         </Typography>
-        <Typography variant="subtitle2" className="subtitle">
-          {activity?.locations[event.activityLocationIndex].name}
-        </Typography>
+        <div className={classes.secondLine}>
+          <Typography variant="subtitle2" className="subtitle" style={{ marginRight: '0.3em' }}>
+            {`${formatDateTime(event?.date)} -`}
+          </Typography>
+          <Typography variant="subtitle2" className="subtitle">
+            {` ${activity?.locations[event?.activityLocationIndex].name}`}
+          </Typography>
+        </div>
+        <ParticipantsChip
+          participants={event.participants}
+          contacts={contacts}
+          style={{ marginTop: '0.3em' }}
+        />
       </div>
     </Paper>
   )

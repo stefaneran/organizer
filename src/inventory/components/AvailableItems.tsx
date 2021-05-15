@@ -13,6 +13,7 @@ import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
 import { BagIconSmall, RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
+import SwitchInput from '@core/components/inputs/SwitchInput';
 import NestedList from '@inventory/components/NestedList';
 import SimpleList from '@inventory/components/SimpleList';
 import AddItemInput from '@inventory/components/AddItemInput';
@@ -37,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingLeft: '1em'
   },
   switchContainer: {
-    display: 'flex',
     justifyContent: 'center',
     '& > svg': {
       position: 'relative',
@@ -177,15 +177,13 @@ const AvailableItems = ({
             }}
           >
             <Tooltip title="View by Category or All" placement="top">
-              <div className={classes.switchContainer}>
-                <ListIconSmall />
-                <Switch 
-                  checked={isNested} 
-                  onChange={toggleNested} 
-                  color="primary" 
-                />
-                <NestedIconSmall />
-              </div>
+              <SwitchInput 
+                isChecked={isNested}
+                onChange={toggleNested}
+                className={classes.switchContainer}
+                uncheckedIcon={<ListIconSmall />}
+                checkedIcon={<NestedIconSmall />}
+              />
             </Tooltip>
             <Divider className={classes.divider} />
             <div className={classes.filter}>

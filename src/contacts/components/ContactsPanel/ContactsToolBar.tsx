@@ -13,9 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const ContactsToolBar = ({
   onOpenInfo, 
-  isFiltersOpen, 
-  onOpenFilters, 
-  onCloseFilters,
+  toggleFilterPanel,
   groups,
   onChangeFilter
 }) => {
@@ -23,7 +21,7 @@ const ContactsToolBar = ({
   return (
     <div className={classes.toolbar}>
       <Tooltip title="Open Filters">
-        <IconButton onClick={isFiltersOpen ? onCloseFilters : onOpenFilters}>
+        <IconButton onClick={toggleFilterPanel}>
           <FilterListIcon color="primary" />
         </IconButton>
       </Tooltip>

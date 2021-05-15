@@ -117,6 +117,7 @@ const ActivitiesContainer = ({ activities, addActivity, editActivity, deleteActi
             textFilter={textFilter}
             participantFilter={participantFilter} 
             onSelectActivity={handleSelectActivity}
+            selectedActivity={selectedActivity}
           />
         </div>
         <div 

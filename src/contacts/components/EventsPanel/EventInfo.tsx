@@ -5,8 +5,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import EventInfoEdit from '@contacts/components/EventsPanel/EventInfoEdit';
 import Chips from '@contacts/components/Chips';
+import { LocationLink } from '@activities/components/ActivityLocations';
 import Event from '@contacts/interfaces/Event.interface';
 import Activity from '@activities/interfaces/Activity.interface';
+import getActivityLocations from '@contacts/utils/getActivityLocations';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -20,6 +22,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   topButtons: {
     textAlign: 'right'
+  },
+  headline: {
+    position: 'absolute',
+    top: '0.5em',
+    left: '50%',
+    transform: 'translateX(-50%)'
+  },
+  info: {
+    textAlign: 'left'
   }
 }));
 
@@ -45,11 +56,14 @@ const EventInfo = ({
   onDeleteEvent
 }: Props) => {
   const classes = useStyles();
+
   const isCreate = !Boolean(eventId);
+  const hasTitle = Boolean(event?.title?.length)
 
   const [isEdit, setIsEdit] = React.useState(false);
 
   const activity: Activity = activities[event?.activityId];
+  const activityLocation = getActivityLocations(activities, event?.activityId)[event?.activityLocationIndex];
 
   const getParticipants = () => event?.participants.map(participantId => ({ id: participantId, name: contacts[participantId].name })) ?? [];
 
@@ -93,15 +107,31 @@ const EventInfo = ({
             />
           ) : (
             <>
-              <Typography variant="h4">
-                {activity?.name}
+              <Typography className={classes.headline} variant="h4">
+                {hasTitle ? event?.title : activity?.name}
               </Typography>
-              <Chips 
-                memo={getParticipants}
-                deps={[contacts, event?.participants]}
-                getKey={(participant) => participant.id}
-                getLabel={(participant) => participant.name}
-              />
+              <div className={classes.info}>
+
+                {hasTitle ? (
+                  <Typography variant="h5">
+                    {activity?.name}
+                  </Typography>
+                ) : null}
+
+                <Typography variant="h6">
+                  {activityLocation?.name}
+                </Typography>
+
+                <LocationLink address={activityLocation?.address} />
+
+                <Chips 
+                  memo={getParticipants}
+                  deps={[contacts, event?.participants]}
+                  getKey={(participant) => participant.id}
+                  getLabel={(participant) => participant.name}
+                />
+
+              </div>
             </>
           )}
         </>

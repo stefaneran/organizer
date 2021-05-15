@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText, Link } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 
-const LocationLink = ({ address }) => {
+export const LocationLink = ({ address }) => {
   const styles = {
     color: '#000', 
     height: '0.7em', 
@@ -21,7 +21,7 @@ const LocationLink = ({ address }) => {
       ) : (
         <LinkIcon style={styles} />
       )}
-      <a target="_blank" href={link}>{address}</a>
+      <Link target="_blank" href={link} variant="subtitle2">{address}</Link>
     </div>
   )
 }

@@ -3,7 +3,12 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { PeopleIconMediumInfo } from '@core/components/Icons/PeopleIcon';
 import ContactInfoEdit from '@contacts/components/ContactsPanel/ContactInfoEdit';
+import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
+import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
+import OneOnOneChip from '@contacts/components/ContactsPanel/OneOnOneChip';
 import Chips from '@contacts/components/Chips';
 import Contact from '@contacts/interfaces/Contact.interface';
 
@@ -17,11 +22,28 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     background: '#ecedf0',
     padding: '1em'
   },
+  headline: {
+    position: 'absolute',
+    top: '0.5em',
+    left: '50%',
+    transform: 'translateX(-50%)'
+  },
   topButtons: {
     textAlign: 'right'
   },
-  infoGroup: {
+  infoContainer: {
     textAlign: 'left'
+  },
+  infoGroup: {
+    display: 'flex',
+    marginTop: '1em'
+  },
+  locationIcon: {
+    height: '1em',
+    width: '1em',
+    position: 'relative',
+    top: '0.15em',
+    marginRight: '0.4em'
   }
 }));
 
@@ -30,7 +52,7 @@ interface Props {
   contactId: string;
   groups: string[];
   isOpen: boolean;
-  onClose: ()=>void;
+  onClose: () => void;
   actions;
   onDeleteContact: () => void;
 }
@@ -87,16 +109,35 @@ const ContactInfo = ({
               onDeleteContact={onDeleteContact}
             />
           ) : (
-            <div className={classes.infoGroup}>
-              <Typography variant="h4">{contact?.name}</Typography>
-              <Typography variant="h5">{contact?.location}</Typography>
-              <Chips 
-                memo={() => contact?.groups ?? []}
-                deps={[contact?.groups]}
-                getKey={(group) => group}
-                getLabel={(group) => group}
-              />
-            </div>
+            <>
+              <Typography variant="h4" className={classes.headline}>
+                {contact?.name}
+              </Typography>
+              <div className={classes.infoContainer}>
+
+                <div className={classes.infoGroup} style={{ justifyContent: 'center' }}>
+                  <GenderChip gender={contact?.gender} />
+                  <RelationshipChip relationshipStatus={contact?.relationshipStatus} />
+                  <OneOnOneChip oneOnOne={contact?.oneOnOne} />
+                </div>
+
+                <div className={classes.infoGroup}>
+                  <LocationOnIcon className={classes.locationIcon} />
+                  <Typography variant="h5">{contact?.location}</Typography>
+                </div>
+
+                <div className={classes.infoGroup}>
+                  <PeopleIconMediumInfo />
+                  <Chips 
+                    memo={() => contact?.groups ?? []}
+                    deps={[contact?.groups]}
+                    getKey={(group) => group}
+                    getLabel={(group) => group}
+                  />
+                </div>
+
+              </div>
+            </>
           )}
         </>
       ) : null}

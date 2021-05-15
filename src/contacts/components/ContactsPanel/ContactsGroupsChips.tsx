@@ -4,7 +4,8 @@ import { Chip } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    textAlign: 'left'
+    textAlign: 'left',
+    paddingTop: '0.5em'
   },
   chip: {
     marginRight: '0.5em'

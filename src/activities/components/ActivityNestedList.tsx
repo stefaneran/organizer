@@ -29,6 +29,7 @@ interface Props {
   onSelectActivity: (id: string) => () => void;
   textFilter;
   participantFilter;
+  selectedActivity: string;
 }
 
 const Collapsible = ({
@@ -36,7 +37,8 @@ const Collapsible = ({
   items,
   textFilter,
   participantFilter,
-  onSelectActivity
+  onSelectActivity,
+  selectedActivity
 }) => {
   const classes = useStyles();
 
@@ -63,7 +65,12 @@ const Collapsible = ({
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" className={classes.item}>
           {items && items.sort((a, b) => genericSort(a.name, b.name)).map(item => 
-            <ActivityListItem key={item.id} item={item} onSelectActivity={onSelectActivity} />
+            <ActivityListItem 
+              key={item.id}
+              item={item} 
+              onSelectActivity={onSelectActivity} 
+              isSelected={selectedActivity === item.id}
+            />
           )}
         </List>
       </Collapse>
@@ -75,7 +82,8 @@ const ActivityNestedList = ({
   listItems,
   textFilter,
   participantFilter,
-  onSelectActivity
+  onSelectActivity,
+  selectedActivity
 }: Props) => {
   const activityTypes = React.useMemo(() => categorizeItems(listItems, "activityType"), [listItems]);
   return (
@@ -88,6 +96,7 @@ const ActivityNestedList = ({
           textFilter={textFilter}
           participantFilter={participantFilter}
           onSelectActivity={onSelectActivity}
+          selectedActivity={selectedActivity}
         />
       ))}
     </List>

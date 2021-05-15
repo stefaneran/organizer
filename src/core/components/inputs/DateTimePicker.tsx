@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '100%'
   },
   datepicker: {
+    width: '100%',
     marginRight: '0.5em'
+  },
+  timepicker: {
+    width: '100%',
   }
 }))
 
@@ -47,6 +51,7 @@ const DateTimePickerComponent = ({
           inputVariant="outlined"
         />
         <KeyboardTimePicker
+          className={classes.timepicker}
           margin="normal"
           label={`${label} Time`}
           value={value}

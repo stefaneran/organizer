@@ -2,6 +2,7 @@
 // (ex: Selecting an activity type even though we use eventId only)
 
 export default {
+  title: '',
   participants: [],
   activityId: '',
   activityLocationIndex: 0,

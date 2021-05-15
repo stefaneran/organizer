@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
 import EditButtonGroup from '@contacts/components/EditButtonGroup';
 import SelectInput from '@core/components/inputs/SelectInput';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
@@ -15,25 +15,28 @@ import getContactsByIds from '@contacts/utils/getContactsByIds';
 import getContactsArray from '@contacts/utils/getContactsArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  activityTop: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '1em',
+  headline: {
+    position: 'absolute',
+    top: '0.5em',
+    left: '50%',
+    transform: 'translateX(-50%)'
   },
-  typeSelect: {
+  inputGroup: {
+    marginTop: '1em',
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  inputGroupItemOne: {
     width: '100%',
     marginRight: '0.5em'
   },
-  activitySelect: {
-    width: '100%',
+  inputGroupItemTwo: {
+    width: '100%'
   },
-  locationSelect: {
+  input: {
     width: '100%',
-    marginBottom: '0.5em'
+    marginTop: '1em'
   },
-  participantsAutocomplete: {
-    width: '100%',
-  }
 }));
 
 interface Props {
@@ -46,10 +49,6 @@ interface Props {
   createEvent: Function;
   editEvent: Function;
   onDeleteEvent: () => void;
-}
-
-const getActivityType = (activities, activityId) => {
-  return activities[activityId].activityType
 }
 
 const EventInfo = ({ 
@@ -67,7 +66,7 @@ const EventInfo = ({
   const isCreate = !Boolean(eventId);
 
   const [eventData, setEventData] = React.useState(isCreate ? defaultEventProps : event);
-  const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : getActivityType(activities, event.activityId));
+  const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : activities[event.activityId].activityType);
   const [activityOptions, setActivityOptions] = React.useState(getActivityOptions(activities, activityType));
 
   const activityTypes: ActivityType[] = Object.keys(ActivityType).map((type: ActivityType) => type);
@@ -129,23 +128,30 @@ const EventInfo = ({
   return (
     <>
 
-      <Typography variant="h4" style={{ marginBottom: '0.5em' }}>
+      <Typography variant="h4" className={classes.headline}>
         {isCreate ? 'Create New Event' : 'Edit Event Details'}
       </Typography>
 
-      <div className={classes.activityTop}>
+      <TextField
+        className={classes.input}
+        value={eventData?.title}
+        onChange={handleChangeEventData('title')}
+        variant="outlined"
+        label="Event Title"
+        placeholder="Title (Optional)"
+        size="medium"
+      />
+
+      <div className={classes.inputGroup}>
         <SelectInput
-          className={classes.typeSelect}
+          className={classes.inputGroupItemOne}
           value={activityType}
           onChange={handleChangeActivityType}
           label="Activity Type"
           options={activityTypes || []}
-          getOptionKey={(option) => option}
-          getOptionValue={(option) => option} 
-          getOptionLabel={(option) => option}
         />
         <SelectInput
-          className={classes.activitySelect}
+          className={classes.inputGroupItemTwo}
           value={eventData.activityId}
           onChange={handleChangeEventData('activityId')}
           label="Activity"
@@ -158,7 +164,7 @@ const EventInfo = ({
 
       {activity ? (
         <SelectInput
-          className={classes.locationSelect}
+          className={classes.input}
           value={eventData.activityLocationIndex}
           onChange={handleChangeEventData('activityLocationIndex')}
           label="Location"
@@ -170,7 +176,7 @@ const EventInfo = ({
       ) : null}
 
       <TextMultiSelect
-        className={classes.participantsAutocomplete}
+        className={classes.input}
         label="Participants"
         onChange={handleChangeEventData('participants')}
         defaultValue={participants}
