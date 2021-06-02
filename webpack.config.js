@@ -39,11 +39,10 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/i,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' }
+          { loader: 'css-loader' }
         ],
       },
       {

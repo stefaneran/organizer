@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Chip } from '@material-ui/core';
 import { MaleIconChip, FemaleIconChip } from '@core/components/Icons/GenderIcon';
-import Genders from '@contacts/interfaces/Genders.enum';
+import { Genders } from '@contacts/types.d';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chip: {
@@ -21,17 +21,16 @@ interface Props {
   style?;
 }
 
-const GenderChip = ({ gender, style }: Props) => {
+const GenderChip: React.FC<Props> = ({ gender, style }) => {
   const classes = useStyles();
   const isMale = gender === Genders.Male;
-  const genderStyle = {
-    backgroundColor: isMale ? '#73A6D4' : '#FF69B3'
-  }
+  const genderStyle = { backgroundColor: isMale ? '#73A6D4' : '#FF69B3' }
   return (
     <Chip 
       icon={isMale ? <MaleIconChip /> : <FemaleIconChip />}
       className={classes.chip}
-      label={gender}
+      // label={gender}
+      label={''}
       style={{ ...style, ...genderStyle }}
     />
   )

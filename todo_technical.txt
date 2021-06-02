@@ -37,6 +37,7 @@ Inventory:
 - # Add "De-select All" button
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
+- Add chip to ingredients that shows how many recipes its used in
 -----------------------------------------------
 - Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
@@ -49,21 +50,26 @@ Inventory:
 
 Contacts:
 
-- (Bug) Activities: Change selects to be medium
-- (Bug) Events: ListItem undefined values (show something nicer)
 - (MVP) Events: Show more details in info
+  - Date/Time 
+  - Participants (Better UI)
 - (MVP) Contacts: Show more details in info
   - Last hangout (days ago)
-  - Avg hang out per week/month
-- (MVP) Contacts: Add "snoozed" property and snooze action to reset neglect timer
-- (MVP) Events: Don't show activity types that have no items + Add 'All' option
-- (MVP) Events: Show virtualized list of past events
+  - Acquaintances
+- (MVP) Events: Participant suggestion function
+- (MVP) Contacts: Add snooze action to reset timer
 - (MVP) Contacts: Sort by: Time since last hangout (take snooze into account)
+- (MVP) Contacts: Show mini chips for gender, last contact, etc
+- (MVP) Events: Don't show activity types that have no items + Add 'All' option
+- (MVP) Activities: Add "Social" type
+
 
 - Events: Filters - Activity Type / Date range (before/after)
 - Events: Show male/female ratio + suggestion how many to add to achieve balance
+- Events: ListItem undefined values (show something nicer)
 - Contacts: Let user set current Location
 - Contacts: See number of contacts (and num of ones in current location)
+- Activities: Add upcoming events
 
 Stage 4 - Reminders
 

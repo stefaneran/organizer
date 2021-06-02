@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { ListItem, ListItemText } from '@material-ui/core';
+import { Contact } from '@contacts/types.d';
 
-const ContactsListItem = ({ contact, onOpenInfo }) => {
+interface Props {
+  contact: Contact;
+  onOpenInfo: (contactId?: string) => void;
+}
+
+const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
 
   const handleOpenInfoPanel = () => {
     onOpenInfo(contact.id)
@@ -18,6 +24,9 @@ const ContactsListItem = ({ contact, onOpenInfo }) => {
       <ListItemText>
         {contact.name}
       </ListItemText>
+      <div>
+        
+      </div>
     </ListItem>
   )
 }

@@ -5,6 +5,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import ActivityLocations from '@activities/components/ActivityLocations';
+import ActivityParticipants from '@activities/components/ActivityParticipants';
+import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsContainer: {
@@ -16,12 +18,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   headerTitles: {
     maxWidth: '75%'
-  },
-  participantsContainer: {
-    marginBottom: '1em'
-  },
-  chip: {
-    marginRight: '0.5em'
   },
   buttonContainer: {
     marginTop: '1.5em',
@@ -39,11 +35,14 @@ const ActivityDetails = ({
   const classes = useStyles();
 
   const hasActivity = Boolean(activity);
+  const hasParticipants = Boolean(activity?.participantType.length);
+  const hasLocations = !checkIsLocationsEmpty(activity?.locations);
 
   return (
     <>
     {hasActivity && (
       <div className={classes.detailsContainer}>
+
         <div className={classes.header}>
           <div className={classes.headerTitles}>
             <Typography variant="h4">
@@ -63,19 +62,19 @@ const ActivityDetails = ({
             </Tooltip>
           </div>
         </div>
-        <div className={classes.participantsContainer}>
-          {activity.participantType ? activity.participantType.map(type => (
-            <Chip 
-              className={classes.chip}
-              key={type} 
-              label={type}
-              color="primary"
-            />
-          )) : null}
-        </div>
-        <Divider />
-        <ActivityLocations locations={activity.locations} />
-        <Divider />
+
+        {hasParticipants ? (
+          <ActivityParticipants participantType={activity.participantType} />
+        ) : null}
+
+        {hasLocations ? (
+          <>
+            <Divider />
+            <ActivityLocations locations={activity.locations} />
+            <Divider />
+          </>
+        ) : null}
+
         <div className={classes.buttonContainer}>
           <Button
             variant="outlined"

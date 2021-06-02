@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Chip, Tooltip } from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
+import getShortName from '@contacts/utils/getShortName';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chip: {
@@ -24,21 +25,38 @@ interface Props {
   style?;
 }
 
-const ParticipantsChip = ({ participants, contacts, style }: Props) => {
+const ToolTipText = ({ participants, contacts }) => {
+  return (
+    <div>
+      {participants.map((p) => 
+        <React.Fragment key={p}>
+          {contacts[p].name}
+          <br />
+        </React.Fragment>
+      )}
+    </div>
+  )
+}
+
+const ParticipantsChip: React.FC<Props> = ({ 
+  participants = [], 
+  contacts, 
+  style 
+}) => {
   const classes = useStyles();
 
   const numOfParticipants = participants.length;
   const isGroup = Boolean(numOfParticipants > 1);
 
   // In the case we have only one atendee we want to print their first name and first letter of last name
-  const participantName = contacts[participants[0]]?.name;
-  const participantLabel = `${participantName.split(' ')[0]} ${participantName.split(' ')[1].charAt(0)}.`
+  const participantName = contacts[participants[0]]?.name ?? '';
+  const participantLabel = getShortName(participantName);
 
   const label = isGroup ? `${numOfParticipants} Atendees` : participantLabel;
   const icon = isGroup ? <PeopleAltIcon /> : <PersonIcon />;
 
   return (
-    <Tooltip title="Participants">
+    <Tooltip title={<ToolTipText participants={participants} contacts={contacts} />}>
       <Chip 
         icon={icon}
         className={classes.chip}

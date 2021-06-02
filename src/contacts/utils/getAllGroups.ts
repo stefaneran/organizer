@@ -1,4 +1,6 @@
-export default (contacts) => {
+import { Contact } from "@contacts/types.d";
+
+export default (contacts: Record<string, Contact>) => {
   const allGroups = [];
   for (const id of Object.keys(contacts)) {
     const contactGroups = contacts[id].groups;

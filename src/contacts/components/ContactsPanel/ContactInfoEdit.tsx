@@ -7,9 +7,7 @@ import EditButtonGroup from '@contacts/components/EditButtonGroup';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
-import Contact from '@contacts/interfaces/Contact.interface';
-import Gender from '@contacts/interfaces/Genders.enum';
-import RelationshipStatus from '@contacts/interfaces/RelationshipStatus.enum';
+import { Contact, Genders, RelationshipStatus } from '@contacts/types.d';
 import defaultContactProps from '@contacts/utils/defaultContactProps';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -62,7 +60,7 @@ interface Props {
   editContact: Function;
 }
 
-const ContactInfo = ({ 
+const ContactInfo: React.FC<Props> = ({ 
   contact,
   contactId,
   groups,
@@ -71,7 +69,7 @@ const ContactInfo = ({
   onDeleteContact,
   createContact,
   editContact
- }: Props) => {
+ }) => {
   const classes = useStyles();
   const isCreate = !Boolean(contactId);
 
@@ -148,7 +146,7 @@ const ContactInfo = ({
         <SelectInput
           className={classes.inputGroupItemOne}
           value={contactData.gender}
-          options={Object.keys(Gender)}
+          options={Object.keys(Genders)}
           onChange={handleChangeContactData('gender')}
           label="Gender"
         />

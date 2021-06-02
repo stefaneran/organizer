@@ -1,5 +1,8 @@
-import Contact from '@contacts/interfaces/Contact.interface';
+import { Contact } from '@contacts/types.d';
 
-export default (contacts, contactsIds): Contact[] => {
+export default (
+  contacts: Record<string, Contact>, 
+  contactsIds: string[]
+): Contact[] => {
   return contactsIds.map(contactId => ({ ...contacts[contactId], id: contactId }));
 }

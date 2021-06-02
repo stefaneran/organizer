@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactInfoGroupsChips = ({ groups, onSelect }) => {
+interface Props {
+  groups: string[];
+  onSelect: (filter: string) => (value: string) => void;
+}
+
+const ContactInfoGroupsChips: React.FC<Props> = ({ groups, onSelect }) => {
   const classes = useStyles();
 
   const handleSelect = (group) => () => {

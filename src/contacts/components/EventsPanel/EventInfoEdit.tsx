@@ -5,7 +5,7 @@ import EditButtonGroup from '@contacts/components/EditButtonGroup';
 import SelectInput from '@core/components/inputs/SelectInput';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import DateTimePicker from '@core/components/inputs/DateTimePicker'; 
-import Event from '@contacts/interfaces/Event.interface';
+import { Event } from '@contacts/types.d';
 import Activity from '@activities/interfaces/Activity.interface';
 import ActivityType from '@activities/interfaces/ActivityType.enum';
 import defaultEventProps from '@contacts/utils/defaultEventProps';
@@ -51,7 +51,7 @@ interface Props {
   onDeleteEvent: () => void;
 }
 
-const EventInfo = ({ 
+const EventInfo: React.FC<Props> = ({ 
   event, 
   eventId, 
   activities,
@@ -61,7 +61,7 @@ const EventInfo = ({
   createEvent,
   editEvent,
   onDeleteEvent
-}: Props) => {
+}) => {
   const classes = useStyles();
   const isCreate = !Boolean(eventId);
 

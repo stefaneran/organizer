@@ -38,7 +38,6 @@ const SelectInput = ({
         label={label}
         value={value}
         onChange={onChange}
-        className={className}
       >
         {options?.map((option, index) => (
           <MenuItem 

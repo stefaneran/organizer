@@ -6,8 +6,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
-import Gender from '@contacts/interfaces/Genders.enum';
-import RelationshipStatus from '@contacts/interfaces/RelationshipStatus.enum';
+import { Genders, RelationshipStatus } from '@contacts/types.d';
 import { ContactFilters } from '@contacts/utils/defaultContactFilters';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -56,12 +55,12 @@ interface Props {
   onChangeFilter: (property: string) => (event) => void;
 }
 
-const ContactsFilters = ({
+const ContactsFilters: React.FC<Props> = ({
   isOpen,
   onClose,
   contactsFilters,
   onChangeFilter
- }: Props) => {
+ }) => {
   const classes = useStyles();
 
   return (
@@ -91,7 +90,7 @@ const ContactsFilters = ({
         <SelectInput
           className={classes.genderSelect}
           value={contactsFilters.gender}
-          options={['All', ...Object.keys(Gender)]}
+          options={['All', ...Object.keys(Genders)]}
           onChange={onChangeFilter('gender')}
           label="Gender"
         />

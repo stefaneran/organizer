@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   isChecked: boolean;
-  onChange: () => void;
+  onChange: (isChecked) => void;
   disabled?: boolean;
   className?: string;
   uncheckedIcon?; // Icon on the left side
@@ -27,12 +27,16 @@ const SwitchInput = ({
   checkedIcon 
 }: Props) => {
   const classes = useStyles();
+  const handleCheck = (e) => {
+    const isChecked = e.target.checked;
+    onChange(isChecked)
+  }
   return (
     <div className={className ? clsx(classes.switchContainer, className) : classes.switchContainer}>
       {uncheckedIcon ? uncheckedIcon : null}
       <Switch 
         checked={isChecked} 
-        onChange={onChange} 
+        onChange={handleCheck} 
         color="primary" 
         disabled={disabled}
       />

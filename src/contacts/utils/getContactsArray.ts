@@ -1,6 +1,9 @@
-import Contact from '@contacts/interfaces/Contact.interface';
+import { Contact, ContactFilters } from '@contacts/types.d';
 
-export default (contacts, filters?): Contact[] => {
+export default (
+  contacts: Record<string, Contact>, 
+  filters?: ContactFilters
+): Contact[] => {
   const contactsArray = Object.keys(contacts).map(contactId => ({
     id: contactId,
     ...contacts[contactId]
@@ -8,7 +11,7 @@ export default (contacts, filters?): Contact[] => {
   let filteredContacts = contactsArray;
   // Filter by selected group
   if (filters && filters.group !== 'All') {
-    filteredContacts = contactsArray.filter(contact => contact.groups.includes(filters.group))
+    filteredContacts = filteredContacts.filter(contact => contact.groups.includes(filters.group))
   }
   // Filter by name
   if (filters && filters.name.length) {

@@ -1,16 +1,6 @@
-import Gender from '@contacts/interfaces/Genders.enum';
-import RelationshipStatus from '@contacts/interfaces/RelationshipStatus.enum';
+import { ContactFilters, Genders, RelationshipStatus } from '@contacts/types.d';
 
-export interface ContactFilters {
-  group: string;
-  name: string;
-  location: string;
-  gender: Gender | 'All';
-  relationshipStatus: RelationshipStatus | 'All';
-  oneOnOne: boolean;
-}
-
-const filters: ContactFilters = {
+const defaultFilters: ContactFilters = {
   group: 'All',
   name: '',
   location: '',
@@ -19,4 +9,4 @@ const filters: ContactFilters = {
   oneOnOne: false
 }
 
-export default filters;
+export default defaultFilters;

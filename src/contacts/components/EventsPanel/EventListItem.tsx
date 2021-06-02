@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
 import ParticipantsChip from '@contacts/components/EventsPanel/ParticipantsChip';
-import Event from '@contacts/interfaces/Event.interface';
+import { Event } from '@contacts/types.d';
 import Activity from '@activities/interfaces/Activity.interface';
 import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     display: 'flex',
     padding: '0.5em',
-    marginBottom: '0.5em',
+    marginBottom: '10px',
     cursor: 'pointer',
     transition: 'background 300ms, color 300ms',
     '& .subtitle': {
@@ -52,10 +52,23 @@ interface Props {
   onOpenInfo: (id: string) => void;
 }
 
-const EventListItem = ({ event, activities, contacts, onOpenInfo }: Props) => {
+const EventListItem: React.FC<Props> = ({ 
+  event, 
+  activities, 
+  contacts, 
+  onOpenInfo 
+}) => {
   const classes = useStyles();
   
   const activity: Activity = activities[event.activityId];
+
+  const eventTitle = event?.title ? `${event.title} - ` : '';
+  const activityTitle = activity?.name ? `${activity.name} - ` : '';
+  const title = `${eventTitle}${activityTitle}${formatEventDate(event?.date)}`;
+
+  const eventTimeText = `${formatDateTime(event?.date)}`;
+  const eventLocation = activity?.locations[event?.activityLocationIndex]?.name
+  const eventLocationText = eventLocation ? ` - ${eventLocation}` : '';
 
   const handleOpenInfo = () => {
     onOpenInfo(event.id);
@@ -68,18 +81,18 @@ const EventListItem = ({ event, activities, contacts, onOpenInfo }: Props) => {
       </div>
       <div className={classes.infoContainer}>
         <Typography variant="h6">
-          {`${event?.title ? `${event?.title} - ` : ''}${activity?.name} - ${formatEventDate(event?.date)}`}
+          {title}
         </Typography>
         <div className={classes.secondLine}>
           <Typography variant="subtitle2" className="subtitle" style={{ marginRight: '0.3em' }}>
-            {`${formatDateTime(event?.date)} -`}
+            {eventTimeText}
           </Typography>
           <Typography variant="subtitle2" className="subtitle">
-            {` ${activity?.locations[event?.activityLocationIndex].name}`}
+            {eventLocationText}
           </Typography>
         </div>
         <ParticipantsChip
-          participants={event.participants}
+          participants={event?.participants}
           contacts={contacts}
           style={{ marginTop: '0.3em' }}
         />

@@ -29,12 +29,12 @@ interface Props {
   onChangeFilter: (property: string) => (value: string) => void;
 }
 
-const ContactsFilters = ({
+const ContactsFilters: React.FC<Props> = ({
   isOpen,
   onClose,
   eventsFilters,
   onChangeFilter
- }: Props) => {
+}) => {
   const classes = useStyles();
 
   const handleChangeTitleFilter = (e) => {

@@ -9,6 +9,7 @@ import ActivityDetails from '@activities/components/ActivityDetails';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
 import activitiesToArray from '@activities/utils/activitiesToArray';
 import defaultActivityProps from '@activities/utils/defaultActivityProps';
+import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -86,10 +87,16 @@ const ActivitiesContainer = ({ activities, addActivity, editActivity, deleteActi
   }
   const handleSubmitEditActivity = () => {
     setEditActivityMode('');
+    const { locations } = editActivityData;
+    const submitData = {
+      ...editActivityData,
+      // Makes sure we don't save empty location objects
+      locations: checkIsLocationsEmpty(locations) ? [] : locations
+    }
     if (editActivityMode === 'new') {
-      addActivity(editActivityData);
+      addActivity(submitData);
     } else if (editActivityMode === 'edit') {
-      editActivity(selectedActivity, editActivityData);
+      editActivity(selectedActivity, submitData);
     }
   }
   const handleDeleteActivity = () => {

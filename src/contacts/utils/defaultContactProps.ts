@@ -1,15 +1,17 @@
-import Contact from '@contacts/interfaces/Contact.interface';
-import Gender from '@contacts/interfaces/Genders.enum';
-import RelationshipStatus from '@contacts/interfaces/RelationshipStatus.enum';
+import { Contact, Genders, RelationshipStatus } from '@contacts/types.d';
 
 // Empty contact object for creation
 const defaultContact: Contact = {
   name: '',
   location: '',
   groups: [],
-  gender: Gender.Male,
+  gender: Genders.Male,
   relationshipStatus: RelationshipStatus.Single,
-  oneOnOne: true
+  oneOnOne: true,
+  lastContact: undefined,
+  lastHangout: undefined,
+  hangoutTally: 0,
+  dateCreated: Date.now()
 }
 
 export default defaultContact;

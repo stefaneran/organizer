@@ -2,10 +2,11 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import EventsToolbar from '@contacts/components/EventsPanel/EventsToolbar';
-import EventListItem from '@contacts/components/EventsPanel/EventListItem';
+import EventsList from '@contacts/components/EventsPanel/EventsList';
 import EventInfo from '@contacts/components/EventsPanel/EventInfo';
 import EventsFilters from '@contacts/components/EventsPanel/EventsFilters';
 import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import EventFilters from '@contacts/interfaces/EventFilters.interface';
 import defaultEventFilters from '@contacts/utils/defaultEventFilters';
 import getEventsArray from '@contacts/utils/getEventsArray';
 
@@ -35,7 +36,7 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
   const toggleConfirmationDialog = () => {
     setConfirmationOpen(!isConfirmationOpen);
   }
-  const handleOpenInfoPanel = (eventId) => {
+  const handleOpenInfoPanel = (eventId?: string) => {
     setSelectedEvent(typeof eventId === 'string' ? eventId : '');
     setInfoPanelOpen(true);
   }
@@ -43,7 +44,8 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
     setSelectedEvent('');
     setInfoPanelOpen(false);
   }
-  const handleChangeFilter = (property) => (value) => {
+  const handleChangeFilter = (property) => (eventOrValue) => {
+    let value = eventOrValue.target?.value ?? eventOrValue;
     setEventsFilters({
       ...eventsFilters,
       [property]: value
@@ -60,18 +62,16 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
       <EventsToolbar 
         onOpenInfo={handleOpenInfoPanel} 
         toggleFilterPanel={toggleFilterPanel} 
+        eventsFilters={eventsFilters}
+        onChangeFilter={handleChangeFilter}
       />
-      <div>
-        {eventsList.map(event => (
-          <EventListItem 
-            key={event.id} 
-            event={event} 
-            activities={activities}
-            contacts={contacts} 
-            onOpenInfo={handleOpenInfoPanel}
-          />
-        ))}
-      </div>
+      <EventsList
+        contacts={contacts}
+        activities={activities}
+        eventsList={eventsList}
+        showUpcoming={eventsFilters.showUpcoming}
+        onOpenInfoPanel={handleOpenInfoPanel}
+      />
       {/* Sliding Panel */}
       <EventInfo
         event={events[selectedEvent]}
@@ -81,7 +81,7 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
         actions={actions}
-        onDeleteEvent={handleDeleteEvent}
+        onDeleteEvent={toggleConfirmationDialog}
       />
       <EventsFilters 
         isOpen={isFiltersPanelOpen}

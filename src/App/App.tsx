@@ -1,9 +1,18 @@
 import * as React from 'react';
-import './styles.scss';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+// import './styles.scss';
 import { loadUserFromLocalStorage } from '@store/utils/localstorage';
 import ContentView from '@core/components/ContentView';
 import RegistrationDialog from '@core/components/RegistrationDialog';
 import checkIsMobile from '@core/utils/checkIsMobile';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    height: '100%',
+    overflowY: 'hidden',
+    overflowX: 'hidden'
+  }
+}));
 
 const App = ({
   app,
@@ -13,7 +22,7 @@ const App = ({
   setIsMobile,
   ...actions
 }) => {
-
+  const classes = useStyles();
   const { user: { loggedIn }, isMobile, error } = app;
 
   const [dialog, setDialog] = React.useState({
@@ -75,7 +84,7 @@ const App = ({
           There was a critical error - {error.message} 
         </p>
       ) : (
-        <div className="appContainer">
+        <div className={classes.container}>
           <ContentView 
             app={app}
             setLoginDialog={handleChangeLoginDialog} 

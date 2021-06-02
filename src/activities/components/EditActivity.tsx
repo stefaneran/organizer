@@ -4,21 +4,17 @@ import { TextField, Select, MenuItem, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import EditLocations from '@activities/components/EditLocations';
+import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
+import SelectInput from '@core/components/inputs/SelectInput';
 import ActivityType from '@activities/interfaces/ActivityType.enum';
 import ParticipantType from '@activities/interfaces/ParticipantType.enum';
-import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    padding: '1em'
+  },
   input: {
     marginBottom: '1em'
-  },
-  select: {
-    marginBottom: '1em', 
-    height: '2.5em',
-    '& > div': {
-      paddingTop: '0',
-      paddingBottom: '0'
-    }
   },
   finishButtonContainer: {
     marginTop: '1em',
@@ -67,29 +63,23 @@ const EditActivity = ({
   }
 
   return (
-    <div>
+    <div className={classes.container}>
       <TextField 
         className={classes.input}
         value={editActivityData.name}
         onChange={handleNameChange}
         variant="outlined"
-        size="small"
+        size="medium"
         placeholder="Activity Name"
         fullWidth
       />
-      <Select
-        className={classes.select}
+      <SelectInput
         value={editActivityData.activityType} 
         onChange={handleActivityTypeChange}
-        variant="outlined"
-        fullWidth
-      >
-        {Object.keys(ActivityType).map(type => (
-          <MenuItem key={type} value={type}>
-            {type}
-          </MenuItem>
-        ))}
-      </Select>
+        className={classes.input}
+        label={'Type'}
+        options={Object.keys(ActivityType)}
+      />
       <TextMultiSelect
         label="Participants"
         onChange={handleParticipantChange}
@@ -98,7 +88,7 @@ const EditActivity = ({
         }
         options={Object.keys(ParticipantType).map(type => ({ label: type, value: type }))}
         helperText="Number of participants for this activity (You alone, a date, or a hang out with several people)"
-        size="small"
+        size="medium"
       />
       <EditLocations 
         locations={editActivityData.locations}

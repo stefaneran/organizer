@@ -17,7 +17,7 @@ const ActivityListItem = ({ item, onSelectActivity, isSelected }) => {
   const classes = useStyles();
   return (
     <ListItem 
-      className={isSelected && classes.isSelected}
+      className={isSelected ? classes.isSelected : ''}
       button 
       onClick={onSelectActivity(item.id)}
     >

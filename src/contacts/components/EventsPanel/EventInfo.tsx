@@ -5,8 +5,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import EventInfoEdit from '@contacts/components/EventsPanel/EventInfoEdit';
 import Chips from '@contacts/components/Chips';
-import { LocationLink } from '@activities/components/ActivityLocations';
-import Event from '@contacts/interfaces/Event.interface';
+import LocationLink from '@activities/components/LocationLink';
+import { Contact, Event } from '@contacts/types.d';
 import Activity from '@activities/interfaces/Activity.interface';
 import getActivityLocations from '@contacts/utils/getActivityLocations';
 
@@ -37,15 +37,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   event: Event;
   eventId: string;
-  activities;
-  contacts;
+  activities: Record<string, Activity>;
+  contacts: Record<string, Contact>;
+  actions: Record<string, Function>;
   isOpen: boolean;
   onClose: () => void;
-  actions;
   onDeleteEvent: () => void;
 }
 
-const EventInfo = ({ 
+const EventInfo: React.FC<Props> = ({ 
   event, 
   eventId, 
   activities,
@@ -54,7 +54,7 @@ const EventInfo = ({
   onClose,
   actions,
   onDeleteEvent
-}: Props) => {
+}) => {
   const classes = useStyles();
 
   const isCreate = !Boolean(eventId);

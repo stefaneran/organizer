@@ -68,7 +68,6 @@ const ContactsPanel = ({ contacts, groups, actions }) => {
         contactsList={contactsList}
         onOpenInfo={handleOpenInfoPanel}
       />
-
       {/** Sliding Side Panels */}
       <ContactInfo 
         contact={contacts[selectedContact]}

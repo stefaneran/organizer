@@ -10,7 +10,7 @@ import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
 import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
 import OneOnOneChip from '@contacts/components/ContactsPanel/OneOnOneChip';
 import Chips from '@contacts/components/Chips';
-import Contact from '@contacts/interfaces/Contact.interface';
+import { Contact } from '@contacts/types.d';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -57,7 +57,7 @@ interface Props {
   onDeleteContact: () => void;
 }
 
-const ContactInfo = ({ 
+const ContactInfo: React.FC<Props> = ({ 
   contact,
   contactId,
   groups,
@@ -65,7 +65,7 @@ const ContactInfo = ({
   onClose,
   actions,
   onDeleteContact
- }: Props) => {
+ }) => {
   const classes = useStyles();
   const isCreate = !Boolean(contactId);
 

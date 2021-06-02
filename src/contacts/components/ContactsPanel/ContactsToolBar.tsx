@@ -11,10 +11,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactsToolBar = ({
+interface Props {
+  groups: string[];
+  onOpenInfo: (contactId?: string) => void;
+  toggleFilterPanel: () => void;
+  onChangeFilter: (filter: string) => (value: string) => void;
+}
+
+const ContactsToolBar: React.FC<Props> = ({
+  groups,
   onOpenInfo, 
   toggleFilterPanel,
-  groups,
   onChangeFilter
 }) => {
   const classes = useStyles();
@@ -26,7 +33,7 @@ const ContactsToolBar = ({
         </IconButton>
       </Tooltip>
       <Tooltip title="Add New Contact">
-        <IconButton onClick={onOpenInfo}>
+        <IconButton onClick={() => onOpenInfo()}>
           <AddCircleIcon color="primary" />
         </IconButton>
       </Tooltip>
