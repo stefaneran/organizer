@@ -1,7 +1,9 @@
 // Takes a flat list of items that belong in categories, and returns a structured JSON serialized by category names
 // Note: Used for nested lists like in Inventory and Activities
-export default (items, categoryString) => {
-  const categories = {};
+function categorizeItems<Type>(items: Type[], categoryString: string): Record<string, Type[]> {
+
+  const categories: Record<string, Type[]> = {};
+
   items.forEach(item => {
     const category = item[categoryString];
     if (!categories[category]) {
@@ -11,5 +13,8 @@ export default (items, categoryString) => {
       categories[category].push(item);
     }
   })
+
   return categories;
 }
+
+export default categorizeItems;

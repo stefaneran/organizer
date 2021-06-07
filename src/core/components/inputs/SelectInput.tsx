@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   value;
   onChange; 
-  className?; 
+  className?: string; 
   label?;
   options; 
   // Accessors for specific values - Defaults to direct access if none provided

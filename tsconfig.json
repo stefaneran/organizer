@@ -2,13 +2,15 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"baseUrl": "./",
+		"strict": true,
+		"esModuleInterop": true,
 		"paths": {
+			"@app/*": ["src/app/*"],
 			"@core/*": ["src/core/*"],
-			"@activities/*": ["src/activities/*"],
-			"@contacts/*": ["src/contacts/*"],
-			"@inventory/*": ["src/inventory/*"],
-			"@recipes/*": ["src/recipes/*"],
-      "@store/*": ["src/store/*"]
+			"@activities/*": ["src/packages/activities/*"],
+			"@contacts/*": ["src/packages/contacts/*"],
+			"@inventory/*": ["src/packages/inventory/*"],
+			"@recipes/*": ["src/packages/recipes/*"]
 		}
 	},
 	"include": ["src/**/*"],

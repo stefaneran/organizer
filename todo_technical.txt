@@ -50,6 +50,9 @@ Inventory:
 
 Contacts:
 
+- BUG: Activities Edit Mode stays on
+- BUG: 
+
 - (MVP) Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)

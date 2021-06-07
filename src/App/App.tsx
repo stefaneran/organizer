@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-// import './styles.scss';
-import { loadUserFromLocalStorage } from '@store/utils/localstorage';
+import { loadUserFromLocalStorage } from '@core/utils/localstorage';
 import ContentView from '@core/components/ContentView';
 import RegistrationDialog from '@core/components/RegistrationDialog';
 import checkIsMobile from '@core/utils/checkIsMobile';
