@@ -27,8 +27,8 @@ const SwitchInput = ({
   checkedIcon 
 }: Props) => {
   const classes = useStyles();
-  const handleCheck = (e) => {
-    const isChecked = e.target.checked;
+  const handleCheck = (event) => {
+    const isChecked = event.target.checked;
     onChange(isChecked)
   }
   return (

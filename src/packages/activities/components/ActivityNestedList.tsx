@@ -51,8 +51,8 @@ const Collapsible: React.FC<CollapsibleProps> = ({
     setIsOpen(shouldBeOpen(activityFilters));
   }, [activityFilters]);
 
-  const toggleOpen = (e: ClickEvent) => {
-    e.stopPropagation();
+  const toggleOpen = (event: ClickEvent) => {
+    event.stopPropagation();
     setIsOpen(!isOpen);
   }
 

@@ -40,21 +40,21 @@ const EditRecipe = ({
       [property]: value
     })
   }
-  const handleNameChange = (e) => {
-    handleDataChange('name', e.target.value);
+  const handleNameChange = (event) => {
+    handleDataChange('name', event.target.value);
   }
-  const handleNationalityChange = (e, newValue) => {
+  const handleNationalityChange = (event, newValue) => {
     handleDataChange('nationality', newValue ? newValue : '');
   }
-  const handleCategoryChange = (e, newValue) => {
+  const handleCategoryChange = (event, newValue) => {
     handleDataChange('category', newValue ? newValue : '');
   }
   // This is needed separately for new typed categories that don't exist as an option
-  const handleCategoryInput = (e) => {
-    handleDataChange('category', e.target.value);
+  const handleCategoryInput = (event) => {
+    handleDataChange('category', event.target.value);
   }
-  const handleInstructionsChange = (e) => {
-    handleDataChange('instructions', e.target.value);
+  const handleInstructionsChange = (event) => {
+    handleDataChange('instructions', event.target.value);
   }
   const handleIngredientsChange = (index, ingredient) => {
     let ingredients = [ ...editRecipeData.ingredients ];

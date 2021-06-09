@@ -44,8 +44,8 @@ const RecipeItem = ({
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
   const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
 
-  const handleAddMissingToCart = (e) => {
-    e.stopPropagation();
+  const handleAddMissingToCart = (event) => {
+    event.stopPropagation();
     const missing = [];
     recipe.ingredients.forEach(ingredient => {
       const { itemId } = ingredient;

@@ -36,7 +36,7 @@ const Cart = ({
   const handleAddToCart = (id) => {
     actions.cart.add([id]);
   }
-  const handleFinishShopping = (e) => {
+  const handleFinishShopping = (event) => {
     actions.cart.finishShopping();
   }
 

@@ -8,6 +8,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import getWarningColor from '@inventory/utils/getWarningColor';
 import getCategoryOptions from '@inventory/utils/getCategoryOptions';
+import { InventoryItem, IconAction } from '@inventory/types';
+import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   editContainer: {
@@ -24,7 +26,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const getIcon = (iconAction, background) => {
+interface Props {
+  availableItems: string[];
+  cart: string[];
+  allItems: Record<string, InventoryItem>;
+  item: InventoryItem;
+  selectedItems: string[];
+  isSelectedTab: boolean;
+  onSelect: (id: string) => () => void;
+  iconActions: IconAction[];
+  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+}
+
+const getIcon = (
+  iconAction: IconAction, 
+  background: string
+): JSX.Element => {
   // Dirty exception for Delete icon in items with red background
   if (iconAction.isDelete && background === 'rgb(255, 89, 100)') {
     return <TrashIconSmallWhite />
@@ -35,13 +52,12 @@ const getIcon = (iconAction, background) => {
   return icon;
 }
 
-const CustomListItem = ({
+const InventoryListItem: React.FC<Props> = ({
   availableItems,
   cart,
   allItems,
   item,
   selectedItems,
-  hasSelection,
   isSelectedTab,
   onSelect,
   iconActions,
@@ -54,39 +70,42 @@ const CustomListItem = ({
   const [itemCategory, setItemCategory] = React.useState(item.category);
   const [isEditing, setIsEditing] = React.useState(false);
 
+  const hasSelection = Boolean(selectedItems);
   const shouldCheckAvailable = Boolean(availableItems);
   const categoryOptions = allItems ? getCategoryOptions(itemCategory, allItems) : [];
 
-  const toggleEditing = (e) => {
-    e.stopPropagation();
+  const toggleEditing = (event: ClickEvent) => {
+    event.stopPropagation();
     setIsEditing(!isEditing);
   }
-  const handleChangeName = (e) => {
-    setItemName(e.target.value);
+  const handleChangeName = (event: InputEvent) => {
+    setItemName(event.target.value);
   }
-  const handleCategorySelect = (e, newValue) => {
+  const handleCategorySelect: AutoCompleteHandler = (event, newValue) => {
     if (newValue) {
       setItemCategory(newValue);
     }
   }
-  const handleCategoryInput = (e) => {
-    setItemCategory(e.target.value);
+  const handleCategoryInput = (event: InputEvent) => {
+    setItemCategory(event.target.value);
   }
   const handleSaveEdit = () => {
-    onEdit(item.id, { name: itemName, category: itemCategory });
+    if (onEdit) {
+      onEdit(item.id, { name: itemName, category: itemCategory });
+    }
   }
   const handleCancelEdit = () => {
     setItemName(item.name);
     setItemCategory(item.category);
     setIsEditing(false);
   }
-  const handleIconAction = (id, handler) => (e) => {
-    e.stopPropagation();
+  const handleIconAction = (id: string, handler: Function) => (event: ClickEvent) => {
+    event.stopPropagation();
     handler(id);
   }
 
   // Used only in case of AllItems
-  const itemBackground = (item) => shouldCheckAvailable ? getWarningColor(item, cart, availableItems) : '';
+  const itemBackground = (item: InventoryItem) => shouldCheckAvailable ? getWarningColor(item, cart, availableItems) : '';
 
   return (
     <ListItem 
@@ -163,4 +182,4 @@ const CustomListItem = ({
   )
 }
 
-export default CustomListItem;
+export default InventoryListItem;

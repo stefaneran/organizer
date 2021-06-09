@@ -48,17 +48,17 @@ const EditIngredients = ({
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleItemInput = (index) => (e) => {
+  const handleItemInput = (index) => (event) => {
     const ingredient = { 
       ...ingredients[index], 
-      name: e.target.value 
+      name: event.target.value 
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleAmountInput = (index) => (e) => {
+  const handleAmountInput = (index) => (event) => {
     const ingredient = { 
       ...ingredients[index], 
-      amount: e.target.value 
+      amount: event.target.value 
     };
     onIngredientsChange(index, ingredient);
   }

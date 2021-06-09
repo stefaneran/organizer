@@ -14,8 +14,7 @@ import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
 import { CartIconSmall } from '@core/components/Icons/CartIcon';
 import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
 import { LogInIconSmall } from '@core/components/Icons/LoginIcon';
-import CategoryType from '@core/interfaces/CategoryType.enum'
-import AppStore from '@core/interfaces/AppStore.interface';
+import { CategoryType, AppStore } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -82,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface AppBarProps {
-  app: AppStore;
+  app: AppStore["app"];
   setCurrentCategory: (categoryType: CategoryType) => void;
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
   onLogout: () => void;

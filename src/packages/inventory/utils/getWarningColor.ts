@@ -1,7 +1,15 @@
-const isItemAvailable = (item, availableItems) => availableItems.includes(item.id);
-const isItemInCart = (item, cart) => cart.includes(item.id);
+import { InventoryItem } from '@inventory/types';
 
-export default (item, cart, availableItems) => {
+const isItemAvailable = (item: InventoryItem, availableItems: string[]): boolean => 
+  item ? availableItems.includes(item.id) : false;
+const isItemInCart = (item: InventoryItem, cart: string[]): boolean => 
+  item ? cart.includes(item.id) : false;
+
+const getWarningColor = (
+  item: InventoryItem, 
+  cart: string[], 
+  availableItems: string[]
+): string => {
   // If item missing from inventory, but is in cart
   if (!isItemAvailable(item, availableItems) && isItemInCart(item, cart)) {
     // Return yellow
@@ -14,3 +22,5 @@ export default (item, cart, availableItems) => {
   }
   return '';
 }
+
+export default getWarningColor;

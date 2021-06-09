@@ -1,4 +1,6 @@
-export default (props) => ({
+import { InventoryActions } from '@inventory/types';
+
+const mapActions = (props: Record<string, Function>): InventoryActions => ({
   recipes: {
     removeIngredient: props.removeIngredient
   },
@@ -18,3 +20,5 @@ export default (props) => ({
     finishShopping: props.finishShopping
   }
 })
+
+export default mapActions;

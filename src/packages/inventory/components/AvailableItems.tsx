@@ -83,8 +83,8 @@ const AvailableItems = ({
   const listItems = React.useMemo(() => availableItemsToArray(availableItems, allItems, textFilter), [availableItems, allItems, textFilter]);
   const hasSelectedItems = Boolean(selectedItems.length)
 
-  const toggleOpen = (e) => {
-    e.stopPropagation();
+  const toggleOpen = (event) => {
+    event.stopPropagation();
     setIsOpen(!isOpen)
   }
   const toggleControlsOpen = () => {
@@ -96,8 +96,8 @@ const AvailableItems = ({
   const handleItemSelection = (newSelected) => {
     setSelectedItems(newSelected);
   }
-  const handleTextFilterInput = (e) => {
-    setTextFilter(e.target.value)
+  const handleTextFilterInput = (event) => {
+    setTextFilter(event.target.value)
   }
   const handleAddSelectedToCart = () => {
     actions.cart.add(selectedItems)

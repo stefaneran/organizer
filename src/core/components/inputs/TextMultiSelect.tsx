@@ -43,9 +43,9 @@ const TextMultiSelect = ({
     setCurrentOptions(options);
   }, [options])
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && canAdd) {
-      const input = e.target.value;
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && canAdd) {
+      const input = event.target.value;
       if (!currentOptions.includes(input)) {
         const newOption = { label: input, value: input };
         setCurrentOptions([...currentOptions, newOption]);

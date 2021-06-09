@@ -4,7 +4,7 @@ import { Paper } from '@material-ui/core';
 import Cart from '@inventory/components/Cart';
 import Inventory from '@inventory/components/Inventory';
 import mapActions from '@inventory/utils/mapActions';
-import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
+import { InventoryTabs, InventoryItem } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -15,15 +15,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const InventoryContainer = (props) => {
+interface Props {
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  cart: string[];
+  selectedInCart: string[];
+}
+
+const InventoryContainer: React.FC<Props & Record<string, Function>> = ({
+  allItems,
+  availableItems,
+  cart,
+  selectedInCart,
+  ...props
+}) => {
   
   const classes = useStyles();
-  const {
-    availableItems, 
-    allItems, 
-    cart,
-    selectedInCart
-  } = props;
+  
   const actions = mapActions(props);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);

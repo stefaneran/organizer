@@ -6,8 +6,9 @@ import AddItemInput from '@inventory/components/AddItemInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
 import { AddBagIconXS } from '@core/components/Icons/BagIcon';
-import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
 import cartItemsToArray from '@inventory/utils/cartItemsToArray';
+import { InventoryTabs, InventoryItem, InventoryActions } from '@inventory/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -29,7 +30,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const Cart = ({ 
+interface Props {
+  cart: string[];
+  selectedInCart: string[];
+  actions: InventoryActions;
+  allItems: Record<string, InventoryItem>;
+  isSelectedTab: boolean;
+  setSelectedTab: (selected: InventoryTabs) => () => void;
+}
+
+const Cart: React.FC<Props> = ({ 
   cart, 
   selectedInCart,
   actions, 
@@ -42,20 +52,20 @@ const Cart = ({
   const listItems = cartItemsToArray(cart, allItems)
   const hasSelectedItems = Boolean(selectedInCart.length);
 
-  const handleItemSelection = (newSelected) => {
+  const handleItemSelection = (newSelected: string) => {
     actions.cart.updateSelected(newSelected);
   }
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: string) => {
     actions.cart.remove([id]);
   }
   const handleRemoveSelected = () => {
     actions.cart.remove(selectedInCart);
   }
-  const handleAddToCart = (id) => {
+  const handleAddToCart = (id: string) => {
     actions.cart.add([id]);
   }
-  const handleFinishShopping = (e) => {
-    e.stopPropagation();
+  const handleFinishShopping = (event: ClickEvent) => {
+    event.stopPropagation();
     actions.cart.finishShopping();
   }
 

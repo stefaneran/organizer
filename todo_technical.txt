@@ -35,6 +35,7 @@ Recipes:
 Inventory:
 - # Cart & Inventory: Add option to switch between sort by alphabetical or category
 - # Add "De-select All" button
+- Add debounce to requests
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
 - Add chip to ingredients that shows how many recipes its used in
@@ -49,9 +50,6 @@ Inventory:
 ===============================================================
 
 Contacts:
-
-- BUG: Activities Edit Mode stays on
-- BUG: 
 
 - (MVP) Events: Show more details in info
   - Date/Time 

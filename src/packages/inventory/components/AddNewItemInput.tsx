@@ -4,6 +4,8 @@ import { Autocomplete } from '@material-ui/lab';
 import { TextField, Button } from '@material-ui/core';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import getCategoryOptions from '@inventory/utils/getCategoryOptions';
+import { InventoryItem } from '@inventory/types';
+import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -27,7 +29,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const AddNewItemInput = ({ allItems, onSubmit }) => {
+interface Props {
+  allItems: Record<string, InventoryItem>;
+  onSubmit: (item: Omit<InventoryItem, "id">) => void;
+}
+
+const AddNewItemInput: React.FC<Props> = ({ allItems, onSubmit }) => {
   const classes = useStyles();
 
   const [currentNameValue, setCurrentNameValue] = React.useState('');
@@ -35,20 +42,20 @@ const AddNewItemInput = ({ allItems, onSubmit }) => {
 
   const categoryOptions = getCategoryOptions(currentCategoryValue, allItems);
 
-  const handleNameInput = (e) => {
-    setCurrentNameValue(e.target.value);
+  const handleNameInput = (event: InputEvent) => {
+    setCurrentNameValue(event.target.value);
   }
-  const handleCategorySelect = (e, newValue) => {
+  const handleCategorySelect: AutoCompleteHandler = (event, newValue) => {
     if (newValue) {
       setCurrentCategoryValue(newValue);
     }
   }
-  const handleCategoryInput = (e) => {
-    setCurrentCategoryValue(e.target.value);
+  const handleCategoryInput = (event: InputEvent) => {
+    setCurrentCategoryValue(event.target.value);
   }
   const handleSubmit = () => {
-    const hasName = currentNameValue && currentNameValue.length;
-    const hasCategory = currentCategoryValue && currentCategoryValue.length
+    const hasName = Boolean(currentNameValue?.length);
+    const hasCategory = Boolean(currentCategoryValue?.length);
     if (hasName && hasCategory) {
       onSubmit({ name: currentNameValue, category: currentCategoryValue })
     }

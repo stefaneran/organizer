@@ -1,7 +1,16 @@
 import genericSort from '@core/utils/genericSort';
+import { InventoryItem } from '@inventory/types';
 
-export default (allItems, targetCollection) => {
-  const names = [];
+interface Option {
+  label: string;
+  value: string;
+}
+
+export default (
+  allItems: Record<string, InventoryItem>, 
+  targetCollection: string[]
+) => {
+  const names: Option[] = [];
   Object.keys(allItems).forEach(id => {
     if (!targetCollection.includes(id)) {
       names.push({ 

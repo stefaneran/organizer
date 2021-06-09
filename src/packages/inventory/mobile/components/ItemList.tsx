@@ -45,8 +45,8 @@ const ItemList = ({
     onItemSelection(newSelected);
   }
 
-  const handleIconAction = (id, handler) => (e) => {
-    e.stopPropagation();
+  const handleIconAction = (id, handler) => (event) => {
+    event.stopPropagation();
     handler(id);
   }
 

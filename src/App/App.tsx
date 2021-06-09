@@ -4,6 +4,7 @@ import { loadUserFromLocalStorage } from '@core/utils/localstorage';
 import ContentView from '@core/components/ContentView';
 import RegistrationDialog from '@core/components/RegistrationDialog';
 import checkIsMobile from '@core/utils/checkIsMobile';
+import { AppStore } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -13,19 +14,47 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const App = ({
+interface Props {
+  app: AppStore["app"];
+  login: Function;
+  register: Function;
+  logout: Function;
+  setIsMobile: Function;
+  getAllActivities: Function;
+  clearActivities: Function;
+  getAllContactsAndEvents: Function;
+  clearContactsAndEvents: Function;
+  getAllRecipes: Function;
+  clearRecipes: Function;
+  getAllInventory: Function;
+  clearInventory: Function;
+}
+
+interface DialogState {
+  type: string;
+  isOpen: boolean;
+}
+
+const App: React.FC<Props> = ({
   app,
-  register,
   login,
+  register,
   logout,
   setIsMobile,
-  ...actions
+  getAllActivities,
+  clearActivities,
+  getAllContactsAndEvents,
+  clearContactsAndEvents,
+  getAllRecipes,
+  clearRecipes,
+  getAllInventory,
+  clearInventory
 }) => {
   const classes = useStyles();
   const { user: { loggedIn }, isMobile, error } = app;
 
   const [dialog, setDialog] = React.useState({
-    type: undefined, // 'register' or 'login'
+    type: '', // 'register' or 'login'
     isOpen: false
   }) 
   const [dialogInputs, setDialogInputs] = React.useState({
@@ -50,14 +79,15 @@ const App = ({
 
   React.useEffect(() => {
     if (loggedIn) {
-      actions.getAllActivities();
-      actions.getAllContactsAndEvents();
-      actions.getAllInventory();
-      actions.getAllRecipes();
+      // TODO Make these a single request to decrease load time
+      getAllActivities();
+      getAllContactsAndEvents();
+      getAllInventory();
+      getAllRecipes();
     }
   }, [loggedIn]);
 
-  const handleChangeLoginDialog = (props: { type: string; isOpen: boolean; }) => () => {
+  const handleChangeLoginDialog = (props: DialogState) => () => {
     setDialog(props);
   }
 
@@ -65,15 +95,15 @@ const App = ({
     const isLogin = dialog.type === 'login';
     const api = isLogin ? login : register;
     await api(dialogInputs);
-    setDialog({ type: undefined, isOpen: false });
+    setDialog({ type: '', isOpen: false });
   }
 
   const handleLogout = () => {
     logout();
-    actions.clearActivities();
-    actions.clearContactsAndEvents();
-    actions.clearInventory();
-    actions.clearRecipes();
+    clearActivities();
+    clearContactsAndEvents();
+    clearInventory();
+    clearRecipes();
   }
 
   return (

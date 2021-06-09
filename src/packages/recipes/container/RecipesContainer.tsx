@@ -96,11 +96,11 @@ const RecipesContainer = (props) => {
   const handleSelectNationality = (nationality) => () => {
     setSelectedNationality(nationality);
   }
-  const handleSelectCategory = (e) => {
-    setSelectedCategory(e.target.value);
+  const handleSelectCategory = (event) => {
+    setSelectedCategory(event.target.value);
   }
-  const handleTextFilterInput = (e) => {
-    setTextFilter(e.target.value);
+  const handleTextFilterInput = (event) => {
+    setTextFilter(event.target.value);
   }
   const handleOpenEditRecipe = (mode) => () => {
     if (mode === 'new') {

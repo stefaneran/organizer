@@ -89,14 +89,14 @@ const MobileAutocomplete = ({
     setTextValue('');
     setFilteredOptions(filterOptions(options, textValue, getOptionLabel));
   }
-  const handleTextInput = (e) => {
-    setTextValue(e.target.value);
+  const handleTextInput = (event) => {
+    setTextValue(event.target.value);
   }
   const handleClear = () => {
     setTextValue(null);
     setFilteredOptions([]);
   }
-  const handleSelect = (option) => (e) => {
+  const handleSelect = (option) => (event) => {
     onChange(option);
     setTextValue(null);
     setFilteredOptions([]);

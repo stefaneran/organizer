@@ -33,17 +33,17 @@ interface Props {
 const EditLocations: React.FC<Props> = ({ locations = [], onLocationsChange }) => {
   const classes = useStyles();
 
-  const handleNameInput = (index: number) => (e: InputEvent) => {
+  const handleNameInput = (index: number) => (event: InputEvent) => {
     const location = { 
       ...locations[index], 
-      name: e.target.value 
+      name: event.target.value 
     };
     onLocationsChange(index, location);
   }
-  const handleAddressInput = (index: number) => (e: InputEvent) => {
+  const handleAddressInput = (index: number) => (event: InputEvent) => {
     const location = { 
       ...locations[index], 
-      address: e.target.value 
+      address: event.target.value 
     };
     onLocationsChange(index, location);
   }

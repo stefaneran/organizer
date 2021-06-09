@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Divider } from '@material-ui/core';
 import AvailableItems from '@inventory/components/AvailableItems';
 import AllItems from '@inventory/components/AllItems';
-import InventoryTabs from '@inventory/interfaces/InventoryTabs.enum';
+import { InventoryTabs, InventoryItem, InventoryActions } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -21,7 +21,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const Inventory = ({ 
+interface Props {
+  allItems: Record<string, InventoryItem>; 
+  availableItems: string[]; 
+  cart: string[]; 
+  actions: InventoryActions; 
+  isSelectedTab: boolean; 
+  setSelectedTab: (selected: InventoryTabs) => () => void;
+}
+
+const Inventory: React.FC<Props> = ({ 
   allItems, 
   availableItems, 
   cart, 

@@ -114,8 +114,8 @@ const AllItems = ({
   const hasSelectedItems = Boolean(selectedItems.length);
   const hasMissingItems = checkIfItemsMissing(allItems, availableItems, cart);
 
-  const toggleOpen = (e) => {
-    e.stopPropagation();
+  const toggleOpen = (event) => {
+    event.stopPropagation();
     setIsOpen(!isOpen)
   }
   const toggleControlsOpen = () => {
@@ -124,10 +124,10 @@ const AllItems = ({
   const toggleNested = () => {
     setIsNested(!isNested);
   }
-  const toggleConfirmationDialog = (e?) => {
+  const toggleConfirmationDialog = (event?) => {
     const { isOpen } = isConfirmationOpen;
     // From lists we receive the itemId as an argument, but everywhere else we receive event object
-    const itemId = typeof e === 'string' ? e : undefined;
+    const itemId = typeof event === 'string' ? event : undefined;
     // If clicked on "Delete" row action, but there are selected, clear selection so they don't all get deleted
     if (itemId && selectedItems) {
       setSelectedItems([])
@@ -137,8 +137,8 @@ const AllItems = ({
   const handleItemSelection = (newSelected) => {
     setSelectedItems(newSelected);
   }
-  const handleTextFilterInput = (e) => {
-    setTextFilter(e.target.value)
+  const handleTextFilterInput = (event) => {
+    setTextFilter(event.target.value)
   }
   const handleAddNew = ({ name, category }) => {
     actions.inventory.addToAll({ name, category });

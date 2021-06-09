@@ -107,14 +107,14 @@ const RecipesMobileContainer = (props) => {
       setSelectedRecipe('');
     }
   }
-  const handleSelectNationality = (e) => {
-    setSelectedNationality(e.target.value);
+  const handleSelectNationality = (event) => {
+    setSelectedNationality(event.target.value);
   }
-  const handleSelectCategory = (e) => {
-    setSelectedCategory(e.target.value);
+  const handleSelectCategory = (event) => {
+    setSelectedCategory(event.target.value);
   }
-  const handleTextFilterInput = (e) => {
-    setTextFilter(e.target.value);
+  const handleTextFilterInput = (event) => {
+    setTextFilter(event.target.value);
   }
 
   return (

@@ -37,8 +37,8 @@ const ContactsFilters: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleChangeTitleFilter = (e) => {
-    onChangeFilter('title')(e.target.value);
+  const handleChangeTitleFilter = (event) => {
+    onChangeFilter('title')(event.target.value);
   }
 
   return (

@@ -30,8 +30,8 @@ const Inventory = ({ availableItems, allItems, actions }) => {
 
   const listItems = availableItemsToArray(availableItems, allItems, textFilter)
 
-  const handleTextFilterInput = (e) => {
-    setTextFilter(e.target.value)
+  const handleTextFilterInput = (event) => {
+    setTextFilter(event.target.value)
   }
   const handleRemoveItem = (id) => {
     actions.inventory.removeFromAvailable([id]);

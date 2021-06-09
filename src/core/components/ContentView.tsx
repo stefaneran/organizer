@@ -8,7 +8,7 @@ import InventoryContainer from '@inventory/container';
 import InventoryMobileContainer from '@inventory/mobile/container';
 import RecipesContainer from '@recipes/container';
 import RecipesMobileContainer from '@recipes/mobile/container';
-import CategoryType from '@core/interfaces/CategoryType.enum';
+import { CategoryType, AppStore } from '@core/types';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,7 +17,13 @@ const useStyles = makeStyles(theme => ({
   }
 })); 
 
-const ContentView = ({ app, setLoginDialog, onLogout }) => {
+interface Props {
+  app: AppStore["app"];
+  setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
+  onLogout: () => void;
+}
+
+const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   const { isMobile } = app;
   const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);

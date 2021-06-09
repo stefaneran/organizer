@@ -92,8 +92,8 @@ const EventInfo: React.FC<Props> = ({
     setActivityOptions(getActivityOptions(activities, activityType));
   }, [activityType])
   
-  const handleChangeActivityType = (e) => {
-    setActivityType(e.target.value);
+  const handleChangeActivityType = (event) => {
+    setActivityType(event.target.value);
     setEventData({ 
       ...eventData,  
       activityId: '',

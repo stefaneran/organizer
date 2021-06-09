@@ -12,7 +12,7 @@ import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
 import { CartIconXLFill } from '@core/components/Icons/CartIcon';
 import { FoodIconXL } from '@core/components/Icons/FoodIcon';
 import { LogInIconXL } from '@core/components/Icons/LoginIcon';
-import CategoryType from '@core/interfaces/CategoryType.enum';
+import { CategoryType, AppStore } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hamburger: {
@@ -66,7 +66,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const AppBarMobile = ({
+interface Props {
+  app: AppStore["app"];
+  setCurrentCategory: Function;
+  setLoginDialog: Function;
+  onLogout: () => void;
+}
+
+const AppBarMobile: React.FC<Props> = ({
   app,
   setCurrentCategory,
   setLoginDialog,

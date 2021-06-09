@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
-import CustomListItem from '@inventory/components/CustomListItem';
+import InventoryListItem from '@inventory/components/InventoryListItem';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import categorizeItems from '@core/utils/categorizeItems';
@@ -77,8 +77,8 @@ const Collapsible = ({
     onItemSelection(newSelected);
   }
 
-  const toggleOpen = (e) => {
-    e.stopPropagation();
+  const toggleOpen = (event) => {
+    event.stopPropagation();
     setIsOpen(!isOpen);
   }
 
@@ -96,14 +96,13 @@ const Collapsible = ({
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" className={classes.item}>
           {items && items.sort((a, b) => genericSort(a.name, b.name)).map(item => (
-            <CustomListItem 
+            <InventoryListItem 
               key={item.id}
               allItems={allItems}
               availableItems={availableItems}
               cart={cart}
               item={item}
               selectedItems={selectedItems}
-              hasSelection={hasSelection}
               isSelectedTab={isSelectedTab}
               onSelect={handleSelection}
               iconActions={iconActions}
