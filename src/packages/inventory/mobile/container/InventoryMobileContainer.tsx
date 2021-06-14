@@ -8,6 +8,7 @@ import { CartIconLargeFill } from '@core/components/Icons/CartIcon';
 import Cart from '@inventory/mobile/components/Cart';
 import Inventory from '@inventory/mobile/components/Inventory';
 import mapActions from '@inventory/utils/mapActions';
+import { InventoryItem } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -49,7 +50,14 @@ enum ViewType {
   Inventory = "Inventory"
 }
 
-const InventoryMobileContainer = ({
+interface Props {
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  cart: string[];
+  selectedInCart: string[];
+}
+
+const InventoryMobileContainer: React.FC<Props & Record<string, Function>> = ({
   allItems,
   availableItems,
   cart,

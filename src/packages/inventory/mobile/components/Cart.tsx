@@ -6,6 +6,7 @@ import { RemoveCartIconLarge } from '@core/components/Icons/CartIcon';
 import AddItemInput from '@inventory/mobile/components/AddItemInput';
 import ItemList from '@inventory/mobile/components/ItemList';
 import cartItemsToArray from '@inventory/utils/cartItemsToArray';
+import { InventoryActions, InventoryItem } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   list: {
@@ -18,7 +19,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Cart = ({
+interface Props {
+  cart: string[];
+  selectedInCart: string[];
+  allItems: Record<string, InventoryItem>;
+  actions: InventoryActions;
+}
+
+const Cart: React.FC<Props> = ({
   cart,
   selectedInCart,
   allItems,
@@ -27,16 +35,16 @@ const Cart = ({
   const classes = useStyles();
   const listItems = cartItemsToArray(cart, allItems)
 
-  const handleItemSelection = (newSelected) => {
-    actions.cart.updateSelected(newSelected);
+  const handleItemSelection = (selected: string[]) => {
+    actions.cart.updateSelected(selected);
   }
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: string) => {
     actions.cart.remove([id]);
   }
-  const handleAddToCart = (id) => {
+  const handleAddToCart = (id: string) => {
     actions.cart.add([id]);
   }
-  const handleFinishShopping = (event) => {
+  const handleFinishShopping = () => {
     actions.cart.finishShopping();
   }
 
@@ -52,7 +60,7 @@ const Cart = ({
           listItems={listItems}
           selectedItems={selectedInCart} 
           onItemSelection={handleItemSelection}
-          iconActions={[
+          rowIcons={[
             { icon: <RemoveCartIconLarge />, handler: handleRemoveItem }
           ]}
         />

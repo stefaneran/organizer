@@ -7,8 +7,9 @@ import {
   finishShopping
 } from '@inventory/store/thunks';
 import InventoryMobileContainer from './InventoryMobileContainer';
+import { AppStore } from '@core/types';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppStore) => ({
   allItems: state.inventoryStore.allItems,
   availableItems: state.inventoryStore.availableItems,
   cart: state.inventoryStore.cart,

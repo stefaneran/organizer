@@ -8,7 +8,7 @@ import CategoryFilter from '@recipes/components/CategoryFilter';
 import RecipesList from '@recipes/components/RecipesList';
 import EditRecipe from '@recipes/components/EditRecipe';
 import RecipeDetails from '@recipes/components/RecipeDetails';
-import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
 import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';

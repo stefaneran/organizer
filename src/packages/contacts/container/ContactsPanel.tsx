@@ -5,7 +5,7 @@ import ContactsToolBar from '@contacts/components/ContactsPanel/ContactsToolBar'
 import ContactsList from '@contacts/components/ContactsPanel/ContactsList';
 import ContactInfo from '@contacts/components/ContactsPanel/ContactInfo';
 import ContactsFilters from '@contacts/components/ContactsPanel/ContactsFilters';
-import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import defaultContactFilters from '@contacts/utils/defaultContactFilters';
 import getContactsArray from '@contacts/utils/getContactsArray';
 import { Contact } from '@contacts/types';

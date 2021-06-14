@@ -52,7 +52,7 @@ const Cart: React.FC<Props> = ({
   const listItems = cartItemsToArray(cart, allItems)
   const hasSelectedItems = Boolean(selectedInCart.length);
 
-  const handleItemSelection = (newSelected: string) => {
+  const handleItemSelection = (newSelected: string[]) => {
     actions.cart.updateSelected(newSelected);
   }
   const handleRemoveItem = (id: string) => {
@@ -89,7 +89,7 @@ const Cart: React.FC<Props> = ({
             listItems={listItems} 
             selectedItems={selectedInCart} 
             onItemSelection={handleItemSelection}
-            iconActions={[
+            rowIcons={[
               { icon: <RemoveCartIconSmall />, handler: handleRemoveItem }
             ]}
           />

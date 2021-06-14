@@ -6,7 +6,7 @@ import ActivitiesToolbar from '@activities/components/ActivitiesToolbar';
 import ActivityNestedList from '@activities/components/ActivityNestedList';
 import ActivityInfo from '@activities/components/ActivityInfo';
 import ActivityFilters from '@activities/components/ActivitiesFilters';
-import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import activitiesToArray from '@activities/utils/activitiesToArray';
 import defaultFilters from '@activities/utils/defaultActivityFilters';
 

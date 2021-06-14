@@ -5,7 +5,7 @@ import EventsToolbar from '@contacts/components/EventsPanel/EventsToolbar';
 import EventsList from '@contacts/components/EventsPanel/EventsList';
 import EventInfo from '@contacts/components/EventsPanel/EventInfo';
 import EventsFilters from '@contacts/components/EventsPanel/EventsFilters';
-import { ConfirmationDialog } from '@core/components/ConfirmationDialog';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import defaultEventFilters from '@contacts/utils/defaultEventFilters';
 import getEventsArray from '@contacts/utils/getEventsArray';
 

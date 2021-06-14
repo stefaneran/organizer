@@ -5,6 +5,8 @@ import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import ItemList from '@inventory/mobile/components/ItemList';
 import availableItemsToArray from '@inventory/utils/availableItemsToArray';
+import { InventoryActions, InventoryItem } from '@inventory/types';
+import { InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   textFilter: {
@@ -23,20 +25,30 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Inventory = ({ availableItems, allItems, actions }) => {
+interface Props {
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  actions: InventoryActions;
+}
+
+const Inventory: React.FC<Props> = ({ 
+  allItems, 
+  availableItems, 
+  actions 
+}) => {
   const classes = useStyles();
 
   const [textFilter, setTextFilter] = React.useState('');
 
-  const listItems = availableItemsToArray(availableItems, allItems, textFilter)
+  const listItems = availableItemsToArray({ availableItems, allItems, textFilter }) 
 
-  const handleTextFilterInput = (event) => {
+  const handleTextFilterInput = (event: InputEvent) => {
     setTextFilter(event.target.value)
   }
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: string) => {
     actions.inventory.removeFromAvailable([id]);
   }
-  const handleAddToCart = (id) => {
+  const handleAddToCart = (id: string) => {
     actions.cart.add([id]);
   }
   
@@ -55,7 +67,7 @@ const Inventory = ({ availableItems, allItems, actions }) => {
         <ItemList 
           listItems={listItems}
           selectedItems={undefined}
-          iconActions={[
+          rowIcons={[
             { icon: <RemoveBagIconLarge />, handler: handleRemoveItem },
             { icon: <AddCartIconLarge />, handler: handleAddToCart }
           ]}

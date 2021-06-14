@@ -2,6 +2,8 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import genericSort from '@core/utils/genericSort';
+import { InventoryItem, RowIcon } from '@inventory/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   checkbox: {
@@ -22,30 +24,28 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  listItems;
-  selectedItems?;
-  onItemSelection?;
-  iconActions?;
+  listItems: InventoryItem[];
+  selectedItems?: string[];
+  onItemSelection?: (selected: string[]) => void;
+  rowIcons: RowIcon[];
 }
 
-const ItemList = ({ 
+const ItemList: React.FC<Props> = ({ 
   listItems, 
   selectedItems, 
   onItemSelection,
-  iconActions
+  rowIcons
 }: Props) => {
   const classes = useStyles();
   const hasSelection = Boolean(selectedItems);
 
-  const handleSelection = (id) => () => {
-    const newSelected = 
-      selectedItems.includes(id) ? 
-        selectedItems.filter(itemId => itemId !== id) : 
-        [...selectedItems, id]
-    onItemSelection(newSelected);
+  const handleSelection = (id: string) => () => {
+    if (selectedItems && onItemSelection) {
+      const newSelected = selectedItems.includes(id) ? selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]
+      onItemSelection(newSelected);
+    }
   }
-
-  const handleIconAction = (id, handler) => (event) => {
+  const handleIconAction = (id: string, handler: Function) => (event: ClickEvent) => {
     event.stopPropagation();
     handler(id);
   }
@@ -58,24 +58,24 @@ const ItemList = ({
           button 
           onClick={hasSelection ? handleSelection(item.id) : undefined}
         >
-          {hasSelection && (
+          {hasSelection ? (
             <ListItemIcon>
               <Checkbox
                 className={classes.checkbox}
                 edge="start"
-                checked={selectedItems.includes(item.id)}
+                checked={selectedItems && selectedItems.includes(item.id)}
                 color="primary"
               />
             </ListItemIcon>
-          )}
+          ) : null}
           <ListItemText className={classes.text} primary={item.name} secondary={item.category} />
-          {iconActions && iconActions.map((iconAction, index) => (
+          {rowIcons && rowIcons.map((rowIcon, index) => (
             <ListItemIcon 
               style={{ marginRight: '2.5em' }}
               key={`${item.id}-${index}`} 
-              onClick={handleIconAction(item.id, iconAction.handler)}
+              onClick={handleIconAction(item.id, rowIcon.handler)}
             >
-              {iconAction.icon}
+              {rowIcon.icon}
             </ListItemIcon>
           ))}
         </ListItem>

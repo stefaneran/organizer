@@ -35,6 +35,7 @@ Recipes:
 Inventory:
 - # Cart & Inventory: Add option to switch between sort by alphabetical or category
 - # Add "De-select All" button
+- Finish Shopping btn too low on laptop
 - Add debounce to requests
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
@@ -43,7 +44,6 @@ Inventory:
 - Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
 - Refactor: Move everything from <Inventory /> to <InventoryContainer />
-- Refactor: Find way to generalize AllItems and AvailableItems cause there's tons of repetition
 - Refactor: Generalize inventory control panels to one component
 - Refactor: Find duplicate util functions and move to /utils
 

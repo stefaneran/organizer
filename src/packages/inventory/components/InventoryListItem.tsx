@@ -2,13 +2,12 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText, ListItemIcon, Checkbox, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { TrashIconSmall, TrashIconSmallWhite } from '@core/components/Icons/DeleteIcon';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import getWarningColor from '@inventory/utils/getWarningColor';
 import getCategoryOptions from '@inventory/utils/getCategoryOptions';
-import { InventoryItem, IconAction } from '@inventory/types';
+import { InventoryItem, RowIcon } from '@inventory/types';
 import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -27,40 +26,37 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 interface Props {
-  availableItems: string[];
-  cart: string[];
-  allItems: Record<string, InventoryItem>;
+  allItems?: Record<string, InventoryItem>;
+  availableItems?: string[];
   item: InventoryItem;
   selectedItems: string[];
   isSelectedTab: boolean;
+  rowIcons?: RowIcon[];
+  cart?: string[];
   onSelect: (id: string) => () => void;
-  iconActions: IconAction[];
   onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
 }
 
 const getIcon = (
-  iconAction: IconAction, 
+  rowIcon: RowIcon, 
   background: string
 ): JSX.Element => {
-  // Dirty exception for Delete icon in items with red background
-  if (iconAction.isDelete && background === 'rgb(255, 89, 100)') {
-    return <TrashIconSmallWhite />
-  } else if (iconAction.isDelete) {
-    return <TrashIconSmall />
+  // An exception for if item with red background
+  if (rowIcon.altIcon && background === 'rgb(255, 89, 100)') {
+    return rowIcon.altIcon;
   }
-  const { icon } = iconAction;
-  return icon;
+  return rowIcon.icon;
 }
 
 const InventoryListItem: React.FC<Props> = ({
-  availableItems,
-  cart,
   allItems,
+  availableItems,
   item,
   selectedItems,
   isSelectedTab,
+  rowIcons,
+  cart,
   onSelect,
-  iconActions,
   onEdit
 }) => {
 
@@ -71,7 +67,6 @@ const InventoryListItem: React.FC<Props> = ({
   const [isEditing, setIsEditing] = React.useState(false);
 
   const hasSelection = Boolean(selectedItems);
-  const shouldCheckAvailable = Boolean(availableItems);
   const categoryOptions = allItems ? getCategoryOptions(itemCategory, allItems) : [];
 
   const toggleEditing = (event: ClickEvent) => {
@@ -93,6 +88,7 @@ const InventoryListItem: React.FC<Props> = ({
     if (onEdit) {
       onEdit(item.id, { name: itemName, category: itemCategory });
     }
+    setIsEditing(false);
   }
   const handleCancelEdit = () => {
     setItemName(item.name);
@@ -105,7 +101,8 @@ const InventoryListItem: React.FC<Props> = ({
   }
 
   // Used only in case of AllItems
-  const itemBackground = (item: InventoryItem) => shouldCheckAvailable ? getWarningColor(item, cart, availableItems) : '';
+  const itemBackground = 
+    (item: InventoryItem) => allItems && availableItems && cart ? getWarningColor(item, cart, availableItems) : '';
 
   return (
     <ListItem 
@@ -115,7 +112,7 @@ const InventoryListItem: React.FC<Props> = ({
         background: itemBackground(item)
       }}
     >
-      {hasSelection && isSelectedTab && (
+      {hasSelection && isSelectedTab && !isEditing && (
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -157,9 +154,9 @@ const InventoryListItem: React.FC<Props> = ({
       )}
       
       <>
-      {iconActions && !isEditing ? iconActions.map((iconAction, index) => (
-        <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, iconAction.handler)}>
-          {getIcon(iconAction, itemBackground(item))}
+      {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
+        <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, rowIcon.handler)}>
+          {getIcon(rowIcon, itemBackground(item))}
         </ListItemIcon>
       )) : null}
       {onEdit && !isEditing ? (

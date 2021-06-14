@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Divider } from '@material-ui/core';
-import AvailableItems from '@inventory/components/AvailableItems';
-import AllItems from '@inventory/components/AllItems';
+import InventoryAll from '@inventory/components/InventoryAll';
+import InventoryAvailable from '@inventory/components/InventoryAvailable';
 import { InventoryTabs, InventoryItem, InventoryActions } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -39,32 +39,35 @@ const Inventory: React.FC<Props> = ({
   setSelectedTab 
 }) => {
   const classes = useStyles();
+
+  const dynamicStyles = { 
+    width: isSelectedTab ? '70%' : '30%',
+    background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
+    cursor: isSelectedTab ? '' : 'pointer'
+  }
+
   return (
     <div 
       className={classes.container} 
-      style={{ 
-        width: isSelectedTab ? '70%' : '30%',
-        background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',
-        cursor: isSelectedTab ? '' : 'pointer'
-      }}
+      style={dynamicStyles}
       onClick={!isSelectedTab ? setSelectedTab(InventoryTabs.Inventory) : undefined}
     >
       <Typography variant="h4">
         Inventory
       </Typography>
       <div className={classes.contentContainer}>
-        <AvailableItems 
-          isSelectedTab={isSelectedTab}
-          allItems={allItems} 
+        <InventoryAvailable
+          allItems={allItems}
           availableItems={availableItems}
+          isSelectedTab={isSelectedTab}
           actions={actions}
         />
         <Divider className={classes.divider} />
-        <AllItems 
-          isSelectedTab={isSelectedTab}
-          allItems={allItems} 
+        <InventoryAll
+          allItems={allItems}
           availableItems={availableItems}
           cart={cart}
+          isSelectedTab={isSelectedTab}
           actions={actions}
         />
       </div>

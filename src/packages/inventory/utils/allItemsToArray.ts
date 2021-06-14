@@ -1,20 +1,18 @@
 import { InventoryItem } from '@inventory/types';
 
 interface Props {
-  availableItems: string[];
   allItems: Record<string, InventoryItem>;
   textFilter: string;
 }
 
-const availableItemsToArray = ({
-  availableItems, 
+const allItemsToArray = ({
   allItems, 
   textFilter
 }: Props): InventoryItem[] => {
-  let listItems: InventoryItem[] = availableItems.map(id => ({ 
+  let listItems = Object.keys(allItems).map(id => ({ 
     id, 
-    name: allItems[id] ? allItems[id].name : '', 
-    category: allItems[id] ? allItems[id].category : ''  
+    name: allItems[id].name, 
+    category: allItems[id].category  
   }))
   if (textFilter.length) {
     listItems = listItems.filter(item => 
@@ -24,4 +22,4 @@ const availableItemsToArray = ({
   return listItems;
 }
 
-export default availableItemsToArray;
+export default allItemsToArray;

@@ -6,6 +6,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import categorizeItems from '@core/utils/categorizeItems';
 import genericSort from '@core/utils/genericSort';
+import shouldCategoryBeOpen from '@inventory/utils/shouldCategoryBeOpen';
+import { InventoryItem, RowIcon } from '@inventory/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   item: {
@@ -13,49 +16,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const isSelectedItemInGroup = (items, selectedItems) => {
-  for (let i = 0; i < items.length; i += 1) {
-    if (selectedItems.includes(items[i].id)) {
-      return true;
-    }
-  }
-  return false;
+interface CollapsibleProps {
+  isSelectedTab: boolean;
+  category: string;
+  listItems: InventoryItem[];
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  selectedItems: string[];
+  onItemSelection: (selected: string[]) => void;
+  textFilter: string;
+  rowIcons: RowIcon[];
+  cart?: string[];
+  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
 }
 
-const shouldBeOpen = (textFilter, hasSelection, items, selectedItems) => {
-  // We only check for the existence of a text filter because the filtering is done outside the component, so we only receive results
-  if (textFilter && textFilter.length) {
-    return true;
-  } else if(hasSelection) {
-    return isSelectedItemInGroup(items, selectedItems);
-  }
-  return false;
-}
-
-interface Props {
-  listItems;
-  isSelectedTab;
-  allItems?;
-  availableItems?;
-  cart?;
-  selectedItems?;
-  onItemSelection?;
-  iconActions?;
-  textFilter?;
-  onEdit?;
-}
-
-const Collapsible = ({ 
+const Collapsible: React.FC<CollapsibleProps> = ({ 
   isSelectedTab,
   category, 
-  items, 
+  listItems, 
   allItems,
-  availableItems, 
-  cart,
+  availableItems,
   selectedItems, 
   onItemSelection,
-  iconActions,
   textFilter,
+  rowIcons,
+  cart,
   onEdit
 }) => {
 
@@ -63,21 +48,18 @@ const Collapsible = ({
 
   const hasSelection = Boolean(selectedItems);
 
-  const [isOpen, setIsOpen] = React.useState(shouldBeOpen(textFilter, hasSelection, items, selectedItems));
+  const [isOpen, setIsOpen] = React.useState(shouldCategoryBeOpen(listItems, selectedItems, hasSelection, textFilter));
 
   React.useEffect(() => {
-    setIsOpen(shouldBeOpen(textFilter, hasSelection, items, selectedItems));
+    setIsOpen(shouldCategoryBeOpen(listItems, selectedItems, hasSelection, textFilter));
   }, [textFilter])
 
-  const handleSelection = (id) => () => {
-    const newSelected = 
-      selectedItems.includes(id) ? 
-        selectedItems.filter(itemId => itemId !== id) : 
-        [...selectedItems, id]
+  const handleSelection = (id: string) => () => {
+    const newSelected = selectedItems.includes(id) ? selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]
     onItemSelection(newSelected);
   }
 
-  const toggleOpen = (event) => {
+  const toggleOpen = (event: ClickEvent) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
   }
@@ -85,17 +67,12 @@ const Collapsible = ({
   return (
     <>
       <ListItem button onClick={toggleOpen}>
-        {/*
-        <ListItemIcon>
-            TODO: Add dynamic icons 
-        </ListItemIcon>
-        */}
         <ListItemText primary={category} />
         {isOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" className={classes.item}>
-          {items && items.sort((a, b) => genericSort(a.name, b.name)).map(item => (
+          {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(item => (
             <InventoryListItem 
               key={item.id}
               allItems={allItems}
@@ -105,7 +82,7 @@ const Collapsible = ({
               selectedItems={selectedItems}
               isSelectedTab={isSelectedTab}
               onSelect={handleSelection}
-              iconActions={iconActions}
+              rowIcons={rowIcons}
               onEdit={onEdit}
             />
             )
@@ -116,18 +93,31 @@ const Collapsible = ({
   )
 }
 
-const NestedList = ({ 
-  listItems, 
+interface NestedProps {
+  isSelectedTab: boolean;
+  listItems: InventoryItem[];
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  selectedItems: string[];
+  onItemSelection: (selected: string[]) => void;
+  textFilter: string;
+  rowIcons: RowIcon[];
+  cart?: string[];
+  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+}
+
+const NestedList: React.FC<NestedProps> = ({ 
   isSelectedTab,
+  listItems, 
   allItems,
   availableItems, 
-  cart,
   selectedItems, 
   onItemSelection,
-  iconActions,
   textFilter,
+  rowIcons,
+  cart,
   onEdit
-}: Props) => {
+}) => {
   const categories = React.useMemo(() => categorizeItems(listItems, "category"), [listItems]);
   return (
     <List component="div" disablePadding>
@@ -136,13 +126,13 @@ const NestedList = ({
           key={category}
           isSelectedTab={isSelectedTab}
           category={category} 
-          items={categories[category]} 
+          listItems={categories[category]} 
           allItems={allItems}
           availableItems={availableItems} 
           cart={cart}
           selectedItems={selectedItems}
           onItemSelection={onItemSelection}
-          iconActions={iconActions}
+          rowIcons={rowIcons}
           textFilter={textFilter}
           onEdit={onEdit}
         />

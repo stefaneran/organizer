@@ -19,7 +19,7 @@ export interface InventoryActions {
     addToAvailable: Function;
     addNewToAvailable: Function;
     removeFromAvailable: Function;
-    edit: Function;
+    edit: (id: string, item: Omit<InventoryItem, "id">) => void;
   },
   cart: {
     add: Function;
@@ -30,8 +30,8 @@ export interface InventoryActions {
   }
 }
 
-export interface IconAction {
+export interface RowIcon {
   icon: JSX.Element;
   handler: Function;
-  isDelete?: boolean; // One time exception
+  altIcon?: JSX.Element;
 }

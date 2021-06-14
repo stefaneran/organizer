@@ -2,17 +2,18 @@ import * as React from 'react';
 import { List } from '@material-ui/core';
 import InventoryListItem from '@inventory/components/InventoryListItem';
 import genericSort from '@core/utils/genericSort';
+import { InventoryItem, RowIcon } from '@inventory/types';
 
 interface Props {
-  listItems;
-  isSelectedTab;
-  allItems?;
-  availableItems?;
-  cart?;
-  selectedItems?;
-  onItemSelection?;
-  iconActions?;
-  onEdit?;
+  isSelectedTab: boolean;
+  listItems: InventoryItem[];
+  allItems?: Record<string, InventoryItem>;
+  availableItems?: string[];
+  cart?: string[];
+  selectedItems: string[];
+  rowIcons?: RowIcon[];
+  onItemSelection: (selected: string[]) => void;
+  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
 }
 
 const SimpleList = ({ 
@@ -22,16 +23,13 @@ const SimpleList = ({
   availableItems, 
   cart,
   selectedItems, 
+  rowIcons,
   onItemSelection,
-  iconActions,
   onEdit
 }: Props) => {
 
-  const hasSelection = Boolean(selectedItems);
-
-  const handleSelection = (id) => () => {
-    const newSelected = selectedItems.includes(id) ? 
-        selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]
+  const handleSelection = (id: string) => () => {
+    const newSelected = selectedItems.includes(id) ? selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]
     onItemSelection(newSelected);
   }
 
@@ -47,7 +45,7 @@ const SimpleList = ({
           selectedItems={selectedItems}
           isSelectedTab={isSelectedTab}
           onSelect={handleSelection}
-          iconActions={iconActions}
+          rowIcons={rowIcons}
           onEdit={onEdit}
         />
       ))}
