@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -37,7 +38,7 @@ const ContactsFilters: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleChangeTitleFilter = (event) => {
+  const handleChangeTitleFilter = (event: InputEvent) => {
     onChangeFilter('title')(event.target.value);
   }
 

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   isOpen: boolean;
-  onClose: ()=>void;
+  onClose: () => void;
   activityFilters: ActivityFilters;
   onChangeFilter: (property: string) => (event: SelectEvent) => void;
 }

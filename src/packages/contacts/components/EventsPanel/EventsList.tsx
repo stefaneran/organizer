@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List } from 'react-virtualized';
-import EventListItem from '@contacts/components/EventsPanel/EventListItem';
-import { Event } from '@contacts/types';
 import 'react-virtualized/styles.css'; // only needs to be imported once
+import EventListItem from '@contacts/components/EventsPanel/EventListItem';
+import { Contact, Event } from '@contacts/types';
+import { Activity } from '@activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -18,8 +19,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface ItemProps {
   event: Event;
-  activities;
-  contacts;
+  activities: Record<string, Activity>;
+  contacts: Record<string, Contact>;
   onOpenInfoPanel: () => void;
 }
 
@@ -37,22 +38,22 @@ const ListItem: React.FC<ItemProps> = ({ event, ...props }) => {
 interface ListProps {
   showUpcoming: boolean; 
   eventsList: Event[];
-  activities;
-  contacts;
+  activities: Record<string, Activity>;
+  contacts: Record<string, Contact>;
   onOpenInfoPanel: (eventId?: string) => void;
 }
 
 const EventsList: React.FC<ListProps> = ({ showUpcoming, eventsList, ...props }) => {
   const classes = useStyles();
 
-  const renderRow = ({ index }) => {
+  const renderRow = (index: number) => {
     const event = eventsList[index];
     return <ListItem key={event.id} event={event} {...props} />
   }
 
   return (
     <div className={classes.container}>
-      {showUpcoming ? eventsList.map((event, index) => renderRow({ index })) : (
+      {showUpcoming ? eventsList.map((event, index) => renderRow(index)) : (
         <List
           height={475}
           rowCount={eventsList.length}

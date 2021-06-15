@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   relationshipStatus: RelationshipStatus;
-  style?;
+  style?: Record<string, string | number>;
 }
 
 const RelationshipChip: React.FC<Props> = ({ relationshipStatus, style }) => {

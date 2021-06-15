@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   oneOnOne: boolean;
-  style?;
+  style?: Record<string, string | number>;
 }
 
 const OneOnOneChip = ({ oneOnOne, style }: Props) => {

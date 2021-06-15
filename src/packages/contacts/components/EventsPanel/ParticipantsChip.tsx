@@ -4,6 +4,7 @@ import { Chip, Tooltip } from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 import getShortName from '@contacts/utils/getShortName';
+import { Contact } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chip: {
@@ -19,23 +20,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
+interface TooltipProps {
   participants: string[];
-  contacts;
-  style?;
+  contacts: Record<string, Contact>;
 }
 
-const ToolTipText = ({ participants, contacts }) => {
+const ToolTipText: React.FC<TooltipProps> = ({ 
+  participants, 
+  contacts 
+}) => {
   return (
     <div>
-      {participants.map((p) => 
-        <React.Fragment key={p}>
-          {contacts[p].name}
+      {participants.map((id) => 
+        <React.Fragment key={id}>
+          {contacts[id].name}
           <br />
         </React.Fragment>
       )}
     </div>
   )
+}
+
+interface Props {
+  participants: string[];
+  contacts: Record<string, Contact>;
+  style?: Record<string, string | number>;
 }
 
 const ParticipantsChip: React.FC<Props> = ({ 

@@ -18,7 +18,12 @@ interface Props {
   getLabel: (chip: any) => string;
 }
 
-const Chips = ({ memo, deps, getKey, getLabel }: Props) => {
+const Chips: React.FC<Props> = ({ 
+  memo, 
+  deps, 
+  getKey, 
+  getLabel 
+}) => {
   const classes = useStyles();
 
   const chips = React.useMemo(() => memo(), [...deps])

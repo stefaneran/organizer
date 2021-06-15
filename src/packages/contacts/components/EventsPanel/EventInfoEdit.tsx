@@ -5,13 +5,14 @@ import EditButtonGroup from '@contacts/components/EditButtonGroup';
 import SelectInput from '@core/components/inputs/SelectInput';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import DateTimePicker from '@core/components/inputs/DateTimePicker'; 
-import { Event } from '@contacts/types';
-import { Activity, ActivityType } from '@activities/types';
 import defaultEventProps from '@contacts/utils/defaultEventProps';
 import getActivityOptions from '@contacts/utils/getActivityOptions';
 import getActivityLocations from '@contacts/utils/getActivityLocations';
 import getContactsByIds from '@contacts/utils/getContactsByIds';
 import getContactsArray from '@contacts/utils/getContactsArray';
+import { Contact, Event } from '@contacts/types';
+import { Activity, ActivityType } from '@activities/types';
+import { SelectEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   headline: {
@@ -41,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   event: Event;
   eventId: string;
-  activities;
-  contacts;
+  activities: Record<string, Activity>;
+  contacts: Record<string, Contact>;
   onClose: () => void;
   toggleEdit: () => void;
   createEvent: Function;
@@ -68,7 +69,7 @@ const EventInfo: React.FC<Props> = ({
   const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : activities[event.activityId]?.activityType);
   const [activityOptions, setActivityOptions] = React.useState(getActivityOptions(activities, activityType));
 
-  const activityTypes: ActivityType[] = Object.keys(ActivityType).map((type: ActivityType) => type);
+  const activityTypes: string[] = Object.keys(ActivityType).map((type) => type);
   const activity: Activity = activities[eventData?.activityId];
   const participants = getContactsByIds(contacts, eventData?.participants).map(p => ({ label: p.name, value: p.id }));
 
@@ -92,22 +93,24 @@ const EventInfo: React.FC<Props> = ({
     setActivityOptions(getActivityOptions(activities, activityType));
   }, [activityType])
   
-  const handleChangeActivityType = (event) => {
-    setActivityType(event.target.value);
+  const handleChangeActivityType = (event: SelectEvent) => {
+    // TypeScript can be REALLY annoying sometimes :)
+    const value = event?.target?.value as ActivityType ?? ActivityType.Other; 
+    setActivityType(value);
     setEventData({ 
       ...eventData,  
       activityId: '',
       activityLocationIndex: 0
     })
   }
-  const handleChangeDateTime = (datetime) => {
+  const handleChangeDateTime = (datetime: Date) => {
     const timestamp = datetime.getTime();
     handleChangeEventData('date')(timestamp);
   }
-  const handleChangeEventData = (property) => (eventOrValue) => {
+  const handleChangeEventData = (property: string) => (eventOrValue: any) => {
     let value = eventOrValue.target?.value ?? eventOrValue;
     if (property === 'participants') {
-      value = value.map(v => v.value);
+      value = value.map((v: any) => v.value);
     }
     setEventData({
       ...eventData,

@@ -20,6 +20,7 @@ General:
 Recipes:
 - # Sort recipes alphabeticaly 
 - # Add possibility to delete first ingredient
+- # Fix filters panel
 - Optional ingredient type
 - Alternative ingredients
 - Add new ingredient (with category)

@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
 import ParticipantsChip from '@contacts/components/EventsPanel/ParticipantsChip';
-import { Event } from '@contacts/types';
+import { Contact, Event } from '@contacts/types';
 import { Activity } from '@activities/types';
 import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 
@@ -47,8 +47,8 @@ const iconStyles = {
 
 interface Props {
   event: Event;
-  activities;
-  contacts;
+  activities: Record<string, Activity>;
+  contacts: Record<string, Contact>;
   onOpenInfo: (id: string) => void;
 }
 

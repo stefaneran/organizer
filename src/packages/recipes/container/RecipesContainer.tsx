@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    position: 'relative'
   },
   contentContainer: {
     display: 'flex',

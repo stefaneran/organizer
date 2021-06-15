@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemText, Link } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import LocationLink from '@activities/components/LocationLink';
 import { ActivityLocation } from '@activities/types';
 

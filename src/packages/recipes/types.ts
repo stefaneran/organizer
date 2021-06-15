@@ -28,7 +28,7 @@ export interface IngredientEdit {
 }
 
 // Same as Recipe, but replace ingredients with alternate type
-export interface RecipeEdit extends Omit<Recipe, "ingredients"> {
+export interface RecipeEdit extends Omit<Recipe, "id" | "ingredients"> {
   ingredients: IngredientEdit[] 
 }
 

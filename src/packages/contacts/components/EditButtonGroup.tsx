@@ -14,7 +14,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const EditButtonGroup = ({ isCreate, onSubmit, onDelete, onClose }) => {
+interface Props {
+  isCreate: boolean;
+  onSubmit: () => void;
+  onDelete: () => void;
+  onClose: () => void;
+}
+
+const EditButtonGroup: React.FC<Props> = ({ 
+  isCreate, 
+  onSubmit, 
+  onDelete, 
+  onClose 
+}) => {
   const classes = useStyles();
   return (
     <div className={classes.buttonContainer}>

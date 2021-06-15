@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   gender: Genders;
-  style?;
+  style?: Record<string, string | number>;
 }
 
 const GenderChip: React.FC<Props> = ({ gender, style }) => {
@@ -29,8 +29,7 @@ const GenderChip: React.FC<Props> = ({ gender, style }) => {
     <Chip 
       icon={isMale ? <MaleIconChip /> : <FemaleIconChip />}
       className={classes.chip}
-      // label={gender}
-      label={''}
+      label={gender}
       style={{ ...style, ...genderStyle }}
     />
   )
