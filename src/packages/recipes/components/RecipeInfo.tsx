@@ -5,9 +5,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import RecipeIngredients from '@recipes/components/RecipeIngredients';
+import Ingredients from '@recipes/components/Ingredients';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+import { InventoryItem } from '@inventory/types';
+import { Recipe, EditMode } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsContainer: {
@@ -40,7 +42,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const RecipeDetails = ({ 
+interface Props {
+  recipe: Recipe; 
+  allItems: Record<string, InventoryItem>; 
+  availableItems: string[]; 
+  cart: string[]; 
+  addToCart: (itemIds: string[]) => void;
+  onOpenEditRecipe: (mode: EditMode) => () => void;
+  onSelectRecipe: (id: string) => () => void;
+  onDeleteRecipe: () => void;
+}
+
+const RecipeInfo: React.FC<Props> = ({ 
   recipe, 
   allItems, 
   availableItems, 
@@ -57,7 +70,7 @@ const RecipeDetails = ({
   const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
 
   const handleAddMissingToCart = () => {
-    const missing = [];
+    const missing: string[] = [];
     recipe.ingredients.forEach(ingredient => {
       const { itemId } = ingredient;
       const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);
@@ -103,7 +116,7 @@ const RecipeDetails = ({
         </Typography>
         <Divider />
         <div className={classes.ingredientsContainer}>
-          <RecipeIngredients 
+          <Ingredients 
             ingredients={recipe.ingredients}
             allItems={allItems}
             availableItems={availableItems}
@@ -138,4 +151,4 @@ const RecipeDetails = ({
   )
 }
 
-export default RecipeDetails;
+export default RecipeInfo;

@@ -1,6 +1,9 @@
-export default (recipes): string[] => {
-  const categories = [];
-  Object.keys(recipes).map(recipeId => {
+import { Recipe } from '@recipes/types';
+
+const getCategoryOptions = (recipes: Record<string, Recipe>): string[] => {
+  const categories: string[] = [];
+  const recipeIds = Object.keys(recipes);
+  recipeIds.map(recipeId => {
     const { category } = recipes[recipeId];
     if (!categories.includes(category)) {
       categories.push(category);
@@ -8,3 +11,5 @@ export default (recipes): string[] => {
   })
   return categories;
 }
+
+export default getCategoryOptions;

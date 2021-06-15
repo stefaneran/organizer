@@ -1,23 +1,37 @@
-export default (recipes, selectedNationality, selectedCategory, textFilter) => {
-  const filtered = {};
-  Object.keys(recipes).forEach(recipeId => {
+import { Recipe, RecipeFilters } from '@recipes/types';
+
+const filterRecipes = (
+  recipes: Record<string, Recipe>, 
+  recipeFilters: RecipeFilters
+): Recipe[] => {
+  
+  let filteredRecipes: Recipe[] = [];
+  const recipeIds = Object.keys(recipes);
+  const { nationality, category, name } = recipeFilters;
+
+  recipeIds.forEach(recipeId => {
     const recipe = recipes[recipeId];
 
     const passesNationality = 
-      selectedNationality === 'All' || 
-      (selectedNationality !== 'All' && recipe.nationality === selectedNationality);
+      nationality === 'All' || 
+      (nationality !== 'All' && recipe.nationality === nationality);
 
     const passedCategory = 
-      selectedCategory === 'All' ||
-      (selectedCategory !== 'All' && recipe.category === selectedCategory);
+      category === 'All' ||
+      (category !== 'All' && recipe.category === category);
 
-    const passesTextFilter = 
-      textFilter === '' ||
-      (textFilter.length && recipe.name.toLowerCase().includes(textFilter.toLowerCase()));
+    const passesNameFilter = 
+      name === '' ||
+      (name.length && recipe.name.toLowerCase().includes(name.toLowerCase()));
 
-    if (passesNationality && passedCategory && passesTextFilter) {
-      filtered[recipeId] = recipe;
+    if (passesNationality && passedCategory && passesNameFilter) {
+      filteredRecipes.push({
+        ...recipe,
+        id: recipeId
+      });
     }
   })
-  return filtered;
+  return filteredRecipes;
 }
+
+export default filterRecipes;

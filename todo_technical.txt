@@ -1,16 +1,17 @@
 
 
 General:
-- *Add patchnotes dialog/button
 - *Change local storage to cookies
+- *Add patchnotes dialog/button
 - *Make landing page
 - *Use mongoose in back-end
 - Remove PeopleIcon and use material UI equivalent
-- Make error action work
 - Add unit tests
+- Add error boundry
 - Add linting and fix lints
 - Use MUI theme and make Dark theme
-- More TypeScript (and more advanced too)
+- TypeScript: 
+  - Core
 - Add sync button in appbar to update info
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
@@ -22,8 +23,10 @@ Recipes:
 - Optional ingredient type
 - Alternative ingredients
 - Add new ingredient (with category)
+- Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
 - Filter by available ingredients option, etc
 - When creating new recipe, set as selected to avoid confusion
+- Mobile: Add/Edit recipe
 -----------------------------------------------
 - Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
@@ -35,8 +38,8 @@ Recipes:
 Inventory:
 - # Cart & Inventory: Add option to switch between sort by alphabetical or category
 - # Add "De-select All" button
-- Finish Shopping btn too low on laptop
-- Add debounce to requests
+- "Finish Shopping" btn too low on laptop
+- Add debounce to requests 
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
 - Add chip to ingredients that shows how many recipes its used in

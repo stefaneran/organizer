@@ -60,7 +60,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
     <>
       <ListItem button onClick={toggleOpen}>
         <ListItemIcon className={classes.activityIcon}>
-          <ActivityTypeIcon activityType={activityType} />
+          <ActivityTypeIcon activityType={activityType as ActivityType} />
         </ListItemIcon>
         <ListItemText primary={activityType} />
         {isOpen ? <ExpandLess /> : <ExpandMore />}

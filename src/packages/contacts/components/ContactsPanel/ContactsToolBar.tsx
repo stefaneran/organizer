@@ -4,15 +4,17 @@ import { Tooltip, IconButton } from '@material-ui/core'
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ContactsGroupsChips from './ContactsGroupsChips';
+import { ContactFilters } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  toolbar: {
+  container: {
     display: 'flex'
   }
 }));
 
 interface Props {
   groups: string[];
+  contactsFilters: ContactFilters;
   onOpenInfo: (contactId?: string) => void;
   toggleFilterPanel: () => void;
   onChangeFilter: (filter: string) => (value: string) => void;
@@ -20,13 +22,14 @@ interface Props {
 
 const ContactsToolBar: React.FC<Props> = ({
   groups,
+  contactsFilters,
   onOpenInfo, 
   toggleFilterPanel,
   onChangeFilter
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.toolbar}>
+    <div className={classes.container}>
       <Tooltip title="Open Filters">
         <IconButton onClick={toggleFilterPanel}>
           <FilterListIcon color="primary" />
@@ -39,6 +42,7 @@ const ContactsToolBar: React.FC<Props> = ({
       </Tooltip>
       <ContactsGroupsChips 
         groups={groups} 
+        selectedGroup={contactsFilters.group}
         onSelect={onChangeFilter}
       />
     </div>

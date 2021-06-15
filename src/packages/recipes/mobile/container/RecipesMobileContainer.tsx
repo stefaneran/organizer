@@ -4,11 +4,19 @@ import { Typography, TextField } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
+// Components
 import RecipeDetails from '@recipes/mobile/components/RecipeDetails';
-import RecipesList from '@recipes/mobile/components/RecipesList';
+import RecipeItem from '@recipes/mobile/components/RecipeItem';
+import ItemTag from '@recipes/components/ItemTag';
 import RecipeFilters from '@recipes/mobile/components/RecipeFilters';
+// Utils
+import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
+import filterRecipes from '@recipes/utils/filterRecipes';
+// Types
+import { Recipe, RecipeActions } from '@recipes/types';
+import { InventoryItem } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -72,49 +80,49 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const RecipesMobileContainer = (props) => {
+interface Props {
+  recipes: Record<string, Recipe>;
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  cart: string[];
+}
+
+const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
+  recipes,
+  availableItems, 
+  allItems, 
+  cart,
+  ...actions
+}) => {
   const classes = useStyles();
 
-  const {
-    recipes,
-    availableItems, 
-    allItems, 
-    cart,
-    ...actions
-  } = props;
-
-  const { addToCart } = actions;
-
-
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
-  const [selectedNationality, setSelectedNationality] = React.useState('All');
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
-  const [textFilter, setTextFilter] = React.useState('');
+  const [recipeFilters, setRecipeFilters] = React.useState(defaultRecipeFilters);
   const [filterMenuOpen, setFilterMenuOpen] = React.useState(false);
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
-  const nationalities = getNationalityOptions(recipes);
-  const categories = getCategoryOptions(recipes);
+  const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes]);
+  const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
-  const toggleFilterMenuOpen = () => {
-    setFilterMenuOpen(!filterMenuOpen);
-  }
-  const handleSelectRecipe = (id) => () => {
+  const filteredRecipes = React.useMemo(() => filterRecipes(recipes, recipeFilters), [recipes, recipeFilters]);
+
+  const handleSelectRecipe = (id: string) => () => {
     if (selectedRecipe !== id) {
       setSelectedRecipe(id);
     } else {
       setSelectedRecipe('');
     }
   }
-  const handleSelectNationality = (event) => {
-    setSelectedNationality(event.target.value);
+  const handleChangeFilter = (property: string) => (eventOrValue: any) => {
+    const value = eventOrValue.target?.value ?? eventOrValue;
+    setRecipeFilters({
+      ...recipeFilters,
+      [property]: value
+    })
   }
-  const handleSelectCategory = (event) => {
-    setSelectedCategory(event.target.value);
-  }
-  const handleTextFilterInput = (event) => {
-    setTextFilter(event.target.value);
+  const toggleFilterMenuOpen = () => {
+    setFilterMenuOpen(!filterMenuOpen);
   }
 
   return (
@@ -139,8 +147,8 @@ const RecipesMobileContainer = (props) => {
         </div>
       </div>
       <TextField
-        value={textFilter}
-        onChange={handleTextFilterInput}
+        value={recipeFilters.name}
+        onChange={handleChangeFilter('name')}
         className={classes.mobileTextField}
         variant="outlined"
         size="medium"
@@ -154,21 +162,30 @@ const RecipesMobileContainer = (props) => {
             allItems={allItems} 
             availableItems={availableItems} 
             cart={cart} 
-            addToCart={addToCart}
+            addToCart={actions.addToCart}
           />
         </div>
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '-100%' : '0%'}}>
-          <RecipesList
-            recipes={recipes}
-            selectedNationality={selectedNationality}
-            selectedCategory={selectedCategory}
-            selectedRecipe={selectedRecipe}
-            onSelectRecipe={handleSelectRecipe} 
-            textFilter={textFilter}
-            availableItems={availableItems}
-            cart={cart}
-            addToCart={addToCart}
-          />
+          {filteredRecipes.map(recipe => (
+            <RecipeItem
+              key={recipe.id}
+              recipeId={recipe.id}
+              recipe={recipe}
+              onSelectRecipe={handleSelectRecipe}
+              availableItems={availableItems}
+              cart={cart}
+              addToCart={actions.addToCart}
+              tag={
+                <ItemTag 
+                  recipe={recipe} 
+                  availableItems={availableItems} 
+                  cart={cart} 
+                  style={{ marginRight: '1.5em' }}
+                  isMobile
+                />
+              }
+            />
+          ))}
         </div>
       </div>
       <div 
@@ -178,13 +195,11 @@ const RecipesMobileContainer = (props) => {
         <div className={classes.filtersExit} onClick={toggleFilterMenuOpen} />
         <div className={classes.filtersContent}>
           <RecipeFilters 
-            toggleFilterMenuOpen={toggleFilterMenuOpen}
+            recipeFilters={recipeFilters}
             nationalityOptions={nationalities}
             categoryOptions={categories}
-            selectedNationality={selectedNationality}
-            onSelectNationality={handleSelectNationality}
-            selectedCategory={selectedCategory}
-            onSelectCategory={handleSelectCategory}
+            toggleFilterMenuOpen={toggleFilterMenuOpen}
+            onChangeFilter={handleChangeFilter}
           />
         </div>
       </div>

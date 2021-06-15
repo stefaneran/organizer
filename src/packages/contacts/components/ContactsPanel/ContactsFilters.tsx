@@ -7,7 +7,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
 import { Genders, RelationshipStatus } from '@contacts/types';
-import { ContactFilters } from '@contacts/utils/defaultContactFilters';
+import { ContactFilters } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -52,7 +52,7 @@ interface Props {
   isOpen: boolean;
   onClose: ()=>void;
   contactsFilters: ContactFilters;
-  onChangeFilter: (property: string) => (event) => void;
+  onChangeFilter: (property: string) => (event: any) => void;
 }
 
 const ContactsFilters: React.FC<Props> = ({

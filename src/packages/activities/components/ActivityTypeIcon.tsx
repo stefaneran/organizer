@@ -13,7 +13,7 @@ import { ActivityType } from '@activities/types';
 
 interface Props {
   activityType: ActivityType;
-  style: Record<string, string>;
+  style?: Record<string, string>;
 }
 
 const ActivityTypeIcon: React.FC<Props> = ({ activityType, style = {} }) => {

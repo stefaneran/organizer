@@ -27,12 +27,12 @@ const InventoryContainer: React.FC<Props & Record<string, Function>> = ({
   availableItems,
   cart,
   selectedInCart,
-  ...props
+  ...actionProps
 }) => {
   
   const classes = useStyles();
   
-  const actions = mapActions(props);
+  const actions = mapActions(actionProps);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);
 

@@ -30,12 +30,12 @@ interface Props {
   className?: string;
 }
 
-const DateTimePickerComponent = ({ 
+const DateTimePickerComponent: React.FC<Props> = ({ 
   value = new Date(),
   onChange,
   label,
   className
-}: Props) => {
+}) => {
   const classes = useStyles();
 
   return (

@@ -13,6 +13,7 @@ import {
 } from '@core/components/Icons/CartIcon';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+import { Recipe } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -29,22 +30,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 // Check if one ingredient is missing
-const checkMissingIngredient = (ingredient, availableItems) => {
+const checkMissingIngredient = (ingredient: string, availableItems: string[]) => {
   return !availableItems.includes(ingredient);
 }
 
 // Check if item is in cart 
 // Note: like checkMissingInCartRecipe, doesn't matter if its true if it's not missing from available items
-const checkMissingIngredientInCart = (ingredient, cart) => {
+const checkMissingIngredientInCart = (ingredient: string, cart: string[]) => {
   return cart.includes(ingredient);
 }
 
 interface Props {
-  recipe?;
-  ingredient?;
-  availableItems;
-  cart;
-  style?;
+  availableItems: string[];
+  cart: string[];
+  recipe?: Recipe;
+  ingredient?: string; // itemId of ingredient
+  style?: any;
   isMobile?: boolean;
 }
 
@@ -52,7 +53,14 @@ interface Props {
 // 1) Some/all ingredients missing (red icon)
 // 2) Missing ingredients are in cart (yellow icon)
 // 3) All ingredients present (green icon)
-const ItemTag = ({ recipe, ingredient, availableItems, cart, style, isMobile }: Props) => {
+const ItemTag: React.FC<Props> = ({ 
+  availableItems, 
+  cart, 
+  recipe, 
+  ingredient, 
+  style, 
+  isMobile 
+}) => {
   const classes = useStyles();
 
   // Determine if getting tag for a whole recipe or just one ingredient

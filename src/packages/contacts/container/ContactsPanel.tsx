@@ -73,6 +73,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
         onOpenInfo={handleOpenInfoPanel}
         toggleFilterPanel={toggleFilterPanel}
         groups={groups}
+        contactsFilters={contactsFilters}
         onChangeFilter={handleChangeFilter}
       />
       <ContactsList 

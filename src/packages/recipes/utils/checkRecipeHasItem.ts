@@ -1,4 +1,9 @@
-export default (recipe: any, itemId: string) => {
+import { Recipe } from '@recipes/types';
+
+const checkRecipeHasItem = (
+  recipe: Recipe, 
+  itemId: string
+): boolean => {
   for (const ingredient of recipe.ingredients) {
     if (ingredient.itemId === itemId) {
       return true;
@@ -6,3 +11,5 @@ export default (recipe: any, itemId: string) => {
   }
   return false;
 }
+
+export default checkRecipeHasItem;

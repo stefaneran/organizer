@@ -1,28 +1,30 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, TextField, Button } from '@material-ui/core';
-import { FoodIconXS } from '@core/components/Icons/FoodIcon';
+import { Paper } from '@material-ui/core';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import Nationalities from '@recipes/components/Nationalities';
-import CategoryFilter from '@recipes/components/CategoryFilter';
-import RecipesList from '@recipes/components/RecipesList';
-import EditRecipe from '@recipes/components/EditRecipe';
-import RecipeDetails from '@recipes/components/RecipeDetails';
+// Components
+import RecipesToolbar from '@recipes/components/RecipesToolbar';
+import RecipeFilters from '@recipes/components/RecipeFilters';
+import RecipeItem from '@recipes/components/RecipeItem';
+import ItemTag from '@recipes/components/ItemTag';
+import RecipeInfoEdit from '@recipes/components/RecipeInfoEdit';
+import RecipeInfo from '@recipes/components/RecipeInfo';
 import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
+// Utils
 import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
+import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
+import filterRecipes from '@recipes/utils/filterRecipes';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
+// Types
+import { InventoryItem } from '@inventory/types';
+import { Recipe, RecipeEdit, RecipeActions, EditMode } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',
     overflow: 'hidden'
-  },
-  filtersContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1em 1em 0 1em'
   },
   contentContainer: {
     display: 'flex',
@@ -49,160 +51,147 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const RecipesContainer = (props) => {
+interface Props {
+  recipes: Record<string, Recipe>;
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  cart: string[];
+}
+
+const RecipesContainer: React.FC<Props & RecipeActions> = ({
+  recipes,
+  allItems, 
+  availableItems, 
+  cart,
+  ...actions
+}) => {
   const classes = useStyles();
 
-  const {
-    recipes,
-    availableItems, 
-    allItems, 
-    cart,
-    ...actions
-  } = props;
-
-  const {
-    addRecipe,
-    editRecipe,
-    deleteRecipe,
-    addToCart
-  } = actions;
-
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
-  const [selectedNationality, setSelectedNationality] = React.useState('All');
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
-  const [textFilter, setTextFilter] = React.useState('');
-  const [editRecipeMode, setEditRecipeMode] = React.useState('');
-  const [editRecipeData, setEditRecipeData] = React.useState(defaultRecipeProps);
+  const [recipeFilters, setRecipeFilters] = React.useState(defaultRecipeFilters);
+  const [isFiltersOpen, setFiltersOpen] = React.useState(false);
+  const [editMode, setEditMode] = React.useState<EditMode>('');
+  const [recipeData, setRecipeData] = React.useState(defaultRecipeProps);
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
-  const nationalities = getNationalityOptions(recipes)
-  const categories = getCategoryOptions(recipes);
+  const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes])
+  const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
+
+  const filteredRecipes = React.useMemo(() => filterRecipes(recipes, recipeFilters), [recipes, recipeFilters]);
 
   const toggleConfirmationDialog = () => {
     setConfirmationOpen(!isConfirmationOpen);
   }
-  const handleSelectRecipe = (id) => () => {
+  const toggleFiltersOpen = () => {
+    setFiltersOpen(!isFiltersOpen);
+  }
+  const handleSelectRecipe = (id: string) => () => {
     if (selectedRecipe !== id) {
-      if (editRecipeMode.length) {
-        setEditRecipeMode('');
+      if (editMode.length) {
+        setEditMode('');
       }
       setSelectedRecipe(id);
     } else {
       setSelectedRecipe('');
     }
   }
-  const handleSelectNationality = (nationality) => () => {
-    setSelectedNationality(nationality);
+  const handleChangeFilter = (property: string) => (eventOrValue: any) => {
+    const value = eventOrValue.target?.value ?? eventOrValue;
+    setRecipeFilters({
+      ...recipeFilters,
+      [property]: value
+    })
   }
-  const handleSelectCategory = (event) => {
-    setSelectedCategory(event.target.value);
-  }
-  const handleTextFilterInput = (event) => {
-    setTextFilter(event.target.value);
-  }
-  const handleOpenEditRecipe = (mode) => () => {
+  const handleOpenEditRecipe = (mode: EditMode) => () => {
     if (mode === 'new') {
-      setEditRecipeData(defaultRecipeProps)
+      setRecipeData(defaultRecipeProps)
     } 
-    // Map existing recipe's data to state hook
+    // Map existing recipe's data to state hook, and adapt ingredient type (see IngredientEdit interface)
     else if (mode === 'edit') {
-      const recipe = { ...recipes[selectedRecipe] };
-      const ingredients = recipe.ingredients.map(ingredient => {
+      const recipe: RecipeEdit = { 
+        ...recipes[selectedRecipe], 
+        ingredients: [] 
+      };
+      const ingredients = recipes[selectedRecipe].ingredients.map(ingredient => {
         const { itemId, amount } = ingredient;
         const { name } = allItems[itemId];
         return { name, amount };
       })
       recipe.ingredients = ingredients;
-      setEditRecipeData(recipe);
+      setRecipeData(recipe);
     }
-    setEditRecipeMode(mode);
+    setEditMode(mode);
   }
   const handleSubmitEditRecipe = () => {
-    setEditRecipeMode('');
-    if (editRecipeMode === 'new') {
-      addRecipe(editRecipeData);
-    } else if (editRecipeMode === 'edit') {
-      editRecipe(editRecipeData, selectedRecipe);
+    setEditMode('');
+    if (editMode === 'new') {
+      actions.addRecipe(recipeData);
+    } else if (editMode === 'edit') {
+      actions.editRecipe(recipeData, selectedRecipe);
     }
   }
   const handleDeleteRecipe = () => {
-    deleteRecipe(selectedRecipe);
+    actions.deleteRecipe(selectedRecipe);
     setSelectedRecipe('');
     toggleConfirmationDialog()
   }
 
   return (
     <Paper className={classes.container}>
-      <div className={classes.filtersContainer}>
-        <Nationalities 
-          nationalityOptions={nationalities}
-          selectedNationality={selectedNationality}
-          onSelectNationality={handleSelectNationality}
-        />
-        <div className={classes.rightFilters}>
-          <CategoryFilter
-            selectedCategory={selectedCategory}
-            categoryOptions={categories}
-            onSelectCategory={handleSelectCategory}
-          />
-          <TextField
-            style={{ width: '160px', marginRight: '1em' }}
-            value={textFilter}
-            onChange={handleTextFilterInput}
-            variant="outlined"
-            size="small"
-            placeholder="Name Filter"
-          />
-          <Button 
-            style={{ height: '40px' }}
-            onClick={handleOpenEditRecipe('new')}
-            variant="outlined"
-            color="primary"
-            endIcon={<FoodIconXS />}
-          >
-            New
-          </Button>
-        </div>
-      </div>
+      <RecipesToolbar
+        recipeFilters={recipeFilters}
+        nationalities={nationalities}
+        toggleFiltersOpen={toggleFiltersOpen}
+        onOpenEditRecipe={handleOpenEditRecipe}
+        onChangeFilter={handleChangeFilter}
+      />
       <div className={classes.contentContainer}>
         <div 
           className={classes.primaryContainer}
-          style={{ width: hasSelectedRecipe || editRecipeMode.length ? '60%' : '100%' }}
+          style={{ width: hasSelectedRecipe || editMode.length ? '60%' : '100%' }}
         >
-          <RecipesList 
-            recipes={recipes}
-            selectedNationality={selectedNationality}
-            selectedCategory={selectedCategory}
-            selectedRecipe={selectedRecipe}
-            textFilter={textFilter}
-            onSelectRecipe={handleSelectRecipe}
-            availableItems={availableItems}
-            cart={cart}
-            addToCart={addToCart}
-          />
+          {filteredRecipes.map(recipe => (
+            <RecipeItem
+              key={recipe.id}
+              recipeId={recipe.id}
+              recipe={recipe}
+              selectedRecipe={selectedRecipe}
+              onSelectRecipe={handleSelectRecipe}
+              availableItems={availableItems}
+              cart={cart}
+              addToCart={actions.addToCart}
+              tag={
+                <ItemTag 
+                  recipe={recipe} 
+                  availableItems={availableItems} 
+                  cart={cart} 
+                />
+              }
+            />
+          ))}
         </div>
         <div 
           className={classes.secondaryContainer} 
-          style={{ width: hasSelectedRecipe || editRecipeMode.length ? '40%' : '0%' }}
+          style={{ width: hasSelectedRecipe || editMode.length ? '40%' : '0%' }}
         >
-          {editRecipeMode.length ? (
-            <EditRecipe
-              editRecipeData={editRecipeData}
-              setEditRecipeData={setEditRecipeData}
+          {editMode.length ? (
+            <RecipeInfoEdit
+              recipeData={recipeData}
+              setRecipeData={setRecipeData}
               categoryOptions={categories}
               allItems={allItems}
               onSubmitEditRecipe={handleSubmitEditRecipe}
               onOpenEditRecipe={handleOpenEditRecipe}
             />
           ) : (
-            <RecipeDetails 
+            <RecipeInfo 
               recipe={recipes[selectedRecipe]}
               allItems={allItems}
               availableItems={availableItems}
               cart={cart}
-              addToCart={addToCart}
+              addToCart={actions.addToCart}
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}
               onDeleteRecipe={toggleConfirmationDialog}
@@ -210,6 +199,13 @@ const RecipesContainer = (props) => {
           )}
         </div>
       </div>
+      <RecipeFilters
+        isOpen={isFiltersOpen}
+        recipeFilters={recipeFilters}
+        categoryOptions={categories} 
+        onChangeFilter={handleChangeFilter}
+        onClose={toggleFiltersOpen}
+      />
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 

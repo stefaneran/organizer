@@ -5,6 +5,7 @@ import {
   FormControl, 
   FormHelperText 
 } from '@material-ui/core';
+import { AutoCompleteHandler, KeyboardEvent } from '@core/types';
 
 interface Props {
   label: string;
@@ -18,7 +19,7 @@ interface Props {
   defaultValue?: any;
 }
 
-const TextMultiSelect = ({
+const TextMultiSelect: React.FC<Props> = ({
   label,
   onChange, 
   defaultValue = [],
@@ -28,7 +29,7 @@ const TextMultiSelect = ({
   helperText, 
   variant, 
   size
-}: Props) => {
+}) => {
 
   const [currentValue, setCurrentValue] = React.useState(defaultValue);
   const [currentOptions, setCurrentOptions] = React.useState(options);
@@ -43,7 +44,7 @@ const TextMultiSelect = ({
     setCurrentOptions(options);
   }, [options])
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && canAdd) {
       const input = event.target.value;
       if (!currentOptions.includes(input)) {
@@ -55,7 +56,7 @@ const TextMultiSelect = ({
     }
   }
 
-  const handleInput = (e, newValue) => {
+  const handleInput: AutoCompleteHandler = (event, newValue) => {
     setCurrentValue(newValue);
     onChange(newValue);
   }

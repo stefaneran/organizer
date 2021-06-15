@@ -2,12 +2,20 @@ import * as React from 'react';
 import { Activity } from '@activities/types';
 import { Contact, Event } from '@contacts/types';
 import { InventoryItem } from '@inventory/types';
+import { Recipe } from '@recipes/types';
 
 export type InputEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 export type ClickEvent = React.MouseEvent;
 
+export type KeyboardEvent = React.KeyboardEvent<HTMLDivElement>;
+
 export type AutoCompleteHandler = (event: React.ChangeEvent<{}>, value: any | null) => void
+
+export type SelectEvent = React.ChangeEvent<{ 
+  name?: string | undefined;
+  value: unknown;
+}>
 
 export enum CategoryType {
   Activities = "Activities",
@@ -36,7 +44,7 @@ export interface InventoryStore {
 }
 
 export interface RecipeStore {
-  recipes: Record<string, any>
+  recipes: Record<string, Recipe>
 }
 
 export interface AppStore {

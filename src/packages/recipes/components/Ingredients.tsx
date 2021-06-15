@@ -2,6 +2,8 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from '@recipes/components/ItemTag';
+import { Ingredient } from '@recipes/types';
+import { InventoryItem } from '@inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileText: {
@@ -13,15 +15,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
   }
 }));
+
 interface Props {
-  ingredients;
-  allItems;
-  availableItems;
-  cart;
+  ingredients: Ingredient[];
+  allItems: Record<string, InventoryItem>;
+  availableItems: string[];
+  cart: string[];
   isMobile?: boolean;
 }
 
-const RecipeIngredients = ({ 
+const Ingredients: React.FC<Props> = ({ 
   ingredients, 
   allItems, 
   availableItems, 
@@ -31,19 +34,19 @@ const RecipeIngredients = ({
   const classes = useStyles();
   return (
     <List>
-      {ingredients.map(ingredient => (
+      {ingredients.map(({ itemId, amount }) => (
         <ListItem>
           <ItemTag 
-            ingredient={ingredient.itemId}
+            ingredient={itemId}
             availableItems={availableItems}
             cart={cart}
             style={{ marginRight: '1.5em' }}
             isMobile={isMobile}
           />
           <ListItemText 
-            primary={allItems[ingredient.itemId] ? allItems[ingredient.itemId].name : ''} 
-            secondary={ingredient.amount}
-            className={isMobile && classes.mobileText}
+            primary={allItems[itemId] ? allItems[itemId].name : ''} 
+            secondary={amount}
+            className={isMobile ? classes.mobileText : ''}
           />
         </ListItem>
       ))}
@@ -51,4 +54,4 @@ const RecipeIngredients = ({
   )
 }
 
-export default RecipeIngredients;
+export default Ingredients;

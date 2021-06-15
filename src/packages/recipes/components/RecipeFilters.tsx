@@ -3,8 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SelectInput from '@core/components/inputs/SelectInput';
-import { ActivityFilters, ParticipantType } from '@activities/types';
-import { SelectEvent } from '@core/types';
+import { RecipeFilters } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -27,17 +26,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   isOpen: boolean;
-  onClose: ()=>void;
-  activityFilters: ActivityFilters;
-  onChangeFilter: (property: string) => (event: SelectEvent) => void;
+  recipeFilters: RecipeFilters;
+  categoryOptions: string[]; 
+  onChangeFilter: (property: string) => (eventOrValue: any) => void; 
+  onClose: () => void;
 }
 
-const ActivitiesFilters: React.FC<Props> = ({
+const RecipesFilters: React.FC<Props> = ({
   isOpen,
-  onClose,
-  activityFilters,
-  onChangeFilter
- }) => {
+  recipeFilters,
+  categoryOptions, 
+  onChangeFilter,
+  onClose
+}) => {
   const classes = useStyles();
 
   return (
@@ -47,23 +48,22 @@ const ActivitiesFilters: React.FC<Props> = ({
           <CloseIcon />
         </IconButton>
       </div>
-      <TextField 
-        className={classes.input}
-        value={activityFilters.name}
+      <TextField
+        style={{ width: '160px', marginRight: '1em' }}
+        value={recipeFilters.name}
         onChange={onChangeFilter('name')}
-        size="medium"
         variant="outlined"
-        label="Name"
+        size="small"
+        placeholder="Name Filter"
       />
       <SelectInput
-        className={classes.input}
-        value={activityFilters.participants}
-        options={['All', ...Object.keys(ParticipantType)]}
-        onChange={onChangeFilter('participants')}
-        label="Participants"
+        value={recipeFilters.category}
+        options={['All', ...categoryOptions]}
+        onChange={onChangeFilter('category')}
+        label="Category"
       />
     </div>
   )
 }
 
-export default ActivitiesFilters;
+export default RecipesFilters;

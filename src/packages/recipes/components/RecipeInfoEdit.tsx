@@ -4,8 +4,11 @@ import { TextField, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import { FoodIconXS } from '@core/components/Icons/FoodIcon';
-import EditIngredients from '@recipes/components/EditIngredients';
+import IngredientsEdit from '@recipes/components/IngredientsEdit';
 import countries from '@core/data/countries';
+import { IngredientEdit, RecipeEdit } from '@recipes/types';
+import { InventoryItem } from '@inventory/types';
+import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -24,9 +27,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const EditRecipe = ({
-  editRecipeData, 
-  setEditRecipeData, 
+interface Props {
+  recipeData: RecipeEdit; 
+  setRecipeData: (recipe: RecipeEdit) => void; 
+  categoryOptions: string[]; 
+  allItems: Record<string, InventoryItem>;
+  onSubmitEditRecipe: () => void;
+  onOpenEditRecipe: Function;
+}
+
+const RecipeInfoEdit: React.FC<Props> = ({
+  recipeData, 
+  setRecipeData, 
   categoryOptions, 
   allItems,
   onSubmitEditRecipe,
@@ -34,30 +46,30 @@ const EditRecipe = ({
 }) => {
   const classes = useStyles();
 
-  const handleDataChange = (property, value) => {
-    setEditRecipeData({
-      ...editRecipeData,
+  const handleDataChange = (property: string, value: any) => {
+    setRecipeData({
+      ...recipeData,
       [property]: value
     })
   }
-  const handleNameChange = (event) => {
+  const handleNameChange = (event: InputEvent) => {
     handleDataChange('name', event.target.value);
   }
-  const handleNationalityChange = (event, newValue) => {
+  const handleNationalityChange: AutoCompleteHandler = (event, newValue) => {
     handleDataChange('nationality', newValue ? newValue : '');
   }
-  const handleCategoryChange = (event, newValue) => {
+  const handleCategoryChange: AutoCompleteHandler = (event, newValue) => {
     handleDataChange('category', newValue ? newValue : '');
   }
   // This is needed separately for new typed categories that don't exist as an option
-  const handleCategoryInput = (event) => {
+  const handleCategoryInput = (event: InputEvent) => {
     handleDataChange('category', event.target.value);
   }
-  const handleInstructionsChange = (event) => {
+  const handleInstructionsChange = (event: InputEvent) => {
     handleDataChange('instructions', event.target.value);
   }
-  const handleIngredientsChange = (index, ingredient) => {
-    let ingredients = [ ...editRecipeData.ingredients ];
+  const handleIngredientsChange = (index: number, ingredient?: IngredientEdit) => {
+    let ingredients = [ ...recipeData.ingredients ];
     // If ingredient is undefined, delete the sent index
     if (!ingredient) {
       ingredients = ingredients.filter((ing, i) => i !== index);
@@ -74,7 +86,7 @@ const EditRecipe = ({
     <div className={classes.container}>
       <TextField
         className={classes.input}
-        value={editRecipeData.name}
+        value={recipeData.name}
         onChange={handleNameChange}
         variant="outlined"
         size="small"
@@ -83,7 +95,7 @@ const EditRecipe = ({
       />
       <Autocomplete
         className={classes.input}
-        value={editRecipeData.nationality}
+        value={recipeData.nationality}
         options={countries.map(c => c.name)}
         onChange={handleNationalityChange}
         getOptionLabel={(option) => option}
@@ -99,7 +111,7 @@ const EditRecipe = ({
       />
       <Autocomplete
         className={classes.input}
-        value={editRecipeData.category}
+        value={recipeData.category}
         options={categoryOptions}
         onChange={handleCategoryChange}
         getOptionLabel={(option) => option}
@@ -117,7 +129,7 @@ const EditRecipe = ({
       />
       <TextField
         className={classes.input}
-        value={editRecipeData.instructions}
+        value={recipeData.instructions}
         onChange={handleInstructionsChange}
         variant="outlined"
         size="small"
@@ -126,8 +138,8 @@ const EditRecipe = ({
         multiline
         rows={12}
       />
-      <EditIngredients 
-        ingredients={editRecipeData.ingredients} 
+      <IngredientsEdit 
+        ingredients={recipeData.ingredients} 
         allItems={allItems}
         onIngredientsChange={handleIngredientsChange}
       />
@@ -154,4 +166,4 @@ const EditRecipe = ({
   )
 }
 
-export default EditRecipe;
+export default RecipeInfoEdit;

@@ -11,21 +11,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   isChecked: boolean;
-  onChange: (isChecked) => void;
+  onChange: (isChecked: boolean) => void;
   disabled?: boolean;
   className?: string;
   uncheckedIcon?; // Icon on the left side
   checkedIcon?;   // Icon on the right side
 }
 
-const SwitchInput = ({ 
+const SwitchInput: React.FC<Props> = ({ 
   isChecked, 
   onChange, 
   disabled,
   className, 
   uncheckedIcon, 
   checkedIcon 
-}: Props) => {
+}) => {
   const classes = useStyles();
   const handleCheck = (event) => {
     const isChecked = event.target.checked;

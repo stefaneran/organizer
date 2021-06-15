@@ -1,6 +1,9 @@
 import { Activity, ActivityFilters } from "@activities/types";
 
-export default (activities: Record<string, Activity>, filters: ActivityFilters) => {
+export default (
+  activities: Record<string, Activity>, 
+  filters: ActivityFilters
+): Activity[] => {
   const { name, participants } = filters;
   let filteredActivities = Object.keys(activities).map(id => ({ 
     ...activities[id],

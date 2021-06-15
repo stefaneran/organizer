@@ -1,4 +1,4 @@
-import { ContactFilters, Genders, RelationshipStatus } from '@contacts/types';
+import { ContactFilters } from '@contacts/types';
 
 const defaultFilters: ContactFilters = {
   group: 'All',

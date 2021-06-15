@@ -8,37 +8,47 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingTop: '0.5em'
   },
   chip: {
-    marginRight: '0.5em'
+    cursor: 'pointer',
+    marginRight: '0.5em',
+    '&:hover': {
+      background: theme.palette.primary.light,
+      color: '#fff'
+    }
   }
 }));
 
 interface Props {
   groups: string[];
+  selectedGroup: string;
   onSelect: (filter: string) => (value: string) => void;
 }
 
-const ContactInfoGroupsChips: React.FC<Props> = ({ groups, onSelect }) => {
+const ContactInfoGroupsChips: React.FC<Props> = ({ 
+  groups, 
+  selectedGroup, 
+  onSelect 
+}) => {
   const classes = useStyles();
 
-  const handleSelect = (group) => () => {
-    onSelect('group')(group);
-  }
+  const isSelected = (group: string) => selectedGroup === group;
+
+  const handleSelect = (group: string) => () => onSelect('group')(group);
 
   return (
     <div className={classes.container}>
       <Chip 
-        onClick={handleSelect('All')}
-        className={classes.chip}
         label="All"
-        color="primary"
+        className={!isSelected("All") ? classes.chip : ''}
+        color={isSelected("All") ? "primary" : undefined}
+        onClick={handleSelect("All")}
       />
       {groups.length ? groups.map(group => (
         <Chip 
-          onClick={handleSelect(group)}
-          className={classes.chip}
           key={group} 
           label={group}
-          color="primary"
+          className={!isSelected(group) ? classes.chip : ''}
+          color={isSelected(group) ? "primary" : undefined}
+          onClick={handleSelect(group)}
         />
       )) : null}
     </div>

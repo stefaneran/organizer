@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getAllDone, updateActivityDone, deleteActivityDone } from '@activities/store';
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';

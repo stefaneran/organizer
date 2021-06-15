@@ -4,6 +4,8 @@ import { Paper, Typography, IconButton } from '@material-ui/core';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+import { Recipe } from '@recipes/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -29,14 +31,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const RecipeItem = ({ 
+interface Props {
+  recipeId: string; 
+  recipe: Recipe;
+  tag: JSX.Element;
+  availableItems: string[];
+  cart: string[];
+  onSelectRecipe: (id: string) => () => void;
+  addToCart: (itemIds: string[]) => void;
+}
+
+const RecipeItem: React.FC<Props> = ({ 
   recipeId, 
   recipe, 
-  selectedRecipe, 
-  onSelectRecipe,
   tag,
   availableItems,
   cart,
+  onSelectRecipe,
   addToCart
 }) => {
 
@@ -44,9 +55,9 @@ const RecipeItem = ({
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
   const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
 
-  const handleAddMissingToCart = (event) => {
+  const handleAddMissingToCart = (event: ClickEvent) => {
     event.stopPropagation();
-    const missing = [];
+    const missing: string[] = [];
     recipe.ingredients.forEach(ingredient => {
       const { itemId } = ingredient;
       const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);

@@ -86,7 +86,7 @@ const ContactInfo: React.FC<Props> = ({
   const handleChangeContactData = (property: string) => (eventOrValue: any) => {
     let value = eventOrValue.target?.value ?? eventOrValue;
     if (property === 'groups') {
-      value = value.map(v => v.value);
+      value = value.map((v: any) => v.value);
     }
     setContactData({
       ...contactData,

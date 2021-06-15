@@ -3,6 +3,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, IconButton, Button } from '@material-ui/core';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import getItemsOptions from '@recipes/utils/getItemsOptions';
+import { IngredientEdit } from '@recipes/types';
+import { InventoryItem } from '@inventory/types';
+import { AutoCompleteHandler, InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputGroup: {
@@ -21,49 +25,42 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const getItemsOptions = (ingredientName, allItems) => {
-  const items = [];
-  Object.keys(allItems).forEach(itemId => {
-    const { name } = allItems[itemId];
-    const containsValue = ingredientName.length ?
-      name.toLowerCase().includes(ingredientName.toLowerCase()) : true;
-    if (!items.includes(name) && containsValue) {
-      items.push(name);
-    }
-  })
-  return items;
+interface Props {
+  ingredients: IngredientEdit[]; 
+  allItems: Record<string, InventoryItem>; 
+  onIngredientsChange: (index: number, ingredient?: IngredientEdit) => void;
 }
 
-const EditIngredients = ({ 
+const IngredientsEdit: React.FC<Props> = ({ 
   ingredients, 
   allItems, 
   onIngredientsChange
 }) => {
   const classes = useStyles();
 
-  const handleItemSelect = (index) => (e, newValue) => {
+  const handleItemSelect = (index: number): AutoCompleteHandler => (event, newValue: string) => {
     const ingredient = { 
       ...ingredients[index], 
       name: newValue
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleItemInput = (index) => (event) => {
+  const handleItemInput = (index: number) => (event: InputEvent) => {
     const ingredient = { 
       ...ingredients[index], 
       name: event.target.value 
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleAmountInput = (index) => (event) => {
+  const handleAmountInput = (index: number) => (event: InputEvent) => {
     const ingredient = { 
       ...ingredients[index], 
       amount: event.target.value 
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleDeleteIngredient = (index) => () => {
-    onIngredientsChange(index, undefined);
+  const handleDeleteIngredient = (index: number) => () => {
+    onIngredientsChange(index);
   }
   const handleAddIngredient = () => {
     onIngredientsChange(ingredients.length, { name: '', amount: '' });
@@ -123,4 +120,4 @@ const EditIngredients = ({
   )
 }
 
-export default EditIngredients;
+export default IngredientsEdit;
