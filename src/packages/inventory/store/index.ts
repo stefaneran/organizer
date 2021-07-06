@@ -10,7 +10,7 @@ const slice = createSlice({
     selectedInCart: []
   },
   reducers: {
-    getAllDone: (state: InventoryStore, { payload }) => {
+    setInventory: (state: InventoryStore, { payload }) => {
       state.allItems = payload.allItems;
       state.availableItems = payload.availableItems;
       state.cart = payload.cart;
@@ -89,7 +89,7 @@ const slice = createSlice({
 });
 
 export const {
-  getAllDone,
+  setInventory,
   clearInventory,
   setItem,
   removeFromAllItemsDone,

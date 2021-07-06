@@ -1,6 +1,5 @@
 // @ts-nocheck
 import {
-  getAllDone,
   setItem,
   removeFromAllItemsDone,
   addToAvailableDone,
@@ -14,18 +13,6 @@ import { updateAfterItemDelete } from '@recipes/store';
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-
-export const getAllInventory = () => async (dispatch, getState) => {
-  genericRequest(
-    dispatch,
-    getState,
-    `${baseUrl}/inventory/getAll`,
-    {},
-    getAllDone,
-    {},
-    `Could not get inventory`
-  );
-}
 
 export const addToAllItems = (item) => async (dispatch, getState) => {
   const itemId = v4();

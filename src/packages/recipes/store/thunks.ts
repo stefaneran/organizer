@@ -1,6 +1,5 @@
 // @ts-nocheck
 import {
-  getAllRecipesDone,
   updateRecipe,
   deleteRecipeDone
 } from '.';
@@ -11,18 +10,6 @@ import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
 import sanitizeIngredients from '@recipes/utils/sanitizeIngredients';
-
-export const getAllRecipes = () => async (dispatch, getState) => {
-  genericRequest(
-    dispatch,
-    getState,
-    `${baseUrl}/recipes/getAll`,
-    {},
-    getAllRecipesDone,
-    {},
-    `Could not get all recipes`
-  );
-}
 
 export const addRecipe = (recipe) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();

@@ -8,7 +8,7 @@ const slice = createSlice({
     activities: {}
   },
   reducers: {
-    getAllDone: (state: ActivitiesStore, { payload }) => {
+    setActivities: (state: ActivitiesStore, { payload }) => {
       state.activities = payload;
     },
     clearActivities: (state: ActivitiesStore) => {
@@ -26,7 +26,7 @@ const slice = createSlice({
 });
 
 export const {
-  getAllDone,
+  setActivities,
   clearActivities,
   updateActivityDone,
   deleteActivityDone

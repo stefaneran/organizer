@@ -1,21 +1,9 @@
 // @ts-nocheck
-import { getAllDone, updateActivityDone, deleteActivityDone } from '@activities/store';
+import { updateActivityDone, deleteActivityDone } from '@activities/store';
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
 import { Activity } from '@activities/types';
-
-export const getAllActivities = () => async (dispatch, getState) => {
-  genericRequest(
-    dispatch,
-    getState,
-    `${baseUrl}/activities/getAll`,
-    {},
-    getAllDone,
-    {},
-    `Could not get all activities`
-  );
-}
 
 export const addActivity = (activity: Activity) => async (dispatch, getState) => {
   const newActivityId: string = v4();

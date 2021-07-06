@@ -16,17 +16,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   app: AppStore["app"];
+  getAllData: Function;
   login: Function;
   register: Function;
   logout: Function;
   setIsMobile: Function;
-  getAllActivities: Function;
+  setActivities: Function;
   clearActivities: Function;
-  getAllContactsAndEvents: Function;
+  setContactsAndEvents: Function;
   clearContactsAndEvents: Function;
-  getAllRecipes: Function;
+  setRecipes: Function;
   clearRecipes: Function;
-  getAllInventory: Function;
+  setInventory: Function;
   clearInventory: Function;
 }
 
@@ -37,17 +38,18 @@ interface DialogState {
 
 const App: React.FC<Props> = ({
   app,
+  getAllData,
   login,
   register,
   logout,
   setIsMobile,
-  getAllActivities,
+  setActivities,
   clearActivities,
-  getAllContactsAndEvents,
+  setContactsAndEvents,
   clearContactsAndEvents,
-  getAllRecipes,
+  setRecipes,
   clearRecipes,
-  getAllInventory,
+  setInventory,
   clearInventory
 }) => {
   const classes = useStyles();
@@ -78,13 +80,22 @@ const App: React.FC<Props> = ({
   }, []);
 
   React.useEffect(() => {
-    if (loggedIn) {
-      // TODO Make these a single request to decrease load time
-      getAllActivities();
-      getAllContactsAndEvents();
-      getAllInventory();
-      getAllRecipes();
+    async function fetchUserData() {
+      if (loggedIn) {
+        const data = await getAllData();
+        const { activities, contacts, events, inventory, recipes } = data;
+        setActivities(activities);
+        setContactsAndEvents({ contacts, events });
+        setInventory(inventory);
+        setRecipes(recipes);
+      } else {
+        clearActivities();
+        clearContactsAndEvents();
+        clearInventory();
+        clearRecipes();
+      }
     }
+    fetchUserData();
   }, [loggedIn]);
 
   const handleChangeLoginDialog = (props: DialogState) => () => {
@@ -100,10 +111,6 @@ const App: React.FC<Props> = ({
 
   const handleLogout = () => {
     logout();
-    clearActivities();
-    clearContactsAndEvents();
-    clearInventory();
-    clearRecipes();
   }
 
   return (

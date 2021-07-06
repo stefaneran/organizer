@@ -7,7 +7,21 @@ import {
   updateError
 } from './reducer';
 import jsonFetch from '@core/utils/jsonFetch';
+import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
+
+export const getAllData = () => async (dispatch, getState) => {
+  const response = await genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/app/getAll`,
+    {},
+    undefined,
+    {},
+    `Could not fetch user data`
+  );
+  return response?.data ?? {};
+}
 
 export const register = ({ userName, password }) => async (dispatch) => {
   dispatch(loadingStart());

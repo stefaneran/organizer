@@ -1,6 +1,5 @@
 // @ts-nocheck
-import { 
-  getAllDone,
+import {
   updateContactDone, 
   deleteContactDone,
   updateEventDone,
@@ -9,18 +8,6 @@ import {
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-
-export const getAllContactsAndEvents = () => async (dispatch, getState) => {
-  genericRequest(
-    dispatch,
-    getState,
-    `${baseUrl}/contacts/getAll`,
-    {},
-    getAllDone,
-    {},
-    `Could not get all contacts and events`
-  );
-}
 
 export const createContact = (contact) => async (dispatch, getState) => {
   const newContactId = v4();

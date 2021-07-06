@@ -13,7 +13,7 @@ const slice = createSlice({
     groups: []
   },
   reducers: {
-    getAllDone: (state: ContactsStore, { payload }) => {
+    setContactsAndEvents: (state: ContactsStore, { payload }) => {
       state.contacts = payload.contacts;
       state.events = payload.events;
     },
@@ -45,7 +45,7 @@ const slice = createSlice({
 });
 
 export const {
-  getAllDone,
+  setContactsAndEvents,
   clearContactsAndEvents,
   initGroups,
   updateContactDone,

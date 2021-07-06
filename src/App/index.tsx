@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 import App from './App';
 import { setIsMobile } from '@app/store/reducer';
-import { register, login, logout } from '@app/store/thunks';
-import { getAllActivities } from '@activities/store/thunks';
-import { clearActivities } from '@activities/store';
-import { getAllContactsAndEvents } from '@contacts/store/thunks';
-import { clearContactsAndEvents } from '@contacts/store';
-import { getAllRecipes } from '@recipes/store/thunks';
-import { clearRecipes } from '@recipes/store';
-import { getAllInventory } from '@inventory/store/thunks';
-import { clearInventory } from '@inventory/store';
+import { getAllData, register, login, logout } from '@app/store/thunks';
+import { setActivities, clearActivities } from '@activities/store';
+import { setContactsAndEvents, clearContactsAndEvents } from '@contacts/store';
+import { setRecipes, clearRecipes } from '@recipes/store';
+import { setInventory, clearInventory } from '@inventory/store';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
@@ -20,17 +16,18 @@ const mapStateToProps = (state: AppStore) => ({
 });
 
 const mapDispatchToProps = {
+  getAllData,
   register,
   login,
   logout,
   setIsMobile,
-  getAllActivities,
+  setActivities,
   clearActivities,
-  getAllContactsAndEvents,
+  setContactsAndEvents,
   clearContactsAndEvents,
-  getAllRecipes,
+  setRecipes,
   clearRecipes,
-  getAllInventory,
+  setInventory,
   clearInventory
 }
 

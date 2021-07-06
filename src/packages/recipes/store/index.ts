@@ -9,7 +9,7 @@ const slice = createSlice({
     recipes: {}
   },
   reducers: {
-    getAllRecipesDone: (state: RecipeStore, { payload }) => {
+    setRecipes: (state: RecipeStore, { payload }) => {
       state.recipes = payload;
     },
     clearRecipes: (state: RecipeStore) => {
@@ -59,7 +59,7 @@ const slice = createSlice({
 });
 
 export const {
-  getAllRecipesDone,
+  setRecipes,
   clearRecipes,
   updateRecipe,
   deleteRecipeDone,
