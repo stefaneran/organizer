@@ -10,6 +10,7 @@ import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
 import { InventoryItem } from '@inventory/types';
 import { Recipe, EditMode } from '@recipes/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsContainer: {
@@ -51,6 +52,7 @@ interface Props {
   onOpenEditRecipe: (mode: EditMode) => () => void;
   onSelectRecipe: (id: string) => () => void;
   onDeleteRecipe: () => void;
+  onAddMissing: (ingredientName: string) => (event: ClickEvent) => void;
 }
 
 const RecipeInfo: React.FC<Props> = ({ 
@@ -61,7 +63,8 @@ const RecipeInfo: React.FC<Props> = ({
   addToCart,
   onOpenEditRecipe,
   onSelectRecipe,
-  onDeleteRecipe
+  onDeleteRecipe,
+  onAddMissing
 }) => {
   const classes = useStyles();
 
@@ -121,6 +124,7 @@ const RecipeInfo: React.FC<Props> = ({
             allItems={allItems}
             availableItems={availableItems}
             cart={cart}
+            onAddMissing={onAddMissing}
           />
         </div>
         {hasMissingItems && !hasMissingInCart && (

@@ -50,7 +50,6 @@ const InventoryAll: React.FC<Props> = ({
     // Are we removing a single item
     const isSingleItem = Boolean(itemId);
     actions.inventory.removeFromAll(isSingleItem ? [itemId] : selectedItems);
-    actions.recipes.removeIngredient(isSingleItem ? [itemId] : selectedItems);
     setSelectedItems(isSingleItem ? selectedItems.filter(id => id !== itemId) : []);
     toggleConfirmationDialog();
   }

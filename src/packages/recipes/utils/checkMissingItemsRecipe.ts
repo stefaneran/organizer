@@ -6,8 +6,8 @@ const checkMissingItemsRecipe = (
   availableItems: string[]
 ): boolean => {
   for (let i = 0; i < recipe.ingredients.length; i += 1) {
-    const { itemId } = recipe.ingredients[i];
-    if (!availableItems.includes(itemId)) {
+    const { itemId, isOptional } = recipe.ingredients[i];
+    if (!availableItems.includes(itemId) && !isOptional) {
       return true;
     }
   }

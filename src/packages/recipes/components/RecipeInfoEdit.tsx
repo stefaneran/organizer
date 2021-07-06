@@ -75,8 +75,8 @@ const RecipeInfoEdit: React.FC<Props> = ({
       ingredients = ingredients.filter((ing, i) => i !== index);
     } else {
       ingredients[index] = { 
-        name: ingredient.name || '', 
-        amount: ingredient.amount 
+        ...ingredient,
+        name: ingredient.name || ''
       };
     }
     handleDataChange('ingredients', ingredients);

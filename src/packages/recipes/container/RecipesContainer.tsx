@@ -6,19 +6,20 @@ import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import RecipesToolbar from '@recipes/components/RecipesToolbar';
 import RecipeFilters from '@recipes/components/RecipeFilters';
 import RecipeItem from '@recipes/components/RecipeItem';
-import ItemTag from '@recipes/components/ItemTag';
 import RecipeInfoEdit from '@recipes/components/RecipeInfoEdit';
 import RecipeInfo from '@recipes/components/RecipeInfo';
 import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
 // Utils
 import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
 import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
-import filterRecipes from '@recipes/utils/filterRecipes';
+import getRecipesArray from '@recipes/utils/getRecipesArray';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
+import getIngredientIdByName from '@recipes/utils/getIngredientIdByName';
 // Types
 import { InventoryItem } from '@inventory/types';
 import { Recipe, RecipeEdit, RecipeActions, EditMode } from '@recipes/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -80,7 +81,7 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
   const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes])
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
-  const filteredRecipes = React.useMemo(() => filterRecipes(recipes, recipeFilters), [recipes, recipeFilters]);
+  const filteredRecipes = React.useMemo(() => getRecipesArray(recipes, recipeFilters), [recipes, recipeFilters]);
 
   const toggleConfirmationDialog = () => {
     setConfirmationOpen(!isConfirmationOpen);
@@ -116,9 +117,9 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
         ingredients: [] 
       };
       const ingredients = recipes[selectedRecipe].ingredients.map(ingredient => {
-        const { itemId, amount } = ingredient;
+        const { itemId } = ingredient;
         const { name } = allItems[itemId];
-        return { name, amount };
+        return { ...ingredient, name };
       })
       recipe.ingredients = ingredients;
       setRecipeData(recipe);
@@ -138,12 +139,35 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
     setSelectedRecipe('');
     toggleConfirmationDialog()
   }
+  const handleAddMissingToCart = (ingredients: Recipe["ingredients"] | string) => (event: ClickEvent) => {
+    event.stopPropagation();
+    const missing: string[] = [];
+    // If a single ingredient, get its ID 
+    if (typeof ingredients === 'string') {
+      missing.push(ingredients);
+    }
+    // Else scan all ingredients for only the missing ones
+    else {
+      ingredients.forEach(ingredient => {
+        const { itemId, isOptional } = ingredient;
+        const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId) && !isOptional;
+        if (shouldAdd) {
+          missing.push(itemId)
+        }
+      });
+    }
+    // Precaution - This function shouldn't run if no missing ingredients
+    if (missing.length) {
+      actions.addToCart(missing);
+    }
+  }
 
   return (
     <Paper className={classes.container}>
       <RecipesToolbar
         recipeFilters={recipeFilters}
-        nationalities={nationalities}
+        nationalityOptions={nationalities}
+        categoryOptions={categories}
         toggleFiltersOpen={toggleFiltersOpen}
         onOpenEditRecipe={handleOpenEditRecipe}
         onChangeFilter={handleChangeFilter}
@@ -151,7 +175,7 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
       <div className={classes.contentContainer}>
         <div 
           className={classes.primaryContainer}
-          style={{ width: hasSelectedRecipe || editMode.length ? '60%' : '100%' }}
+          style={{ width: hasSelectedRecipe || editMode.length ? '50%' : '100%' }}
         >
           {filteredRecipes.map(recipe => (
             <RecipeItem
@@ -162,20 +186,13 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
               onSelectRecipe={handleSelectRecipe}
               availableItems={availableItems}
               cart={cart}
-              addToCart={actions.addToCart}
-              tag={
-                <ItemTag 
-                  recipe={recipe} 
-                  availableItems={availableItems} 
-                  cart={cart} 
-                />
-              }
+              onAddMissing={handleAddMissingToCart(recipe.ingredients)}
             />
           ))}
         </div>
         <div 
           className={classes.secondaryContainer} 
-          style={{ width: hasSelectedRecipe || editMode.length ? '40%' : '0%' }}
+          style={{ width: hasSelectedRecipe || editMode.length ? '50%' : '0%' }}
         >
           {editMode.length ? (
             <RecipeInfoEdit
@@ -196,6 +213,7 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}
               onDeleteRecipe={toggleConfirmationDialog}
+              onAddMissing={handleAddMissingToCart}
             />
           )}
         </div>
@@ -204,6 +222,7 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
         isOpen={isFiltersOpen}
         recipeFilters={recipeFilters}
         categoryOptions={categories} 
+        nationalityOptions={nationalities}
         onChangeFilter={handleChangeFilter}
         onClose={toggleFiltersOpen}
       />

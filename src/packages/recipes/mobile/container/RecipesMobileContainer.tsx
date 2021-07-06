@@ -13,7 +13,7 @@ import RecipeFilters from '@recipes/mobile/components/RecipeFilters';
 import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
-import filterRecipes from '@recipes/utils/filterRecipes';
+import getRecipesArray from '@recipes/utils/getRecipesArray';
 // Types
 import { Recipe, RecipeActions } from '@recipes/types';
 import { InventoryItem } from '@inventory/types';
@@ -105,7 +105,7 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
   const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes]);
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
-  const filteredRecipes = React.useMemo(() => filterRecipes(recipes, recipeFilters), [recipes, recipeFilters]);
+  const filteredRecipes = React.useMemo(() => getRecipesArray(recipes, recipeFilters), [recipes, recipeFilters]);
 
   const handleSelectRecipe = (id: string) => () => {
     if (selectedRecipe !== id) {

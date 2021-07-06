@@ -1,6 +1,7 @@
 import { Recipe, RecipeFilters } from '@recipes/types';
+import genericSort from '@core/utils/genericSort';
 
-const filterRecipes = (
+const getRecipesArray = (
   recipes: Record<string, Recipe>, 
   recipeFilters: RecipeFilters
 ): Recipe[] => {
@@ -31,7 +32,7 @@ const filterRecipes = (
       });
     }
   })
-  return filteredRecipes;
+  return filteredRecipes.sort((a, b) => genericSort(a.name, b.name));
 }
 
-export default filterRecipes;
+export default getRecipesArray;

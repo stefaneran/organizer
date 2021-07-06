@@ -10,7 +10,7 @@ import {
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-import getIngredientIdByName from '@recipes/utils/getIngredientIdByName';
+import sanitizeIngredients from '@recipes/utils/sanitizeIngredients';
 
 export const getAllRecipes = () => async (dispatch, getState) => {
   genericRequest(
@@ -26,23 +26,11 @@ export const getAllRecipes = () => async (dispatch, getState) => {
 
 export const addRecipe = (recipe) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
-  const ingredients = [];
-
-  // Verify each ingredient and get its existing/newly created itemId
-  for await (const ingredient of recipe.ingredients) {
-    const { name, amount } = ingredient;
-    if (name.length) {
-      let itemId = getIngredientIdByName(name, allItems);
-      if (!itemId) {
-        itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
-      }
-      ingredients.push({ itemId, amount });
-    }
-  }
+  const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
   const newId = v4();
   const newRecipe = {
     ...recipe,
-    ingredients
+    ingredients: ingredientsWithId
   }
   genericRequest(
     dispatch,
@@ -57,21 +45,10 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
 
 export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
   const { inventoryStore: { allItems } } = getState();
-  const ingredients = [];
-  // Verify each ingredient and get its existing/newly created itemId
-  for await (const ingredient of recipe.ingredients) {
-    const { name, amount } = ingredient;
-    if (name.length) {
-      let itemId = getIngredientIdByName(name, allItems);
-      if (!itemId) {
-        itemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
-      }
-      ingredients.push({ itemId, amount });
-    }
-  }
+  const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
   const updatedRecipe = {
     ...recipe,
-    ingredients
+    ingredients: ingredientsWithId
   }
   genericRequest(
     dispatch,

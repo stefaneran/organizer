@@ -1,10 +1,8 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Typography, IconButton } from '@material-ui/core';
-import { AddCartIconSmall, AddCartIconSmallWhite } from '@core/components/Icons/CartIcon';
-import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+import { Paper, Typography } from '@material-ui/core';
+import ItemTag from '@recipes/components/ItemTag';
 import { Recipe } from '@recipes/types';
 import { ClickEvent } from '@core/types';
 
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       transition: 'color 300ms',
     },
     '&:hover': {
-      background: theme.palette.primary.light,
+      background: 'rgba(63, 81, 181, 0.85)',
       color: '#fff',
       '& .subtitle': {
         color: '#fff',
@@ -54,9 +52,8 @@ interface Props {
   selectedRecipe: string; 
   availableItems: string[];
   cart: string[];
-  tag: JSX.Element;
   onSelectRecipe: (id: string) => () => void;
-  addToCart: (itemIds: string[]) => void;
+  onAddMissing: (event: ClickEvent) => void;
 }
 
 const RecipeItem: React.FC<Props> = ({ 
@@ -65,38 +62,24 @@ const RecipeItem: React.FC<Props> = ({
   selectedRecipe, 
   availableItems,
   cart,
-  tag,
   onSelectRecipe,
-  addToCart
+  onAddMissing
 }) => {
 
   const classes = useStyles();
   const isSelected = selectedRecipe === recipeId;
-  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
-  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
-
-  const handleAddMissingToCart = (event: ClickEvent) => {
-    event.stopPropagation();
-    const missing: string[] = [];
-    recipe.ingredients.forEach(ingredient => {
-      const { itemId } = ingredient;
-      const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);
-      if (shouldAdd) {
-        missing.push(itemId)
-      }
-    });
-    // Just a precaution, button should not be visible if this weren't the case
-    if (missing.length) {
-      addToCart(missing);
-    }
-  }
 
   return (
     <Paper 
       onClick={onSelectRecipe(recipeId)}
       className={isSelected ? clsx(classes.container, classes.selected) : classes.container}
     >
-      {tag}
+      <ItemTag 
+        recipe={recipe} 
+        availableItems={availableItems} 
+        cart={cart} 
+        onAddMissing={onAddMissing}
+      />
       <div className={classes.textContainer}>
         <Typography variant="h6">
           {recipe.name}
@@ -105,15 +88,6 @@ const RecipeItem: React.FC<Props> = ({
           {`${recipe.nationality} - ${recipe.category}`}
         </Typography>
       </div>
-      {hasMissingItems && !hasMissingInCart && (
-        <IconButton className={classes.cartButton} onClick={handleAddMissingToCart}>
-          {isSelected ? (
-            <AddCartIconSmallWhite />
-          ) : (
-            <AddCartIconSmall />
-          )}
-        </IconButton>
-      )}
     </Paper>
   )
 }

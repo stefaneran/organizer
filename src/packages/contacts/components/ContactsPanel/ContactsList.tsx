@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List } from '@material-ui/core';
 import ContactsListItem from './ContactsListItem';
-import genericSort from '@core/utils/genericSort';
 import { Contact } from '@contacts/types'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -23,7 +22,7 @@ const ContactsList: React.FC<Props> = ({ contactsList, onOpenInfo }) => {
   
   return (
     <List component="div" className={classes.container}>
-      {contactsList && contactsList.sort((a, b) => genericSort(a.name, b.name)).map(contact => (
+      {contactsList && contactsList.map(contact => (
         <ContactsListItem key={contact.id} contact={contact} onOpenInfo={onOpenInfo} />
       ))}
     </List>

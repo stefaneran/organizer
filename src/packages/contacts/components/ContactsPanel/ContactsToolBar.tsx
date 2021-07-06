@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core'
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import ContactsGroupsChips from './ContactsGroupsChips';
+import ChipsGroup from '@core/components/ChipsGroup';
 import { ContactFilters } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -40,10 +40,10 @@ const ContactsToolBar: React.FC<Props> = ({
           <AddCircleIcon color="primary" />
         </IconButton>
       </Tooltip>
-      <ContactsGroupsChips 
-        groups={groups} 
-        selectedGroup={contactsFilters.group}
-        onSelect={onChangeFilter}
+      <ChipsGroup 
+        options={groups} 
+        selectedOption={contactsFilters.group}
+        onSelect={onChangeFilter('group')}
       />
     </div>
   )

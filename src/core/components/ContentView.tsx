@@ -8,6 +8,7 @@ import InventoryContainer from '@inventory/container';
 import InventoryMobileContainer from '@inventory/mobile/container';
 import RecipesContainer from '@recipes/container';
 import RecipesMobileContainer from '@recipes/mobile/container';
+import defaultWebApp from '@core/defaultWebApp';
 import { CategoryType, AppStore } from '@core/types';
 
 const useStyles = makeStyles(theme => ({
@@ -26,7 +27,7 @@ interface Props {
 const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   const { isMobile } = app;
-  const [currentCategory, setCurrentCategory] = React.useState(CategoryType.Contacts);
+  const [currentCategory, setCurrentCategory] = React.useState(defaultWebApp);
   return (
     <div 
       style={{ padding: isMobile ? '' : '0.8em' }}

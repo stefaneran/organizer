@@ -1,9 +1,6 @@
 import { InventoryActions } from '@inventory/types';
 
 const mapActions = (props: Record<string, Function>): InventoryActions => ({
-  recipes: {
-    removeIngredient: props.removeIngredient
-  },
   inventory: {
     addToAll: props.addToAllItems,
     removeFromAll: props.removeFromAllItems,

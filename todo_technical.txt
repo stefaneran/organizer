@@ -1,10 +1,14 @@
 
-
 General:
-- *Change local storage to cookies
-- *Add patchnotes dialog/button
-- *Make landing page
-- *Use mongoose in back-end
+- Host on Firebase
+- Add CI/CD pipeline
+- Add "demo" argument to URL so it automatically logs in with Demo account
+- Change local storage to cookies
+- Use tokens for authorization instead of sending user/pass in post
+- Add patchnotes dialog/button
+- Make landing page
+- Use mongoose in back-end
+- Change APIs verbs to more appropriate (DELETE, PUT, etc)
 - Remove PeopleIcon and use material UI equivalent
 - Add unit tests
 - Add error boundry
@@ -18,32 +22,34 @@ General:
 ===============================================================
 
 Recipes:
-- # Sort recipes alphabeticaly 
-- # Add possibility to delete first ingredient
-- # Fix filters panel
-- Optional ingredient type
-- Alternative ingredients
-- Add new ingredient (with category)
+- Recipe: Filter by available ingredients option, etc
+- Recipe Tags:
+  - Add tags like "No Meat", "No Carbs" etc 
+  - Allow filtering by these
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
-- Filter by available ingredients option, etc
-- When creating new recipe, set as selected to avoid confusion
+- Filter panel should be closed when clicking outside
+- Recipe: When creating new recipe, set as selected to avoid confusion
 - Mobile: Add/Edit recipe
+
+- Add new ingredient (with category)
+- Group By - Should be saved in back end
+- Is Optional - Make a custom checkbox with question icon instead of classic checkbox
 -----------------------------------------------
 - Add optional chaining across Recipes
-- Optimize: Memoize stuff (categories, etc)
 - Bonus: Add nationality flags to options/chips
 - Refactor: Find duplicate util functions and move to /utils
 
 ===============================================================
 
 Inventory:
-- # Cart & Inventory: Add option to switch between sort by alphabetical or category
 - # Add "De-select All" button
 - "Finish Shopping" btn too low on laptop
+- BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
 - Add debounce to requests 
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
 - Add chip to ingredients that shows how many recipes its used in
+- Mobile: Cart & Inventory: Add option to switch between sort by alphabetical or category
 -----------------------------------------------
 - Add optional chaining across Recipes
 - Optimize: Memoize stuff (categories, etc)
@@ -60,6 +66,7 @@ Contacts:
   - Participants (Better UI)
 - (MVP) Contacts: Show more details in info
   - Last hangout (days ago)
+  - Friendship levels (hangouts/month)
   - Acquaintances
 - (MVP) Events: Participant suggestion function
 - (MVP) Contacts: Add snooze action to reset timer

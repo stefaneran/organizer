@@ -1,4 +1,5 @@
 import { Contact, ContactFilters } from '@contacts/types';
+import genericSort from '@core/utils/genericSort';
 
 export default (
   contacts: Record<string, Contact>, 
@@ -33,5 +34,5 @@ export default (
   if (filters && filters.oneOnOne) {
     filteredContacts = filteredContacts.filter(contact => contact.oneOnOne)
   }
-  return filteredContacts;
+  return filteredContacts.sort((a, b) => genericSort(a.name, b.name));
 }

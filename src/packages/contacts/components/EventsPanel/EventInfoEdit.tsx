@@ -94,8 +94,7 @@ const EventInfo: React.FC<Props> = ({
   }, [activityType])
   
   const handleChangeActivityType = (event: SelectEvent) => {
-    // TypeScript can be REALLY annoying sometimes :)
-    const value = event?.target?.value as ActivityType ?? ActivityType.Other; 
+    const value = event?.target?.value ?? ActivityType.Other; 
     setActivityType(value);
     setEventData({ 
       ...eventData,  

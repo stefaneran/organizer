@@ -10,9 +10,6 @@ export interface InventoryItem {
 }
 
 export interface InventoryActions {
-  recipes: {
-    removeIngredient: Function;
-  },
   inventory: {
     addToAll: Function;
     removeFromAll: Function;

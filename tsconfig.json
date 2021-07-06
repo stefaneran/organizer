@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"baseUrl": "./",
-		"strict": true,
+		"strict": false,
 		"esModuleInterop": true,
 		"paths": {
 			"@app/*": ["src/app/*"],

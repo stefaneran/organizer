@@ -8,8 +8,8 @@ const checkMissingInCartRecipe = (
   cart: string[]
 ): boolean => {
   for (let i = 0; i < recipe.ingredients.length; i += 1) {
-    const { itemId } = recipe.ingredients[i];
-    if (!availableItems.includes(itemId) && !cart.includes(itemId)) {
+    const { itemId, isOptional } = recipe.ingredients[i];
+    if (!availableItems.includes(itemId) && !cart.includes(itemId) && !isOptional) {
       return false;
     }
   }

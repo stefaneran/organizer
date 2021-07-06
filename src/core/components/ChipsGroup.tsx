@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Chip } from '@material-ui/core';
 
@@ -13,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     cursor: 'pointer',
     marginRight: '0.5em',
     color: theme.palette.primary.main,
+    '&.selected': {
+      color: '#fff'
+    },
     '&:hover': {
       background: theme.palette.primary.light,
       color: '#fff'
@@ -21,41 +25,41 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  nationalityOptions: string[];
-  selectedNationality: string; 
-  onSelectNationality: (nationality: string) => void;
+  options: string[];
+  selectedOption: string; 
+  onSelect: (option: string) => void;
 }
 
-const NationalitiesChips: React.FC<Props> = ({ 
-  nationalityOptions, 
-  selectedNationality, 
-  onSelectNationality 
+const ChipsGroup: React.FC<Props> = ({ 
+  options, 
+  selectedOption, 
+  onSelect
 }) => {
   const classes = useStyles();
 
-  const isSelected = (nationality: string) => selectedNationality === nationality;
+  const isSelected = (option: string) => selectedOption === option;
 
-  const handleSelect = (nationality: string) => () => onSelectNationality(nationality);
+  const handleSelect = (option: string) => () => onSelect(option);
 
   return (
     <div className={classes.container}>
       <Chip 
         label="All" 
-        className={!isSelected('All') ? classes.chip : ''}
+        className={clsx(classes.chip, isSelected('All') && 'selected')}
         color={isSelected('All') ? "primary" : undefined}
         onClick={handleSelect('All')} 
       />
-      {nationalityOptions.map(nationality => (
+      {options.map(option => (
         <Chip 
-          key={nationality} 
-          label={nationality}
-          className={!isSelected(nationality) ? classes.chip : ''} 
-          color={isSelected(nationality) ? "primary" : undefined}
-          onClick={handleSelect(nationality)} 
+          key={option} 
+          label={option}
+          className={clsx(classes.chip, isSelected(option) && 'selected')} 
+          color={isSelected(option) ? "primary" : undefined}
+          onClick={handleSelect(option)} 
         />
       ))}
     </div>
   )
 }
 
-export default NationalitiesChips;
+export default ChipsGroup;

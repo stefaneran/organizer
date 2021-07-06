@@ -10,6 +10,7 @@ import {
   updateSelectedInCartDone,
   finishShoppingDone
 } from '.';
+import { updateAfterItemDelete } from '@recipes/store';
 import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
@@ -54,7 +55,7 @@ export const editItem = (itemId, item) => async (dispatch, getState) => {
 }
 
 export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
-  genericRequest(
+  const response = await genericRequest(
     dispatch,
     getState,
     `${baseUrl}/inventory/deleteItem`,
@@ -63,6 +64,7 @@ export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
     { itemIds },
     `Could not delete item`
   );
+  dispatch(updateAfterItemDelete({ ...response.data }))
 }
 
 export const addToAvailable = (itemIds) => async (dispatch, getState) => {

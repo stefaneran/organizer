@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import NationalitiesChips from '@recipes/components/NationalitiesChips';
-import { EditMode, RecipeFilters } from '@recipes/types';
+import ChipsGroup from '@core/components/ChipsGroup';
+import { EditMode, GroupByMode, RecipeFilters } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   recipeFilters: RecipeFilters;
-  nationalities: string[];
+  nationalityOptions: string[];
+  categoryOptions: string[];
   toggleFiltersOpen: () => void;
   onOpenEditRecipe: (editMode: EditMode) => () => void;
   onChangeFilter: (property: string) => (eventOrValue: any) => void;
@@ -23,12 +24,23 @@ interface Props {
 
 const RecipesToolbar: React.FC<Props> = ({
   recipeFilters,
-  nationalities,
+  nationalityOptions,
+  categoryOptions,
   toggleFiltersOpen,
   onOpenEditRecipe,
   onChangeFilter
 }) => {
   const classes = useStyles();
+
+  let options = categoryOptions;
+  let groupByFilter = 'category';
+  let selectedOption = recipeFilters.category
+  if (recipeFilters.groupBy === GroupByMode.Nationality) {
+    options = nationalityOptions.filter(nat => nat !== 'Other');
+    groupByFilter = 'nationality';
+    selectedOption = recipeFilters.nationality
+  }
+
   return (
     <div className={classes.container}>
       <Tooltip title="Open Filters">
@@ -36,15 +48,15 @@ const RecipesToolbar: React.FC<Props> = ({
           <FilterListIcon color="primary" />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Add New Contact">
+      <Tooltip title="Add New Recipe">
         <IconButton onClick={onOpenEditRecipe('new')}>
           <AddCircleIcon color="primary" />
         </IconButton>
       </Tooltip>
-      <NationalitiesChips 
-        nationalityOptions={nationalities}
-        selectedNationality={recipeFilters.nationality}
-        onSelectNationality={onChangeFilter('nationality')}
+      <ChipsGroup 
+        options={options}
+        selectedOption={selectedOption}
+        onSelect={onChangeFilter(groupByFilter)}
       />
     </div>
   )

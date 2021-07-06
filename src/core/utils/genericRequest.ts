@@ -5,6 +5,11 @@ import {
 } from '@app/store/reducer';
 import jsonFetch from '@core/utils/jsonFetch';
 
+type Response = {
+  status: number;
+  data: any;
+}
+
 export default async (
   dispatch: any, 
   getState: any, 
@@ -16,13 +21,14 @@ export default async (
   skipWait?: boolean // Should skip waiting for response before dispatching store action
 ) => {
   dispatch(loadingStart());
+  let response: Response = { status: 0, data: null };
   try {
     const { app: { user } } = getState();
     const { userName, password, loggedIn } = user;
     if (skipWait) {
       dispatch(dispatchFunction(dispatchParams));
     }
-    const response = loggedIn ? await jsonFetch({
+    response = loggedIn ? await jsonFetch({
       url,
       method: 'POST',
       body: JSON.stringify({ userName, password, ...params })
@@ -45,4 +51,5 @@ export default async (
     }));
   }
   dispatch(loadingEnd());
+  return response;
 }

@@ -43,25 +43,34 @@ interface ListProps {
   onOpenInfoPanel: (eventId?: string) => void;
 }
 
+// There's a lot more props but we only care about index at the moment
+interface RenderRowProps {
+  index: number;
+}
+
 const EventsList: React.FC<ListProps> = ({ showUpcoming, eventsList, ...props }) => {
   const classes = useStyles();
 
-  const renderRow = (index: number) => {
+  const renderRow = ({ index }: RenderRowProps) => {
     const event = eventsList[index];
     return <ListItem key={event.id} event={event} {...props} />
   }
 
   return (
     <div className={classes.container}>
-      {showUpcoming ? eventsList.map((event, index) => renderRow(index)) : (
-        <List
-          height={475}
-          rowCount={eventsList.length}
-          rowHeight={110}
-          rowRenderer={renderRow}
-          width={600}
-        />
-      )}
+      {eventsList.length ? (
+        <>
+          {showUpcoming ? eventsList.map((event, index) => renderRow({ index })) : (
+            <List
+              height={475}
+              rowCount={eventsList.length}
+              rowHeight={110}
+              rowRenderer={renderRow}
+              width={600}
+            />
+          )}
+        </>
+      ) : null}
     </div>
   )
 }

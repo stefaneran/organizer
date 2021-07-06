@@ -5,8 +5,8 @@ export default (
   filters: EventFilters
 ) => {
   const eventsArray = Object.keys(events).map(eventId => ({
+    ...events[eventId],
     id: eventId,
-    ...events[eventId]
   }));
   let filteredEvents = eventsArray;
   const now = Date.now();

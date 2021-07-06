@@ -1,17 +1,23 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Autocomplete } from '@material-ui/lab';
-import { TextField, IconButton, Button } from '@material-ui/core';
+import { IconButton, Button, Checkbox, Tooltip } from '@material-ui/core';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import getItemsOptions from '@recipes/utils/getItemsOptions';
-import { IngredientEdit } from '@recipes/types';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IngredientInput from '@recipes/components/IngredientInput'
+import { IngredientEdit, AlternativeIngredientEdit } from '@recipes/types';
 import { InventoryItem } from '@inventory/types';
 import { AutoCompleteHandler, InputEvent } from '@core/types';
+import assignValueToAlternative from '@recipes/utils/assignValueToAlternative';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputGroup: {
     display: 'flex',
     marginBottom: '0.5em'
+  },
+  inputGroupSub: {
+    display: 'flex',
+    marginBottom: '1em',
+    marginLeft: '2em'
   },
   input: { 
     width: '35%', 
@@ -22,8 +28,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   addButton: {
     marginTop: '0.5em'
+  },
+  amount: {
+    maxWidth: '90px'
   }
 }))
+
+type Property = keyof AlternativeIngredientEdit;
 
 interface Props {
   ingredients: IngredientEdit[]; 
@@ -38,75 +49,121 @@ const IngredientsEdit: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleItemSelect = (index: number): AutoCompleteHandler => (event, newValue: string) => {
+  const handleItemSelect = (index: number, subIndex?: number): AutoCompleteHandler => (event, newValue: string) => {
+    let ingredient: IngredientEdit;
+    // If item was selected on an alt ingredient
+    if (subIndex !== undefined) {
+      ingredient = assignValueToAlternative(ingredients, index, subIndex, "name", newValue);
+    }
+    else {
+      ingredient = { 
+        ...ingredients[index], 
+        name: newValue
+      };
+    }
+    onIngredientsChange(index, ingredient);
+  }
+  const handleChange = ({ index, property, value }) => {
     const ingredient = { 
       ...ingredients[index], 
-      name: newValue
+      [property]: value
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleItemInput = (index: number) => (event: InputEvent) => {
+  const handleChangeAlt = ({ index, subIndex, property, value }) => {
+    const ingredient = assignValueToAlternative(ingredients, index, subIndex, property, value);
+    onIngredientsChange(index, ingredient);
+  }
+  const handleCheck = (index: number) => (event: any) => {
     const ingredient = { 
       ...ingredients[index], 
-      name: event.target.value 
+      isOptional: event.target.checked
     };
     onIngredientsChange(index, ingredient);
   }
-  const handleAmountInput = (index: number) => (event: InputEvent) => {
-    const ingredient = { 
-      ...ingredients[index], 
-      amount: event.target.value 
-    };
-    onIngredientsChange(index, ingredient);
-  }
-  const handleDeleteIngredient = (index: number) => () => {
-    onIngredientsChange(index);
+  const handleDeleteIngredient = (index: number, subIndex?: number) => () => {
+    if (subIndex !== undefined) {
+      const oldAlternatives = ingredients[index].alternatives;
+      const ingredient = {
+        ...ingredients[index],
+        alternatives: oldAlternatives.filter((alt, i) => i !== subIndex)
+      }
+      onIngredientsChange(index, ingredient);
+    } else {
+      onIngredientsChange(index);
+    }
   }
   const handleAddIngredient = () => {
-    onIngredientsChange(ingredients.length, { name: '', amount: '' });
+    const newIngredient: IngredientEdit = { 
+      name: '', 
+      amount: '', 
+      isOptional: false,
+      alternatives: []
+    };
+    onIngredientsChange(ingredients.length, newIngredient);
+  }
+  const handleAddAlt = (index: number) => () => {
+    const ingredient = ingredients[index];
+    const oldAlternatives = ingredient?.alternatives ?? [];
+    const newAlt = { name: '', amount: '' };
+    const updatedIngredient = {
+      ...ingredient,
+      alternatives: [...oldAlternatives, newAlt]
+    }
+    onIngredientsChange(index, updatedIngredient);
   }
 
   return (
     <div>
       {ingredients.map((ingredient, index) => (
-        <div key={index} className={classes.inputGroup}>
-          <Autocomplete
-            className={classes.input}
-            options={getItemsOptions(ingredient.name, allItems)}
-            value={ingredient.name}
-            onChange={handleItemSelect(index)}
-            getOptionLabel={(option) => option}
-            noOptionsText={<></>}
-            renderInput={(params) => 
-              <TextField 
-                {...params}
-                onChange={handleItemInput(index)} 
-                label="Ingredient"  
-                size="small" 
-                variant="outlined" 
-                fullWidth
+        <React.Fragment key={index}>
+          <div className={classes.inputGroup}>
+            <IngredientInput 
+              ingredient={ingredient}
+              index={index}
+              allItems={allItems}
+              onItemSelect={handleItemSelect}
+              onChange={handleChange}
+            />
+            <Tooltip title="Is Ingredient Optional">
+              <Checkbox
+                edge="start"
+                checked={ingredient.isOptional || false}
+                onClick={handleCheck(index)}
+                color="primary"
               />
-            }
-          />
-          <TextField
-            className={classes.input}
-            value={ingredient.amount}
-            onChange={handleAmountInput(index)}
-            label="Amount"
-            variant="outlined"
-            size="small"
-            placeholder="ex: grams/tablespoons/ml"
-            fullWidth
-          />
-          {index !== 0 && (
-            <IconButton 
-              onClick={handleDeleteIngredient(index)} 
-              className={classes.deleteButton}
+            </Tooltip>
+            <Tooltip title="Add Alternative Ingredient">
+              <IconButton onClick={handleAddAlt(index)}>
+                <AddCircleIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+            {index !== 0 && (
+              <IconButton 
+                onClick={handleDeleteIngredient(index)} 
+                className={classes.deleteButton}
+              >
+                <TrashIconXS />
+              </IconButton>
+            )}
+          </div>
+          {ingredient?.alternatives?.length ? ingredient.alternatives.map((alternative, subIndex) => (
+            <div 
+              key={`${index}-${subIndex}`} 
+              className={classes.inputGroupSub}
             >
-              <TrashIconXS />
-            </IconButton>
-          )}
-        </div>
+              <IngredientInput 
+                ingredient={alternative}
+                index={index}
+                subIndex={subIndex}
+                allItems={allItems}
+                onItemSelect={handleItemSelect}
+                onChange={handleChangeAlt}
+                onDelete={handleDeleteIngredient}
+              />
+            </div>
+          )) : null}
+        </React.Fragment>
       ))}
       <Button 
         onClick={handleAddIngredient}
