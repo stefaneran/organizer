@@ -1,4 +1,4 @@
-import { Contact, ContactFilters } from '@contacts/types';
+import { Contact, ContactFilters, SortOption } from '@contacts/types';
 import genericSort from '@core/utils/genericSort';
 
 export default (
@@ -11,28 +11,35 @@ export default (
   }));
   let filteredContacts = contactsArray;
   // Filter by selected group
-  if (filters && filters.group !== 'All') {
+  if (filters.group !== 'All') {
     filteredContacts = filteredContacts.filter(contact => contact.groups.includes(filters.group))
   }
   // Filter by name
-  if (filters && filters.name.length) {
+  if (filters.name.length) {
     filteredContacts = filteredContacts.filter(contact => contact.name.toLowerCase().includes(filters.name.toLowerCase()))
   }
   // Filter by location
-  if (filters && filters.location.length) {
+  if (filters.location.length) {
     filteredContacts = filteredContacts.filter(contact => contact.location.toLowerCase().includes(filters.location.toLowerCase()))
   }
   // Filter by gender
-  if (filters && filters.gender !== 'All') {
+  if (filters.gender !== 'All') {
     filteredContacts = filteredContacts.filter(contact => contact.gender === filters.gender)
   }
   // Filter by relationship status
-  if (filters && filters.relationshipStatus !== 'All') {
+  if (filters.relationshipStatus !== 'All') {
     filteredContacts = filteredContacts.filter(contact => contact.relationshipStatus === filters.relationshipStatus)
   }
   // Filter by abillity to see contact one-on-one
-  if (filters && filters.oneOnOne) {
+  if (filters.oneOnOne) {
     filteredContacts = filteredContacts.filter(contact => contact.oneOnOne)
   }
-  return filteredContacts.sort((a, b) => genericSort(a.name, b.name));
+  let sortProperty = 'name';
+  if (filters.sort === SortOption.Location) {
+    sortProperty = 'location';
+  } 
+  else if (filters.sort === SortOption.LastContact) {
+    sortProperty = 'lastContact';
+  }
+  return filteredContacts.sort((a, b) => genericSort(a[sortProperty], b[sortProperty]));
 }

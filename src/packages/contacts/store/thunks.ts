@@ -2,6 +2,7 @@
 import {
   updateContactDone, 
   deleteContactDone,
+  updateLastContactDone,
   updateEventDone,
   deleteEventDone
 } from '.';
@@ -43,6 +44,18 @@ export const deleteContact = (contactId) => async (dispatch, getState) => {
     deleteContactDone,
     { id: contactId },
     `Could not delete contact`
+  );
+}
+
+export const updateLastContact = (contactId) => async (dispatch, getState) => {
+  genericRequest(
+    dispatch,
+    getState,
+    `${baseUrl}/contacts/updateLast`,
+    { id: contactId },
+    updateLastContactDone,
+    { id: contactId },
+    `Could not update last contact`
   );
 }
 

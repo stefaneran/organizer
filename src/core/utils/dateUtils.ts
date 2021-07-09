@@ -11,6 +11,7 @@ export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new D
 export const formatEventDate = (timestamp) => 
   timestamp ? format(new Date(timestamp), 'EEEE (dd/MM)') : 'Error';
 
+// Returns a date like: 27/05/20
 export const formatDateClassic = (timestamp) => 
   timestamp ? format(new Date(timestamp), 'dd/MM/yy') : 'Error';
 

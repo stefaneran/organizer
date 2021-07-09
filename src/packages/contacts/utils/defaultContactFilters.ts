@@ -1,4 +1,4 @@
-import { ContactFilters } from '@contacts/types';
+import { ContactFilters, SortOption } from '@contacts/types';
 
 const defaultFilters: ContactFilters = {
   group: 'All',
@@ -6,6 +6,7 @@ const defaultFilters: ContactFilters = {
   location: '',
   gender: "All" as "All",
   relationshipStatus: "All" as "All",
+  sort: SortOption.Name,
   oneOnOne: false
 }
 

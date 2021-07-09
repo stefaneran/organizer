@@ -6,8 +6,8 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
-import { Genders, RelationshipStatus } from '@contacts/types';
-import { ContactFilters } from '@contacts/types';
+import getEnumValues from '@core/utils/getEnumValues';
+import { ContactFilters, Genders, RelationshipStatus, SortOption } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginRight: '0.5em'
   },
   relationshipSelect: {
+    width: '100%'
+  },
+  sortSelect: {
+    marginTop: '1em',
     width: '100%'
   },
   onOneOneSwitch: {
@@ -102,6 +106,13 @@ const ContactsFilters: React.FC<Props> = ({
           label="Relationship"
         />
       </div>
+      <SelectInput
+        className={classes.sortSelect}
+        value={contactsFilters.sort}
+        options={getEnumValues(SortOption)}
+        onChange={onChangeFilter('sort')}
+        label="Sort By"
+      />
       <div style={{ textAlign: 'center' }}>
         <SwitchInput
           isChecked={contactsFilters.oneOnOne}

@@ -66,6 +66,9 @@ const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
     handleCloseInfoPanel();
     toggleConfirmationDialog();
   }
+  const handleSnoozeContact = () => {
+    actions.updateLastContact(selectedContact);
+  }
 
   return (
     <div className={classes.container}>
@@ -88,6 +91,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
         actions={actions}
+        onSnoozeContact={handleSnoozeContact}
         onDeleteContact={toggleConfirmationDialog}
       />
       <ContactsFilters 

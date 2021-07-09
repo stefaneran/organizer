@@ -8,8 +8,8 @@ const defaultContact: Contact = {
   gender: Genders.Male,
   relationshipStatus: RelationshipStatus.Single,
   oneOnOne: true,
-  lastContact: undefined,
-  lastHangout: undefined,
+  lastContact: 0,
+  lastHangout: 0,
   hangoutTally: 0,
   dateCreated: Date.now()
 }

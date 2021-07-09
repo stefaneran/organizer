@@ -1,15 +1,20 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, IconButton } from '@material-ui/core';
+import { Typography, IconButton, Button, Tooltip } from '@material-ui/core';
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { PeopleIconMediumInfo } from '@core/components/Icons/PeopleIcon';
+// Components
 import ContactInfoEdit from '@contacts/components/ContactsPanel/ContactInfoEdit';
 import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
 import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
 import OneOnOneChip from '@contacts/components/ContactsPanel/OneOnOneChip';
 import Chips from '@contacts/components/Chips';
+// Utils
+import { formatDateClassic } from '@core/utils/dateUtils';
+// Types
 import { Contact } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -44,6 +49,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
     top: '0.15em',
     marginRight: '0.4em'
+  },
+  snoozeButton: {
+    marginTop: '2em',
+    textAlign: 'center'
   }
 }));
 
@@ -52,8 +61,9 @@ interface Props {
   contactId: string;
   groups: string[];
   isOpen: boolean;
-  onClose: () => void;
   actions: Record<string, Function>;
+  onClose: () => void;
+  onSnoozeContact: () => void;
   onDeleteContact: () => void;
 }
 
@@ -62,8 +72,9 @@ const ContactInfo: React.FC<Props> = ({
   contactId,
   groups,
   isOpen,
-  onClose,
   actions,
+  onClose,
+  onSnoozeContact,
   onDeleteContact
  }) => {
   const classes = useStyles();
@@ -111,29 +122,51 @@ const ContactInfo: React.FC<Props> = ({
           ) : (
             <>
               <Typography variant="h4" className={classes.headline}>
-                {contact?.name}
+                {contact.name}
               </Typography>
               <div className={classes.infoContainer}>
 
                 <div className={classes.infoGroup} style={{ justifyContent: 'center' }}>
-                  <GenderChip gender={contact?.gender} />
-                  <RelationshipChip relationshipStatus={contact?.relationshipStatus} />
-                  <OneOnOneChip oneOnOne={contact?.oneOnOne} />
+                  <GenderChip gender={contact.gender} />
+                  <RelationshipChip relationshipStatus={contact.relationshipStatus} />
+                  <OneOnOneChip oneOnOne={contact.oneOnOne} />
                 </div>
 
                 <div className={classes.infoGroup}>
                   <LocationOnIcon className={classes.locationIcon} />
-                  <Typography variant="h5">{contact?.location}</Typography>
+                  <Typography variant="h5">
+                    {contact.location}
+                  </Typography>
                 </div>
 
                 <div className={classes.infoGroup}>
-                  <PeopleIconMediumInfo />
-                  <Chips 
-                    memo={() => contact?.groups ?? []}
-                    deps={[contact?.groups]}
-                    getKey={(group) => group}
-                    getLabel={(group) => group}
-                  />
+                  <Typography variant="h5">
+                    Last Contact: {formatDateClassic(contact.lastContact)}
+                  </Typography>
+                </div>
+
+                {contact.groups?.length ? (
+                  <div className={classes.infoGroup}>
+                    <PeopleIconMediumInfo />
+                    <Chips 
+                      memo={() => contact.groups ?? []}
+                      deps={[contact.groups]}
+                      getKey={(group) => group}
+                      getLabel={(group) => group}
+                    />
+                  </div>
+                ) : null}
+
+                <div className={classes.snoozeButton}>
+                  <Tooltip title="Refreshes the last time you had contact with this person">
+                    <Button 
+                      variant="outlined"
+                      color="primary"
+                      onClick={onSnoozeContact}
+                    >
+                      Update Last Contact
+                    </Button>
+                  </Tooltip>
                 </div>
 
               </div>

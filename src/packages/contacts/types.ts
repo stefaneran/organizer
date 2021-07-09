@@ -10,12 +10,19 @@ export enum RelationshipStatus {
   Unknown = "Unknown"
 }
 
+export enum SortOption { 
+  LastContact = "Last Contact",
+  Name = "Name",
+  Location = "Location"
+}
+
 export interface ContactFilters {
   group: string;
   name: string;
   location: string;
   gender: Genders | 'All';
   relationshipStatus: RelationshipStatus | 'All';
+  sort: SortOption;
   oneOnOne: boolean;
 }
 

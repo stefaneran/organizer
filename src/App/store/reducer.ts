@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '2.2.0',
+    version: '2.3.0',
     loading: false,
     isMobile: false,
     user: {

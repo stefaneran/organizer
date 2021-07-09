@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ListItem, ListItemText } from '@material-ui/core';
+import ContactMeter from '@contacts/components/ContactsPanel/ContactMeter';
 import { Contact } from '@contacts/types';
 
 interface Props {
@@ -9,8 +10,10 @@ interface Props {
 
 const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
 
+  const { id, name, location, lastContact } = contact;
+
   const handleOpenInfoPanel = () => {
-    onOpenInfo(contact.id)
+    onOpenInfo(id)
   }
 
   return (
@@ -21,12 +24,8 @@ const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
         // background: itemBackground(item)
       }}
     >
-      <ListItemText>
-        {contact.name}
-      </ListItemText>
-      <div>
-        
-      </div>
+      <ListItemText primary={name} secondary={location} />
+      <ContactMeter lastContact={lastContact}  />
     </ListItem>
   )
 }

@@ -31,7 +31,8 @@ Recipes:
 - Filter panel should be closed when clicking outside
 - Recipe: When creating new recipe, set as selected to avoid confusion
 - Mobile: Add/Edit recipe
-- Mobile: Clicking on ItemTag is wonky
+- Mobile: Optional icon too small
+- Mobile: 
 
 - Add new ingredient (with category)
 - Group By - Should be saved in back end
@@ -71,7 +72,8 @@ Contacts:
   - Participants (Better UI)
 - (MVP) Contacts: Show more details in info
   - Last hangout (days ago)
-  - Friendship levels (hangouts/month)
+  - Last contact 
+  - Friendship levels (hangoutTally/dateCreated)
   - Acquaintances
 - (MVP) Events: Participant suggestion function
 - (MVP) Contacts: Add snooze action to reset timer

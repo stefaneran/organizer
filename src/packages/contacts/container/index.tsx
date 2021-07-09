@@ -1,6 +1,14 @@
 import { connect } from 'react-redux';
 import ContactsContainer from './ContactsContainer';
-import { createContact, editContact, deleteContact, createEvent, editEvent, deleteEvent } from '@contacts/store/thunks';
+import { 
+  createContact, 
+  editContact, 
+  deleteContact, 
+  updateLastContact,
+  createEvent, 
+  editEvent, 
+  deleteEvent 
+} from '@contacts/store/thunks';
 import { initGroups } from '@contacts/store';
 import { AppStore } from '@core/types';
 
@@ -16,6 +24,7 @@ const mapDispatchToProps = {
   createContact,
   editContact,
   deleteContact,
+  updateLastContact,
   createEvent,
   editEvent,
   deleteEvent
