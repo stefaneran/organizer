@@ -1,7 +1,7 @@
 # To deploy to "https://stefaneran.github.io/organizer"
 
 - Change version: Where #.#.# are [Major Iteration].[Major feature].[Minor changes commit]
-  - Go to src/store/app/index.ts
+  - Go to src/app/store/reducer.ts
   - Change "version" property in initialState
 
 - Change baseUrl to remote

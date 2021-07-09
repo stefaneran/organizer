@@ -53,7 +53,7 @@ interface Props {
   availableItems: string[];
   cart: string[];
   onSelectRecipe: (id: string) => () => void;
-  onAddMissing: (event: ClickEvent) => void;
+  onAddMissing: () => void;
 }
 
 const RecipeItem: React.FC<Props> = ({ 

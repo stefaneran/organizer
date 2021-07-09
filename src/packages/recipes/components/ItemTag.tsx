@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
+// Icons
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { 
   RemoveBagIconSmallFill, 
@@ -16,8 +17,10 @@ import {
   AddCartIconSmall,
   AddCartIconSmallWhite 
 } from '@core/components/Icons/CartIcon';
+// Utils
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+// Types
 import { Recipe, Ingredient, AlternativeIngredient } from '@recipes/types';
 import { ClickEvent } from '@core/types';
 
@@ -62,7 +65,7 @@ interface Props {
   cart: string[];
   recipe?: Recipe;
   ingredient?: Ingredient | AlternativeIngredient;
-  onAddMissing: (event: ClickEvent) => void;
+  onAddMissing: () => void;
   style?: any;
   isMobile?: boolean;
 }
@@ -75,7 +78,7 @@ const ItemTag: React.FC<Props> = ({
   availableItems, 
   cart, 
   recipe, 
-  ingredient, 
+  ingredient,
   onAddMissing,
   style, 
   isMobile 
@@ -103,9 +106,10 @@ const ItemTag: React.FC<Props> = ({
     if (isHover && hasMissingItems && !hasMissingInCart) 
       setHover(false)
   }
-  const handleClick = (e) => {
+  const handleClick = (event: ClickEvent) => {
+    event.stopPropagation();
     setHover(false); // Visual bug occurs if request done while cursor still inside
-    onAddMissing(e);
+    onAddMissing();
   }
 
   // Default to no missing items

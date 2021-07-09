@@ -10,16 +10,15 @@ import RecipeInfoEdit from '@recipes/components/RecipeInfoEdit';
 import RecipeInfo from '@recipes/components/RecipeInfo';
 import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
 // Utils
+import getMissingIngredients from '@recipes/utils/getMissingIngredients';
 import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
 import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
 import getRecipesArray from '@recipes/utils/getRecipesArray';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
-import getIngredientIdByName from '@recipes/utils/getIngredientIdByName';
 // Types
 import { InventoryItem } from '@inventory/types';
 import { Recipe, RecipeEdit, RecipeActions, EditMode } from '@recipes/types';
-import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -139,27 +138,9 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
     setSelectedRecipe('');
     toggleConfirmationDialog()
   }
-  const handleAddMissingToCart = (ingredients: Recipe["ingredients"] | string) => (event: ClickEvent) => {
-    event.stopPropagation();
-    const missing: string[] = [];
-    // If a single ingredient, get its ID 
-    if (typeof ingredients === 'string') {
-      missing.push(ingredients);
-    }
-    // Else scan all ingredients for only the missing ones
-    else {
-      ingredients.forEach(ingredient => {
-        const { itemId, isOptional } = ingredient;
-        const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId) && !isOptional;
-        if (shouldAdd) {
-          missing.push(itemId)
-        }
-      });
-    }
-    // Precaution - This function shouldn't run if no missing ingredients
-    if (missing.length) {
-      actions.addToCart(missing);
-    }
+  const handleAddMissing = (ingredients = []) => () => {
+    const missing = getMissingIngredients(ingredients, availableItems, cart);
+    actions.addToCart(missing);
   }
 
   return (
@@ -184,9 +165,9 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
               recipe={recipe}
               selectedRecipe={selectedRecipe}
               onSelectRecipe={handleSelectRecipe}
+              onAddMissing={handleAddMissing(recipe.ingredients)}
               availableItems={availableItems}
               cart={cart}
-              onAddMissing={handleAddMissingToCart(recipe.ingredients)}
             />
           ))}
         </div>
@@ -210,10 +191,10 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
               availableItems={availableItems}
               cart={cart}
               addToCart={actions.addToCart}
+              onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}
               onDeleteRecipe={toggleConfirmationDialog}
-              onAddMissing={handleAddMissingToCart}
             />
           )}
         </div>

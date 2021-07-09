@@ -4,7 +4,6 @@ import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from '@recipes/components/ItemTag';
 import { Ingredient } from '@recipes/types';
 import { InventoryItem } from '@inventory/types';
-import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileText: {
@@ -28,7 +27,7 @@ interface Props {
   allItems: Record<string, InventoryItem>;
   availableItems: string[];
   cart: string[];
-  onAddMissing: (ingredientName: string) => (event: ClickEvent) => void;
+  addToCart: (itemIds: string[]) => void;
   isMobile?: boolean;
 }
 
@@ -36,11 +35,14 @@ const Ingredients: React.FC<Props> = ({
   ingredients, 
   allItems, 
   availableItems, 
-  cart, 
-  onAddMissing,
+  cart,
+  addToCart,
   isMobile 
 }: Props) => {
   const classes = useStyles();
+
+  const handleAddMissing = (itemId) => () => addToCart([itemId]);
+
   return (
     <List>
       {ingredients.map((ingredient) => (
@@ -50,7 +52,7 @@ const Ingredients: React.FC<Props> = ({
               ingredient={ingredient}
               availableItems={availableItems}
               cart={cart}
-              onAddMissing={onAddMissing(ingredient.itemId)}
+              onAddMissing={handleAddMissing(ingredient.itemId)}
               style={{ marginRight: '1.5em' }}
               isMobile={isMobile}
             />
@@ -66,7 +68,7 @@ const Ingredients: React.FC<Props> = ({
                 ingredient={alternative}
                 availableItems={availableItems}
                 cart={cart}
-                onAddMissing={onAddMissing(alternative.itemId)}
+                onAddMissing={handleAddMissing(alternative.itemId)}
                 style={{ marginRight: '1.5em' }}
                 isMobile={isMobile}
               />

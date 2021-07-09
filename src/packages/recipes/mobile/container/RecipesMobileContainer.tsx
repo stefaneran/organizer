@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
+// Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 // Components
-import RecipeDetails from '@recipes/mobile/components/RecipeDetails';
+import RecipeInfo from '@recipes/mobile/components/RecipeInfo';
 import RecipeItem from '@recipes/mobile/components/RecipeItem';
-import ItemTag from '@recipes/components/ItemTag';
 import RecipeFilters from '@recipes/mobile/components/RecipeFilters';
 // Utils
+import getMissingIngredients from '@recipes/utils/getMissingIngredients';
 import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
 import getNationalityOptions from '@recipes/utils/getNationalityOptions';
 import getCategoryOptions from '@recipes/utils/getCategoryOptions';
@@ -106,7 +107,10 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
   const filteredRecipes = React.useMemo(() => getRecipesArray(recipes, recipeFilters), [recipes, recipeFilters]);
-
+  
+  const toggleFilterMenuOpen = () => {
+    setFilterMenuOpen(!filterMenuOpen);
+  }
   const handleSelectRecipe = (id: string) => () => {
     if (selectedRecipe !== id) {
       setSelectedRecipe(id);
@@ -121,8 +125,9 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
       [property]: value
     })
   }
-  const toggleFilterMenuOpen = () => {
-    setFilterMenuOpen(!filterMenuOpen);
+  const handleAddMissing = (ingredients = []) => () => {
+    const missing = getMissingIngredients(ingredients, availableItems, cart);
+    actions.addToCart(missing);
   }
 
   return (
@@ -157,12 +162,13 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
       />
       <div className={classes.contentContainer}>
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '0%' : '100%' }}>
-          <RecipeDetails 
+          <RecipeInfo 
             recipe={recipes[selectedRecipe]} 
             allItems={allItems} 
             availableItems={availableItems} 
             cart={cart} 
             addToCart={actions.addToCart}
+            onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
           />
         </div>
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '-100%' : '0%'}}>
@@ -174,16 +180,7 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
               onSelectRecipe={handleSelectRecipe}
               availableItems={availableItems}
               cart={cart}
-              addToCart={actions.addToCart}
-              tag={
-                <ItemTag 
-                  recipe={recipe} 
-                  availableItems={availableItems} 
-                  cart={cart} 
-                  style={{ marginRight: '1.5em' }}
-                  isMobile
-                />
-              }
+              onAddMissing={handleAddMissing(recipe.ingredients)}
             />
           ))}
         </div>

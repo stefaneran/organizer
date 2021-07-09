@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography, IconButton } from '@material-ui/core';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
+import ItemTag from '@recipes/components/ItemTag';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
 import { Recipe } from '@recipes/types';
@@ -34,49 +35,36 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   recipeId: string; 
   recipe: Recipe;
-  tag: JSX.Element;
   availableItems: string[];
   cart: string[];
   onSelectRecipe: (id: string) => () => void;
-  addToCart: (itemIds: string[]) => void;
+  onAddMissing: () => void;
 }
 
 const RecipeItem: React.FC<Props> = ({ 
   recipeId, 
-  recipe, 
-  tag,
+  recipe,
   availableItems,
   cart,
   onSelectRecipe,
-  addToCart
+  onAddMissing
 }) => {
 
   const classes = useStyles();
-  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
-  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
-
-  const handleAddMissingToCart = (event: ClickEvent) => {
-    event.stopPropagation();
-    const missing: string[] = [];
-    recipe.ingredients.forEach(ingredient => {
-      const { itemId } = ingredient;
-      const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);
-      if (shouldAdd) {
-        missing.push(itemId)
-      }
-    });
-    // Just a precaution, button should not be visible if this weren't the case
-    if (missing.length) {
-      addToCart(missing);
-    }
-  }
 
   return (
     <Paper 
       onClick={onSelectRecipe(recipeId)}
       className={classes.container}
     >
-      {tag}
+      <ItemTag 
+        recipe={recipe} 
+        availableItems={availableItems} 
+        cart={cart} 
+        onAddMissing={onAddMissing}
+        style={{ marginRight: '1.5em' }}
+        isMobile
+      />
       <div className={classes.textContainer}>
         <Typography variant="h2">
           {recipe.name}
@@ -85,11 +73,6 @@ const RecipeItem: React.FC<Props> = ({
           {`${recipe.nationality} - ${recipe.category}`}
         </Typography>
       </div>
-      {hasMissingItems && !hasMissingInCart && (
-        <IconButton className={classes.cartButton} onClick={handleAddMissingToCart}>
-          <AddCartIconLarge />
-        </IconButton>
-      )}
     </Paper>
   )
 }

@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import Ingredients from '@recipes/components/Ingredients';
+import getMissingIngredients from '@recipes/utils/getMissingIngredients';
 import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
 import { InventoryItem } from '@inventory/types';
@@ -49,10 +50,10 @@ interface Props {
   availableItems: string[]; 
   cart: string[]; 
   addToCart: (itemIds: string[]) => void;
+  onAddMissing: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
   onSelectRecipe: (id: string) => () => void;
   onDeleteRecipe: () => void;
-  onAddMissing: (ingredientName: string) => (event: ClickEvent) => void;
 }
 
 const RecipeInfo: React.FC<Props> = ({ 
@@ -61,31 +62,16 @@ const RecipeInfo: React.FC<Props> = ({
   availableItems, 
   cart, 
   addToCart,
+  onAddMissing,
   onOpenEditRecipe,
   onSelectRecipe,
-  onDeleteRecipe,
-  onAddMissing
+  onDeleteRecipe
 }) => {
   const classes = useStyles();
 
   const hasRecipe = Boolean(recipe);
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
   const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
-
-  const handleAddMissingToCart = () => {
-    const missing: string[] = [];
-    recipe.ingredients.forEach(ingredient => {
-      const { itemId } = ingredient;
-      const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);
-      if (shouldAdd) {
-        missing.push(itemId)
-      }
-    });
-    // Just a precaution, button should not be visible if this weren't the case
-    if (missing.length) {
-      addToCart(missing);
-    }
-  }
 
   return (
     <>
@@ -124,7 +110,7 @@ const RecipeInfo: React.FC<Props> = ({
             allItems={allItems}
             availableItems={availableItems}
             cart={cart}
-            onAddMissing={onAddMissing}
+            addToCart={addToCart}
           />
         </div>
         {hasMissingItems && !hasMissingInCart && (
@@ -133,7 +119,7 @@ const RecipeInfo: React.FC<Props> = ({
               variant="outlined"
               color="primary"
               endIcon={<AddCartIconXS />}
-              onClick={handleAddMissingToCart}
+              onClick={onAddMissing}
             >
               Add Missing
             </Button>

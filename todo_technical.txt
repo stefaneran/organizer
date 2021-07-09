@@ -22,6 +22,7 @@ General:
 ===============================================================
 
 Recipes:
+
 - Recipe: Filter by available ingredients option, etc
 - Recipe Tags:
   - Add tags like "No Meat", "No Carbs" etc 
@@ -30,6 +31,7 @@ Recipes:
 - Filter panel should be closed when clicking outside
 - Recipe: When creating new recipe, set as selected to avoid confusion
 - Mobile: Add/Edit recipe
+- Mobile: Clicking on ItemTag is wonky
 
 - Add new ingredient (with category)
 - Group By - Should be saved in back end
@@ -42,6 +44,7 @@ Recipes:
 ===============================================================
 
 Inventory:
+
 - # Add "De-select All" button
 - "Finish Shopping" btn too low on laptop
 - BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
@@ -61,6 +64,8 @@ Inventory:
 
 Contacts:
 
+- Close filter panel if opening contact info/edit - Just close when clicking outside
+  - Make generic filter panel component
 - (MVP) Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)
