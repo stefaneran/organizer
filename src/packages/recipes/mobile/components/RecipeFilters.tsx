@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { InputLabel, Select, MenuItem } from '@material-ui/core';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
-import { SelectEvent } from '@core/types';
 import SelectInput from '@core/components/inputs/SelectInput';
 import { RecipeFilters } from '@recipes/types';
 

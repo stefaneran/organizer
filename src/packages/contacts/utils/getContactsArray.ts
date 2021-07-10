@@ -1,7 +1,7 @@
 import { Contact, ContactFilters, SortOption } from '@contacts/types';
 import genericSort from '@core/utils/genericSort';
 
-export default (
+const getContactsArray = (
   contacts: Record<string, Contact>, 
   filters?: ContactFilters
 ): Contact[] => {
@@ -9,6 +9,9 @@ export default (
     id: contactId,
     ...contacts[contactId]
   }));
+  if (!filters) {
+    return contactsArray;
+  }
   let filteredContacts = contactsArray;
   // Filter by selected group
   if (filters.group !== 'All') {
@@ -43,3 +46,5 @@ export default (
   }
   return filteredContacts.sort((a, b) => genericSort(a[sortProperty], b[sortProperty]));
 }
+
+export default getContactsArray;

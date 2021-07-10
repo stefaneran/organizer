@@ -5,6 +5,7 @@
 		"strict": false,
 		"esModuleInterop": true,
 		"paths": {
+			"@root/*": ["src/*"],
 			"@app/*": ["src/app/*"],
 			"@core/*": ["src/core/*"],
 			"@activities/*": ["src/packages/activities/*"],

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   value: any;
   options: any[]; 
-  onChange: (event: SelectEvent) => void; 
+  onChange: (event: SelectEvent<any>) => void; 
   className?: string; 
   label?: string;
   fullWidth?: boolean;

@@ -51,7 +51,7 @@ interface Props {
   onDeleteEvent: () => void;
 }
 
-const EventInfo: React.FC<Props> = ({ 
+const EventInfoEdit: React.FC<Props> = ({ 
   event, 
   eventId, 
   activities,
@@ -93,8 +93,8 @@ const EventInfo: React.FC<Props> = ({
     setActivityOptions(getActivityOptions(activities, activityType));
   }, [activityType])
   
-  const handleChangeActivityType = (event: SelectEvent) => {
-    const value = event?.target?.value ?? ActivityType.Other; 
+  const handleChangeActivityType = (event: SelectEvent<ActivityType>) => {
+    const value: ActivityType = event?.target?.value ?? ActivityType.Other; 
     setActivityType(value);
     setEventData({ 
       ...eventData,  
@@ -202,4 +202,4 @@ const EventInfo: React.FC<Props> = ({
   )
 }
 
-export default EventInfo;
+export default EventInfoEdit;

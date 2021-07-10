@@ -12,9 +12,9 @@ export type KeyboardEvent = React.KeyboardEvent<HTMLDivElement>;
 
 export type AutoCompleteHandler = (event: React.ChangeEvent<{}>, value: any | null) => void
 
-export type SelectEvent = React.ChangeEvent<{ 
+export type SelectEvent<T> = React.ChangeEvent<{ 
   name?: string | undefined;
-  value: unknown;
+  value: T;
 }>
 
 export enum CategoryType {

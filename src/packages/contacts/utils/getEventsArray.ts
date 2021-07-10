@@ -1,9 +1,9 @@
 import { Event, EventFilters } from '@contacts/types';
 
-export default (
+const getEventsArray = (
   events: Record<string, Event>, 
   filters: EventFilters
-) => {
+): Event[] => {
   const eventsArray = Object.keys(events).map(eventId => ({
     ...events[eventId],
     id: eventId,
@@ -23,3 +23,5 @@ export default (
   }
   return filteredEvents;
 }
+
+export default getEventsArray;

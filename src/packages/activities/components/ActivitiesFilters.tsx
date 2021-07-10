@@ -29,7 +29,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   activityFilters: ActivityFilters;
-  onChangeFilter: (property: string) => (event: SelectEvent) => void;
+  onChangeFilter: (property: string) => (event: any) => void;
 }
 
 const ActivitiesFilters: React.FC<Props> = ({

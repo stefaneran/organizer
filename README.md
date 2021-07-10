@@ -1,3 +1,4 @@
+
 # To deploy to "https://stefaneran.github.io/organizer"
 
 - Change version: Where #.#.# are [Major Iteration].[Major feature].[Minor changes commit]
@@ -14,3 +15,27 @@
 - Run "yarn build"
 
 - Run "yarn deploy"
+
+# To add an alias path
+
+- Add it to webpack like this
+
+resolve: {
+  alias: {
+    "@alias_name": path.resolve(__dirname, './src/alias_name')
+  }
+}
+
+- Add it to tsconfig
+
+"paths": {
+	"@the_alias/*": ["src/the_alias/*"],
+}
+
+- Finally, add it to package.json so Jest can resolve it during unit tests
+
+"jest": {
+  "moduleNameMapper": {
+    "^@the_alias(.*)$": "<rootDir>/src/the_alias$1"
+  }
+}

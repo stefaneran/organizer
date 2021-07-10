@@ -1,8 +1,8 @@
 import { Contact } from '@contacts/types';
 
-export default (
+const getContactsByIds = (
   contacts: Record<string, Contact>, 
   contactsIds: string[]
-): Contact[] => {
-  return contactsIds.map(contactId => ({ ...contacts[contactId], id: contactId }));
-}
+): Contact[] => contactsIds.map(contactId => ({ ...contacts[contactId], id: contactId }));
+
+export default getContactsByIds;
