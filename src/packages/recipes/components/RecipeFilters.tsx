@@ -6,18 +6,6 @@ import SelectInput from '@core/components/inputs/SelectInput';
 import { RecipeFilters, GroupByMode } from '@recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  sidepanel: {
-    width: '30%',
-    height: '100%',
-    position: 'absolute',
-    top: '0',
-    transition: 'left 300ms',
-    background: '#ecedf0',
-    padding: '0 2em 0 2em'
-  },
-  topButtons: {
-    textAlign: 'right'
-  },
   input: {
     marginTop: '1em',
     width: '100%'
@@ -25,31 +13,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  isOpen: boolean;
   recipeFilters: RecipeFilters;
   categoryOptions: string[]; 
   nationalityOptions: string[];
-  onChangeFilter: (property: string) => (eventOrValue: any) => void; 
-  onClose: () => void;
+  onChangeFilter: (property: string) => (eventOrValue: any) => void;
 }
 
 const RecipesFilters: React.FC<Props> = ({
-  isOpen,
   recipeFilters,
   categoryOptions, 
   nationalityOptions,
-  onChangeFilter,
-  onClose
+  onChangeFilter
 }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.sidepanel} style={{ left: isOpen ? '0%' : '-100%' }}>
-      <div className={classes.topButtons}>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
+    <>
       <SelectInput
         className={classes.input}
         value={recipeFilters.groupBy}
@@ -86,7 +65,7 @@ const RecipesFilters: React.FC<Props> = ({
           fullWidth
         />
       ) : null}
-    </div>
+    </>
   )
 }
 

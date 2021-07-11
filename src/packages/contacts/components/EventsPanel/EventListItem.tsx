@@ -3,9 +3,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
 import ParticipantsChip from '@contacts/components/EventsPanel/ParticipantsChip';
+import getActivityLocation from '@activities/utils/getActivityLocation';
+import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 import { Contact, Event } from '@contacts/types';
 import { Activity } from '@activities/types';
-import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -53,22 +54,22 @@ interface Props {
 }
 
 const EventListItem: React.FC<Props> = ({ 
-  event, 
+  event = {} as Event, 
   activities, 
   contacts, 
   onOpenInfo 
 }) => {
   const classes = useStyles();
-  
+
   const activity: Activity = activities[event.activityId];
 
-  const eventTitle = event?.title ? `${event.title} - ` : '';
+  const eventTitle = event.title ? `${event.title} - ` : '';
   const activityTitle = activity?.name ? `${activity.name} - ` : '';
-  const title = `${eventTitle}${activityTitle}${formatEventDate(event?.date)}`;
+  const title = `${eventTitle}${activityTitle}${formatEventDate(event.date)}`;
 
-  const eventTimeText = `${formatDateTime(event?.date)}`;
-  const eventLocation = activity?.locations[event?.activityLocationIndex]?.name
-  const eventLocationText = eventLocation ? ` - ${eventLocation}` : '';
+  const eventLocation = getActivityLocation(activities, event.activityId, event.activityLocationIndex);
+  const eventTimeText = `${formatDateTime(event.date)}`;
+  const eventLocationText = eventLocation.name ? ` - ${eventLocation.name}` : '';
 
   const handleOpenInfo = () => {
     onOpenInfo(event.id);
@@ -92,7 +93,7 @@ const EventListItem: React.FC<Props> = ({
           </Typography>
         </div>
         <ParticipantsChip
-          participants={event?.participants}
+          participants={event.participants}
           contacts={contacts}
           style={{ marginTop: '0.3em' }}
         />

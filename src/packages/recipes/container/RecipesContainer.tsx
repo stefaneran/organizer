@@ -9,6 +9,7 @@ import RecipeItem from '@recipes/components/RecipeItem';
 import RecipeInfoEdit from '@recipes/components/RecipeInfoEdit';
 import RecipeInfo from '@recipes/components/RecipeInfo';
 import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
+import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
 import getMissingIngredients from '@recipes/utils/getMissingIngredients';
 import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
@@ -199,14 +200,19 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
           )}
         </div>
       </div>
-      <RecipeFilters
+      <SlidingPanel
         isOpen={isFiltersOpen}
-        recipeFilters={recipeFilters}
-        categoryOptions={categories} 
-        nationalityOptions={nationalities}
-        onChangeFilter={handleChangeFilter}
         onClose={toggleFiltersOpen}
-      />
+        direction="left"
+        width={30}
+      >
+        <RecipeFilters
+          recipeFilters={recipeFilters}
+          categoryOptions={categories} 
+          nationalityOptions={nationalities}
+          onChangeFilter={handleChangeFilter}
+        />
+      </SlidingPanel>
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 

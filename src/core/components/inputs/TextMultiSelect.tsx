@@ -36,7 +36,7 @@ const TextMultiSelect: React.FC<Props> = ({
   
   // These useEffects are needed for components that change state frequently but do not unmount, thus these useStates retain the old values.
   // There must be a better way to design this (or the aforemention components) TODO: Look into this
-  // Examples: Contacts and Events Info sliding panels - real pain my assholes but with unmounting I won't be able to keep the sliding animations
+  // Examples: Contacts and Events Info sliding panels - real pain in my assholes but with unmounting I won't be able to keep the sliding animations
   React.useEffect(() => {
     setCurrentValue(defaultValue);
   }, [defaultValue])

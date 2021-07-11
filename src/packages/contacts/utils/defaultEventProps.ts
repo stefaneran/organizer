@@ -9,6 +9,6 @@ const defaultEvent: Event =  {
   activityId: '',
   activityLocationIndex: 0,
   date: Date.now()
-}
+};
 
 export default defaultEvent;

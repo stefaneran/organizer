@@ -10,18 +10,6 @@ import getEnumValues from '@core/utils/getEnumValues';
 import { ContactFilters, Genders, RelationshipStatus, SortOption } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  sidepanel: {
-    width: '50%',
-    height: '100%',
-    position: 'absolute',
-    top: '0',
-    transition: 'right 300ms',
-    background: '#ecedf0',
-    padding: '0 2em 0 2em'
-  },
-  topButtons: {
-    textAlign: 'right'
-  },
   input: {
     marginTop: '1em',
     width: '100%'
@@ -53,27 +41,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  isOpen: boolean;
-  onClose: ()=>void;
   contactsFilters: ContactFilters;
   onChangeFilter: (property: string) => (event: any) => void;
 }
 
 const ContactsFilters: React.FC<Props> = ({
-  isOpen,
-  onClose,
   contactsFilters,
   onChangeFilter
  }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.sidepanel} style={{ right: isOpen ? '0%' : '-100%' }}>
-      <div className={classes.topButtons}>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
+    <>
       <TextField 
         className={classes.input}
         value={contactsFilters.name}
@@ -122,7 +101,7 @@ const ContactsFilters: React.FC<Props> = ({
           checkedIcon={<PersonIcon style={{ height: '1.2em', width: '1.2em' }} />}
         />
       </div>
-    </div>
+    </>
   )
 }
 

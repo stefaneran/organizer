@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@core/components/AppBar';
-import AppBarMobile from '@core/components/AppBarMobile';
+import AppBar from '@app/AppBar';
+import AppBarMobile from '@app/AppBarMobile';
 import ActivitiesContainer from '@activities/container';
 import ContactsContainer from '@contacts/container';
 import InventoryContainer from '@inventory/container';

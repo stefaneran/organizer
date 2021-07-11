@@ -1,15 +1,10 @@
 import getActivityLocations from '../utils/getActivityLocations';
+import { Activity } from '../types';
 
 const activities = {
-  '0': {
-    locations: []
-  },
-  '2': {
-    locations: [{}, {}]
-  },
-  '3': {
-    locations: [{}, {}, {}]
-  }
+  '0': { locations: [] } as Activity,
+  '2': { locations: [{}, {}] } as Activity,
+  '3': { locations: [{}, {}, {}] } as Activity
 }
 
 test('getActivityLocations Works', () => {

@@ -33,7 +33,7 @@ Recipes:
 - Recipe: When creating new recipe, set as selected to avoid confusion
 - Mobile: Add/Edit recipe
 - Mobile: Optional icon too small
-- Mobile: 
+- Mobile: Click on icon wonky - Remove isHover for mobile
 
 - Add new ingredient (with category)
 - Group By - Should be saved in back end
@@ -66,9 +66,14 @@ Inventory:
 
 Contacts:
 
-- Close filter panel if opening contact info/edit - Just close when clicking outside
-  - Make generic filter panel component
-- Events: Have a "None" option for location
+- CRITICAL BACK-END BUG: Deleting a contact breaks app if they're part of a past event 
+- Contacts: Show mini chips for gender, last contact, etc
+- Activities: Add "Social" type
+- Activities: Expand
+  - Name 
+    - Address 
+    - Website
+    - City
 - Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)
@@ -76,15 +81,13 @@ Contacts:
   - Last hangout (days ago)
   - Friendship levels (hangoutTally/dateCreated)
   - Acquaintances
-- Events: Participant suggestion function
-- Contacts: Show mini chips for gender, last contact, etc
-- Events: Don't show activity types that have no items + Add 'All' option
-- Activities: Add "Social" type
+- Contacts: Let user set current Location
 -----------------------------------------------
+- Events: Participant suggestion function
 - Events: Filters - Activity Type / Date range (before/after)
 - Events: Show male/female ratio + suggestion how many to add to achieve balance
 - Events: ListItem undefined values (show something nicer)
-- Contacts: Let user set current Location
+- Events: Don't show activity types that have no items + Add 'All' option
 - Contacts: See number of contacts (and num of ones in current location)
 - Activities: Add upcoming events
 

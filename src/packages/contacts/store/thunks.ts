@@ -18,7 +18,7 @@ export const createContact = (contact) => async (dispatch, getState) => {
     `${baseUrl}/contacts/create`,
     { newId: newContactId, contact },
     updateContactDone,
-    { id: newContactId, ...contact },
+    { id: newContactId, contact },
     `Could not create contact`
   );
 }
@@ -30,7 +30,7 @@ export const editContact = (contactId, contact) => async (dispatch, getState) =>
     `${baseUrl}/contacts/edit`,
     { id: contactId, contact },
     updateContactDone,
-    { id: contactId, ...contact },
+    { id: contactId, contact },
     `Could not edit contact`
   );
 }
@@ -67,7 +67,7 @@ export const createEvent = (event) => async (dispatch, getState) => {
     `${baseUrl}/events/create`,
     { newId: newEventId, event },
     updateEventDone,
-    { id: newEventId, ...event },
+    { id: newEventId, event },
     `Could not create event`
   );
 }
@@ -79,7 +79,7 @@ export const editEvent = (eventId, event) => async (dispatch, getState) => {
     `${baseUrl}/events/edit`,
     { id: eventId, event },
     updateEventDone,
-    { id: eventId, ...event },
+    { id: eventId, event },
     `Could not edit event`
   );
 }

@@ -10,8 +10,8 @@ interface Props {
 const ActivityLocations: React.FC<Props> = ({ locations }) => {
   return (
     <List component="div" disablePadding>
-      {locations.map(location => (
-        <ListItem key={location.address}>
+      {locations.map((location, index) => (
+        <ListItem key={`${location.name}-${location.address}-${index}`}>
           <ListItemText 
             primary={location.name} 
             secondary={<LocationLink address={location.address} />} 

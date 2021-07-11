@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MobileAutocomplete from '@core/components/inputs/MobileAutocomplete';
 import getNameOptions from '@inventory/utils/getNameOptions';
 import { InventoryItem } from '@inventory/types';
+import { Option } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   margin: {
@@ -14,11 +15,6 @@ interface Props {
   allItems: Record<string, InventoryItem>;
   targetCollection: string[];
   onChange: Function;
-}
-
-type Option = {
-  label: string;
-  value: string;
 }
 
 const AddItemInput: React.FC<Props> = ({ 

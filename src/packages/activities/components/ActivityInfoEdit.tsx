@@ -8,9 +8,9 @@ import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import SelectInput from '@core/components/inputs/SelectInput';
 import defaultActivityProps from '@activities/utils/defaultActivityProps';
 import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
+import getEnumValues from '@core/utils/getEnumValues';
 import { Activity, ActivityType, ParticipantType, ActivityLocation } from '@activities/types';
-
-type Option = { label: string; value: string; }
+import { Option } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -48,7 +48,7 @@ const ActivityInfoEdit: React.FC<Props> = ({
   const classes = useStyles();
   const isCreate = !Boolean(activityId);
 
-  const [activityData, setActivityData] = React.useState(isCreate ? defaultActivityProps : activity);
+  const [activityData, setActivityData] = React.useState<Activity>(isCreate ? defaultActivityProps : activity);
 
   React.useEffect(() => {
     if (isCreate) {
@@ -121,7 +121,7 @@ const ActivityInfoEdit: React.FC<Props> = ({
         defaultValue={
           activityData?.participantType && activityData.participantType.map(type => ({ label: type, value: type }))
         }
-        options={Object.keys(ParticipantType).map(type => ({ label: type, value: type }))}
+        options={getEnumValues(ParticipantType).map(type => ({ label: type, value: type }))}
         helperText="Number of participants for this activity (You alone, a date, or a hang out with several people)"
         size="medium"
       />

@@ -4,8 +4,13 @@ const mockActivities: Record<string, Activity> = {
   '1': {
     id: '1',
     name: 'Bar',
-    locations: [],
+    locations: [
+      { name: 'The Jive', address: '22nd AppleDrive' },
+      { name: 'The Red Crow', address: '10th Avenue' },
+      { name: 'Crosspoint', address: 'Corner of 10th and 8th ave' }
+    ],
     activityType: ActivityType.Drinks,
+    activityLocationIndex: 0,
     participantType: [ParticipantType.Pair, ParticipantType.Alone]
   },
   '2': {
@@ -13,6 +18,7 @@ const mockActivities: Record<string, Activity> = {
     name: 'Hiking',
     locations: [],
     activityType: ActivityType.Fitness,
+    activityLocationIndex: 0,
     participantType: [ParticipantType.Pair, ParticipantType.Alone]
   },
   '3': {
@@ -20,6 +26,7 @@ const mockActivities: Record<string, Activity> = {
     name: 'Board Game Night',
     locations: [],
     activityType: ActivityType.Games,
+    activityLocationIndex: 0,
     participantType: [ParticipantType.Group]
   },
   '4': {
@@ -27,6 +34,7 @@ const mockActivities: Record<string, Activity> = {
     name: 'Game Arcade',
     locations: [],
     activityType: ActivityType.Games,
+    activityLocationIndex: 0,
     participantType: [ParticipantType.Pair, ParticipantType.Group]
   },
   '5': {
@@ -34,6 +42,7 @@ const mockActivities: Record<string, Activity> = {
     name: 'Mexican Food',
     locations: [],
     activityType: ActivityType.Food,
+    activityLocationIndex: 0,
     participantType: [ParticipantType.Pair, ParticipantType.Alone]
   }
 }

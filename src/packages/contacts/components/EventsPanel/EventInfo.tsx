@@ -8,7 +8,7 @@ import Chips from '@contacts/components/Chips';
 import LocationLink from '@activities/components/LocationLink';
 import { Contact, Event } from '@contacts/types';
 import { Activity } from '@activities/types';
-import getActivityLocations from '@contacts/utils/getActivityLocations';
+import getActivityLocation from '@activities/utils/getActivityLocation';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -46,7 +46,7 @@ interface Props {
 }
 
 const EventInfo: React.FC<Props> = ({ 
-  event, 
+  event = {} as Event, 
   eventId, 
   activities,
   contacts,
@@ -57,15 +57,17 @@ const EventInfo: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
+  const { title, participants, activityId, activityLocationIndex } = event;
+
   const isCreate = !Boolean(eventId);
-  const hasTitle = Boolean(event?.title?.length)
+  const hasTitle = Boolean(title?.length)
 
   const [isEdit, setIsEdit] = React.useState(false);
 
-  const activity: Activity = activities[event?.activityId];
-  const activityLocation = getActivityLocations(activities, event?.activityId)[event?.activityLocationIndex];
+  const activity: Activity = activities[activityId];
+  const activityLocation = getActivityLocation(activities, activityId, activityLocationIndex)
 
-  const getParticipants = () => event?.participants.map(participantId => ({ id: participantId, name: contacts[participantId].name })) ?? [];
+  const getParticipants = () => participants?.map(participantId => ({ id: participantId, name: contacts[participantId].name })) ?? [];
 
   // Handles selecting an event or clicking to add new one
   React.useEffect(() => {
@@ -108,7 +110,7 @@ const EventInfo: React.FC<Props> = ({
           ) : (
             <>
               <Typography className={classes.headline} variant="h4">
-                {hasTitle ? event?.title : activity?.name}
+                {hasTitle ? title : activity?.name}
               </Typography>
               <div className={classes.info}>
 
@@ -126,7 +128,7 @@ const EventInfo: React.FC<Props> = ({
 
                 <Chips 
                   memo={getParticipants}
-                  deps={[contacts, event?.participants]}
+                  deps={[contacts, participants]}
                   getKey={(participant) => participant.id}
                   getLabel={(participant) => participant.name}
                 />

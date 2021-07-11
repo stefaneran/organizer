@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
+// Components
 import EditButtonGroup from '@contacts/components/EditButtonGroup';
 import SelectInput from '@core/components/inputs/SelectInput';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import DateTimePicker from '@core/components/inputs/DateTimePicker'; 
+// Utils
 import defaultEventProps from '@contacts/utils/defaultEventProps';
-import getActivityOptions from '@contacts/utils/getActivityOptions';
-import getActivityLocations from '@contacts/utils/getActivityLocations';
+import getActivityOptions from '@activities/utils/getActivityOptions';
+import getActivityLocations from '@activities/utils/getActivityLocations';
 import getContactsByIds from '@contacts/utils/getContactsByIds';
 import getContactsArray from '@contacts/utils/getContactsArray';
+// Types
 import { Contact, Event } from '@contacts/types';
 import { Activity, ActivityType } from '@activities/types';
-import { SelectEvent } from '@core/types';
+import { Option, SelectEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   headline: {
@@ -65,13 +68,19 @@ const EventInfoEdit: React.FC<Props> = ({
   const classes = useStyles();
   const isCreate = !Boolean(eventId);
 
-  const [eventData, setEventData] = React.useState(isCreate ? defaultEventProps : event);
-  const [activityType, setActivityType] = React.useState(isCreate ? ActivityType.Other : activities[event.activityId]?.activityType);
-  const [activityOptions, setActivityOptions] = React.useState(getActivityOptions(activities, activityType));
+  const [eventData, setEventData] = 
+    React.useState<Event>(isCreate ? defaultEventProps : event);
+  const [activityType, setActivityType] = 
+    React.useState<ActivityType>(isCreate ? ActivityType.Other : activities[event.activityId]?.activityType);
+  const [activityOptions, setActivityOptions] = 
+    React.useState<Option[]>(getActivityOptions(activities, activityType));
 
-  const activityTypes: string[] = Object.keys(ActivityType).map((type) => type);
-  const activity: Activity = activities[eventData?.activityId];
-  const participants = getContactsByIds(contacts, eventData?.participants).map(p => ({ label: p.name, value: p.id }));
+  const activityTypes: string[] = 
+    Object.keys(ActivityType).map((type) => type);
+  const activity: Activity = 
+    activities[eventData?.activityId];
+  const participants = 
+    getContactsByIds(contacts, eventData?.participants).map(p => ({ label: p.name, value: p.id }));
 
   const contactsOptions = React.useMemo(() => 
     getContactsArray(contacts).map(contact => ({ label: contact.name, value: contact.id })),
@@ -169,7 +178,10 @@ const EventInfoEdit: React.FC<Props> = ({
           value={eventData.activityLocationIndex}
           onChange={handleChangeEventData('activityLocationIndex')}
           label="Location"
-          options={getActivityLocations(activities, eventData.activityId)}
+          options={[
+            { name: "None", address: "" }, 
+            ...getActivityLocations(activities, eventData.activityId)
+          ]}
           getOptionKey={(option) => option.name}
           getOptionValue={(option, index) => index} 
           getOptionLabel={(option) => option.name}

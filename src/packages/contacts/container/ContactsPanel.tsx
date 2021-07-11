@@ -6,6 +6,7 @@ import ContactsList from '@contacts/components/ContactsPanel/ContactsList';
 import ContactInfo from '@contacts/components/ContactsPanel/ContactInfo';
 import ContactsFilters from '@contacts/components/ContactsPanel/ContactsFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
+import SlidingPanel from '@core/components/SlidingPanel';
 import defaultContactFilters from '@contacts/utils/defaultContactFilters';
 import getContactsArray from '@contacts/utils/getContactsArray';
 import { Contact } from '@contacts/types';
@@ -94,12 +95,17 @@ const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
         onSnoozeContact={handleSnoozeContact}
         onDeleteContact={toggleConfirmationDialog}
       />
-      <ContactsFilters 
+      <SlidingPanel
         isOpen={isFiltersPanelOpen}
         onClose={toggleFilterPanel}
-        contactsFilters={contactsFilters}
-        onChangeFilter={handleChangeFilter}
-      />
+        direction={'right'}
+        width={50}
+      >
+        <ContactsFilters
+          contactsFilters={contactsFilters}
+          onChangeFilter={handleChangeFilter}
+        />
+      </SlidingPanel>
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 

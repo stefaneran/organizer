@@ -7,18 +7,24 @@
         margin: 0;
         padding: 0;
       }
-
       html, body, #app, #main {
         height: 100%;
         width: 100%;
       }
-
       body {
         background-color: rgba(0, 0, 0, 0.2);
       }
-
       a {
         text-decoration: none !important;
+      }
+      div::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; 
+      }
+      div::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #4285F4; 
       }
     </style>
   </head>
@@ -45,5 +51,6 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
     </script>
-  <script type="text/javascript" src="./build.js"></script></body>
+    <script type="text/javascript" src="./build.js"></script>
+  </body>
 </html>

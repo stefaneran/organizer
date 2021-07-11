@@ -1,9 +1,11 @@
 import { Activity, ActivityType } from '@activities/types';
 
 // Empty activity object for creation
-const defaultActivity: Omit<Activity, "id"> = {
+const defaultActivity: Activity = {
+  id: '',
   name: '',
   activityType: ActivityType.Other,
+  activityLocationIndex: 0,
   participantType: [],
   locations: [
     { 

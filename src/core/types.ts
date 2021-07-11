@@ -4,6 +4,8 @@ import { Contact, Event } from '@contacts/types';
 import { InventoryItem } from '@inventory/types';
 import { Recipe } from '@recipes/types';
 
+export type Option = { label: string; value: string; };
+
 export type InputEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 export type ClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>;

@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
+// Icons
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+// Components
 import ActivitiesToolbar from '@activities/components/ActivitiesToolbar';
 import ActivityNestedList from '@activities/components/ActivityNestedList';
 import ActivityInfo from '@activities/components/ActivityInfo';
 import ActivityFilters from '@activities/components/ActivitiesFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
+import SlidingPanel from '@core/components/SlidingPanel';
+// Utils
 import getActivitiesArray from '@root/packages/activities/utils/getActivitiesArray';
 import defaultFilters from '@activities/utils/defaultActivityFilters';
 
@@ -114,12 +118,17 @@ const ActivitiesContainer: React.FC<Props> = ({
           addActivity={addActivity}
         />
       </div>
-      <ActivityFilters 
+      <SlidingPanel
         isOpen={isFiltersPanelOpen}
         onClose={toggleFilterPanel}
-        activityFilters={activityFilters}
-        onChangeFilter={handleChangeFilter}
-      />
+        direction="left"
+        width={50}
+      >
+        <ActivityFilters
+          activityFilters={activityFilters}
+          onChangeFilter={handleChangeFilter}
+        />
+      </SlidingPanel>
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 

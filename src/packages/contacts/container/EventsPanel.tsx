@@ -6,6 +6,7 @@ import EventsList from '@contacts/components/EventsPanel/EventsList';
 import EventInfo from '@contacts/components/EventsPanel/EventInfo';
 import EventsFilters from '@contacts/components/EventsPanel/EventsFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
+import SlidingPanel from '@core/components/SlidingPanel';
 import defaultEventFilters from '@contacts/utils/defaultEventFilters';
 import getEventsArray from '@contacts/utils/getEventsArray';
 
@@ -85,12 +86,17 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
         actions={actions}
         onDeleteEvent={toggleConfirmationDialog}
       />
-      <EventsFilters 
+      <SlidingPanel
         isOpen={isFiltersPanelOpen}
         onClose={toggleFilterPanel}
-        eventsFilters={eventsFilters}
-        onChangeFilter={handleChangeFilter}
-      />
+        direction="left"
+        width={50}
+      >
+        <EventsFilters
+          eventsFilters={eventsFilters}
+          onChangeFilter={handleChangeFilter}
+        />
+      </SlidingPanel>
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 

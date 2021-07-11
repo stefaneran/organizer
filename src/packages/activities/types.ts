@@ -22,6 +22,7 @@ export interface Activity {
   name: string;
   locations: ActivityLocation[];
   activityType: ActivityType;
+  activityLocationIndex: number;
   participantType: ParticipantType[];
 }
 

@@ -39,3 +39,11 @@ resolve: {
     "^@the_alias(.*)$": "<rootDir>/src/the_alias$1"
   }
 }
+
+# Untracking files in the .gitignore
+
+Note: Commit all changes first!
+
+git rm -r --cached .;
+git add .;
+git commit -m "Untracked files issue resolved to fix .gitignore";
