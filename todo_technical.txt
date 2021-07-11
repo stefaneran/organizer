@@ -1,5 +1,6 @@
 
 General:
+- Implement localstorage to save transfer sizes
 - Host on Firebase
 - Add CI/CD pipeline
 - Add "demo" argument to URL so it automatically logs in with Demo account
@@ -67,22 +68,19 @@ Contacts:
 
 - Close filter panel if opening contact info/edit - Just close when clicking outside
   - Make generic filter panel component
-- (MVP) Events: Show more details in info
+- Events: Have a "None" option for location
+- Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)
-- (MVP) Contacts: Show more details in info
+- Contacts: Show more details in info
   - Last hangout (days ago)
-  - Last contact 
   - Friendship levels (hangoutTally/dateCreated)
   - Acquaintances
-- (MVP) Events: Participant suggestion function
-- (MVP) Contacts: Add snooze action to reset timer
-- (MVP) Contacts: Sort by: Time since last hangout (take snooze into account)
-- (MVP) Contacts: Show mini chips for gender, last contact, etc
-- (MVP) Events: Don't show activity types that have no items + Add 'All' option
-- (MVP) Activities: Add "Social" type
-
-
+- Events: Participant suggestion function
+- Contacts: Show mini chips for gender, last contact, etc
+- Events: Don't show activity types that have no items + Add 'All' option
+- Activities: Add "Social" type
+-----------------------------------------------
 - Events: Filters - Activity Type / Date range (before/after)
 - Events: Show male/female ratio + suggestion how many to add to achieve balance
 - Events: ListItem undefined values (show something nicer)

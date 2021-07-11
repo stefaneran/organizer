@@ -2,7 +2,7 @@ import getEventsArray from '../utils/getEventsArray';
 import defaultEventFilters from '../utils/defaultEventFilters';
 import mockEvents from './mockEvents';
 
-const mockFiltersList = [
+const mockFilters = [
   { ...defaultEventFilters, showUpcoming: false },
   { ...defaultEventFilters, title: 'bir' },
   { ...defaultEventFilters, title: 'ork' },
@@ -20,7 +20,7 @@ const unitTests = [
   },
   // Past events
   {
-    input: mockFiltersList[0],
+    input: mockFilters[0],
     output: { 
       length: 2, 
       titles: ["", "Catch up with Nick from work"] 
@@ -28,7 +28,7 @@ const unitTests = [
   },
   // By title ("bir")
   {
-    input: mockFiltersList[1],
+    input: mockFilters[1],
     output: { 
       length: 1, 
       titles: ["John's Birthday Party"] 
@@ -36,7 +36,7 @@ const unitTests = [
   },
   // By title ("ork")
   {
-    input: mockFiltersList[2],
+    input: mockFilters[2],
     output: { 
       length: 1, 
       titles: ["Work Teambuilding"] 
@@ -44,7 +44,7 @@ const unitTests = [
   },
   // By title ("wor") and in past
   {
-    input: mockFiltersList[3],
+    input: mockFilters[3],
     output: { 
       length: 1, 
       titles: ["Catch up with Nick from work"] 

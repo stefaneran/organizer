@@ -18,7 +18,7 @@ export enum ParticipantType {
 }
 
 export interface Activity {
-  id: string; // The activity doesn't actually contain "id" prop until we add it in activitiesToArray function
+  id: string; // The activity doesn't actually contain "id" prop until we add it in getActivitiesArray function
   name: string;
   locations: ActivityLocation[];
   activityType: ActivityType;

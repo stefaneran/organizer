@@ -7,7 +7,7 @@ import ActivityNestedList from '@activities/components/ActivityNestedList';
 import ActivityInfo from '@activities/components/ActivityInfo';
 import ActivityFilters from '@activities/components/ActivitiesFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
-import activitiesToArray from '@activities/utils/activitiesToArray';
+import getActivitiesArray from '@root/packages/activities/utils/getActivitiesArray';
 import defaultFilters from '@activities/utils/defaultActivityFilters';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -55,7 +55,7 @@ const ActivitiesContainer: React.FC<Props> = ({
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
 
   const activitiesList = React.useMemo(() => 
-    activitiesToArray(activities, activityFilters), 
+    getActivitiesArray(activities, activityFilters), 
     [activities, activityFilters]
   );
 

@@ -3,7 +3,7 @@ import defaultContactFilters from '../utils/defaultContactFilters';
 import { RelationshipStatus, Genders, SortOption } from '../types';
 import mockContacts from './mockContacts';
 
-const mockFiltersList = [
+const mockFilters = [
   { ...defaultContactFilters, gender: Genders.Female },
   { ...defaultContactFilters, relationshipStatus: RelationshipStatus.Single },
   { ...defaultContactFilters, location: 'sof' },
@@ -25,7 +25,7 @@ const unitTests = [
   },
   // By gender ("Female")
   { 
-    input: mockFiltersList[0],
+    input: mockFilters[0],
     output: { 
       length: 2, 
       names: ["Jane Doe", "Yana Dancheva"] 
@@ -33,7 +33,7 @@ const unitTests = [
   },
   // By Relationaship status ("Single")
   { 
-    input: mockFiltersList[1],
+    input: mockFilters[1],
     output: { 
       length: 2, 
       names: ["Jack Robert", "Yana Dancheva"] 
@@ -41,7 +41,7 @@ const unitTests = [
   },
   // By location ("sof")
   { 
-    input: mockFiltersList[2],
+    input: mockFilters[2],
     output: { 
       length: 5, 
       names: ["Boris Danchev", "Jack Robert", "Jane Doe", "John Doe", "Yana Dancheva"] 
@@ -49,7 +49,7 @@ const unitTests = [
   },
   // By name ("doe")
   { 
-    input: mockFiltersList[3],
+    input: mockFilters[3],
     output: { 
       length: 2, 
       names: ["Jane Doe", "John Doe"] 
@@ -57,7 +57,7 @@ const unitTests = [
   },
   // By group ("Work")
   { 
-    input: mockFiltersList[4],
+    input: mockFilters[4],
     output: { 
       length: 2, 
       names: ["Jack Robert", "John Doe"] 
@@ -65,7 +65,7 @@ const unitTests = [
   },
   // One-on-one only
   { 
-    input: mockFiltersList[5],
+    input: mockFilters[5],
     output: { 
       length: 4, 
       names: ["Boris Danchev", "Jack Robert", "John Doe", "Julio Sanchez"] 
@@ -73,7 +73,7 @@ const unitTests = [
   },
   // Sort by Location
   { 
-    input: mockFiltersList[6],
+    input: mockFilters[6],
     output: { 
       length: 6, 
       names: ["Julio Sanchez", "John Doe", "Jane Doe", "Jack Robert", "Boris Danchev", "Yana Dancheva"] 
@@ -81,7 +81,7 @@ const unitTests = [
   },
   // Sort by Last Contact
   { 
-    input: mockFiltersList[7],
+    input: mockFilters[7],
     output: { 
       length: 6, 
       names: ["Julio Sanchez", "Boris Danchev", "Yana Dancheva", "Jane Doe", "Jack Robert", "John Doe"] 

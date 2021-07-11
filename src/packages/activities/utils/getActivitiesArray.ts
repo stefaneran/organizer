@@ -1,6 +1,6 @@
 import { Activity, ActivityFilters } from "@activities/types";
 
-export default (
+const getActivitiesArray = (
   activities: Record<string, Activity>, 
   filters: ActivityFilters
 ): Activity[] => {
@@ -21,3 +21,5 @@ export default (
   }
   return filteredActivities;
 }
+
+export default getActivitiesArray;

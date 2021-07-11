@@ -46,7 +46,7 @@ export interface Contact {
 }
 
 export interface Event {
-  id: string;
+  id: string; // The event doesn't actually contain "id" prop until we add it in eventsToArray function
   title: string;
   participants: string[]; // IDs of contacts included
   activityId: string; // ID of activity
