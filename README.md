@@ -1,3 +1,16 @@
+# To run locally
+
+
+- In 'webpack.config.js' change:
+  publicPath: './' 
+  to 
+  publicPath: '/'
+
+- Run "yarn"
+
+- Run "yarn build"
+
+- Accessible now on "localhost:3420"
 
 # To deploy to "https://stefaneran.github.io/organizer"
 
@@ -5,12 +18,18 @@
   - Go to src/app/store/reducer.ts
   - Change "version" property in initialState
 
+- Double check default app on load - Don't show works in progress
+  - Go to src/core/defaultWebApp.ts
+  - Choose default app to show that is not a work in progress
+
 - Change baseUrl to remote
-  - Go to src/store/baseUrl.ts
+  - Go to src/core/baseUrl.ts
   - Change default export to 'baseUrlRemote' if not already
 
 - In 'webpack.config.js' change 
-  publicPath: '/' to publicPath: './'
+  publicPath: '/' 
+  to 
+  publicPath: './'
 
 - Run "yarn build"
 

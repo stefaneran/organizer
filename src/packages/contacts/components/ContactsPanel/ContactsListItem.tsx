@@ -1,7 +1,16 @@
 import * as React from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText } from '@material-ui/core';
 import ContactMeter from '@contacts/components/ContactsPanel/ContactMeter';
+import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
+import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
 import { Contact } from '@contacts/types';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  miniChips: {
+    display: 'flex'
+  }
+}));
 
 interface Props {
   contact: Contact;
@@ -9,8 +18,8 @@ interface Props {
 }
 
 const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
-
-  const { id, name, location, lastContact } = contact;
+  const classes = useStyles();
+  const { id, name, location, lastContact, gender, relationshipStatus } = contact;
 
   const handleOpenInfoPanel = () => {
     onOpenInfo(id)
@@ -20,11 +29,12 @@ const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
     <ListItem
       button
       onClick={handleOpenInfoPanel}
-      style={{ 
-        // background: itemBackground(item)
-      }}
     >
       <ListItemText primary={name} secondary={location} />
+      <div className={classes.miniChips}>
+        <GenderChip gender={gender} mini />
+        <RelationshipChip relationshipStatus={relationshipStatus} mini />
+      </div>
       <ContactMeter lastContact={lastContact}  />
     </ListItem>
   )

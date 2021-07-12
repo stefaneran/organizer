@@ -6,31 +6,55 @@ import { RelationshipStatus } from '@contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chip: {
-    marginRight: '0.5em',
     color: '#fff',
     '& svg': {
       color: '#fff'
+    }
+  },
+  miniChip: {
+    width: '2em',
+    height: '2em',
+    borderRadius: '50%',
+    padding: '0.25em',
+    '& svg': {
+      color: '#fff',
+      width: '1.5rem',
+      height: '1.5rem'
     }
   }
 }));
 
 interface Props {
   relationshipStatus: RelationshipStatus;
+  mini?: boolean;
   style?: Record<string, string | number>;
 }
 
-const RelationshipChip: React.FC<Props> = ({ relationshipStatus, style }) => {
+const RelationshipChip: React.FC<Props> = ({ relationshipStatus, mini, style }) => {
   const classes = useStyles();
   const isSingle = relationshipStatus === RelationshipStatus.Single;
-  const relationshipStyle = { backgroundColor: isSingle ? '#06D6A0' : '#C03535' }
+  const relationshipStyle = { 
+    backgroundColor: isSingle ? '#06D6A0' : '#C03535',
+    marginRight: '0.5em'
+  }
   return (
-    <Tooltip title="Relationship Status">
-      <Chip 
-        icon={<FavoriteIcon />}
-        className={classes.chip}
-        label={relationshipStatus}
-        style={{ ...style, ...relationshipStyle }}
-      />
+    <Tooltip title={mini ? relationshipStatus : "Relationship Status"}>
+      {mini ? (
+        <div 
+          className={classes.miniChip} 
+          style={{ ...style, ...relationshipStyle }}
+        >
+          <FavoriteIcon />
+        </div>
+      ) : (
+        <Chip 
+          icon={<FavoriteIcon />}
+          className={classes.chip}
+          label={relationshipStatus}
+          style={{ ...style, ...relationshipStyle }}
+        />
+      )}
+      
     </Tooltip>
   )
 }
