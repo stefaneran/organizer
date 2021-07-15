@@ -1,4 +1,4 @@
-import checkIsLocationsEmpty from '../utils/checkIsLocationsEmpty';
+import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
 
 const unitTests = [
   {
@@ -27,7 +27,7 @@ const unitTests = [
   }
 ]
 
-test('checkIsLocationsEmpty Works', () => {
+test('checkIsLocationsEmpty', () => {
   for (const unitTest of unitTests) {
     const result = checkIsLocationsEmpty(unitTest.input);
     expect(result).toBe(unitTest.output);

@@ -15,7 +15,6 @@ module.exports = {
 
   resolve: {
     alias: {
-      "@root": path.resolve(__dirname, './src'),
       "@app": path.resolve(__dirname, './src/app'),
       "@core": path.resolve(__dirname, './src/core'),
       "@activities": path.resolve(__dirname, './src/packages/activities'),
@@ -29,7 +28,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'build.js',
-    publicPath: './'
+    publicPath: '/'
   },
 
   module: {

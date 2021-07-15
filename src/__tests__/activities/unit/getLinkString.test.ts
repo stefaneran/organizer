@@ -1,4 +1,4 @@
-import getLinkString from '../utils/getLinkString';
+import getLinkString from '@activities/utils/getLinkString';
 
 const unitTests = [
   {
@@ -23,7 +23,7 @@ const unitTests = [
   }
 ]
 
-test('getLinkString Works', () => {
+test('getLinkString', () => {
   for (const unitTest of unitTests) {
     const result = getLinkString(unitTest.input);
     expect(result).toBe(unitTest.output)

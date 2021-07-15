@@ -1,7 +1,7 @@
-import getActivitiesArray from '../utils/getActivitiesArray';
-import defaultActivityFilters from '../utils/defaultActivityFilters';
-import mockActivities from './mockActivities';
-import { ParticipantType } from '../types';
+import getActivitiesArray from '@activities/utils/getActivitiesArray';
+import defaultActivityFilters from '@activities/utils/defaultActivityFilters';
+import { ParticipantType } from '@activities/types';
+import mockActivities from '@core/mocks/mockActivities';
 
 const mockFilters = [
   { ...defaultActivityFilters, participants: ParticipantType.Alone },
@@ -61,7 +61,7 @@ const unitTests = [
   },
 ]
 
-test('getActivitiesArray Works', () => {
+test('getActivitiesArray', () => {
   for (const unitTest of unitTests) {
     const filters = unitTest.input;
     const result = getActivitiesArray(mockActivities, filters);

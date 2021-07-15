@@ -30,6 +30,7 @@ const ActivitiesFilters: React.FC<Props> = ({
         size="medium"
         variant="outlined"
         label="Name"
+        inputProps={{ "data-testid": "name-textfield" }}
       />
       <SelectInput
         className={classes.input}
@@ -37,6 +38,7 @@ const ActivitiesFilters: React.FC<Props> = ({
         options={['All', ...Object.keys(ParticipantType)]}
         onChange={onChangeFilter('participants')}
         label="Participants"
+        inputProps={{ "data-testid": "participants-select" }}
       />
     </>
   )

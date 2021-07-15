@@ -12,6 +12,12 @@
 
 - Accessible now on "localhost:3420"
 
+# To test
+
+Unit tests:
+
+- yarn test
+
 # To deploy to "https://stefaneran.github.io/organizer"
 
 - Change version: Where #.#.# are [Major Iteration].[Major feature].[Minor changes commit]

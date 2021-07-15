@@ -1,5 +1,5 @@
-import getActivityLocation from '../utils/getActivityLocation';
-import mockActivities from './mockActivities';
+import getActivityLocation from '@activities/utils/getActivityLocation';
+import mockActivities from '@core/mocks/mockActivities';
 
 const unitTests = [
   {
@@ -20,7 +20,7 @@ const unitTests = [
   }
 ]
 
-test('getActivityLocation Works', () => {
+test('getActivityLocation', () => {
   for (const unitTest of unitTests) {
     const result = getActivityLocation(mockActivities, unitTest.input.id, unitTest.input.index);
     expect(result).toEqual(unitTest.output);

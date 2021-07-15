@@ -1,4 +1,4 @@
-import getActivityOptions from '../utils/getActivityOptions';
+import getActivityOptions from '@activities/utils/getActivityOptions';
 import { Activity, ActivityType } from '@activities/types';
 
 const mockActivities = {
@@ -22,7 +22,7 @@ const unitTests = [
   { input: ActivityType.Sport, output: 4 }
 ]
 
-test('getActivityOptions Works', () => {
+test('getActivityOptions', () => {
   for (const unitTest of unitTests) {
     const matches = getActivityOptions(mockActivities, unitTest.input);
     expect(matches.length).toEqual(unitTest.output);

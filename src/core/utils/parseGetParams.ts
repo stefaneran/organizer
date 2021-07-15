@@ -5,7 +5,6 @@ const parseGetParams = (url: string): Record<string, string> => {
   }
   const params = {};
   const paramsSplit = urlSplit[1]?.split('&');
-  console.log(paramsSplit)
   for (const param of paramsSplit) {
     if (param.includes('=')) {
       if (param.match(/=/g).length >= 2) {

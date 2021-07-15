@@ -11,7 +11,7 @@ import ActivityFilters from '@activities/components/ActivitiesFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
-import getActivitiesArray from '@root/packages/activities/utils/getActivitiesArray';
+import getActivitiesArray from '@activities/utils/getActivitiesArray';
 import defaultFilters from '@activities/utils/defaultActivityFilters';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

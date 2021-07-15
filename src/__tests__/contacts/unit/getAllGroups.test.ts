@@ -1,5 +1,5 @@
 // @ts-nocheck
-import getAllGroups from '../utils/getAllGroups';
+import getAllGroups from '@contacts/utils/getAllGroups';
 
 const mockContacts1 = {
   '1': {
@@ -25,7 +25,7 @@ const mockContacts2 = {
   }
 }
 
-test('getAllGroups Works', () => {
+test('getAllGroups', () => {
   const result1 = getAllGroups(mockContacts1);
   const result2 = getAllGroups(mockContacts2);
   expect(result1).toEqual(['GroupA', 'GroupB', 'GroupC', 'GroupD']);

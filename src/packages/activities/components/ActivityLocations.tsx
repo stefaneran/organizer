@@ -7,11 +7,17 @@ interface Props {
   locations: ActivityLocation[];
 }
 
+const getKey = (location, index) => `${location.name}-${location.address}-${index}`;
+
 const ActivityLocations: React.FC<Props> = ({ locations }) => {
   return (
-    <List component="div" disablePadding>
+    <List 
+      component="div" 
+      disablePadding 
+      data-testid="activity-location-list"
+    >
       {locations.map((location, index) => (
-        <ListItem key={`${location.name}-${location.address}-${index}`}>
+        <ListItem key={getKey(location, index)} data-testid="activity-location-item">
           <ListItemText 
             primary={location.name} 
             secondary={<LocationLink address={location.address} />} 

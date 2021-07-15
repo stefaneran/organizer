@@ -17,6 +17,7 @@ interface Props {
   className?: string; 
   label?: string;
   fullWidth?: boolean;
+  inputProps?: any;
   // Accessors for specific values - Defaults to direct access if none provided
   // Default: (option) => option
   getOptionKey?: (option: any, index?: number) => any; 
@@ -31,7 +32,10 @@ const SelectInput: React.FC<Props> = ({
   className, 
   label, 
   fullWidth,
-  ...accessors 
+  getOptionKey,
+  getOptionValue,
+  getOptionLabel,
+  ...props
 }) => {
   const classes = useStyles();
   return (
@@ -43,13 +47,14 @@ const SelectInput: React.FC<Props> = ({
         value={value}
         onChange={onChange}
         fullWidth={fullWidth}
+        {...props}
       >
         {options?.map((option, index) => (
           <MenuItem 
-            key={accessors.getOptionKey?.(option, index) ?? option} 
-            value={accessors.getOptionValue?.(option, index) ?? option}
+            key={getOptionKey?.(option, index) ?? option} 
+            value={getOptionValue?.(option, index) ?? option}
           >
-            {accessors.getOptionLabel?.(option, index) ?? option}
+            {getOptionLabel?.(option, index) ?? option}
           </MenuItem>
         )) ?? null}
       </Select>

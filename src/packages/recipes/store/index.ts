@@ -38,7 +38,6 @@ const slice = createSlice({
     updateAfterItemDelete: (state, { payload }) => {
       const { hasChanges, changes } = payload;
       if (hasChanges) {
-        console.log(changes)
         changes.forEach((change: IngredientChange) => {
           const { recipeId, itemId, updatedIngredient } = change;
           const recipe = state.recipes[recipeId];

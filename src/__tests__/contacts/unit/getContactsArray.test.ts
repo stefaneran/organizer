@@ -1,7 +1,7 @@
-import getContactsArray from '../utils/getContactsArray';
-import defaultContactFilters from '../utils/defaultContactFilters';
-import { RelationshipStatus, Genders, SortOption } from '../types';
-import mockContacts from './mockContacts';
+import getContactsArray from '@contacts/utils/getContactsArray';
+import defaultContactFilters from '@contacts/utils/defaultContactFilters';
+import { RelationshipStatus, Genders, SortOption } from '@contacts/types';
+import mockContacts from '@core/mocks/mockContacts';
 
 const mockFilters = [
   { ...defaultContactFilters, gender: Genders.Female },
@@ -89,7 +89,7 @@ const unitTests = [
   },
 ]
 
-test('getContactsArray Works', () => {
+test('getContactsArray', () => {
   for (const unitTest of unitTests) {
     const filters = unitTest.input;
     const result = getContactsArray(mockContacts, filters);

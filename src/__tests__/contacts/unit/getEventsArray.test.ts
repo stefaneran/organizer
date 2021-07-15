@@ -1,6 +1,6 @@
-import getEventsArray from '../utils/getEventsArray';
-import defaultEventFilters from '../utils/defaultEventFilters';
-import mockEvents from './mockEvents';
+import getEventsArray from '@contacts/utils/getEventsArray';
+import defaultEventFilters from '@contacts/utils/defaultEventFilters';
+import mockEvents from '@core/mocks/mockEvents';
 
 const mockFilters = [
   { ...defaultEventFilters, showUpcoming: false },
@@ -52,7 +52,7 @@ const unitTests = [
   }
 ]
 
-test('getEventsArray Works', () => {
+test('getEventsArray', () => {
   for (const unitTest of unitTests) {
     const filters = unitTest.input;
     const result = getEventsArray(mockEvents, filters);

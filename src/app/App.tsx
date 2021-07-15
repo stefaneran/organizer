@@ -68,7 +68,6 @@ const App: React.FC<Props> = ({
   // load user data from local storage and login
   React.useEffect(() => {
     const params = parseGetParams(window.location.href);
-    console.log(params)
     // Log into demo account if URL has "?demo=true" GET param
     if (params.demo && params.demo === 'true') {
       login({ userName: 'demo', password: 'demo' });

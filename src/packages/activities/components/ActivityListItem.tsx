@@ -32,6 +32,7 @@ const ActivityListItem: React.FC<Props> = ({
       className={isSelected ? classes.isSelected : ''}
       button 
       onClick={handleSelect}
+      data-testid={`activity-list-item-${activity.id}`}
     >
       <ListItemText primary={activity.name} secondary={activity.activityType} />
     </ListItem>

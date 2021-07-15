@@ -1,4 +1,4 @@
-import getShortName from '../utils/getShortName';
+import getShortName from '@contacts/utils/getShortName';
 
 const unitTests = [
   {
@@ -35,7 +35,7 @@ const unitTests = [
   }
 ]
 
-test('getShortName Works', () => {
+test('getShortName', () => {
   for (const unitTest of unitTests) {
     const result = getShortName(unitTest.input);
     expect(result).toEqual(unitTest.output);

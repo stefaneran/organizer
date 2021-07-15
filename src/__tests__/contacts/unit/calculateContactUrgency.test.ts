@@ -1,4 +1,4 @@
-import calculateContactUrgency from '../utils/calculateContactUrgency';
+import calculateContactUrgency from '@contacts/utils/calculateContactUrgency';
 
 const oneUnixDay = 60 * 60 * 24 * 1000;
 
@@ -49,7 +49,7 @@ const unitTests = [
   }
 ]
 
-test('calculateContactUrgency Works', () => {
+test('calculateContactUrgency', () => {
   for (const unitTest of unitTests) {
     const result = calculateContactUrgency(unitTest.input);
     expect(result).toEqual(unitTest.output);

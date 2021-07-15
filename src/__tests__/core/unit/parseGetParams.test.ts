@@ -1,4 +1,4 @@
-import parseGetParams from '../utils/parseGetParams';
+import parseGetParams from '@core/utils/parseGetParams';
 
 const unitTests = [
   {
@@ -31,7 +31,7 @@ const unitTests = [
   }
 ]
 
-test('parseGetParams Works', () => {
+test('parseGetParams', () => {
   for (const unitTest of unitTests) {
     const result = parseGetParams(unitTest.input);
     expect(result).toEqual(unitTest.output);

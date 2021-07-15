@@ -1,25 +1,46 @@
 
 General:
-- Implement localstorage to save transfer sizes
-- Host on Firebase
+- Add linting and fix lints
 - Add CI/CD pipeline
-- Add "demo" argument to URL so it automatically logs in with Demo account
+- Host on Firebase
+- Implement localstorage to save transfer sizes
+- Treeshake and invalidate NPM modules
+- Make landing page
 - Change local storage to cookies
 - Use tokens for authorization instead of sending user/pass in post
 - Add patchnotes dialog/button
-- Make landing page
 - Use mongoose in back-end
 - Change APIs verbs to more appropriate (DELETE, PUT, etc)
 - Remove PeopleIcon and use material UI equivalent
-- Add unit tests
 - Add error boundry
-- Add linting and fix lints
 - Use MUI theme and make Dark theme
-- TypeScript: 
-  - Core
 - Add sync button in appbar to update info
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
+===============================================================
+
+Tests:
+
+-Core: 
+  - Unit tests 
+  - Component tests
+- Activities: 
+  X Unit tests 
+  - Component tests 
+  - Features
+- Contacts: 
+  X Unit tests 
+  - Component tests 
+  - Features
+- Inventory: 
+  - Unit tests 
+  - Component tests 
+  - Features
+- Recipes: 
+  - Unit tests 
+  - Component tests 
+  - Features
+  
 ===============================================================
 
 Recipes:
@@ -66,7 +87,6 @@ Inventory:
 
 Contacts:
 
-- CRITICAL BACK-END BUG: Deleting a contact breaks app if they're part of a past event 
 - Contacts: Show mini chips for gender, last contact, etc
 - Activities: Add "Social" type
 - Activities: Expand
