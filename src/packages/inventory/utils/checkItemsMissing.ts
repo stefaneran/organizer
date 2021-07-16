@@ -1,4 +1,4 @@
-import { InventoryItem } from '@inventory/types';
+import { InventoryItem } from 'inventory/types';
 
 // Check if any items are missing from both available, and cart
 // Shouldn't have a use anymore since I removed the useless "Add Missing To Cart" button

@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { IconButton, TextField } from '@material-ui/core';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import getItemsOptions from '@recipes/utils/getItemsOptions';
-import isAlternativeIngredient from '@recipes/utils/isAlternativeIngredient';
-import { InventoryItem } from '@inventory/types';
-import { IngredientEdit, AlternativeIngredientEdit } from '@recipes/types';
-import { InputEvent, AutoCompleteHandler } from '@core/types';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import getItemsOptions from 'recipes/utils/getItemsOptions';
+import isAlternativeIngredient from 'recipes/utils/isAlternativeIngredient';
+import { InventoryItem } from 'inventory/types';
+import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
+import { InputEvent, AutoCompleteHandler } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: { 

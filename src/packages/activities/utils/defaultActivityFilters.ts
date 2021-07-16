@@ -1,4 +1,4 @@
-import { ActivityFilters } from '@activities/types';
+import { ActivityFilters } from 'activities/types';
 
 const defaultFilters: ActivityFilters = {
   name: '',

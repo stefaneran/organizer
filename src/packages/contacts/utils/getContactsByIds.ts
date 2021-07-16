@@ -1,4 +1,4 @@
-import { Contact } from '@contacts/types';
+import { Contact } from 'contacts/types';
 
 const getContactsByIds = (
   contacts: Record<string, Contact>, 

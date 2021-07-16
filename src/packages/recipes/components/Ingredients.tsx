@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import ItemTag from '@recipes/components/ItemTag';
-import { Ingredient } from '@recipes/types';
-import { InventoryItem } from '@inventory/types';
+import ItemTag from 'recipes/components/ItemTag';
+import { Ingredient } from 'recipes/types';
+import { InventoryItem } from 'inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileText: {

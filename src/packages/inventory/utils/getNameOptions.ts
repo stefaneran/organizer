@@ -1,5 +1,5 @@
-import genericSort from '@core/utils/genericSort';
-import { InventoryItem } from '@inventory/types';
+import genericSort from 'core/utils/genericSort';
+import { InventoryItem } from 'inventory/types';
 
 interface Option {
   label: string;

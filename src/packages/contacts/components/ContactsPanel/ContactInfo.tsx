@@ -5,17 +5,18 @@ import { Typography, IconButton, Button, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { PeopleIconMediumInfo } from '@core/components/Icons/PeopleIcon';
+import { PeopleIconMediumInfo } from 'core/components/Icons/PeopleIcon';
 // Components
-import ContactInfoEdit from '@contacts/components/ContactsPanel/ContactInfoEdit';
-import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
-import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
-import OneOnOneChip from '@contacts/components/ContactsPanel/OneOnOneChip';
-import Chips from '@contacts/components/Chips';
+import ContactInfoEdit from 'contacts/components/ContactsPanel/ContactInfoEdit';
+import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
+import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
+import OneOnOneChip from 'contacts/components/ContactsPanel/OneOnOneChip';
+import Chips from 'contacts/components/Chips';
 // Utils
-import { formatDateClassic } from '@core/utils/dateUtils';
+import { formatDateClassic } from 'core/utils/dateUtils';
 // Types
-import { Contact } from '@contacts/types';
+import { Contact } from 'contacts/types';
+import { ReduxProps } from 'contacts/container/index';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -61,10 +62,11 @@ interface Props {
   contactId: string;
   groups: string[];
   isOpen: boolean;
-  actions: Record<string, Function>;
   onClose: () => void;
   onSnoozeContact: () => void;
   onDeleteContact: () => void;
+  createContact: ReduxProps["createContact"];
+  editContact: ReduxProps["editContact"];
 }
 
 const ContactInfo: React.FC<Props> = ({ 
@@ -72,10 +74,11 @@ const ContactInfo: React.FC<Props> = ({
   contactId,
   groups,
   isOpen,
-  actions,
   onClose,
   onSnoozeContact,
-  onDeleteContact
+  onDeleteContact,
+  createContact,
+  editContact
  }) => {
   const classes = useStyles();
   const isCreate = !Boolean(contactId);
@@ -115,8 +118,8 @@ const ContactInfo: React.FC<Props> = ({
               groups={groups}
               onClose={handleClose}
               toggleEdit={toggleEdit}
-              createContact={actions.createContact}
-              editContact={actions.editContact}
+              createContact={createContact}
+              editContact={editContact}
               onDeleteContact={onDeleteContact}
             />
           ) : (

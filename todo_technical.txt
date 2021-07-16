@@ -1,7 +1,8 @@
 
 General:
-- Add linting and fix lints
 - Add CI/CD pipeline
+- Learn how to use jest-dom
+- Learn Redux Store mocking for testing (maybe use wrapper/provider)
 - Host on Firebase
 - Implement localstorage to save transfer sizes
 - Treeshake and invalidate NPM modules
@@ -17,9 +18,13 @@ General:
 - Add sync button in appbar to update info
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
+- Fix lint errors/warnings
+
 ===============================================================
 
 Tests:
+
+- Learn how to use jest-dom
 
 -Core: 
   - Unit tests 

@@ -1,3 +1,5 @@
+import { ReduxProps } from 'inventory/container';
+
 export enum InventoryTabs {
   Cart = "Cart",
   Inventory = "Inventory"
@@ -11,24 +13,25 @@ export interface InventoryItem {
 
 export interface InventoryActions {
   inventory: {
-    addToAll: Function;
-    removeFromAll: Function;
-    addToAvailable: Function;
-    addNewToAvailable: Function;
-    removeFromAvailable: Function;
-    edit: (id: string, item: Omit<InventoryItem, "id">) => void;
+    addToAll: ReduxProps["addToAllItems"];
+    removeFromAll: ReduxProps["removeFromAllItems"];
+    addToAvailable: ReduxProps["addToAvailable"];
+    addNewToAvailable: ReduxProps["addNewToAvailable"];
+    removeFromAvailable: ReduxProps["removeFromAvailable"];
+    edit: ReduxProps["editItem"];
   },
   cart: {
-    add: Function;
-    addNew: Function;
-    remove: Function;
-    updateSelected: Function;
-    finishShopping: Function;
+    add: ReduxProps["addToCart"];
+    addNew: ReduxProps["addNewToCart"];
+    remove: ReduxProps["removeFromCart"];
+    updateSelected: ReduxProps["updateSelectedInCart"];
+    finishShopping: ReduxProps["finishShopping"];
   }
 }
 
 export interface RowIcon {
   icon: JSX.Element;
-  handler: Function;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  handler: (...args: any[]) => void;
   altIcon?: JSX.Element;
 }

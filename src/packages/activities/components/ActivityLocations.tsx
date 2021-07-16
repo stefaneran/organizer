@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import LocationLink from '@activities/components/LocationLink';
-import { ActivityLocation } from '@activities/types';
+import LocationLink from 'activities/components/LocationLink';
+import { ActivityLocation } from 'activities/types';
 
 interface Props {
   locations: ActivityLocation[];

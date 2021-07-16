@@ -1,17 +1,16 @@
 // @ts-nocheck
-import {
-  updateRecipe,
-  deleteRecipeDone
-} from '.';
-import {
-  addToAllItems
-} from '@inventory/store/thunks';
-import genericRequest from '@core/utils/genericRequest';
-import baseUrl from '@core/baseUrl';
+// eslint-disable
+import { Dispatch } from 'redux';
+import { updateRecipe, deleteRecipeDone } from '.';
+import { addToAllItems } from 'inventory/store/thunks';
+import baseUrl from 'core/baseUrl';
 import { v4 } from 'uuid';
-import sanitizeIngredients from '@recipes/utils/sanitizeIngredients';
+import genericRequest from 'core/utils/genericRequest';
+import sanitizeIngredients from 'recipes/utils/sanitizeIngredients';
+import { GetState } from 'core/types';
+import { Recipe, RecipeEdit } from 'recipes/types';
 
-export const addRecipe = (recipe) => async (dispatch, getState) => {
+export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
   const newId = v4();
@@ -30,7 +29,7 @@ export const addRecipe = (recipe) => async (dispatch, getState) => {
   );
 }
 
-export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
+export const editRecipe = (recipe: Recipe, recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
   const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
   const updatedRecipe = {
@@ -48,7 +47,7 @@ export const editRecipe = (recipe, recipeId) => async (dispatch, getState) => {
   );
 }
 
-export const deleteRecipe = (recipeId) => async (dispatch, getState) => {
+export const deleteRecipe = (recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,

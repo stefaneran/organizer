@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
-import Cart from '@inventory/components/Cart';
-import Inventory from '@inventory/components/Inventory';
-import mapActions from '@inventory/utils/mapActions';
-import { InventoryTabs, InventoryItem } from '@inventory/types';
+import { Paper } from '@material-ui/core'; 
+import { connector, ReduxProps, DispatchProps } from './index';
+import Cart from 'inventory/components/Cart';
+import Inventory from 'inventory/components/Inventory';
+import mapActions from 'inventory/utils/mapActions';
+import { InventoryTabs, InventoryItem } from 'inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -15,23 +16,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  allItems: Record<string, InventoryItem>;
-  availableItems: string[];
-  cart: string[];
-  selectedInCart: string[];
-}
-
-const InventoryContainer: React.FC<Props & Record<string, Function>> = ({
+const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
   allItems,
   availableItems,
   cart,
   selectedInCart,
   ...actionProps
 }) => {
-  
   const classes = useStyles();
-  
   const actions = mapActions(actionProps);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);
@@ -41,9 +33,9 @@ const InventoryContainer: React.FC<Props & Record<string, Function>> = ({
   return (
     <Paper className={classes.container}>
       <Cart 
-        cart={cart} 
+        cart={cart}
         selectedInCart={selectedInCart}
-        actions={actions} 
+        actions={actions}
         allItems={allItems}
         isSelectedTab={selectedTab === InventoryTabs.Cart}
         setSelectedTab={handleSelectTab}
@@ -60,4 +52,4 @@ const InventoryContainer: React.FC<Props & Record<string, Function>> = ({
   )
 }
 
-export default InventoryContainer;
+export default connector(InventoryContainer);

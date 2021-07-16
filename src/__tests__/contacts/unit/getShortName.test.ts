@@ -1,4 +1,4 @@
-import getShortName from '@contacts/utils/getShortName';
+import getShortName from 'contacts/utils/getShortName';
 
 const unitTests = [
   {

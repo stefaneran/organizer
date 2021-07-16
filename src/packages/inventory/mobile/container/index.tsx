@@ -1,13 +1,12 @@
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   removeFromAvailable,
   addToCart,
   removeFromCart,
   updateSelectedInCart,
   finishShopping
-} from '@inventory/store/thunks';
-import InventoryMobileContainer from './InventoryMobileContainer';
-import { AppStore } from '@core/types';
+} from 'inventory/store/thunks';
+import { AppStore } from 'core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   allItems: state.inventoryStore.allItems,
@@ -24,7 +23,14 @@ const mapDispatchToProps = {
   finishShopping
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InventoryMobileContainer);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type ReduxProps = ConnectedProps<typeof connector>;
+
+export type DispatchProps = {
+  removeFromAvailable: ReduxProps["removeFromAvailable"],
+  addToCart: ReduxProps["addToCart"],
+  removeFromCart: ReduxProps["removeFromCart"],
+  updateSelectedInCart: ReduxProps["updateSelectedInCart"],
+  finishShopping: ReduxProps["finishShopping"]
+}

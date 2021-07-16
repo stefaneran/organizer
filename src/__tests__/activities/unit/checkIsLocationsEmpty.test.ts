@@ -1,4 +1,4 @@
-import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
+import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 
 const unitTests = [
   {

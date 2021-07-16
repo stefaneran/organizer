@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Link } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
-import getLinkString from '@activities/utils/getLinkString';
+import getLinkString from 'activities/utils/getLinkString';
 
 const styles = {
   color: '#000', 
   height: '0.7em', 
   width: '0.7em',
-  position: 'relative' as 'relative',
+  position: 'relative' as const,
   top: '0.1em',
   marginRight: '0.3em'
 }

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List } from 'react-virtualized';
 import 'react-virtualized/styles.css'; // only needs to be imported once
-import EventListItem from '@contacts/components/EventsPanel/EventListItem';
-import { Contact, Event } from '@contacts/types';
-import { Activity } from '@activities/types';
+import EventListItem from 'contacts/components/EventsPanel/EventListItem';
+import { Contact, Event } from 'contacts/types';
+import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

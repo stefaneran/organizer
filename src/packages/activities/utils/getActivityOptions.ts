@@ -1,5 +1,5 @@
-import { Activity, ActivityType } from '@activities/types';
-import { Option } from '@core/types';
+import { Activity, ActivityType } from 'activities/types';
+import { Option } from 'core/types';
 
 const getActivityOptions = (
   activities: Record<string, Activity>, 

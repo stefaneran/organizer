@@ -5,8 +5,8 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HistoryIcon from '@material-ui/icons/History';
 import UpdateIcon from '@material-ui/icons/Update';
-import SwitchInput from '@core/components/inputs/SwitchInput';
-import { EventFilters } from '@contacts/types';
+import SwitchInput from 'core/components/inputs/SwitchInput';
+import { EventFilters } from 'contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const switchIconStyle = {
   height: '1.2em', 
   width: '1.2em',
-  position: 'relative' as 'relative',
+  position: 'relative' as const,
   top: '0.2em'
 }
 

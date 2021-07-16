@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
-import InventorySection from '@inventory/components/InventorySection';
-import availableItemsToArray from '@inventory/utils/availableItemsToArray';
-import { InventoryActions, InventoryItem } from '@inventory/types';
+import { RemoveBagIconSmall } from 'core/components/Icons/BagIcon';
+import InventorySection from 'inventory/components/InventorySection';
+import availableItemsToArray from 'inventory/utils/availableItemsToArray';
+import { InventoryActions, InventoryItem } from 'inventory/types';
 
 interface Props {
   allItems: Record<string, InventoryItem>;

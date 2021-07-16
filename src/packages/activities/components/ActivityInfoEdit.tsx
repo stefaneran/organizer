@@ -3,14 +3,15 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Select, MenuItem, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
-import EditLocations from '@activities/components/EditLocations';
-import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
-import SelectInput from '@core/components/inputs/SelectInput';
-import defaultActivityProps from '@activities/utils/defaultActivityProps';
-import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
-import getEnumValues from '@core/utils/getEnumValues';
-import { Activity, ActivityType, ParticipantType, ActivityLocation } from '@activities/types';
-import { Option } from '@core/types';
+import EditLocations from 'activities/components/EditLocations';
+import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
+import SelectInput from 'core/components/inputs/SelectInput';
+import defaultActivityProps from 'activities/utils/defaultActivityProps';
+import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
+import getEnumValues from 'core/utils/getEnumValues';
+import { ReduxProps } from 'activities/container';
+import { Activity, ActivityType, ParticipantType, ActivityLocation } from 'activities/types';
+import { Option } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -33,8 +34,8 @@ interface Props {
   activity: Activity;
   onClose: () => void;
   toggleEdit: () => void;
-  editActivity: Function;
-  addActivity: Function;
+  addActivity: ReduxProps["addActivity"];
+  editActivity: ReduxProps["editActivity"];
 }
 
 const ActivityInfoEdit: React.FC<Props> = ({
@@ -42,8 +43,8 @@ const ActivityInfoEdit: React.FC<Props> = ({
   activity,
   onClose,
   toggleEdit,
-  editActivity,
-  addActivity
+  addActivity,
+  editActivity
 }) => {
   const classes = useStyles();
   const isCreate = !Boolean(activityId);

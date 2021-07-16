@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import ActivitiesFilters from '@activities/components/ActivitiesFilters';
-import defaultActivityFilters from '@activities/utils/defaultActivityFilters';
+import ActivitiesFilters from 'activities/components/ActivitiesFilters';
+import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 
 const setup = (onChange?) => {
   const emptyFunc = () => () => {};

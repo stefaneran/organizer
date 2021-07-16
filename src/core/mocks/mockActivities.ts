@@ -1,4 +1,4 @@
-import { Activity, ActivityType, ParticipantType } from '@activities/types';
+import { Activity, ActivityType, ParticipantType } from 'activities/types';
 
 const mockActivities: Record<string, Activity> = {
   '1': {

@@ -1,4 +1,4 @@
-import { Recipe } from "@recipes/types";
+import { Recipe } from "recipes/types";
 
 const getNationalityOptions = (recipes: Record<string, Recipe>): string[] => {
   const nationalities: string[] = [];

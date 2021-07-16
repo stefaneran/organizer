@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { Dispatch } from 'redux';
 import {
   setItem,
   removeFromAllItemsDone,
@@ -9,12 +10,14 @@ import {
   updateSelectedInCartDone,
   finishShoppingDone
 } from '.';
-import { updateAfterItemDelete } from '@recipes/store';
-import genericRequest from '@core/utils/genericRequest';
-import baseUrl from '@core/baseUrl';
+import { updateAfterItemDelete } from 'recipes/store';
+import baseUrl from 'core/baseUrl';
 import { v4 } from 'uuid';
+import genericRequest from 'core/utils/genericRequest';
+import { GetState } from 'core/types';
+import { InventoryItem } from 'inventory/types';
 
-export const addToAllItems = (item) => async (dispatch, getState) => {
+export const addToAllItems = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
   const itemId = v4();
   await genericRequest(
     dispatch,
@@ -28,7 +31,7 @@ export const addToAllItems = (item) => async (dispatch, getState) => {
   return itemId;
 }
 
-export const editItem = (itemId, item) => async (dispatch, getState) => {
+export const editItem = (itemId: string, item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
   await genericRequest(
     dispatch,
     getState,
@@ -41,7 +44,7 @@ export const editItem = (itemId, item) => async (dispatch, getState) => {
   return itemId;
 }
 
-export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
+export const removeFromAllItems = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   const response = await genericRequest(
     dispatch,
     getState,
@@ -54,7 +57,7 @@ export const removeFromAllItems = (itemIds) => async (dispatch, getState) => {
   dispatch(updateAfterItemDelete({ ...response.data }))
 }
 
-export const addToAvailable = (itemIds) => async (dispatch, getState) => {
+export const addToAvailable = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -67,12 +70,12 @@ export const addToAvailable = (itemIds) => async (dispatch, getState) => {
 }
 
 // TODO - USE THIS
-export const addNewToAvailable = (item) => async (dispatch, getState) => {
+export const addNewToAvailable = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToAvailableDone({ itemIds: [id] }));
 }
 
-export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
+export const removeFromAvailable = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -84,7 +87,7 @@ export const removeFromAvailable = (itemIds) => async (dispatch, getState) => {
   );
 }
 
-export const addToCart = (itemIds) => async (dispatch, getState) => {
+export const addToCart = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -97,12 +100,12 @@ export const addToCart = (itemIds) => async (dispatch, getState) => {
 }
 
 // TODO - USE THIS
-export const addNewToCart = (item) => async (dispatch, getState) => {
+export const addNewToCart = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToCartDone({ itemIds: [id] }));
 }
 
-export const removeFromCart = (itemIds) => async (dispatch, getState) => {
+export const removeFromCart = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -114,7 +117,7 @@ export const removeFromCart = (itemIds) => async (dispatch, getState) => {
   );
 }
 
-export const updateSelectedInCart = (selected) => async (dispatch, getState) => {
+export const updateSelectedInCart = (selected: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -126,7 +129,7 @@ export const updateSelectedInCart = (selected) => async (dispatch, getState) => 
   );
 }
 
-export const finishShopping = () => async (dispatch, getState) => {
+export const finishShopping = () => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,

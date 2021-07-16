@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Typography } from '@material-ui/core';
+// Icons
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
-import EditButtonGroup from '@contacts/components/EditButtonGroup';
-import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
-import SelectInput from '@core/components/inputs/SelectInput';
-import SwitchInput from '@core/components/inputs/SwitchInput';
-import { Contact, Genders, RelationshipStatus } from '@contacts/types';
-import defaultContactProps from '@contacts/utils/defaultContactProps';
+// Components
+import EditButtonGroup from 'contacts/components/EditButtonGroup';
+import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
+import SelectInput from 'core/components/inputs/SelectInput';
+import SwitchInput from 'core/components/inputs/SwitchInput';
+// Utils
+import defaultContactProps from 'contacts/utils/defaultContactProps';
+// Types
+import { Contact, Genders, RelationshipStatus } from 'contacts/types';
+import { ReduxProps } from 'contacts/container/index';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   headline: {
@@ -56,8 +61,8 @@ interface Props {
   onClose: () => void;
   toggleEdit: () => void;
   onDeleteContact: () => void;
-  createContact: Function;
-  editContact: Function;
+  createContact: ReduxProps["createContact"];
+  editContact: ReduxProps["editContact"];
 }
 
 const ContactInfo: React.FC<Props> = ({ 

@@ -1,4 +1,4 @@
-import { Contact, Genders, RelationshipStatus } from '@contacts/types';
+import { Contact, Genders, RelationshipStatus } from 'contacts/types';
 
 // Empty contact object for creation
 const defaultContact: Contact = {

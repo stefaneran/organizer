@@ -1,4 +1,4 @@
-import { Recipe } from '@recipes/types';
+import { Recipe } from 'recipes/types';
 
 // This returns false if even one missing item is not present in cart - Otherwise returns true always
 // Note: We don't really care about this function's return value unless checkMissingItems returns true

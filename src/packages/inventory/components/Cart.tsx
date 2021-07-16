@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Button, Tooltip } from '@material-ui/core';
-import SimpleList from '@inventory/components/SimpleList';
-import AddItemInput from '@inventory/components/AddItemInput';
+import SimpleList from 'inventory/components/SimpleList';
+import AddItemInput from 'inventory/components/AddItemInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
-import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
-import { AddBagIconXS } from '@core/components/Icons/BagIcon';
-import cartItemsToArray from '@inventory/utils/cartItemsToArray';
-import { InventoryTabs, InventoryItem, InventoryActions } from '@inventory/types';
-import { ClickEvent } from '@core/types';
+import { RemoveCartIconSmall } from 'core/components/Icons/CartIcon';
+import { AddBagIconXS } from 'core/components/Icons/BagIcon';
+import cartItemsToArray from 'inventory/utils/cartItemsToArray';
+import { InventoryTabs, InventoryItem, InventoryActions } from 'inventory/types';
+import { ClickEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -39,7 +39,7 @@ interface Props {
   setSelectedTab: (selected: InventoryTabs) => () => void;
 }
 
-const Cart: React.FC<Props> = ({ 
+const Cart: React.FC<Props> = ({
   cart, 
   selectedInCart,
   actions, 
@@ -71,7 +71,7 @@ const Cart: React.FC<Props> = ({
 
   return (
     <div 
-      className={classes.container} 
+      className={classes.container}
       style={{
         width: isSelectedTab ? '70%' : '30%',
         background: isSelectedTab ? '' : 'rgba(0, 0, 0, 0.05)',

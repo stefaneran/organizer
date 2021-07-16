@@ -1,12 +1,12 @@
-import { Recipe, RecipeFilters } from '@recipes/types';
-import genericSort from '@core/utils/genericSort';
+import { Recipe, RecipeFilters } from 'recipes/types';
+import genericSort from 'core/utils/genericSort';
 
 const getRecipesArray = (
   recipes: Record<string, Recipe>, 
   recipeFilters: RecipeFilters
 ): Recipe[] => {
   
-  let filteredRecipes: Recipe[] = [];
+  const filteredRecipes: Recipe[] = [];
   const recipeIds = Object.keys(recipes);
   const { nationality, category, name } = recipeFilters;
 

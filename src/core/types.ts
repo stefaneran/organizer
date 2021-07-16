@@ -1,23 +1,21 @@
 import * as React from 'react';
-import { Activity } from '@activities/types';
-import { Contact, Event } from '@contacts/types';
-import { InventoryItem } from '@inventory/types';
-import { Recipe } from '@recipes/types';
+import { Activity } from 'activities/types';
+import { Contact, Event } from 'contacts/types';
+import { InventoryItem } from 'inventory/types';
+import { Recipe } from 'recipes/types';
 
 export type Option = { label: string; value: string; };
 
+export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
+
 export type InputEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
-
 export type ClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>;
-
 export type KeyboardEvent = React.KeyboardEvent<HTMLDivElement>;
-
-export type AutoCompleteHandler = (event: React.ChangeEvent<{}>, value: any | null) => void
-
 export type SelectEvent<T> = React.ChangeEvent<{ 
   name?: string | undefined;
   value: T;
 }>
+export type AutoCompleteHandler = (event: React.ChangeEvent<any>, value: any | null) => void
 
 export enum CategoryType {
   Activities = "Activities",
@@ -69,3 +67,5 @@ export interface AppStore {
   inventoryStore: InventoryStore;
   recipesStore: RecipeStore;
 }
+
+export type GetState = () => AppStore;

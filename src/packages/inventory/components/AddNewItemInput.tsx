@@ -3,9 +3,9 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, Button } from '@material-ui/core';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import getCategoryOptions from '@inventory/utils/getCategoryOptions';
-import { InventoryItem } from '@inventory/types';
-import { InputEvent, AutoCompleteHandler } from '@core/types';
+import getCategoryOptions from 'inventory/utils/getCategoryOptions';
+import { InventoryItem } from 'inventory/types';
+import { InputEvent, AutoCompleteHandler } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

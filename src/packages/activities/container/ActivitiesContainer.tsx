@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
+import { connector, ReduxProps } from './index';
 // Icons
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 // Components
-import ActivitiesToolbar from '@activities/components/ActivitiesToolbar';
-import ActivityNestedList from '@activities/components/ActivityNestedList';
-import ActivityInfo from '@activities/components/ActivityInfo';
-import ActivityFilters from '@activities/components/ActivitiesFilters';
-import ConfirmationDialog from '@core/components/ConfirmationDialog';
-import SlidingPanel from '@core/components/SlidingPanel';
+import ActivitiesToolbar from 'activities/components/ActivitiesToolbar';
+import ActivityNestedList from 'activities/components/ActivityNestedList';
+import ActivityInfo from 'activities/components/ActivityInfo';
+import ActivityFilters from 'activities/components/ActivitiesFilters';
+import ConfirmationDialog from 'core/components/ConfirmationDialog';
+import SlidingPanel from 'core/components/SlidingPanel';
 // Utils
-import getActivitiesArray from '@activities/utils/getActivitiesArray';
-import defaultFilters from '@activities/utils/defaultActivityFilters';
+import getActivitiesArray from 'activities/utils/getActivitiesArray';
+import defaultFilters from 'activities/utils/defaultActivityFilters';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -37,14 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  activities: any; 
-  addActivity: any; 
-  editActivity: any;
-  deleteActivity: any;
-}
-
-const ActivitiesContainer: React.FC<Props> = ({ 
+const ActivitiesContainer: React.FC<ReduxProps> = ({ 
   activities, 
   addActivity, 
   editActivity, 
@@ -146,4 +140,4 @@ const ActivitiesContainer: React.FC<Props> = ({
   )
 }
 
-export default ActivitiesContainer;
+export default connector(ActivitiesContainer);

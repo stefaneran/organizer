@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import ContactsPanel from '@contacts/container/ContactsPanel';
-import EventsPanel from '@contacts/container//EventsPanel';
+import { connector, ReduxProps, DispatchProps } from './index';
+import ContactsPanel from 'contacts/container/ContactsPanel';
+import EventsPanel from 'contacts/container//EventsPanel';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ContactsContainer = ({ 
+const ContactsContainer: React.FC<ReduxProps & DispatchProps> = ({ 
   contacts, 
   groups, 
   events, 
@@ -47,4 +48,4 @@ const ContactsContainer = ({
   )
 }
 
-export default ContactsContainer;
+export default connector(ContactsContainer);

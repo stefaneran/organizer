@@ -1,8 +1,16 @@
-import getIngredientIdByName from '@recipes/utils/getIngredientIdByName';
+import { Dispatch } from 'redux';
+import getIngredientIdByName from 'recipes/utils/getIngredientIdByName';
+import { Ingredient, IngredientEdit } from 'recipes/types';
+import { InventoryItem } from 'inventory/types';
 
 // Maps all ingredients with itemIds - Whether they're existing items or new items that need new ids to be created
 // We do this because ingredients in edit mode don't have ids by default
-const sanitizeIngredients = async (ingredients, allItems, dispatch, addToAllItems) => {
+const sanitizeIngredients = async (
+  ingredients: IngredientEdit[], 
+  allItems: Record<string, InventoryItem>, 
+  dispatch: Dispatch, 
+  addToAllItems: any
+): Promise<Ingredient[]> => {
   const ingredientsWithId = [];
   // Verify each ingredient and get its existing/newly created itemId
   for await (const ingredient of ingredients) {

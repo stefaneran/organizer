@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Typography, IconButton } from '@material-ui/core';
-import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
-import ItemTag from '@recipes/components/ItemTag';
-import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
-import { Recipe } from '@recipes/types';
-import { ClickEvent } from '@core/types';
+import { Paper, Typography } from '@material-ui/core';
+import ItemTag from 'recipes/components/ItemTag';
+import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

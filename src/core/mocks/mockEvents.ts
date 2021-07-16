@@ -1,4 +1,4 @@
-import { Event } from '@contacts/types';
+import { Event } from 'contacts/types';
 
 const oneUnixDay = 60 * 60 * 24 * 1000;
 

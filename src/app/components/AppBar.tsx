@@ -10,11 +10,11 @@ import {
   CircularProgress 
 } from '@material-ui/core';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
-import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
-import { CartIconSmall } from '@core/components/Icons/CartIcon';
-import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
-import { LogInIconSmall } from '@core/components/Icons/LoginIcon';
-import { CategoryType, AppStore } from '@core/types';
+import { PeopleIconSmall } from 'core/components/Icons/PeopleIcon';
+import { CartIconSmall } from 'core/components/Icons/CartIcon';
+import { FoodIconSmall } from 'core/components/Icons/FoodIcon';
+import { LogInIconSmall } from 'core/components/Icons/LoginIcon';
+import { CategoryType, AppStore } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   textButton: {
     color: '#fff',
-    position: 'relative' as 'relative',
+    position: 'relative' as const,
     top: '50%',
     transform: 'translateY(-50%)',
     marginLeft: '0.5em',

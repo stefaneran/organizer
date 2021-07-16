@@ -1,5 +1,5 @@
-import getActivityOptions from '@activities/utils/getActivityOptions';
-import { Activity, ActivityType } from '@activities/types';
+import getActivityOptions from 'activities/utils/getActivityOptions';
+import { Activity, ActivityType } from 'activities/types';
 
 const mockActivities = {
   '0': { name: 'test', activityType: ActivityType.Entertainment } as Activity,

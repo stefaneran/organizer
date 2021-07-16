@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
-import genericSort from '@core/utils/genericSort';
-import { InventoryItem, RowIcon } from '@inventory/types';
-import { ClickEvent } from '@core/types';
+import genericSort from 'core/utils/genericSort';
+import { InventoryItem, RowIcon } from 'inventory/types';
+import { ClickEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   checkbox: {
@@ -45,6 +45,7 @@ const ItemList: React.FC<Props> = ({
       onItemSelection(newSelected);
     }
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const handleIconAction = (id: string, handler: Function) => (event: ClickEvent) => {
     event.stopPropagation();
     handler(id);

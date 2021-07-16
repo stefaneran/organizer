@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Chip } from '@material-ui/core';
-import { MaleIconChip, FemaleIconChip } from '@core/components/Icons/GenderIcon';
-import { Genders } from '@contacts/types';
+import { MaleIconChip, FemaleIconChip } from 'core/components/Icons/GenderIcon';
+import { Genders } from 'contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   chip: {

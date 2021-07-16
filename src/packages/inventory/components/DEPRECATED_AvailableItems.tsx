@@ -11,15 +11,15 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { AddCartIconSmall } from '@core/components/Icons/CartIcon';
-import { BagIconSmall, RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
-import { AddCartIconXS } from '@core/components/Icons/CartIcon';
-import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
-import SwitchInput from '@core/components/inputs/SwitchInput';
-import NestedList from '@inventory/components/NestedList';
-import SimpleList from '@inventory/components/SimpleList';
-import AddItemInput from '@inventory/components/AddItemInput';
-import availableItemsToArray from '@inventory/utils/availableItemsToArray';
+import { AddCartIconSmall } from 'core/components/Icons/CartIcon';
+import { BagIconSmall, RemoveBagIconSmall } from 'core/components/Icons/BagIcon';
+import { AddCartIconXS } from 'core/components/Icons/CartIcon';
+import { ListIconSmall, NestedIconSmall } from 'core/components/Icons/ListIcon';
+import SwitchInput from 'core/components/inputs/SwitchInput';
+import NestedList from 'inventory/components/NestedList';
+import SimpleList from 'inventory/components/SimpleList';
+import AddItemInput from 'inventory/components/AddItemInput';
+import availableItemsToArray from 'inventory/utils/availableItemsToArray';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {

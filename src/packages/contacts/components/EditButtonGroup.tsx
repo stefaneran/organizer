@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   buttonContainer: {

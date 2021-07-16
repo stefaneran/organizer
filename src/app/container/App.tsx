@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import ContentView from '@app/ContentView';
-import RegistrationDialog from '@core/components/RegistrationDialog';
-import checkIsMobile from '@core/utils/checkIsMobile';
-import { loadUserFromLocalStorage } from '@core/utils/localstorage';
-import parseGetParams from '@core/utils/parseGetParams';
-import { AppStore } from '@core/types';
+import { connector, ReduxProps } from './index';
+import ContentView from 'app/components/ContentView';
+import RegistrationDialog from 'core/components/RegistrationDialog';
+import checkIsMobile from 'core/utils/checkIsMobile';
+import parseGetParams from 'core/utils/parseGetParams';
+import { loadUserFromLocalStorage } from 'core/utils/localstorage';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -15,29 +15,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  app: AppStore["app"];
-  getAllData: Function;
-  login: Function;
-  register: Function;
-  logout: Function;
-  setIsMobile: Function;
-  setActivities: Function;
-  clearActivities: Function;
-  setContactsAndEvents: Function;
-  clearContactsAndEvents: Function;
-  setRecipes: Function;
-  clearRecipes: Function;
-  setInventory: Function;
-  clearInventory: Function;
-}
-
 interface DialogState {
   type: string;
   isOpen: boolean;
 }
 
-const App: React.FC<Props> = ({
+const App: React.FC<ReduxProps> = ({
   app,
   getAllData,
   login,
@@ -152,4 +135,4 @@ const App: React.FC<Props> = ({
   );
 }
 
-export default App;
+export default connector(App);

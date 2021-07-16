@@ -1,4 +1,4 @@
-import { Contact } from "@contacts/types";
+import { Contact } from "contacts/types";
 
 export default (contacts: Record<string, Contact>) => {
   const allGroups = [];

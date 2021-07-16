@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core'
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import ChipsGroup from '@core/components/ChipsGroup';
-import { ContactFilters } from '@contacts/types';
+import ChipsGroup from 'core/components/ChipsGroup';
+import { ContactFilters } from 'contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

@@ -1,4 +1,4 @@
-import calculateContactUrgency from '@contacts/utils/calculateContactUrgency';
+import calculateContactUrgency from 'contacts/utils/calculateContactUrgency';
 
 const oneUnixDay = 60 * 60 * 24 * 1000;
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText } from '@material-ui/core';
-import { Activity } from '@activities/types';
+import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   isSelected: {

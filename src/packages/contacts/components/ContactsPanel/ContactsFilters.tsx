@@ -4,10 +4,10 @@ import { IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
-import SelectInput from '@core/components/inputs/SelectInput';
-import SwitchInput from '@core/components/inputs/SwitchInput';
-import getEnumValues from '@core/utils/getEnumValues';
-import { ContactFilters, Genders, RelationshipStatus, SortOption } from '@contacts/types';
+import SelectInput from 'core/components/inputs/SelectInput';
+import SwitchInput from 'core/components/inputs/SwitchInput';
+import getEnumValues from 'core/utils/getEnumValues';
+import { ContactFilters, Genders, RelationshipStatus, SortOption } from 'contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {

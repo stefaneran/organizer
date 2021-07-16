@@ -8,11 +8,11 @@ import {
   IconButton,
   Button
 } from '@material-ui/core';
-import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
-import { CartIconXLFill } from '@core/components/Icons/CartIcon';
-import { FoodIconXL } from '@core/components/Icons/FoodIcon';
-import { LogInIconXL } from '@core/components/Icons/LoginIcon';
-import { CategoryType, AppStore } from '@core/types';
+import { HamburgerIconLarge } from 'core/components/Icons/ListIcon';
+import { CartIconXLFill } from 'core/components/Icons/CartIcon';
+import { FoodIconXL } from 'core/components/Icons/FoodIcon';
+import { LogInIconXL } from 'core/components/Icons/LoginIcon';
+import { StateSetter, CategoryType, AppStore } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hamburger: {
@@ -68,8 +68,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   app: AppStore["app"];
-  setCurrentCategory: Function;
-  setLoginDialog: Function;
+  setCurrentCategory: StateSetter<CategoryType>;
+  setLoginDialog: (prop: { type: string; isOpen: boolean }) => () => void;
   onLogout: () => void;
 }
 

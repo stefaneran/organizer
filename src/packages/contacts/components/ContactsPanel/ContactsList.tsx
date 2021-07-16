@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List } from '@material-ui/core';
 import ContactsListItem from './ContactsListItem';
-import { Contact } from '@contacts/types'
+import { Contact } from 'contacts/types'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

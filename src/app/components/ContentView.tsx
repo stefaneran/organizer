@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@app/AppBar';
-import AppBarMobile from '@app/AppBarMobile';
-import ActivitiesContainer from '@activities/container';
-import ContactsContainer from '@contacts/container';
-import InventoryContainer from '@inventory/container';
-import InventoryMobileContainer from '@inventory/mobile/container';
-import RecipesContainer from '@recipes/container';
-import RecipesMobileContainer from '@recipes/mobile/container';
-import defaultWebApp from '@core/defaultWebApp';
-import { CategoryType, AppStore } from '@core/types';
+import AppBar from 'app/components/AppBar';
+import AppBarMobile from 'app/components/AppBarMobile';
+import ActivitiesContainer from 'activities/container/ActivitiesContainer';
+import ContactsContainer from 'contacts/container/ContactsContainer';
+import InventoryContainer from 'inventory/container/InventoryContainer';
+import InventoryMobileContainer from 'inventory/mobile/container/InventoryMobileContainer';
+import RecipesContainer from 'recipes/container/RecipesContainer';
+import RecipesMobileContainer from 'recipes/mobile/container/RecipesMobileContainer';
+import defaultWebApp from 'core/defaultWebApp';
+import { CategoryType, AppStore } from 'core/types';
 
 const useStyles = makeStyles(theme => ({
   container: {

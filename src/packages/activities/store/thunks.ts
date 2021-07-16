@@ -1,11 +1,13 @@
 // @ts-nocheck
-import { updateActivityDone, deleteActivityDone } from '@activities/store';
-import genericRequest from '@core/utils/genericRequest';
-import baseUrl from '@core/baseUrl';
+import { Dispatch } from 'redux';
+import { updateActivityDone, deleteActivityDone } from 'activities/store';
+import genericRequest from 'core/utils/genericRequest';
+import baseUrl from 'core/baseUrl';
 import { v4 } from 'uuid';
-import { Activity } from '@activities/types';
+import { GetState } from 'core/types';
+import { Activity } from 'activities/types';
 
-export const addActivity = (activity: Activity) => async (dispatch, getState) => {
+export const addActivity = (activity: Activity) => async (dispatch: Dispatch, getState: GetState) => {
   const newActivityId: string = v4();
   genericRequest(
     dispatch,
@@ -18,7 +20,7 @@ export const addActivity = (activity: Activity) => async (dispatch, getState) =>
   );
 }
 
-export const editActivity = (activityId: string, activity: Activity) => async (dispatch, getState) => {
+export const editActivity = (activityId: string, activity: Activity) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -30,7 +32,7 @@ export const editActivity = (activityId: string, activity: Activity) => async (d
   );
 }
 
-export const deleteActivity = (activityId: string) => async (dispatch, getState) => {
+export const deleteActivity = (activityId: string) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,

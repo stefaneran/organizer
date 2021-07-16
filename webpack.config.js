@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
 
@@ -15,12 +16,12 @@ module.exports = {
 
   resolve: {
     alias: {
-      "@app": path.resolve(__dirname, './src/app'),
-      "@core": path.resolve(__dirname, './src/core'),
-      "@activities": path.resolve(__dirname, './src/packages/activities'),
-      "@contacts": path.resolve(__dirname, './src/packages/contacts'),
-      "@inventory": path.resolve(__dirname, './src/packages/inventory'),
-      "@recipes": path.resolve(__dirname, './src/packages/recipes')
+      "app": path.resolve(__dirname, './src/app'),
+      "core": path.resolve(__dirname, './src/core'),
+      "activities": path.resolve(__dirname, './src/packages/activities'),
+      "contacts": path.resolve(__dirname, './src/packages/contacts'),
+      "inventory": path.resolve(__dirname, './src/packages/inventory'),
+      "recipes": path.resolve(__dirname, './src/packages/recipes')
     },
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },
@@ -63,7 +64,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Organizer App',
       template: 'static/index.html'
-    })
+    }),
+    new ESLintPlugin({ extensions: ['ts', 'tsx', 'js'] })
   ],
 
 }

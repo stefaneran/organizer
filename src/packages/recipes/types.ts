@@ -50,7 +50,7 @@ export type AlternativeIngredientEdit = Omit<AlternativeIngredient, "itemId">;
 // Same as AlternativeIngredientEdit above
 export interface IngredientEdit extends Omit<Ingredient, "itemId" | "alternatives"> {
   alternatives: AlternativeIngredientEdit[];
-};
+}
 
 export interface RecipeEdit extends Omit<Recipe, "id" | "ingredients"> {
   ingredients: IngredientEdit[] 

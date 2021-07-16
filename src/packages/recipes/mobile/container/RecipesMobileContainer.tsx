@@ -1,25 +1,23 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
+import { connector, ReduxProps } from './index';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
-import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
+import { FoodIconLarge } from 'core/components/Icons/FoodIcon';
+import { FilterListIconLarge } from 'core/components/Icons/ListIcon';
 // Components
-import RecipeInfo from '@recipes/mobile/components/RecipeInfo';
-import RecipeItem from '@recipes/mobile/components/RecipeItem';
-import RecipeFilters from '@recipes/mobile/components/RecipeFilters';
+import RecipeInfo from 'recipes/mobile/components/RecipeInfo';
+import RecipeItem from 'recipes/mobile/components/RecipeItem';
+import RecipeFilters from 'recipes/mobile/components/RecipeFilters';
 // Utils
-import getMissingIngredients from '@recipes/utils/getMissingIngredients';
-import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
-import getNationalityOptions from '@recipes/utils/getNationalityOptions';
-import getCategoryOptions from '@recipes/utils/getCategoryOptions';
-import getRecipesArray from '@recipes/utils/getRecipesArray';
-// Types
-import { Recipe, RecipeActions } from '@recipes/types';
-import { InventoryItem } from '@inventory/types';
+import getMissingIngredients from 'recipes/utils/getMissingIngredients';
+import defaultRecipeFilters from 'recipes/utils/defaultRecipeFilters';
+import getNationalityOptions from 'recipes/utils/getNationalityOptions';
+import getCategoryOptions from 'recipes/utils/getCategoryOptions';
+import getRecipesArray from 'recipes/utils/getRecipesArray';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     width: '100%',
@@ -81,19 +79,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  recipes: Record<string, Recipe>;
-  allItems: Record<string, InventoryItem>;
-  availableItems: string[];
-  cart: string[];
-}
-
-const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
+const RecipesMobileContainer: React.FC<ReduxProps> = ({
   recipes,
   availableItems, 
   allItems, 
   cart,
-  ...actions
+  addToCart
 }) => {
   const classes = useStyles();
 
@@ -127,7 +118,7 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
   }
   const handleAddMissing = (ingredients = []) => () => {
     const missing = getMissingIngredients(ingredients, availableItems, cart);
-    actions.addToCart(missing);
+    addToCart(missing);
   }
 
   return (
@@ -167,7 +158,7 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
             allItems={allItems} 
             availableItems={availableItems} 
             cart={cart} 
-            addToCart={actions.addToCart}
+            addToCart={addToCart}
             onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
           />
         </div>
@@ -204,4 +195,4 @@ const RecipesMobileContainer: React.FC<Props & RecipeActions> = ({
   )
 }
 
-export default RecipesMobileContainer;
+export default connector(RecipesMobileContainer);

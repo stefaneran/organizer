@@ -1,4 +1,4 @@
-import { InventoryItem } from '@inventory/types';
+import { InventoryItem } from 'inventory/types';
 
 const cartItemsToArray = (
   cart: string[], 

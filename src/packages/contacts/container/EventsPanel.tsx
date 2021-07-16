@@ -1,14 +1,20 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import EventsToolbar from '@contacts/components/EventsPanel/EventsToolbar';
-import EventsList from '@contacts/components/EventsPanel/EventsList';
-import EventInfo from '@contacts/components/EventsPanel/EventInfo';
-import EventsFilters from '@contacts/components/EventsPanel/EventsFilters';
-import ConfirmationDialog from '@core/components/ConfirmationDialog';
-import SlidingPanel from '@core/components/SlidingPanel';
-import defaultEventFilters from '@contacts/utils/defaultEventFilters';
-import getEventsArray from '@contacts/utils/getEventsArray';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+// Components
+import EventsToolbar from 'contacts/components/EventsPanel/EventsToolbar';
+import EventsList from 'contacts/components/EventsPanel/EventsList';
+import EventInfo from 'contacts/components/EventsPanel/EventInfo';
+import EventsFilters from 'contacts/components/EventsPanel/EventsFilters';
+import ConfirmationDialog from 'core/components/ConfirmationDialog'; 
+import SlidingPanel from 'core/components/SlidingPanel';
+// Utils
+import defaultEventFilters from 'contacts/utils/defaultEventFilters';
+import getEventsArray from 'contacts/utils/getEventsArray';
+// Types
+import { Event, Contact } from 'contacts/types';
+import { Activity } from 'activities/types';
+import { DispatchProps } from './index';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -19,7 +25,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const EventsPanel = ({ events, contacts, activities, actions }) => {
+interface Props {
+  events: Record<string, Event>; 
+  contacts: Record<string, Contact>; 
+  activities: Record<string, Activity>;
+  actions: DispatchProps
+}
+
+const EventsPanel: React.FC<Props> = ({ 
+  events, 
+  contacts, 
+  activities,
+  actions 
+}) => {
   const classes = useStyles();
 
   const [selectedEvent, setSelectedEvent] = React.useState('');
@@ -83,8 +101,9 @@ const EventsPanel = ({ events, contacts, activities, actions }) => {
         contacts={contacts}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
-        actions={actions}
         onDeleteEvent={toggleConfirmationDialog}
+        createEvent={actions.createEvent}
+        editEvent={actions.editEvent}
       />
       <SlidingPanel
         isOpen={isFiltersPanelOpen}

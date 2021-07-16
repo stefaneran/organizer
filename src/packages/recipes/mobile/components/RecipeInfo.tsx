@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Divider, Button } from '@material-ui/core';
-import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
-import Ingredients from '@recipes/components/Ingredients';
-import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
-import { InventoryItem } from '@inventory/types';
-import { Recipe } from '@recipes/types';
+import { AddCartIconLarge } from 'core/components/Icons/CartIcon';
+import Ingredients from 'recipes/components/Ingredients';
+import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
+import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
+import { InventoryItem } from 'inventory/types';
+import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   detailsContainer: {

@@ -1,4 +1,4 @@
-import { CategoryType } from '@core/types';
+import { CategoryType } from 'core/types';
 
 const defaultWebApp = CategoryType.Recipes;
 

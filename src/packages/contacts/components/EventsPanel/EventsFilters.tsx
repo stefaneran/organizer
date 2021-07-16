@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
-import { EventFilters } from '@contacts/types';
-import { InputEvent } from '@core/types';
+import { EventFilters } from 'contacts/types';
+import { InputEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {

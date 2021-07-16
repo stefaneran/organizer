@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
-import calculateContactUrgency from '@contacts/utils/calculateContactUrgency';
+import calculateContactUrgency from 'contacts/utils/calculateContactUrgency';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

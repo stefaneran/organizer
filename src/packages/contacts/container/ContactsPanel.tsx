@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import ContactsToolBar from '@contacts/components/ContactsPanel/ContactsToolBar';
-import ContactsList from '@contacts/components/ContactsPanel/ContactsList';
-import ContactInfo from '@contacts/components/ContactsPanel/ContactInfo';
-import ContactsFilters from '@contacts/components/ContactsPanel/ContactsFilters';
-import ConfirmationDialog from '@core/components/ConfirmationDialog';
-import SlidingPanel from '@core/components/SlidingPanel';
-import defaultContactFilters from '@contacts/utils/defaultContactFilters';
-import getContactsArray from '@contacts/utils/getContactsArray';
-import { Contact } from '@contacts/types';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import ContactsToolBar from 'contacts/components/ContactsPanel/ContactsToolBar';
+import ContactsList from 'contacts/components/ContactsPanel/ContactsList';
+import ContactInfo from 'contacts/components/ContactsPanel/ContactInfo';
+import ContactsFilters from 'contacts/components/ContactsPanel/ContactsFilters';
+import ConfirmationDialog from 'core/components/ConfirmationDialog';
+import SlidingPanel from 'core/components/SlidingPanel';
+import defaultContactFilters from 'contacts/utils/defaultContactFilters';
+import getContactsArray from 'contacts/utils/getContactsArray';
+import { Contact } from 'contacts/types';
+import { DispatchProps } from './index';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -22,11 +23,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   contacts: Record<string, Contact>;
-  actions: Record<string, Function>;
   groups: string[];
+  actions: DispatchProps;
 }
 
-const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
+const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
   const classes = useStyles();
 
   const [selectedContact, setSelectedContact] = React.useState('');
@@ -91,9 +92,10 @@ const ContactsPanel: React.FC<Props> = ({ contacts, actions, groups }) => {
         groups={groups}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
-        actions={actions}
         onSnoozeContact={handleSnoozeContact}
         onDeleteContact={toggleConfirmationDialog}
+        createContact={actions.createContact}
+        editContact={actions.editContact}
       />
       <SlidingPanel
         isOpen={isFiltersPanelOpen}

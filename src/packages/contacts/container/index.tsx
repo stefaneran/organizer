@@ -1,5 +1,4 @@
-import { connect } from 'react-redux';
-import ContactsContainer from './ContactsContainer';
+import { connect, ConnectedProps } from 'react-redux';
 import { 
   createContact, 
   editContact, 
@@ -8,9 +7,9 @@ import {
   createEvent, 
   editEvent, 
   deleteEvent 
-} from '@contacts/store/thunks';
-import { initGroups } from '@contacts/store';
-import { AppStore } from '@core/types';
+} from 'contacts/store/thunks';
+import { initGroups } from 'contacts/store';
+import { AppStore } from 'core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   contacts: state.contactsStore.contacts,
@@ -30,7 +29,17 @@ const mapDispatchToProps = {
   deleteEvent
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ContactsContainer);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type ReduxProps = ConnectedProps<typeof connector>;
+
+export type DispatchProps = {
+  initGroups: ReduxProps["initGroups"],
+  createContact: ReduxProps["createContact"],
+  editContact: ReduxProps["editContact"],
+  deleteContact: ReduxProps["deleteContact"],
+  updateLastContact: ReduxProps["updateLastContact"],
+  createEvent: ReduxProps["createEvent"],
+  editEvent: ReduxProps["editEvent"],
+  deleteEvent: ReduxProps["deleteEvent"]
+};

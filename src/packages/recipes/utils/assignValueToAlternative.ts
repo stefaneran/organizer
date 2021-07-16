@@ -1,4 +1,4 @@
-import { Ingredient, IngredientEdit } from '@recipes/types';
+import { IngredientEdit } from 'recipes/types';
 
 // Assigns a value to a property in an alternative ingredient and returns the full new ingredient
 const assignValueToAlternative = (
@@ -8,8 +8,7 @@ const assignValueToAlternative = (
   property: string, 
   value: string
 ): IngredientEdit => {
-  let ingredient: IngredientEdit;
-  ingredient = { 
+  const ingredient: IngredientEdit = { 
     ...ingredients[index],
     alternatives: [
       ...ingredients[index].alternatives

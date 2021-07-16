@@ -9,22 +9,22 @@ const ListSmall = styled(ListUl)`
   height: 1.5em;
   color: #3f51b5;
 `;
-export const ListIconSmall = () => <ListSmall />
+export const ListIconSmall = (): JSX.Element => <ListSmall />
 
 const NestedSmall = styled(ListNested)`
   height: 1.5em;
   color: #3f51b5;
 `;
-export const NestedIconSmall = () => <NestedSmall />
+export const NestedIconSmall = (): JSX.Element => <NestedSmall />
 
 const HamburgerLarge = styled(List)`
   height: 5em;
   color: #3f51b5;
 `;
-export const HamburgerIconLarge = () => <HamburgerLarge />
+export const HamburgerIconLarge = (): JSX.Element => <HamburgerLarge />
 
 const FilterListLarge = styled(FilterList)`
   height: 6em;
   color: #3f51b5;
 `;
-export const FilterListIconLarge = () => <FilterListLarge />
+export const FilterListIconLarge = (): JSX.Element => <FilterListLarge />

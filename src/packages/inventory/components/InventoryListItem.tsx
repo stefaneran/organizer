@@ -5,10 +5,10 @@ import { Autocomplete } from '@material-ui/lab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import getWarningColor from '@inventory/utils/getWarningColor';
-import getCategoryOptions from '@inventory/utils/getCategoryOptions';
-import { InventoryItem, RowIcon } from '@inventory/types';
-import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
+import getWarningColor from 'inventory/utils/getWarningColor';
+import getCategoryOptions from 'inventory/utils/getCategoryOptions';
+import { InventoryItem, RowIcon } from 'inventory/types';
+import { ClickEvent, InputEvent, AutoCompleteHandler } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   editContainer: {
@@ -95,7 +95,7 @@ const InventoryListItem: React.FC<Props> = ({
     setItemCategory(item.category);
     setIsEditing(false);
   }
-  const handleIconAction = (id: string, handler: Function) => (event: ClickEvent) => {
+  const handleIconAction = (id: string, handler: any) => (event: ClickEvent) => {
     event.stopPropagation();
     handler(id);
   }

@@ -1,4 +1,4 @@
-import { EventFilters } from '@contacts/types';
+import { EventFilters } from 'contacts/types';
 
 const defaultFilters: EventFilters = {
   showUpcoming: true,

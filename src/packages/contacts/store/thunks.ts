@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { Dispatch } from 'redux';
 import {
   updateContactDone, 
   deleteContactDone,
@@ -6,11 +7,12 @@ import {
   updateEventDone,
   deleteEventDone
 } from '.';
-import genericRequest from '@core/utils/genericRequest';
-import baseUrl from '@core/baseUrl';
+import baseUrl from 'core/baseUrl';
 import { v4 } from 'uuid';
+import genericRequest from 'core/utils/genericRequest';
+import { GetState } from 'core/types';
 
-export const createContact = (contact) => async (dispatch, getState) => {
+export const createContact = (contact) => async (dispatch: Dispatch, getState: GetState) => {
   const newContactId = v4();
   genericRequest(
     dispatch,
@@ -23,7 +25,7 @@ export const createContact = (contact) => async (dispatch, getState) => {
   );
 }
 
-export const editContact = (contactId, contact) => async (dispatch, getState) => {
+export const editContact = (contactId, contact) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -35,7 +37,7 @@ export const editContact = (contactId, contact) => async (dispatch, getState) =>
   );
 }
 
-export const deleteContact = (contactId) => async (dispatch, getState) => {
+export const deleteContact = (contactId) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -47,7 +49,7 @@ export const deleteContact = (contactId) => async (dispatch, getState) => {
   );
 }
 
-export const updateLastContact = (contactId) => async (dispatch, getState) => {
+export const updateLastContact = (contactId) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -59,7 +61,7 @@ export const updateLastContact = (contactId) => async (dispatch, getState) => {
   );
 }
 
-export const createEvent = (event) => async (dispatch, getState) => {
+export const createEvent = (event) => async (dispatch: Dispatch, getState: GetState) => {
   const newEventId = v4();
   genericRequest(
     dispatch,
@@ -72,7 +74,7 @@ export const createEvent = (event) => async (dispatch, getState) => {
   );
 }
 
-export const editEvent = (eventId, event) => async (dispatch, getState) => {
+export const editEvent = (eventId, event) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
     getState,
@@ -84,7 +86,7 @@ export const editEvent = (eventId, event) => async (dispatch, getState) => {
   );
 }
 
-export const deleteEvent = (eventId) => async (dispatch, getState) => {
+export const deleteEvent = (eventId) => async (dispatch: Dispatch, getState: GetState) => {
   dispatch(deleteEventDone({ id: eventId }));
   genericRequest(
     dispatch,

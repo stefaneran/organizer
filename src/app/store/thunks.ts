@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { Dispatch } from 'redux';
 import {
   loadingStart,
   loadingEnd,
@@ -6,11 +7,11 @@ import {
   logoutDone,
   updateError
 } from './reducer';
-import jsonFetch from '@core/utils/jsonFetch';
-import genericRequest from '@core/utils/genericRequest';
-import baseUrl from '@core/baseUrl';
+import jsonFetch from 'core/utils/jsonFetch';
+import genericRequest from 'core/utils/genericRequest';
+import baseUrl from 'core/baseUrl';
 
-export const getAllData = () => async (dispatch, getState) => {
+export const getAllData = () => async (dispatch: Dispatch, getState: GetState) => {
   const response = await genericRequest(
     dispatch,
     getState,

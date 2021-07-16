@@ -3,12 +3,12 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
-import { FoodIconXS } from '@core/components/Icons/FoodIcon';
-import IngredientsEdit from '@recipes/components/IngredientsEdit';
-import countries from '@core/data/countries';
-import { IngredientEdit, RecipeEdit } from '@recipes/types';
-import { InventoryItem } from '@inventory/types';
-import { InputEvent, AutoCompleteHandler } from '@core/types';
+import { FoodIconXS } from 'core/components/Icons/FoodIcon';
+import IngredientsEdit from 'recipes/components/IngredientsEdit';
+import countries from 'core/data/countries';
+import { IngredientEdit, RecipeEdit, EditMode } from 'recipes/types';
+import { InventoryItem } from 'inventory/types';
+import { InputEvent, AutoCompleteHandler } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -33,7 +33,7 @@ interface Props {
   categoryOptions: string[]; 
   allItems: Record<string, InventoryItem>;
   onSubmitEditRecipe: () => void;
-  onOpenEditRecipe: Function;
+  onOpenEditRecipe: (mode: EditMode) => () => void;
 }
 
 const RecipeInfoEdit: React.FC<Props> = ({

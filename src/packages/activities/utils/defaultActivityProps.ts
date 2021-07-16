@@ -1,4 +1,4 @@
-import { Activity, ActivityType } from '@activities/types';
+import { Activity, ActivityType } from 'activities/types';
 
 // Empty activity object for creation
 const defaultActivity: Activity = {

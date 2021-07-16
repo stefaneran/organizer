@@ -1,4 +1,4 @@
-import { Activity, ActivityFilters } from "@activities/types";
+import { Activity, ActivityFilters } from "activities/types";
 
 const getActivitiesArray = (
   activities: Record<string, Activity>, 

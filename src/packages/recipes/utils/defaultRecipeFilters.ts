@@ -1,4 +1,4 @@
-import { RecipeFilters, GroupByMode } from '@recipes/types';
+import { RecipeFilters, GroupByMode } from 'recipes/types';
 
 const defaultRecipeFilters: RecipeFilters = {
   nationality: 'All',

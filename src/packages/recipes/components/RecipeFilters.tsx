@@ -2,8 +2,8 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IconButton, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import SelectInput from '@core/components/inputs/SelectInput';
-import { RecipeFilters, GroupByMode } from '@recipes/types';
+import SelectInput from 'core/components/inputs/SelectInput';
+import { RecipeFilters, GroupByMode } from 'recipes/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   input: {

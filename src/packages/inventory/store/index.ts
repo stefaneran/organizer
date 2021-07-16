@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { InventoryStore } from '@core/types';
+import { InventoryStore } from 'core/types';
 
 const slice = createSlice({
   name: 'inventoryStore',

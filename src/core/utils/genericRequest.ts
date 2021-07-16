@@ -2,8 +2,8 @@ import {
   loadingStart,
   loadingEnd,
   updateError
-} from '@app/store/reducer';
-import jsonFetch from '@core/utils/jsonFetch';
+} from 'app/store/reducer';
+import jsonFetch from 'core/utils/jsonFetch';
 
 type Response = {
   status: number;
@@ -15,6 +15,7 @@ export default async (
   getState: any, 
   url: string, 
   params: any, 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   dispatchFunction: Function, 
   dispatchParams: any,
   errorMessage: string,

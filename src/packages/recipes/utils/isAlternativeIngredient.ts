@@ -1,4 +1,4 @@
-import { IngredientEdit, AlternativeIngredientEdit } from '@recipes/types';
+import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
 
 const isAlternativeIngredient = (
   ingredient: IngredientEdit | AlternativeIngredientEdit

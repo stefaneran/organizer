@@ -1,4 +1,4 @@
-import getLinkString from '@activities/utils/getLinkString';
+import getLinkString from 'activities/utils/getLinkString';
 
 const unitTests = [
   {

@@ -1,4 +1,4 @@
-import { Activity, ActivityLocation } from '@activities/types';
+import { Activity, ActivityLocation } from 'activities/types';
 
 const getActivityLocations = (
   activities: Record<string, Activity>, 

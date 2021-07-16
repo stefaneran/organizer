@@ -1,27 +1,27 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import { connector, ReduxProps, DispatchProps } from './index';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 // Components
-import RecipesToolbar from '@recipes/components/RecipesToolbar';
-import RecipeFilters from '@recipes/components/RecipeFilters';
-import RecipeItem from '@recipes/components/RecipeItem';
-import RecipeInfoEdit from '@recipes/components/RecipeInfoEdit';
-import RecipeInfo from '@recipes/components/RecipeInfo';
-import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
-import SlidingPanel from '@core/components/SlidingPanel';
+import RecipesToolbar from 'recipes/components/RecipesToolbar';
+import RecipeFilters from 'recipes/components/RecipeFilters';
+import RecipeItem from 'recipes/components/RecipeItem';
+import RecipeInfoEdit from 'recipes/components/RecipeInfoEdit';
+import RecipeInfo from 'recipes/components/RecipeInfo';
+import ConfirmationDialog from 'core/components/ConfirmationDialog'; 
+import SlidingPanel from 'core/components/SlidingPanel';
 // Utils
-import getMissingIngredients from '@recipes/utils/getMissingIngredients';
-import defaultRecipeProps from '@recipes/utils/defaultRecipeProps';
-import defaultRecipeFilters from '@recipes/utils/defaultRecipeFilters';
-import getRecipesArray from '@recipes/utils/getRecipesArray';
-import getNationalityOptions from '@recipes/utils/getNationalityOptions';
-import getCategoryOptions from '@recipes/utils/getCategoryOptions';
+import getMissingIngredients from 'recipes/utils/getMissingIngredients';
+import defaultRecipeProps from 'recipes/utils/defaultRecipeProps';
+import defaultRecipeFilters from 'recipes/utils/defaultRecipeFilters';
+import getRecipesArray from 'recipes/utils/getRecipesArray';
+import getNationalityOptions from 'recipes/utils/getNationalityOptions';
+import getCategoryOptions from 'recipes/utils/getCategoryOptions';
 // Types
-import { InventoryItem } from '@inventory/types';
-import { Recipe, RecipeEdit, RecipeActions, EditMode } from '@recipes/types';
+import { RecipeEdit, EditMode } from 'recipes/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',
@@ -53,14 +53,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  recipes: Record<string, Recipe>;
-  allItems: Record<string, InventoryItem>;
-  availableItems: string[];
-  cart: string[];
-}
-
-const RecipesContainer: React.FC<Props & RecipeActions> = ({
+const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   recipes,
   allItems, 
   availableItems, 
@@ -230,4 +223,4 @@ const RecipesContainer: React.FC<Props & RecipeActions> = ({
   )
 }
 
-export default RecipesContainer;
+export default connector(RecipesContainer);

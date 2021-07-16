@@ -1,4 +1,4 @@
-import { RecipeEdit } from '@recipes/types';
+import { RecipeEdit } from 'recipes/types';
 
 // Empty recipe object for creation
 const defaultRecipe: Omit<RecipeEdit, "id"> = {

@@ -1,6 +1,6 @@
-import getEventsArray from '@contacts/utils/getEventsArray';
-import defaultEventFilters from '@contacts/utils/defaultEventFilters';
-import mockEvents from '@core/mocks/mockEvents';
+import getEventsArray from 'contacts/utils/getEventsArray';
+import defaultEventFilters from 'contacts/utils/defaultEventFilters';
+import mockEvents from 'core/mocks/mockEvents';
 
 const mockFilters = [
   { ...defaultEventFilters, showUpcoming: false },

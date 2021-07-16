@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { connector, ReduxProps, DispatchProps } from './index';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { BagIconLarge } from '@core/components/Icons/BagIcon';
-import { CartIconLargeFill } from '@core/components/Icons/CartIcon';
-import Cart from '@inventory/mobile/components/Cart';
-import Inventory from '@inventory/mobile/components/Inventory';
-import mapActions from '@inventory/utils/mapActions';
-import { InventoryItem } from '@inventory/types';
+import { BagIconLarge } from 'core/components/Icons/BagIcon';
+import { CartIconLargeFill } from 'core/components/Icons/CartIcon';
+import Cart from 'inventory/mobile/components/Cart';
+import Inventory from 'inventory/mobile/components/Inventory';
+import mapActions from 'inventory/utils/mapActions';
+import { InventoryItem } from 'inventory/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -50,22 +51,15 @@ enum ViewType {
   Inventory = "Inventory"
 }
 
-interface Props {
-  allItems: Record<string, InventoryItem>;
-  availableItems: string[];
-  cart: string[];
-  selectedInCart: string[];
-}
-
-const InventoryMobileContainer: React.FC<Props & Record<string, Function>> = ({
+const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   allItems,
   availableItems,
   cart,
   selectedInCart,
-  ...props
+  ...actionProps
  }) => {
   const classes = useStyles();
-  const actions = mapActions(props);
+  const actions = mapActions(actionProps);
 
   const [currentView, setCurrentView] = React.useState(ViewType.Cart);
 
@@ -123,4 +117,4 @@ const InventoryMobileContainer: React.FC<Props & Record<string, Function>> = ({
   )
 }
 
-export default InventoryMobileContainer;
+export default connector(InventoryMobileContainer);

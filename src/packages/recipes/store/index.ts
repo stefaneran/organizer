@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import checkRecipeHasItem from '@recipes/utils/checkRecipeHasItem';
-import { Ingredient, IngredientChange } from '@recipes/types';
-import { RecipeStore } from '@core/types';
+import checkRecipeHasItem from 'recipes/utils/checkRecipeHasItem';
+import { Ingredient, IngredientChange } from 'recipes/types';
+import { RecipeStore } from 'core/types';
  
 const slice = createSlice({
   name: 'recipesStore',

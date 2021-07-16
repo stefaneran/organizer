@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { render, within } from '@testing-library/react';
-import ActivityListItem from '@activities/components/ActivityListItem';
-import { ActivityType } from '@activities/types';
-import mockActivities from '@core/mocks/mockActivities';
+import ActivityListItem from 'activities/components/ActivityListItem';
+import { ActivityType } from 'activities/types';
+import mockActivities from 'core/mocks/mockActivities';
 
 const setup = (onOpenInfo?) => {
   const mockProps = {

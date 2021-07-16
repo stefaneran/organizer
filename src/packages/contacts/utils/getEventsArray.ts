@@ -1,4 +1,4 @@
-import { Event, EventFilters } from '@contacts/types';
+import { Event, EventFilters } from 'contacts/types';
 
 const getEventsArray = (
   events: Record<string, Event>, 

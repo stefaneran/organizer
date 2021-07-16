@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText } from '@material-ui/core';
-import ContactMeter from '@contacts/components/ContactsPanel/ContactMeter';
-import GenderChip from '@contacts/components/ContactsPanel/GenderChip';
-import RelationshipChip from '@contacts/components/ContactsPanel/RelationshipChip';
-import { Contact } from '@contacts/types';
+import ContactMeter from 'contacts/components/ContactsPanel/ContactMeter';
+import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
+import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
+import { Contact } from 'contacts/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   miniChips: {

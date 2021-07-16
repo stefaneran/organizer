@@ -8,21 +8,21 @@ import {
   RemoveBagIconLargeFill,
   CheckBagIconSmallFill,
   CheckBagIconLargeFill
-} from '@core/components/Icons/BagIcon';
+} from 'core/components/Icons/BagIcon';
 import { 
   WarningCartIconSmallFill, 
   WarningCartIconLargeFill 
-} from '@core/components/Icons/CartIcon';
+} from 'core/components/Icons/CartIcon';
 import {
   AddCartIconSmall,
   AddCartIconSmallWhite 
-} from '@core/components/Icons/CartIcon';
+} from 'core/components/Icons/CartIcon';
 // Utils
-import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
+import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
+import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
-import { Recipe, Ingredient, AlternativeIngredient } from '@recipes/types';
-import { ClickEvent } from '@core/types';
+import { Recipe, Ingredient, AlternativeIngredient } from 'recipes/types';
+import { ClickEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -122,11 +122,13 @@ const ItemTag: React.FC<Props> = ({
   if (hasMissingItems && !hasMissingInCart && !isHover) {
     tooltipTitle = `Ingredient${isRecipe ? 's' : ''} Not Available`;
     borderColor = 'rgb(255, 89, 100)';
+    // eslint-disable-next-line react/display-name
     ItemIcon = () => isMobile ? <RemoveBagIconLargeFill /> : <RemoveBagIconSmallFill />;
   }
   else if (hasMissingItems && hasMissingInCart && !isHover) {
     tooltipTitle = `Ingredient${isRecipe ? 's' : ''} in Cart`;
     borderColor = 'rgb(255, 231, 76)';
+    // eslint-disable-next-line react/display-name
     ItemIcon = () => isMobile ? <WarningCartIconLargeFill /> : <WarningCartIconSmallFill />;
   }
 

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
-import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
-import ParticipantsChip from '@contacts/components/EventsPanel/ParticipantsChip';
-import getActivityLocation from '@activities/utils/getActivityLocation';
-import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
-import { Contact, Event } from '@contacts/types';
-import { Activity } from '@activities/types';
+import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
+import ParticipantsChip from 'contacts/components/EventsPanel/ParticipantsChip';
+import getActivityLocation from 'activities/utils/getActivityLocation';
+import { formatEventDate, formatDateTime } from 'core/utils/dateUtils';
+import { Contact, Event } from 'contacts/types';
+import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

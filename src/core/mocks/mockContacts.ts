@@ -1,4 +1,4 @@
-import { Contact, Genders, RelationshipStatus } from '@contacts/types';
+import { Contact, Genders, RelationshipStatus } from 'contacts/types';
 
 const oneUnixDay = 60 * 60 * 24 * 1000;
 

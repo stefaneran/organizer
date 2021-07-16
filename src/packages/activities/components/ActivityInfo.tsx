@@ -3,12 +3,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, Divider, Button, IconButton, Tooltip, Chip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import ActivityInfoEdit from '@activities/components/ActivityInfoEdit';
-import ActivityLocations from '@activities/components/ActivityLocations';
-import ActivityParticipants from '@activities/components/ActivityParticipants';
-import checkIsLocationsEmpty from '@activities/utils/checkIsLocationsEmpty';
-import { Activity } from '@activities/types';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import ActivityInfoEdit from 'activities/components/ActivityInfoEdit';
+import ActivityLocations from 'activities/components/ActivityLocations';
+import ActivityParticipants from 'activities/components/ActivityParticipants';
+import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
+import { ReduxProps } from 'activities/container';
+import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -40,8 +41,8 @@ interface Props {
   activity: Activity;
   onClose: () => void;
   onDeleteActivity: () => void;
-  editActivity: Function;
-  addActivity: Function;
+  editActivity: ReduxProps["editActivity"];
+  addActivity: ReduxProps["addActivity"];
 }
 
 const ActivityInfo: React.FC<Props> = ({ 

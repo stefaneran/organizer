@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItemIcon, ListItem, ListItemText, Collapse } from '@material-ui/core';
-import ActivityListItem from '@activities/components/ActivityListItem';
+import ActivityListItem from 'activities/components/ActivityListItem';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import ActivityTypeIcon from '@activities/components/ActivityTypeIcon';
-import categorizeItems from '@core/utils/categorizeItems';
-import genericSort from '@core/utils/genericSort';
-import { Activity, ActivityFilters, ActivityType } from '@activities/types';
-import { ClickEvent } from '@core/types';
+import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
+import categorizeItems from 'core/utils/categorizeItems';
+import genericSort from 'core/utils/genericSort';
+import { Activity, ActivityFilters, ActivityType } from 'activities/types';
+import { ClickEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   item: {

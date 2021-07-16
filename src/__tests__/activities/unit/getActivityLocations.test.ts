@@ -1,5 +1,5 @@
-import getActivityLocations from '@activities/utils/getActivityLocations';
-import { Activity } from '@activities/types';
+import getActivityLocations from 'activities/utils/getActivityLocations';
+import { Activity } from 'activities/types';
 
 const activities = {
   '0': { locations: [] } as Activity,

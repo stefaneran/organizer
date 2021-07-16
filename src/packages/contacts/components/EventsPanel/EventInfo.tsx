@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, IconButton } from '@material-ui/core';
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import EventInfoEdit from '@contacts/components/EventsPanel/EventInfoEdit';
-import Chips from '@contacts/components/Chips';
-import LocationLink from '@activities/components/LocationLink';
-import { Contact, Event } from '@contacts/types';
-import { Activity } from '@activities/types';
-import getActivityLocation from '@activities/utils/getActivityLocation';
+// Components
+import EventInfoEdit from 'contacts/components/EventsPanel/EventInfoEdit';
+import Chips from 'contacts/components/Chips';
+import LocationLink from 'activities/components/LocationLink';
+// Utils
+import getActivityLocation from 'activities/utils/getActivityLocation';
+// Types
+import { ReduxProps } from 'contacts/container';
+import { Contact, Event } from 'contacts/types';
+import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   sidepanel: {
@@ -39,10 +44,11 @@ interface Props {
   eventId: string;
   activities: Record<string, Activity>;
   contacts: Record<string, Contact>;
-  actions: Record<string, Function>;
   isOpen: boolean;
   onClose: () => void;
   onDeleteEvent: () => void;
+  createEvent: ReduxProps["createEvent"];
+  editEvent: ReduxProps["editEvent"];
 }
 
 const EventInfo: React.FC<Props> = ({ 
@@ -52,8 +58,9 @@ const EventInfo: React.FC<Props> = ({
   contacts,
   isOpen, 
   onClose,
-  actions,
-  onDeleteEvent
+  onDeleteEvent,
+  createEvent,
+  editEvent
 }) => {
   const classes = useStyles();
 
@@ -101,11 +108,11 @@ const EventInfo: React.FC<Props> = ({
               eventId={eventId}
               activities={activities}
               contacts={contacts}
-              onClose={onClose}
               toggleEdit={toggleEdit}
-              createEvent={actions.createEvent}
-              editEvent={actions.editEvent}
+              onClose={onClose}
               onDeleteEvent={onDeleteEvent}
+              createEvent={createEvent}
+              editEvent={editEvent}
             />
           ) : (
             <>

@@ -1,19 +1,18 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { AddCartIconXS } from '@core/components/Icons/CartIcon';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
-import Ingredients from '@recipes/components/Ingredients';
-import getMissingIngredients from '@recipes/utils/getMissingIngredients';
-import checkMissingItemsRecipe from '@recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from '@recipes/utils/checkMissingInCartRecipe';
-import { InventoryItem } from '@inventory/types';
-import { Recipe, EditMode } from '@recipes/types';
-import { ClickEvent } from '@core/types';
+import { AddCartIconXS } from 'core/components/Icons/CartIcon';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import Ingredients from 'recipes/components/Ingredients';
+import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
+import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
+import { InventoryItem } from 'inventory/types';
+import { Recipe, EditMode } from 'recipes/types';
+import { DispatchProps } from 'recipes/container';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   detailsContainer: {
     width: '100%'
   },
@@ -49,7 +48,7 @@ interface Props {
   allItems: Record<string, InventoryItem>; 
   availableItems: string[]; 
   cart: string[]; 
-  addToCart: (itemIds: string[]) => void;
+  addToCart: DispatchProps["addToCart"];
   onAddMissing: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
   onSelectRecipe: (id: string) => () => void;

@@ -1,4 +1,4 @@
-import { ActivityLocation } from '@activities/types';
+import { ActivityLocation } from 'activities/types';
 
 const checkIsLocationsEmpty = (locations: ActivityLocation[] = []): boolean => {
   for (const location of locations) {

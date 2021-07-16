@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { List } from '@material-ui/core';
-import InventoryListItem from '@inventory/components/InventoryListItem';
-import genericSort from '@core/utils/genericSort';
-import { InventoryItem, RowIcon } from '@inventory/types';
+import InventoryListItem from 'inventory/components/InventoryListItem';
+import genericSort from 'core/utils/genericSort';
+import { InventoryItem, RowIcon } from 'inventory/types';
 
 interface Props {
   isSelectedTab: boolean;
@@ -16,7 +16,7 @@ interface Props {
   onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
 }
 
-const SimpleList = ({ 
+const SimpleList: React.FC<Props> = ({ 
   listItems, 
   isSelectedTab,
   allItems,
@@ -26,7 +26,7 @@ const SimpleList = ({
   rowIcons,
   onItemSelection,
   onEdit
-}: Props) => {
+}) => {
 
   const handleSelection = (id: string) => () => {
     const newSelected = selectedItems.includes(id) ? selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]

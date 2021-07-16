@@ -2,20 +2,21 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 // Components
-import EditButtonGroup from '@contacts/components/EditButtonGroup';
-import SelectInput from '@core/components/inputs/SelectInput';
-import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
-import DateTimePicker from '@core/components/inputs/DateTimePicker'; 
+import EditButtonGroup from 'contacts/components/EditButtonGroup';
+import SelectInput from 'core/components/inputs/SelectInput';
+import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
+import DateTimePicker from 'core/components/inputs/DateTimePicker'; 
 // Utils
-import defaultEventProps from '@contacts/utils/defaultEventProps';
-import getActivityOptions from '@activities/utils/getActivityOptions';
-import getActivityLocations from '@activities/utils/getActivityLocations';
-import getContactsByIds from '@contacts/utils/getContactsByIds';
-import getContactsArray from '@contacts/utils/getContactsArray';
+import defaultEventProps from 'contacts/utils/defaultEventProps';
+import getActivityOptions from 'activities/utils/getActivityOptions';
+import getActivityLocations from 'activities/utils/getActivityLocations';
+import getContactsByIds from 'contacts/utils/getContactsByIds';
+import getContactsArray from 'contacts/utils/getContactsArray';
 // Types
-import { Contact, Event } from '@contacts/types';
-import { Activity, ActivityType } from '@activities/types';
-import { Option, SelectEvent } from '@core/types';
+import { ReduxProps } from 'contacts/container';
+import { Contact, Event } from 'contacts/types';
+import { Activity, ActivityType } from 'activities/types';
+import { Option, SelectEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   headline: {
@@ -47,11 +48,11 @@ interface Props {
   eventId: string;
   activities: Record<string, Activity>;
   contacts: Record<string, Contact>;
-  onClose: () => void;
   toggleEdit: () => void;
-  createEvent: Function;
-  editEvent: Function;
+  onClose: () => void;
   onDeleteEvent: () => void;
+  createEvent: ReduxProps["createEvent"];
+  editEvent: ReduxProps["editEvent"];
 }
 
 const EventInfoEdit: React.FC<Props> = ({ 
@@ -59,11 +60,11 @@ const EventInfoEdit: React.FC<Props> = ({
   eventId, 
   activities,
   contacts,
-  onClose,
   toggleEdit,
+  onClose,
+  onDeleteEvent,
   createEvent,
-  editEvent,
-  onDeleteEvent
+  editEvent
 }) => {
   const classes = useStyles();
   const isCreate = !Boolean(eventId);

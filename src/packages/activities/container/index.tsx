@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
-import ActivitiesContainer from './ActivitiesContainer';
-import { addActivity, editActivity, deleteActivity } from '@activities/store/thunks';
-import { AppStore } from '@core/types';
+import { connect, ConnectedProps } from 'react-redux';
+import { addActivity, editActivity, deleteActivity } from 'activities/store/thunks';
+import { AppStore } from 'core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   activities: state.activitiesStore.activities
@@ -10,10 +9,9 @@ const mapStateToProps = (state: AppStore) => ({
 const mapDispatchToProps = {
   addActivity,
   editActivity,
-  deleteActivity
+  deleteActivity 
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ActivitiesContainer);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type ReduxProps = ConnectedProps<typeof connector>

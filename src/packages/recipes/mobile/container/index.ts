@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
-import { addToCart } from '@inventory/store/thunks';
-import RecipesMobileContainer from './RecipesMobileContainer';
-import { AppStore } from '@core/types';
+import { connect, ConnectedProps } from 'react-redux';
+import { addToCart } from 'inventory/store/thunks';
+import { AppStore } from 'core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   recipes: state.recipesStore.recipes,
@@ -14,7 +13,6 @@ const mapDispatchToProps = {
   addToCart
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RecipesMobileContainer);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type ReduxProps = ConnectedProps<typeof connector>;

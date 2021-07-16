@@ -1,4 +1,4 @@
-import { Recipe } from '@recipes/types';
+import { Recipe } from 'recipes/types';
 
 // Checks missing ingredients for whole recipe
 const checkMissingItemsRecipe = (

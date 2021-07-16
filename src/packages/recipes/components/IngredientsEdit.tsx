@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IconButton, Button, Checkbox, Tooltip } from '@material-ui/core';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import IngredientInput from '@recipes/components/IngredientInput'
-import { IngredientEdit, AlternativeIngredientEdit } from '@recipes/types';
-import { InventoryItem } from '@inventory/types';
-import { AutoCompleteHandler, InputEvent } from '@core/types';
-import assignValueToAlternative from '@recipes/utils/assignValueToAlternative';
+import IngredientInput from 'recipes/components/IngredientInput'
+import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
+import { InventoryItem } from 'inventory/types';
+import { AutoCompleteHandler, InputEvent } from 'core/types';
+import assignValueToAlternative from 'recipes/utils/assignValueToAlternative';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputGroup: {

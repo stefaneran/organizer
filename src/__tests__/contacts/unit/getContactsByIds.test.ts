@@ -1,5 +1,5 @@
-import getContactsByIds from '@contacts/utils/getContactsByIds';
-import mockContacts from '@core/mocks/mockContacts';
+import getContactsByIds from 'contacts/utils/getContactsByIds';
+import mockContacts from 'core/mocks/mockContacts';
 
 const unitTests = [
   { 
@@ -29,7 +29,7 @@ const unitTests = [
 
 test('getContactsByIds', () => {
   for (const unitTest of unitTests) {
-    let result = getContactsByIds(mockContacts, unitTest.input);
+    const result = getContactsByIds(mockContacts, unitTest.input);
     expect(result).toEqual(unitTest.output);
   }
 })

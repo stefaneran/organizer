@@ -9,7 +9,7 @@ import GamepadIcon from '@material-ui/icons/Gamepad';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import CommuteIcon from '@material-ui/icons/Commute';
 import StarIcon from '@material-ui/icons/Star';
-import { ActivityType } from '@activities/types';
+import { ActivityType } from 'activities/types';
 
 interface Props {
   activityType: ActivityType;
