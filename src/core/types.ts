@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Activity } from 'activities/types';
 import { Contact, Event } from 'contacts/types';
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 import { Recipe } from 'recipes/types';
 
 // General types
@@ -57,7 +57,7 @@ export interface ContactsStore {
 }
 
 export interface InventoryStore {
-  allItems: Record<string, InventoryItem>,
+  allItems: Record<string, InventoryItemEdit>,
   availableItems: string[],
   cart: string[],
   selectedInCart: string[]

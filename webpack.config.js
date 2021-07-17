@@ -17,7 +17,8 @@ module.exports = {
   resolve: {
     alias: {
       "app": path.resolve(__dirname, './src/app'),
-      "core": path.resolve(__dirname, './src/core'),
+      // Need to invoke as @core for imports to work in Jest
+      "@core": path.resolve(__dirname, './src/core'),
       "activities": path.resolve(__dirname, './src/packages/activities'),
       "contacts": path.resolve(__dirname, './src/packages/contacts'),
       "inventory": path.resolve(__dirname, './src/packages/inventory'),

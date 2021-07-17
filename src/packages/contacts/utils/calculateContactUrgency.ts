@@ -1,4 +1,4 @@
-import { getDaysFromDate } from 'core/utils/dateUtils'
+import { getDaysFromDate } from '@core/utils/dateUtils'
 
 type ReturnType = {
   urgent: boolean;

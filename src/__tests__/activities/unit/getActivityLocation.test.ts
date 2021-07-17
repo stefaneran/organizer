@@ -1,5 +1,5 @@
 import getActivityLocation from 'activities/utils/getActivityLocation';
-import mockActivities from 'core/mocks/mockActivities';
+import mockActivities from '@core/mocks/mockActivities';
 
 const unitTests = [
   {

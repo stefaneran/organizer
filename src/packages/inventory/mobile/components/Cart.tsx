@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { AddBagIconMedium } from 'core/components/Icons/BagIcon';
-import { RemoveCartIconLarge } from 'core/components/Icons/CartIcon';
+import { AddBagIconMedium } from '@core/components/Icons/BagIcon';
+import { RemoveCartIconLarge } from '@core/components/Icons/CartIcon';
 import AddItemInput from 'inventory/mobile/components/AddItemInput';
 import ItemList from 'inventory/mobile/components/ItemList';
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryActions, InventoryItem } from 'inventory/types';
+import { InventoryActions, InventoryItemEdit } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   list: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   cart: string[];
   selectedInCart: string[];
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   actions: InventoryActions;
 }
 

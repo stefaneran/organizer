@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { addToCart } from 'inventory/store/thunks';
-import { AppStore } from 'core/types';
+import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   recipes: state.recipesStore.recipes,

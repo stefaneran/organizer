@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
-import SelectInput from 'core/components/inputs/SelectInput';
+import SelectInput from '@core/components/inputs/SelectInput';
 import { RecipeFilters, GroupByMode } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({

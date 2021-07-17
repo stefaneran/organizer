@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
 import { Ingredient } from 'recipes/types';
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   mobileText: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   ingredients: Ingredient[];
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   cart: string[];
   addToCart: (itemIds: string[]) => void;

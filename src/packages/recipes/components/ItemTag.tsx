@@ -8,21 +8,21 @@ import {
   RemoveBagIconLargeFill,
   CheckBagIconSmallFill,
   CheckBagIconLargeFill
-} from 'core/components/Icons/BagIcon';
+} from '@core/components/Icons/BagIcon';
 import { 
   WarningCartIconSmallFill, 
   WarningCartIconLargeFill 
-} from 'core/components/Icons/CartIcon';
+} from '@core/components/Icons/CartIcon';
 import {
   AddCartIconSmall,
   AddCartIconSmallWhite 
-} from 'core/components/Icons/CartIcon';
+} from '@core/components/Icons/CartIcon';
 // Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
 import { Recipe, Ingredient, AlternativeIngredient } from 'recipes/types';
-import { ClickEvent } from 'core/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {

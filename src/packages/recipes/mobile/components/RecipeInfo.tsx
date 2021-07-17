@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button } from '@material-ui/core';
-import { AddCartIconLarge } from 'core/components/Icons/CartIcon';
+import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import Ingredients from 'recipes/components/Ingredients';
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipe: Recipe;
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   cart: string[];
   addToCart: (itemIds: string[]) => void;

@@ -1,4 +1,4 @@
-import { OrganizerModule } from 'core/types';
+import { OrganizerModule } from '@core/types';
 
 const defaultWebApp = OrganizerModule.Recipes;
 

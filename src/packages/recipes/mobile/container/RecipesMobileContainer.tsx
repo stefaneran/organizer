@@ -4,8 +4,8 @@ import { Typography, TextField } from '@material-ui/core';
 import { connector, ReduxProps } from './index';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { FoodIconLarge } from 'core/components/Icons/FoodIcon';
-import { FilterListIconLarge } from 'core/components/Icons/ListIcon';
+import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
+import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 // Components
 import RecipeInfo from 'recipes/mobile/components/RecipeInfo';
 import RecipeItem from 'recipes/mobile/components/RecipeItem';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { IconButton, Button, Checkbox, Tooltip } from '@material-ui/core';
 // Icons
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 // Components
 import IngredientInput from 'recipes/components/IngredientInput'
@@ -10,8 +10,8 @@ import IngredientInput from 'recipes/components/IngredientInput'
 import assignValueToAlternative from 'recipes/utils/assignValueToAlternative';
 // Types
 import { IngredientEdit } from 'recipes/types';
-import { InventoryItem } from 'inventory/types';
-import { AutoCompleteHandler } from 'core/types';
+import { InventoryItemEdit } from 'inventory/types';
+import { AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   inputGroup: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   ingredients: IngredientEdit[]; 
-  allItems: Record<string, InventoryItem>; 
+  allItems: Record<string, InventoryItemEdit>; 
   onIngredientsChange: (index: number, ingredient?: IngredientEdit) => void;
 }
 

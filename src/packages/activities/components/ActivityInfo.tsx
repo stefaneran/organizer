@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import ActivityInfoEdit from 'activities/components/ActivityInfoEdit';
 import ActivityLocations from 'activities/components/ActivityLocations';
 import ActivityParticipants from 'activities/components/ActivityParticipants';

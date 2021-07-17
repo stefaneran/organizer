@@ -9,7 +9,7 @@ import {
   deleteEvent 
 } from 'contacts/store/thunks';
 import { initGroups } from 'contacts/store';
-import { AppStore } from 'core/types';
+import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   contacts: state.contactsStore.contacts,

@@ -2,15 +2,15 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { connector, ReduxProps, DispatchProps } from './index';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import RecipesToolbar from 'recipes/components/RecipesToolbar';
 import RecipeFilters from 'recipes/components/RecipeFilters';
 import RecipeItem from 'recipes/components/RecipeItem';
 import RecipeInfoEdit from 'recipes/components/RecipeInfoEdit';
 import RecipeInfo from 'recipes/components/RecipeInfo';
-import ConfirmationDialog from 'core/components/ConfirmationDialog'; 
-import SlidingPanel from 'core/components/SlidingPanel';
+import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
+import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
 import getMissingIngredients from 'recipes/utils/getMissingIngredients';
 import defaultRecipeProps from 'recipes/utils/defaultRecipeProps';

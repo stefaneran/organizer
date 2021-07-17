@@ -3,9 +3,9 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 // Components
 import EditButtonGroup from 'contacts/components/EditButtonGroup';
-import SelectInput from 'core/components/inputs/SelectInput';
-import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
-import DateTimePicker from 'core/components/inputs/DateTimePicker'; 
+import SelectInput from '@core/components/inputs/SelectInput';
+import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
+import DateTimePicker from '@core/components/inputs/DateTimePicker'; 
 // Utils
 import defaultEventProps from 'contacts/utils/defaultEventProps';
 import getActivityOptions from 'activities/utils/getActivityOptions';
@@ -16,7 +16,7 @@ import getContactsArray from 'contacts/utils/getContactsArray';
 import { ReduxProps } from 'contacts/container';
 import { Contact, Event } from 'contacts/types';
 import { Activity, ActivityType } from 'activities/types';
-import { Option, SelectEvent } from 'core/types';
+import { Option, SelectEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   headline: {

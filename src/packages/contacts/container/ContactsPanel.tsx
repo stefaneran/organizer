@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import ContactsToolBar from 'contacts/components/ContactsPanel/ContactsToolBar';
 import ContactsList from 'contacts/components/ContactsPanel/ContactsList';
 import ContactInfo from 'contacts/components/ContactsPanel/ContactInfo';
 import ContactsFilters from 'contacts/components/ContactsPanel/ContactsFilters';
-import ConfirmationDialog from 'core/components/ConfirmationDialog';
-import SlidingPanel from 'core/components/SlidingPanel';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
+import SlidingPanel from '@core/components/SlidingPanel';
 import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import getContactsArray from 'contacts/utils/getContactsArray';
 import { Contact } from 'contacts/types';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List } from '@material-ui/core';
 import InventoryListItem from 'inventory/components/InventoryListItem';
-import genericSort from 'core/utils/genericSort';
+import genericSort from '@core/utils/genericSort';
 import { InventoryItem, RowIcon } from 'inventory/types';
 
 interface Props {

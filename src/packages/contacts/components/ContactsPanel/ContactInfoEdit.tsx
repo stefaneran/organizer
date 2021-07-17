@@ -6,13 +6,13 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 // Components
 import EditButtonGroup from 'contacts/components/EditButtonGroup';
-import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
-import SelectInput from 'core/components/inputs/SelectInput';
-import SwitchInput from 'core/components/inputs/SwitchInput';
+import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
+import SelectInput from '@core/components/inputs/SelectInput';
+import SwitchInput from '@core/components/inputs/SwitchInput';
 // Utils
 import defaultContactProps from 'contacts/utils/defaultContactProps';
 // Types
-import { Option } from 'core/types';
+import { Option } from '@core/types';
 import { Contact, Genders, RelationshipStatus } from 'contacts/types';
 import { ReduxProps } from 'contacts/container/index';
 

@@ -8,11 +8,11 @@ import {
   IconButton,
   Button
 } from '@material-ui/core';
-import { HamburgerIconLarge } from 'core/components/Icons/ListIcon';
-import { CartIconXLFill } from 'core/components/Icons/CartIcon';
-import { FoodIconXL } from 'core/components/Icons/FoodIcon';
-import { LogInIconXL } from 'core/components/Icons/LoginIcon';
-import { StateSetter, OrganizerModule, AppStore } from 'core/types';
+import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
+import { CartIconXLFill } from '@core/components/Icons/CartIcon';
+import { FoodIconXL } from '@core/components/Icons/FoodIcon';
+import { LogInIconXL } from '@core/components/Icons/LoginIcon';
+import { StateSetter, OrganizerModule, AppStore } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   hamburger: {

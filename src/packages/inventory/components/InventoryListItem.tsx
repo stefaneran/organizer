@@ -11,7 +11,7 @@ import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
 import { InventoryItem, RowIcon } from 'inventory/types';
-import { ClickEvent, InputEvent, AutoCompleteHandler } from 'core/types';
+import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   editContainer: {

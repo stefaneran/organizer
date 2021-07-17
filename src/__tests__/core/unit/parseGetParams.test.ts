@@ -1,4 +1,4 @@
-import parseGetParams from 'core/utils/parseGetParams';
+import parseGetParams from '@core/utils/parseGetParams';
 
 const unitTests = [
   {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { InputLabel } from '@material-ui/core';
-import { FilterListIconLarge } from 'core/components/Icons/ListIcon';
-import SelectInput from 'core/components/inputs/SelectInput';
+import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
+import SelectInput from '@core/components/inputs/SelectInput';
 import { RecipeFilters } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({

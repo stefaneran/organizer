@@ -4,14 +4,14 @@ import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import EditLocations from 'activities/components/EditLocations';
-import TextMultiSelect from 'core/components/inputs/TextMultiSelect';
-import SelectInput from 'core/components/inputs/SelectInput';
+import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
+import SelectInput from '@core/components/inputs/SelectInput';
 import defaultActivityProps from 'activities/utils/defaultActivityProps';
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
-import getEnumValues from 'core/utils/getEnumValues';
+import getEnumValues from '@core/utils/getEnumValues';
 import { ReduxProps } from 'activities/container';
 import { Activity, ActivityType, ParticipantType, ActivityLocation } from 'activities/types';
-import { Option } from 'core/types';
+import { Option } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
-import SelectInput from 'core/components/inputs/SelectInput';
-import { InputEvent, SelectEvent } from 'core/types';
+import SelectInput from '@core/components/inputs/SelectInput';
+import { InputEvent, SelectEvent } from '@core/types';
 import { ActivityFilters, ParticipantType } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({

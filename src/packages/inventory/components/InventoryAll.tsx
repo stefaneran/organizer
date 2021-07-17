@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { AddBagIconSmall } from 'core/components/Icons/BagIcon';
-import { TrashIconSmall, TrashIconSmallWhite, TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { AddBagIconSmall } from '@core/components/Icons/BagIcon';
+import { TrashIconSmall, TrashIconSmallWhite, TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import InventorySection from 'inventory/components/InventorySection';
-import ConfirmationDialog from 'core/components/ConfirmationDialog';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import allItemsToArray from 'inventory/utils/allItemsToArray';
-import { InventoryActions, InventoryItem } from 'inventory/types';
+import { InventoryActions, InventoryItemEdit } from 'inventory/types';
 
 interface Props {
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   cart: string[];
   isSelectedTab: boolean;

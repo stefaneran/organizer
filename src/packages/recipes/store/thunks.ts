@@ -2,11 +2,11 @@
 import { Dispatch } from 'redux';
 import { updateRecipe, deleteRecipeDone } from '.';
 import { addToAllItems } from 'inventory/store/thunks';
-import baseUrl from 'core/baseUrl';
+import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-import genericRequest from 'core/utils/genericRequest';
+import genericRequest from '@core/utils/genericRequest';
 import sanitizeIngredients from 'recipes/utils/sanitizeIngredients';
-import { GetState } from 'core/types';
+import { GetState } from '@core/types';
 import { Recipe, RecipeEdit } from 'recipes/types';
 
 export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getState: GetState) => {

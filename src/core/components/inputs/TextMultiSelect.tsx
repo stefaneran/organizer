@@ -5,7 +5,7 @@ import {
   FormControl, 
   FormHelperText 
 } from '@material-ui/core';
-import { Option, AutoCompleteHandler, KeyboardEvent } from 'core/types';
+import { Option, AutoCompleteHandler, KeyboardEvent } from '@core/types';
 
 interface Props {
   label: string;

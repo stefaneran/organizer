@@ -1,9 +1,9 @@
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 
 // Check if any items are missing from both available, and cart
 // Shouldn't have a use anymore since I removed the useless "Add Missing To Cart" button
 const checkItemsMissing = (
-  allItems: Record<string, InventoryItem>,
+  allItems: Record<string, InventoryItemEdit>,
   availableItems: string[], 
   cart: string[]
 ): boolean => {

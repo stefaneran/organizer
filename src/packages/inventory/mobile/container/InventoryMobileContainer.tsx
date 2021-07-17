@@ -5,8 +5,8 @@ import { connector, ReduxProps, DispatchProps } from './index';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { BagIconLarge } from 'core/components/Icons/BagIcon';
-import { CartIconLargeFill } from 'core/components/Icons/CartIcon';
+import { BagIconLarge } from '@core/components/Icons/BagIcon';
+import { CartIconLargeFill } from '@core/components/Icons/CartIcon';
 // Components
 import Cart from 'inventory/mobile/components/Cart';
 import Inventory from 'inventory/mobile/components/Inventory';

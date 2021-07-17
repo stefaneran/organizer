@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider } from '@material-ui/core';
 import InventoryAll from 'inventory/components/InventoryAll';
 import InventoryAvailable from 'inventory/components/InventoryAvailable';
-import { InventoryTabs, InventoryItem, InventoryActions } from 'inventory/types';
+import { InventoryTabs, InventoryItemEdit, InventoryActions } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  allItems: Record<string, InventoryItem>; 
+  allItems: Record<string, InventoryItemEdit>; 
   availableItems: string[]; 
   cart: string[]; 
   actions: InventoryActions; 

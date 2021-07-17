@@ -4,7 +4,7 @@ import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
 import ParticipantsChip from 'contacts/components/EventsPanel/ParticipantsChip';
 import getActivityLocation from 'activities/utils/getActivityLocation';
-import { formatEventDate, formatDateTime } from 'core/utils/dateUtils';
+import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
 import { Contact, Event } from 'contacts/types';
 import { Activity } from 'activities/types';
 

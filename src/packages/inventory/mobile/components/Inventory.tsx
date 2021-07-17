@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
-import { RemoveBagIconLarge } from 'core/components/Icons/BagIcon';
-import { AddCartIconLarge } from 'core/components/Icons/CartIcon';
+import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
+import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import ItemList from 'inventory/mobile/components/ItemList';
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
 import { InventoryActions, InventoryItem } from 'inventory/types';
-import { InputEvent } from 'core/types';
+import { InputEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   textFilter: {

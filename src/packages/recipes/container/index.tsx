@@ -5,7 +5,7 @@ import {
   deleteRecipe
 } from 'recipes/store/thunks';
 import { addToCart } from 'inventory/store/thunks';
-import { AppStore } from 'core/types';
+import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   recipes: state.recipesStore.recipes,

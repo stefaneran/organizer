@@ -1,8 +1,8 @@
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 
 const getIngredientIdByName = (
   name: string, 
-  allItems: Record<string, InventoryItem>
+  allItems: Record<string, InventoryItemEdit>
 ): string | undefined => {
   const itemIds = Object.keys(allItems);
   for (let i = 0; i < itemIds.length; i += 1) {

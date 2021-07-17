@@ -1,7 +1,7 @@
 import getContactsArray from 'contacts/utils/getContactsArray';
 import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import { RelationshipStatus, Genders, SortOption } from 'contacts/types';
-import mockContacts from 'core/mocks/mockContacts';
+import mockContacts from '@core/mocks/mockContacts';
 
 const mockFilters = [
   { ...defaultContactFilters, gender: Genders.Female },

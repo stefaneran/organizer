@@ -1,5 +1,5 @@
 import getContactsByIds from 'contacts/utils/getContactsByIds';
-import mockContacts from 'core/mocks/mockContacts';
+import mockContacts from '@core/mocks/mockContacts';
 
 const unitTests = [
   { 

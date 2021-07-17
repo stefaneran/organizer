@@ -5,7 +5,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HistoryIcon from '@material-ui/icons/History';
 import UpdateIcon from '@material-ui/icons/Update';
-import SwitchInput from 'core/components/inputs/SwitchInput';
+import SwitchInput from '@core/components/inputs/SwitchInput';
 import { EventFilters } from 'contacts/types';
 
 const useStyles = makeStyles(() => createStyles({

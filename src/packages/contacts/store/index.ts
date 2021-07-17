@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getAllGroups from 'contacts/utils/getAllGroups';
-import { ContactsStore } from 'core/types';
+import { ContactsStore } from '@core/types';
 
 const slice = createSlice({
   name: 'contactsStore',

@@ -1,8 +1,8 @@
-import { InventoryItem } from 'inventory/types';
+import { InventoryItem, InventoryItemEdit } from 'inventory/types';
 
 interface Props {
   availableItems: string[];
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   textFilter: string;
 }
 

@@ -3,14 +3,14 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { connector, ReduxProps } from './index';
 // Icons
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import ActivitiesToolbar from 'activities/components/ActivitiesToolbar';
 import ActivityNestedList from 'activities/components/ActivityNestedList';
 import ActivityInfo from 'activities/components/ActivityInfo';
 import ActivityFilters from 'activities/components/ActivitiesFilters';
-import ConfirmationDialog from 'core/components/ConfirmationDialog';
-import SlidingPanel from 'core/components/SlidingPanel';
+import ConfirmationDialog from '@core/components/ConfirmationDialog';
+import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import defaultFilters from 'activities/utils/defaultActivityFilters';

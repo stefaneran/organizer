@@ -6,7 +6,8 @@
 		"esModuleInterop": true,
 		"paths": {
 			"app/*": ["src/app/*"],
-			"core/*": ["src/core/*"],
+			// Need to invoke as @core for imports to work in Jest
+			"@core/*": ["src/core/*"],
 			"activities/*": ["src/packages/activities/*"],
 			"contacts/*": ["src/packages/contacts/*"],
 			"inventory/*": ["src/packages/inventory/*"],

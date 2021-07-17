@@ -3,12 +3,12 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
-import { FoodIconXS } from 'core/components/Icons/FoodIcon';
+import { FoodIconXS } from '@core/components/Icons/FoodIcon';
 import IngredientsEdit from 'recipes/components/IngredientsEdit';
-import countries from 'core/data/countries';
+import countries from '@core/data/countries';
 import { IngredientEdit, RecipeEdit, EditMode } from 'recipes/types';
-import { InventoryItem } from 'inventory/types';
-import { InputEvent, AutoCompleteHandler } from 'core/types';
+import { InventoryItemEdit } from 'inventory/types';
+import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -31,7 +31,7 @@ interface Props {
   recipeData: RecipeEdit; 
   setRecipeData: (recipe: RecipeEdit) => void; 
   categoryOptions: string[]; 
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   onSubmitEditRecipe: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
 }

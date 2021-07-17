@@ -7,12 +7,12 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 // Components
 import InventoryListItem from 'inventory/components/InventoryListItem';
 // Utils
-import categorizeItems from 'core/utils/categorizeItems';
-import genericSort from 'core/utils/genericSort';
+import categorizeItems from '@core/utils/categorizeItems';
+import genericSort from '@core/utils/genericSort';
 import shouldCategoryBeOpen from 'inventory/utils/shouldCategoryBeOpen';
 // Types
-import { InventoryItem, RowIcon } from 'inventory/types';
-import { ClickEvent } from 'core/types';
+import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   item: {
@@ -24,14 +24,14 @@ interface CollapsibleProps {
   isSelectedTab: boolean;
   category: string;
   listItems: InventoryItem[];
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   selectedItems: string[];
   onItemSelection: (selected: string[]) => void;
   textFilter: string;
   rowIcons: RowIcon[];
   cart?: string[];
-  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+  onEdit?: (id: string, item: InventoryItemEdit) => void;
 }
 
 const Collapsible: React.FC<CollapsibleProps> = ({ 
@@ -100,14 +100,14 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 interface NestedProps {
   isSelectedTab: boolean;
   listItems: InventoryItem[];
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   selectedItems: string[];
   onItemSelection: (selected: string[]) => void;
   textFilter: string;
   rowIcons: RowIcon[];
   cart?: string[];
-  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+  onEdit?: (id: string, item: InventoryItemEdit) => void;
 }
 
 const NestedList: React.FC<NestedProps> = ({ 

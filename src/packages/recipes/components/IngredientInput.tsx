@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { IconButton, TextField } from '@material-ui/core';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import getItemsOptions from 'recipes/utils/getItemsOptions';
 import isAlternativeIngredient from 'recipes/utils/isAlternativeIngredient';
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
-import { InputEvent, AutoCompleteHandler } from 'core/types';
+import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   input: { 
@@ -36,7 +36,7 @@ interface Props {
   ingredient: IngredientEdit | AlternativeIngredientEdit;
   index: number;
   subIndex?: number;
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   onItemSelect: (index: number, subIndex?: number) => AutoCompleteHandler;
   onChange: (props: OnChangeProps) => void;
   onDelete?: (index: number, subIndex?: number) => () => void;

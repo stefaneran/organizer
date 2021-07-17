@@ -11,6 +11,8 @@ export interface InventoryItem {
   category: string;
 }
 
+export type InventoryItemEdit = Omit<InventoryItem, "id">;
+
 export interface InventoryActions {
   inventory: {
     addToAll: ReduxProps["addToAllItems"];

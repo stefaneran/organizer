@@ -1,8 +1,8 @@
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 
 const getItemsOptions = (
   ingredientName: string, 
-  allItems: Record<string, InventoryItem>
+  allItems: Record<string, InventoryItemEdit>
 ): string[] => {
   const itemNames: string[] = [];
   Object.keys(allItems).forEach(itemId => {

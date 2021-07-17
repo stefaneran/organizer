@@ -18,9 +18,6 @@ General:
 - Add sync button in appbar to update info
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
-- Fix lint errors/warnings
-  - Disable the "any" and other commonw warnings, fix the rest
-
 ===============================================================
 
 Tests:

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import EventsToolbar from 'contacts/components/EventsPanel/EventsToolbar';
 import EventsList from 'contacts/components/EventsPanel/EventsList';
 import EventInfo from 'contacts/components/EventsPanel/EventInfo';
 import EventsFilters from 'contacts/components/EventsPanel/EventsFilters';
-import ConfirmationDialog from 'core/components/ConfirmationDialog'; 
-import SlidingPanel from 'core/components/SlidingPanel';
+import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
+import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
 import defaultEventFilters from 'contacts/utils/defaultEventFilters';
 import getEventsArray from 'contacts/utils/getEventsArray';

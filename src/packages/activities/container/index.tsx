@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { addActivity, editActivity, deleteActivity } from 'activities/store/thunks';
-import { AppStore } from 'core/types';
+import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   activities: state.activitiesStore.activities

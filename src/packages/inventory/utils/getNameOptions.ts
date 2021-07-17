@@ -1,5 +1,5 @@
-import genericSort from 'core/utils/genericSort';
-import { InventoryItem } from 'inventory/types';
+import genericSort from '@core/utils/genericSort';
+import { InventoryItemEdit } from 'inventory/types';
 
 interface Option {
   label: string;
@@ -7,7 +7,7 @@ interface Option {
 }
 
 export default (
-  allItems: Record<string, InventoryItem>, 
+  allItems: Record<string, InventoryItemEdit>, 
   targetCollection: string[]
 ) => {
   const names: Option[] = [];

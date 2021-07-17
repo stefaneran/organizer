@@ -8,8 +8,8 @@ import InventoryContainer from 'inventory/container/InventoryContainer';
 import InventoryMobileContainer from 'inventory/mobile/container/InventoryMobileContainer';
 import RecipesContainer from 'recipes/container/RecipesContainer';
 import RecipesMobileContainer from 'recipes/mobile/container/RecipesMobileContainer';
-import defaultWebApp from 'core/defaultWebApp';
-import { OrganizerModule, AppStore } from 'core/types';
+import defaultWebApp from '@core/defaultWebApp';
+import { OrganizerModule, AppStore } from '@core/types';
 
 const useStyles = makeStyles(() => ({
   container: {

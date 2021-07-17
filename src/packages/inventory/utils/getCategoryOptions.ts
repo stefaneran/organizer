@@ -1,9 +1,9 @@
-import genericSort from 'core/utils/genericSort';
-import { InventoryItem } from 'inventory/types';
+import genericSort from '@core/utils/genericSort';
+import { InventoryItemEdit } from 'inventory/types';
 
 const getCategoryOptions = (
   categoryValue: string, 
-  allItems: Record<string, InventoryItem>
+  allItems: Record<string, InventoryItemEdit>
 ): string[] => {
   const categories: string[] = [];
   Object.keys(allItems).forEach(id => {

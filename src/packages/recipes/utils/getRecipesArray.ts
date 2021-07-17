@@ -1,5 +1,5 @@
 import { Recipe, RecipeFilters } from 'recipes/types';
-import genericSort from 'core/utils/genericSort';
+import genericSort from '@core/utils/genericSort';
 
 const getRecipesArray = (
   recipes: Record<string, Recipe>, 

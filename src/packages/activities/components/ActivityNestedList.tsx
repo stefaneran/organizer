@@ -5,10 +5,10 @@ import ActivityListItem from 'activities/components/ActivityListItem';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
-import categorizeItems from 'core/utils/categorizeItems';
-import genericSort from 'core/utils/genericSort';
+import categorizeItems from '@core/utils/categorizeItems';
+import genericSort from '@core/utils/genericSort';
 import { Activity, ActivityFilters, ActivityType } from 'activities/types';
-import { ClickEvent } from 'core/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   item: {

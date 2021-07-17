@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ActivitiesStore } from 'core/types';
+import { ActivitiesStore } from '@core/types';
 
 const slice = createSlice({
   name: 'activitiesStore',

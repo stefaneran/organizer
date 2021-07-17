@@ -6,10 +6,10 @@ import {
   updateEventDone,
   deleteEventDone
 } from '.';
-import baseUrl from 'core/baseUrl';
+import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-import genericRequest from 'core/utils/genericRequest';
-import { GetState } from 'core/types';
+import genericRequest from '@core/utils/genericRequest';
+import { GetState } from '@core/types';
 
 export const createContact = (contact) => async (dispatch: Dispatch, getState: GetState) => {
   const newContactId = v4();

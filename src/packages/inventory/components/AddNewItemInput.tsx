@@ -4,8 +4,8 @@ import { Autocomplete } from '@material-ui/lab';
 import { TextField, Button } from '@material-ui/core';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
-import { InventoryItem } from 'inventory/types';
-import { InputEvent, AutoCompleteHandler } from 'core/types';
+import { InventoryItemEdit } from 'inventory/types';
+import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -30,8 +30,8 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  allItems: Record<string, InventoryItem>;
-  onSubmit: (item: Omit<InventoryItem, "id">) => void;
+  allItems: Record<string, InventoryItemEdit>;
+  onSubmit: (item: InventoryItemEdit) => void;
 }
 
 const AddNewItemInput: React.FC<Props> = ({ allItems, onSubmit }) => {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { SelectEvent } from 'core/types';
+import { SelectEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   formControl: {

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import MobileAutocomplete from 'core/components/inputs/MobileAutocomplete';
+import MobileAutocomplete from '@core/components/inputs/MobileAutocomplete';
 import getNameOptions from 'inventory/utils/getNameOptions';
-import { InventoryItem } from 'inventory/types';
-import { Option } from 'core/types';
+import { InventoryItemEdit } from 'inventory/types';
+import { Option } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   margin: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   targetCollection: string[];
   onChange: (id: string) => void;
 }

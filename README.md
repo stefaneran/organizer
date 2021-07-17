@@ -18,6 +18,10 @@ Unit tests:
 
 - yarn test
 
+or to re-run with every file change
+
+- yarn test:watch
+
 # To deploy to "https://stefaneran.github.io/organizer"
 
 - Change version: Where #.#.# are [Major Iteration].[Major feature].[Minor changes commit]
@@ -68,6 +72,8 @@ resolve: {
 # Untracking files in the .gitignore
 
 Note: Commit all changes first!
+
+Change .gitignore
 
 git rm -r --cached .;
 git add .;

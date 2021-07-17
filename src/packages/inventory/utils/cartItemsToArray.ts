@@ -1,8 +1,8 @@
-import { InventoryItem } from 'inventory/types';
+import { InventoryItem, InventoryItemEdit } from 'inventory/types';
 
 const cartItemsToArray = (
   cart: string[], 
-  allItems: Record<string, InventoryItem>
+  allItems: Record<string, InventoryItemEdit>
 ): InventoryItem[] => 
   cart.map(id => ({ 
     id, 

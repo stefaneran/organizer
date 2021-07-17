@@ -1,5 +1,5 @@
 import { Contact, ContactFilters, SortOption } from 'contacts/types';
-import genericSort from 'core/utils/genericSort';
+import genericSort from '@core/utils/genericSort';
 
 const getContactsArray = (
   contacts: Record<string, Contact>, 

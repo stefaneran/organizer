@@ -4,15 +4,15 @@ import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/c
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { AddCartIconXS } from 'core/components/Icons/CartIcon';
-import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+import { AddCartIconXS } from '@core/components/Icons/CartIcon';
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import Ingredients from 'recipes/components/Ingredients';
 // Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
-import { InventoryItem } from 'inventory/types';
+import { InventoryItemEdit } from 'inventory/types';
 import { Recipe, EditMode } from 'recipes/types';
 import { DispatchProps } from 'recipes/container';
 
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipe: Recipe; 
-  allItems: Record<string, InventoryItem>; 
+  allItems: Record<string, InventoryItemEdit>; 
   availableItems: string[]; 
   cart: string[]; 
   addToCart: DispatchProps["addToCart"];

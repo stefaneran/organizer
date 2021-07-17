@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import ChipsGroup from 'core/components/ChipsGroup';
+import ChipsGroup from '@core/components/ChipsGroup';
 import { EditMode, GroupByMode, RecipeFilters } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({

@@ -8,7 +8,7 @@ import { setInventory, clearInventory } from 'inventory/store';
 // Thunks
 import { getAllData, register, login, logout } from 'app/store/thunks';
 // Types
-import { AppStore } from 'core/types';
+import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   app: state.app,

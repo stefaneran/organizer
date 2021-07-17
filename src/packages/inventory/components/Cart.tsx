@@ -4,11 +4,11 @@ import { Typography, Button, Tooltip } from '@material-ui/core';
 import SimpleList from 'inventory/components/SimpleList';
 import AddItemInput from 'inventory/components/AddItemInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
-import { RemoveCartIconSmall } from 'core/components/Icons/CartIcon';
-import { AddBagIconXS } from 'core/components/Icons/BagIcon';
+import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
+import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryTabs, InventoryItem, InventoryActions } from 'inventory/types';
-import { ClickEvent } from 'core/types';
+import { InventoryTabs, InventoryItemEdit, InventoryActions } from 'inventory/types';
+import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -34,7 +34,7 @@ interface Props {
   cart: string[];
   selectedInCart: string[];
   actions: InventoryActions;
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   isSelectedTab: boolean;
   setSelectedTab: (selected: InventoryTabs) => () => void;
 }

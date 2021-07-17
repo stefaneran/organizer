@@ -3,8 +3,8 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField } from '@material-ui/core';
 import getNameOptions from 'inventory/utils/getNameOptions';
-import { InventoryItem } from 'inventory/types';
-import { AutoCompleteHandler } from 'core/types';
+import { InventoryItemEdit } from 'inventory/types';
+import { AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   input: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   targetCollection: string[];
   onChange: (value: string) => void;
 }

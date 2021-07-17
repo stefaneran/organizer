@@ -1,7 +1,7 @@
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 import { ParticipantType } from 'activities/types';
-import mockActivities from 'core/mocks/mockActivities';
+import mockActivities from '@core/mocks/mockActivities';
 
 const mockFilters = [
   { ...defaultActivityFilters, participants: ParticipantType.Alone },

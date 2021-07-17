@@ -4,22 +4,25 @@ import {
   List, ListItem, ListItemText, ListItemIcon, Collapse,
   Button, Divider, Tooltip, TextField
 } from '@material-ui/core';
+// Icons
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { AddCartIconXS, AddCartIconSmall } from 'core/components/Icons/CartIcon';
-import { AddBagIconXS, BagIconSmall } from 'core/components/Icons/BagIcon';
-import { DatabaseIconSmall } from 'core/components/Icons/DatabaseIcon';
-import { ListIconSmall, NestedIconSmall } from 'core/components/Icons/ListIcon';
-import SwitchInput from 'core/components/inputs/SwitchInput';
+import { AddCartIconXS, AddCartIconSmall } from '@core/components/Icons/CartIcon';
+import { AddBagIconXS, BagIconSmall } from '@core/components/Icons/BagIcon';
+import { DatabaseIconSmall } from '@core/components/Icons/DatabaseIcon';
+import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
+// Components
+import SwitchInput from '@core/components/inputs/SwitchInput';
 import NestedList from 'inventory/components/NestedList';
 import SimpleList from 'inventory/components/SimpleList';
 import AddNewItemInput from 'inventory/components/AddNewItemInput';
 import AddItemInput from 'inventory/components/AddItemInput';
-import { InventoryItem, RowIcon, InventoryActions } from 'inventory/types';
-import { StateSetter, ClickEvent, InputEvent } from 'core/types';
+// Types
+import { InventoryItem, InventoryItemEdit, RowIcon, InventoryActions } from 'inventory/types';
+import { StateSetter, ClickEvent, InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -74,7 +77,7 @@ interface Props {
   isSelectedTab: boolean;
   selectedItems: string[];
   setSelectedItems: StateSetter<string[]>;
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   cart?: string[];
   customRowIcons: RowIcon[];

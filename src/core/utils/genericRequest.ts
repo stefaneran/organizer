@@ -4,8 +4,8 @@ import {
   loadingEnd,
   updateError
 } from 'app/store/reducer';
-import jsonFetch from 'core/utils/jsonFetch';
-import { GetState } from 'core/types';
+import jsonFetch from '@core/utils/jsonFetch';
+import { GetState } from '@core/types';
 
 type Response = {
   status: number;
