@@ -19,6 +19,7 @@ General:
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
 - Fix lint errors/warnings
+  - Disable the "any" and other commonw warnings, fix the rest
 
 ===============================================================
 
@@ -55,7 +56,6 @@ Recipes:
   - Add tags like "No Meat", "No Carbs" etc 
   - Allow filtering by these
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
-- Filter panel should be closed when clicking outside
 - Recipe: When creating new recipe, set as selected to avoid confusion
 - Mobile: Add/Edit recipe
 - Mobile: Optional icon too small

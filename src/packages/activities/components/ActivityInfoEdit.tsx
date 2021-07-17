@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Select, MenuItem, Button } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import EditLocations from 'activities/components/EditLocations';
@@ -13,7 +13,7 @@ import { ReduxProps } from 'activities/container';
 import { Activity, ActivityType, ParticipantType, ActivityLocation } from 'activities/types';
 import { Option } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     padding: '1em'
   },
@@ -59,6 +59,7 @@ const ActivityInfoEdit: React.FC<Props> = ({
     }
   }, [activityId]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeActivityData = (property: string) => (eventOrValue: any): void => {
     let value = eventOrValue.target?.value ?? eventOrValue;
     if (property === 'participantType') {

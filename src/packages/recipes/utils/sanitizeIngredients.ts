@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import getIngredientIdByName from 'recipes/utils/getIngredientIdByName';
 import { Ingredient, IngredientEdit } from 'recipes/types';
 import { InventoryItem } from 'inventory/types';
@@ -7,9 +6,8 @@ import { InventoryItem } from 'inventory/types';
 // We do this because ingredients in edit mode don't have ids by default
 const sanitizeIngredients = async (
   ingredients: IngredientEdit[], 
-  allItems: Record<string, InventoryItem>, 
-  dispatch: Dispatch, 
-  addToAllItems: any
+  allItems: Record<string, InventoryItem>,
+  addToAllItems: (name: string, category: string) => Promise<string>
 ): Promise<Ingredient[]> => {
   const ingredientsWithId = [];
   // Verify each ingredient and get its existing/newly created itemId
@@ -22,7 +20,7 @@ const sanitizeIngredients = async (
       let ingredientItemId = getIngredientIdByName(name, allItems);
       // If no ID exists, create the new item and assign it an ID
       if (!ingredientItemId) {
-        ingredientItemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+        ingredientItemId = await addToAllItems(name, 'Uncategorized');
       }
 
       // Do the same verification for an ingredient's alternatives
@@ -34,7 +32,7 @@ const sanitizeIngredients = async (
           let ingredientItemId = getIngredientIdByName(name, allItems);
           // If no ID exists, create the new item and assign it an ID
           if (!ingredientItemId) {
-            ingredientItemId = await dispatch(addToAllItems({ name, category: 'Uncategorized' }))
+            ingredientItemId = await addToAllItems(name, 'Uncategorized')
           }
           alternativesWithId.push({ 
             ...alternative, 

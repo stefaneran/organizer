@@ -5,18 +5,18 @@ import {
   FormControl, 
   FormHelperText 
 } from '@material-ui/core';
-import { AutoCompleteHandler, KeyboardEvent } from 'core/types';
+import { Option, AutoCompleteHandler, KeyboardEvent } from 'core/types';
 
 interface Props {
   label: string;
-  onChange: (value: any) => void;
-  options: any[];
+  onChange: (value: Option[]) => void;
+  options: Option[];
   className?: string;
   canAdd?: boolean; // Can add new options by typing and pressing enter
   helperText?: string;
-  variant?: any;
-  size?: any;
-  defaultValue?: any;
+  variant?: "filled" | "standard" | "outlined";
+  size?: "small" | "medium";
+  defaultValue?: Option[];
 }
 
 const TextMultiSelect: React.FC<Props> = ({

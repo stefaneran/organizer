@@ -9,9 +9,9 @@ import InventoryMobileContainer from 'inventory/mobile/container/InventoryMobile
 import RecipesContainer from 'recipes/container/RecipesContainer';
 import RecipesMobileContainer from 'recipes/mobile/container/RecipesMobileContainer';
 import defaultWebApp from 'core/defaultWebApp';
-import { CategoryType, AppStore } from 'core/types';
+import { OrganizerModule, AppStore } from 'core/types';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   container: {
     height: '100%',
     width: '100%'
@@ -27,7 +27,7 @@ interface Props {
 const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
   const classes = useStyles();
   const { isMobile } = app;
-  const [currentCategory, setCurrentCategory] = React.useState(defaultWebApp);
+  const [currentModule, setCurrentModule] = React.useState(defaultWebApp);
   return (
     <div 
       style={{ padding: isMobile ? '' : '0.8em' }}
@@ -37,31 +37,31 @@ const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
         <AppBarMobile 
           app={app}
           setLoginDialog={setLoginDialog}
-          setCurrentCategory={setCurrentCategory}
+          setCurrentModule={setCurrentModule}
           onLogout={onLogout}
         />
       ) : (
         <AppBar
           app={app}
           setLoginDialog={setLoginDialog}
-          setCurrentCategory={setCurrentCategory}
+          setCurrentModule={setCurrentModule}
           onLogout={onLogout}
         />
       )}
       <div 
         style={{ height: isMobile ? '100%' : '90%' }}
       >
-        {currentCategory === CategoryType.Activities && (
+        {currentModule === OrganizerModule.Activities && (
           <>
             <ActivitiesContainer />
           </>
         )}
-        {currentCategory === CategoryType.Contacts && (
+        {currentModule === OrganizerModule.Contacts && (
           <>
             <ContactsContainer />
           </>
         )}
-        {currentCategory === CategoryType.Inventory && (
+        {currentModule === OrganizerModule.Inventory && (
           <>
           {isMobile ? (
             <InventoryMobileContainer />
@@ -70,7 +70,7 @@ const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
           )}
           </>
         )}
-        {currentCategory === CategoryType.Recipes && (
+        {currentModule === OrganizerModule.Recipes && (
           <>
           {isMobile ? (
             <RecipesMobileContainer />

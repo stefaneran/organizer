@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { IconButton, TextField } from '@material-ui/core';
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
@@ -10,7 +10,7 @@ import { InventoryItem } from 'inventory/types';
 import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
 import { InputEvent, AutoCompleteHandler } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   input: { 
     width: '35%', 
     marginRight: '1em' 

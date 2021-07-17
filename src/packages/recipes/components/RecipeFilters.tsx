@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { IconButton, TextField } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 import SelectInput from 'core/components/inputs/SelectInput';
 import { RecipeFilters, GroupByMode } from 'recipes/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   input: {
     marginTop: '1em',
     width: '100%'
@@ -16,6 +15,7 @@ interface Props {
   recipeFilters: RecipeFilters;
   categoryOptions: string[]; 
   nationalityOptions: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeFilter: (property: string) => (eventOrValue: any) => void;
 }
 

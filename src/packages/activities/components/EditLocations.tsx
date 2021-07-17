@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, IconButton, Button } from '@material-ui/core';
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 import { ActivityLocation } from 'activities/types';
 import { InputEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     marginTop: '1em',
   },

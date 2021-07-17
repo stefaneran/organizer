@@ -1,4 +1,3 @@
-// @ts-nocheck
 // eslint-disable
 import { Dispatch } from 'redux';
 import { updateRecipe, deleteRecipeDone } from '.';
@@ -12,7 +11,11 @@ import { Recipe, RecipeEdit } from 'recipes/types';
 
 export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
-  const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
+  const ingredientsWithId = await sanitizeIngredients(
+    recipe.ingredients, 
+    allItems, 
+    async (name, category) => dispatch(addToAllItems({ name, category }))
+  );
   const newId = v4();
   const newRecipe = {
     ...recipe,
@@ -29,9 +32,13 @@ export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getS
   );
 }
 
-export const editRecipe = (recipe: Recipe, recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
+export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
-  const ingredientsWithId = await sanitizeIngredients(recipe.ingredients, allItems, dispatch, addToAllItems);
+  const ingredientsWithId = await sanitizeIngredients(
+    recipe.ingredients, 
+    allItems, 
+    async (name, category) => dispatch(addToAllItems({ name, category }))
+  );
   const updatedRecipe = {
     ...recipe,
     ingredients: ingredientsWithId

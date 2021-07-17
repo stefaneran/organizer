@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 // Components
 import EditButtonGroup from 'contacts/components/EditButtonGroup';
@@ -18,7 +18,7 @@ import { Contact, Event } from 'contacts/types';
 import { Activity, ActivityType } from 'activities/types';
 import { Option, SelectEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   headline: {
     position: 'absolute',
     top: '0.5em',
@@ -116,10 +116,11 @@ const EventInfoEdit: React.FC<Props> = ({
     const timestamp = datetime.getTime();
     handleChangeEventData('date')(timestamp);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeEventData = (property: string) => (eventOrValue: any) => {
     let value = eventOrValue.target?.value ?? eventOrValue;
     if (property === 'participants') {
-      value = value.map((v: any) => v.value);
+      value = value.map((v: Option) => v.value);
     }
     setEventData({
       ...eventData,

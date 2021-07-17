@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from 'core/components/Icons/CartIcon';
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
+// Components
 import Ingredients from 'recipes/components/Ingredients';
+// Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
+// Types
 import { InventoryItem } from 'inventory/types';
 import { Recipe, EditMode } from 'recipes/types';
 import { DispatchProps } from 'recipes/container';

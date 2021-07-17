@@ -1,22 +1,27 @@
+import { Dispatch } from 'redux';
 import {
   loadingStart,
   loadingEnd,
   updateError
 } from 'app/store/reducer';
 import jsonFetch from 'core/utils/jsonFetch';
+import { GetState } from 'core/types';
 
 type Response = {
   status: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
 }
 
 export default async (
-  dispatch: any, 
-  getState: any, 
+  dispatch: Dispatch, 
+  getState: GetState, 
   url: string, 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params: any, 
   // eslint-disable-next-line @typescript-eslint/ban-types
   dispatchFunction: Function, 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatchParams: any,
   errorMessage: string,
   skipWait?: boolean // Should skip waiting for response before dispatching store action

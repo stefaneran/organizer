@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { AddBagIconMedium } from 'core/components/Icons/BagIcon';
 import { RemoveCartIconLarge } from 'core/components/Icons/CartIcon';
@@ -8,7 +8,7 @@ import ItemList from 'inventory/mobile/components/ItemList';
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
 import { InventoryActions, InventoryItem } from 'inventory/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   list: {
     height: '73%',
     overflowY: 'auto'

@@ -1,28 +1,31 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { SelectEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   formControl: {
     minWidth: 120
   }
 }));
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Any = any;
+
 interface Props {
-  value: any;
-  options: any[]; 
-  onChange: (event: SelectEvent<any>) => void; 
+  value: Any;
+  options: Any[]; 
+  onChange: (event: SelectEvent<Any>) => void; 
   className?: string; 
   label?: string;
   fullWidth?: boolean;
-  inputProps?: any;
+  inputProps?: Any;
   // Accessors for specific values - Defaults to direct access if none provided
   // Default: (option) => option
-  getOptionKey?: (option: any, index?: number) => any; 
-  getOptionValue?: (option: any, index?: number) => any; 
-  getOptionLabel?: (option: any, index?: number) => any; 
+  getOptionKey?: (option: Any, index?: number) => Any; 
+  getOptionValue?: (option: Any, index?: number) => Any; 
+  getOptionLabel?: (option: Any, index?: number) => Any; 
 }
 
 const SelectInput: React.FC<Props> = ({ 

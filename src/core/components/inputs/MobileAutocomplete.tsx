@@ -1,10 +1,10 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { TextField, Typography, Divider, IconButton, Popper } from '@material-ui/core'; 
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { TextField, Typography, Divider, IconButton } from '@material-ui/core'; 
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     position: 'relative'
   },
@@ -96,7 +96,7 @@ const MobileAutocomplete = ({
     setTextValue(null);
     setFilteredOptions([]);
   }
-  const handleSelect = (option) => (event) => {
+  const handleSelect = (option) => () => {
     onChange(option);
     setTextValue(null);
     setFilteredOptions([]);

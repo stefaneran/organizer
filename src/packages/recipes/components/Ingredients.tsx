@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
 import { Ingredient } from 'recipes/types';
 import { InventoryItem } from 'inventory/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   mobileText: {
     '& span': {
       fontSize: '3em'

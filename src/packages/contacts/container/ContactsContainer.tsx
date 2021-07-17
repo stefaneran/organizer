@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { connector, ReduxProps, DispatchProps } from './index';
 import ContactsPanel from 'contacts/container/ContactsPanel';
 import EventsPanel from 'contacts/container//EventsPanel';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',

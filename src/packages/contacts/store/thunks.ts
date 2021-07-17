@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Dispatch } from 'redux';
 import {
   updateContactDone, 

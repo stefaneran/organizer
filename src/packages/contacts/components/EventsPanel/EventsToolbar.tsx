@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -8,7 +8,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import SwitchInput from 'core/components/inputs/SwitchInput';
 import { EventFilters } from 'contacts/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     display: 'flex',
     marginBottom: '1em'
@@ -42,7 +42,7 @@ interface Props {
   onOpenInfo: (eventId?: string) => void;
   toggleFilterPanel: () => void;
   eventsFilters: EventFilters;
-  onChangeFilter: (property: any) => (value: any) => void;
+  onChangeFilter: (property: string) => (value: string | boolean) => void;
 }
 
 const EventsToolbar: React.FC<Props> = ({ 

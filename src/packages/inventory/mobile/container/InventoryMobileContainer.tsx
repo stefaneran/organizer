@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { connector, ReduxProps, DispatchProps } from './index';
+// Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { BagIconLarge } from 'core/components/Icons/BagIcon';
 import { CartIconLargeFill } from 'core/components/Icons/CartIcon';
+// Components
 import Cart from 'inventory/mobile/components/Cart';
 import Inventory from 'inventory/mobile/components/Inventory';
+// Utils
 import mapActions from 'inventory/utils/mapActions';
-import { InventoryItem } from 'inventory/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     width: '100%',

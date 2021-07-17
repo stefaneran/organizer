@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, Divider, Button, IconButton, Tooltip, Chip } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
@@ -11,7 +11,7 @@ import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 import { ReduxProps } from 'activities/container';
 import { Activity } from 'activities/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     transition: 'width 300ms',
     height: '100%',

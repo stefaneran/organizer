@@ -1,7 +1,5 @@
 import {
   differenceInDays,
-  startOfWeek,
-  endOfWeek,
   format
 } from 'date-fns';
 

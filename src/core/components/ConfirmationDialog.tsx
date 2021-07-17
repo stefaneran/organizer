@@ -35,8 +35,8 @@ interface DialogProps {
   maxWidth?: string;
   confirmationTitle: string;
   confirmationText: string;
-  primaryIcon?: any;
-  secondaryIcon?: any;
+  primaryIcon?: JSX.Element;
+  secondaryIcon?: JSX.Element;
   primaryText: string;
   secondaryText: string;
   onPrimaryAction: (event?) => void;

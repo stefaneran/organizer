@@ -4,20 +4,40 @@ import { Contact, Event } from 'contacts/types';
 import { InventoryItem } from 'inventory/types';
 import { Recipe } from 'recipes/types';
 
-export type Option = { label: string; value: string; };
+// General types
 
-export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
+export type Option = { 
+  label: string; 
+  value: string; 
+};
 
-export type InputEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
-export type ClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>;
-export type KeyboardEvent = React.KeyboardEvent<HTMLDivElement>;
+// React.useState setter function
+export type StateSetter<T> = 
+  React.Dispatch<React.SetStateAction<T>>;
+
+// MUI <TextField /> or <Switch /> onChange event
+export type InputEvent = 
+  React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
+
+export type KeyboardEvent = 
+  React.KeyboardEvent<HTMLDivElement>;
+
+export type ClickEvent = 
+  React.MouseEvent<HTMLButtonElement, MouseEvent> | 
+  React.MouseEvent<HTMLDivElement, MouseEvent>;
+
+// MUI <Select /> onChange event
 export type SelectEvent<T> = React.ChangeEvent<{ 
   name?: string | undefined;
   value: T;
 }>
-export type AutoCompleteHandler = (event: React.ChangeEvent<any>, value: any | null) => void
 
-export enum CategoryType {
+// MUI <Autocomplete /> onChange event
+export type AutoCompleteHandler = 
+  (event: React.ChangeEvent<any>, value: any | null) => void // eslint-disable-line @typescript-eslint/no-explicit-any
+
+// Which package/module is open in the app
+export enum OrganizerModule {
   Activities = "Activities",
   Contacts = "Contacts",
   Inventory = "Inventory",

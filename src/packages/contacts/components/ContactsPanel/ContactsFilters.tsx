@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { IconButton, TextField } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 import SelectInput from 'core/components/inputs/SelectInput';
@@ -9,7 +8,7 @@ import SwitchInput from 'core/components/inputs/SwitchInput';
 import getEnumValues from 'core/utils/getEnumValues';
 import { ContactFilters, Genders, RelationshipStatus, SortOption } from 'contacts/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   input: {
     marginTop: '1em',
     width: '100%'
@@ -42,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   contactsFilters: ContactFilters;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeFilter: (property: string) => (event: any) => void;
 }
 
@@ -50,7 +50,6 @@ const ContactsFilters: React.FC<Props> = ({
   onChangeFilter
  }) => {
   const classes = useStyles();
-
   return (
     <>
       <TextField 
@@ -95,7 +94,7 @@ const ContactsFilters: React.FC<Props> = ({
       <div style={{ textAlign: 'center' }}>
         <SwitchInput
           isChecked={contactsFilters.oneOnOne}
-          onChange={() => onChangeFilter('oneOnOne')(!contactsFilters.oneOnOne)}
+          onChange={onChangeFilter('oneOnOne')}
           className={classes.onOneOneSwitch}
           uncheckedIcon={<PeopleAltIcon style={{ height: '1.2em', width: '1.2em' }} />}
           checkedIcon={<PersonIcon style={{ height: '1.2em', width: '1.2em' }} />}

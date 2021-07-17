@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Chip } from '@material-ui/core';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     textAlign: 'left'
   },
@@ -11,11 +11,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ChipType = any;
+
 interface Props {
-  memo: () => any[]; // useMemo function that returns collection
-  deps: any[]; // Dependencies for the useMemo
-  getKey: (chip: any) => string;
-  getLabel: (chip: any) => string;
+  // useMemo function that returns collection
+  memo: () => ChipType[]; 
+  // Dependencies for the useMemo
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deps: any[]; 
+  getKey: (chip: ChipType) => string;
+  getLabel: (chip: ChipType) => string;
 }
 
 const Chips: React.FC<Props> = ({ 

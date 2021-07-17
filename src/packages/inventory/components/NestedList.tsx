@@ -1,16 +1,20 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
-import InventoryListItem from 'inventory/components/InventoryListItem';
+// Icons
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+// Components
+import InventoryListItem from 'inventory/components/InventoryListItem';
+// Utils
 import categorizeItems from 'core/utils/categorizeItems';
 import genericSort from 'core/utils/genericSort';
 import shouldCategoryBeOpen from 'inventory/utils/shouldCategoryBeOpen';
+// Types
 import { InventoryItem, RowIcon } from 'inventory/types';
 import { ClickEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   item: {
     paddingLeft: '1.5em'
   },

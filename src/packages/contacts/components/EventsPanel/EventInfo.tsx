@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, IconButton } from '@material-ui/core';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,7 +15,7 @@ import { ReduxProps } from 'contacts/container';
 import { Contact, Event } from 'contacts/types';
 import { Activity } from 'activities/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   sidepanel: {
     width: '100%',
     height: '100%',

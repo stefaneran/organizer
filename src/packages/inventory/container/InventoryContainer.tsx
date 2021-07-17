@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core'; 
 import { connector, ReduxProps, DispatchProps } from './index';
 import Cart from 'inventory/components/Cart';
 import Inventory from 'inventory/components/Inventory';
 import mapActions from 'inventory/utils/mapActions';
-import { InventoryTabs, InventoryItem } from 'inventory/types';
+import { InventoryTabs } from 'inventory/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',

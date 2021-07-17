@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 // Components
 import EventsToolbar from 'contacts/components/EventsPanel/EventsToolbar';
@@ -16,7 +16,7 @@ import { Event, Contact } from 'contacts/types';
 import { Activity } from 'activities/types';
 import { DispatchProps } from './index';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     width: '50%',
     position: 'relative',
@@ -65,6 +65,7 @@ const EventsPanel: React.FC<Props> = ({
     setSelectedEvent('');
     setInfoPanelOpen(false);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeFilter = (property: string) => (eventOrValue: any) => {
     const value = eventOrValue.target?.value ?? eventOrValue;
     setEventsFilters({

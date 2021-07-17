@@ -31,7 +31,7 @@ export interface InventoryActions {
 
 export interface RowIcon {
   icon: JSX.Element;
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler: (...args: any[]) => void;
   altIcon?: JSX.Element;
 }

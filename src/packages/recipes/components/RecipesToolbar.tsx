@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Tooltip, IconButton } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ChipsGroup from 'core/components/ChipsGroup';
 import { EditMode, GroupByMode, RecipeFilters } from 'recipes/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     display: 'flex',
     padding: '1em 1em 0 1em'
@@ -19,6 +19,7 @@ interface Props {
   categoryOptions: string[];
   toggleFiltersOpen: () => void;
   onOpenEditRecipe: (editMode: EditMode) => () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeFilter: (property: string) => (eventOrValue: any) => void;
 }
 

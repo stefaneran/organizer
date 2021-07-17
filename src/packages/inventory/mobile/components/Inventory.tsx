@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
 import { RemoveBagIconLarge } from 'core/components/Icons/BagIcon';
 import { AddCartIconLarge } from 'core/components/Icons/CartIcon';
@@ -8,7 +8,7 @@ import availableItemsToArray from 'inventory/utils/availableItemsToArray';
 import { InventoryActions, InventoryItem } from 'inventory/types';
 import { InputEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   textFilter: {
     margin: '0.2em 0 0.5em 0',
     fontSize: '3rem',

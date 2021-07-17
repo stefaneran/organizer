@@ -1,5 +1,5 @@
-import { CategoryType } from 'core/types';
+import { OrganizerModule } from 'core/types';
 
-const defaultWebApp = CategoryType.Recipes;
+const defaultWebApp = OrganizerModule.Recipes;
 
 export default defaultWebApp;

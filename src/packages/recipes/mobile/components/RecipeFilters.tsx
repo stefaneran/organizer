@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { InputLabel, Select, MenuItem } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { InputLabel } from '@material-ui/core';
 import { FilterListIconLarge } from 'core/components/Icons/ListIcon';
 import SelectInput from 'core/components/inputs/SelectInput';
 import { RecipeFilters } from 'recipes/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   mobileSelect: {
     marginBottom: '100px',
     fontSize: '3rem'
@@ -26,6 +26,7 @@ interface Props {
   nationalityOptions: string[];
   categoryOptions: string[];
   toggleFilterMenuOpen: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeFilter: (property: string) => (eventOrValue: any) => void;
 }
 

@@ -109,6 +109,7 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
       setSelectedRecipe('');
     }
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeFilter = (property: string) => (eventOrValue: any) => {
     const value = eventOrValue.target?.value ?? eventOrValue;
     setRecipeFilters({

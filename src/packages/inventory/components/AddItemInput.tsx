@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField } from '@material-ui/core';
 import getNameOptions from 'inventory/utils/getNameOptions';
 import { InventoryItem } from 'inventory/types';
 import { AutoCompleteHandler } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   input: {
     margin: '1.5em 0',
     paddingLeft: '1em',

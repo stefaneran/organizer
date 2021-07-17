@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import genericSort from 'core/utils/genericSort';
 import { InventoryItem, RowIcon } from 'inventory/types';
 import { ClickEvent } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   checkbox: {
     marginRight: '2em',
     '& svg': {

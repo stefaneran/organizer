@@ -4,7 +4,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
 import { Recipe } from 'recipes/types';
-import { ClickEvent } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

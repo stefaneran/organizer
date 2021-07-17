@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import MobileAutocomplete from 'core/components/inputs/MobileAutocomplete';
 import getNameOptions from 'inventory/utils/getNameOptions';
 import { InventoryItem } from 'inventory/types';
 import { Option } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   margin: {
     margin: '0.5em 0'
   }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { connector, ReduxProps } from './index';
 import ContentView from 'app/components/ContentView';
 import RegistrationDialog from 'core/components/RegistrationDialog';
@@ -7,7 +7,7 @@ import checkIsMobile from 'core/utils/checkIsMobile';
 import parseGetParams from 'core/utils/parseGetParams';
 import { loadUserFromLocalStorage } from 'core/utils/localstorage';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     overflowY: 'hidden',

@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { ListItem, ListItemText, ListItemIcon, Checkbox, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+// Utils
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
+// Types
 import { InventoryItem, RowIcon } from 'inventory/types';
 import { ClickEvent, InputEvent, AutoCompleteHandler } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   editContainer: {
     '& > span': {
       display: 'flex'
@@ -95,7 +98,10 @@ const InventoryListItem: React.FC<Props> = ({
     setItemCategory(item.category);
     setIsEditing(false);
   }
-  const handleIconAction = (id: string, handler: any) => (event: ClickEvent) => {
+  const handleIconAction = (
+    id: string, 
+    handler: (id: string) => void
+  ) => (event: ClickEvent) => {
     event.stopPropagation();
     handler(id);
   }

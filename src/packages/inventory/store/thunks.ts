@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Dispatch } from 'redux';
 import {
   setItem,
@@ -15,9 +14,9 @@ import baseUrl from 'core/baseUrl';
 import { v4 } from 'uuid';
 import genericRequest from 'core/utils/genericRequest';
 import { GetState } from 'core/types';
-import { InventoryItem } from 'inventory/types';
+import { InventoryItem, InventoryItemEdit } from 'inventory/types';
 
-export const addToAllItems = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
+export const addToAllItems = (item: InventoryItemEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const itemId = v4();
   await genericRequest(
     dispatch,
@@ -70,7 +69,8 @@ export const addToAvailable = (itemIds: string[]) => async (dispatch: Dispatch, 
 }
 
 // TODO - USE THIS
-export const addNewToAvailable = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const addNewToAvailable = (item: InventoryItemEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToAvailableDone({ itemIds: [id] }));
 }
@@ -100,7 +100,8 @@ export const addToCart = (itemIds: string[]) => async (dispatch: Dispatch, getSt
 }
 
 // TODO - USE THIS
-export const addNewToCart = (item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const addNewToCart = (item: InventoryItemEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const id = await dispatch(addToAllItems(item))
   dispatch(addToCartDone({ itemIds: [id] }));
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { connector, ReduxProps } from './index';
 // Icons
@@ -15,7 +15,7 @@ import SlidingPanel from 'core/components/SlidingPanel';
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import defaultFilters from 'activities/utils/defaultActivityFilters';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '100%',
     marginTop: '1em',
@@ -63,6 +63,7 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
   const toggleConfirmationDialog = () => {
     setConfirmationOpen(!isConfirmationOpen);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeFilter = (property: string) => (eventOrValue: any) => {
     const value = eventOrValue.target?.value ?? eventOrValue;
     setActivityFilter({

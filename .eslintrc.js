@@ -19,7 +19,8 @@ module.exports = {
     // "plugin:prettier/recommended"
   ],
   rules: {
-    "@typescript-eslint/ban-ts-comment": "off",
+    // Turned off because many function don't need an explicit return type or argument types (too tedious)
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off"
   }
 };

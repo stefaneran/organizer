@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { 
   List,
   ListItem,
@@ -12,9 +12,9 @@ import { HamburgerIconLarge } from 'core/components/Icons/ListIcon';
 import { CartIconXLFill } from 'core/components/Icons/CartIcon';
 import { FoodIconXL } from 'core/components/Icons/FoodIcon';
 import { LogInIconXL } from 'core/components/Icons/LoginIcon';
-import { StateSetter, CategoryType, AppStore } from 'core/types';
+import { StateSetter, OrganizerModule, AppStore } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   hamburger: {
     position: 'absolute',
     top: '0.5em',
@@ -68,14 +68,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   app: AppStore["app"];
-  setCurrentCategory: StateSetter<CategoryType>;
+  setCurrentModule: StateSetter<OrganizerModule>;
   setLoginDialog: (prop: { type: string; isOpen: boolean }) => () => void;
   onLogout: () => void;
 }
 
 const AppBarMobile: React.FC<Props> = ({
   app,
-  setCurrentCategory,
+  setCurrentModule,
   setLoginDialog,
   onLogout
 }) => {
@@ -86,8 +86,8 @@ const AppBarMobile: React.FC<Props> = ({
   const toggleMenuOpen = () => {
     setMenuOpen(!isMenuOpen);
   }
-  const handleChangeCategory = (categoryType: CategoryType) => () => {
-    setCurrentCategory(categoryType)
+  const handleChangeModule = (OrganizerModule: OrganizerModule) => () => {
+    setCurrentModule(OrganizerModule)
     toggleMenuOpen();
   }
 
@@ -101,26 +101,26 @@ const AppBarMobile: React.FC<Props> = ({
           <List component="div" className={classes.listContainer}>
 
             {/*
-            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Contacts)}>
+            <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Contacts)}>
               <ListItemIcon>
                 <PeopleIconXL />
               </ListItemIcon>
-              <ListItemText className={classes.listItemText} primary={CategoryType.Contacts} />
+              <ListItemText className={classes.listItemText} primary={OrganizerModule.Contacts} />
             </ListItem>
             */}
 
-            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Inventory)}>
+            <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Inventory)}>
               <ListItemIcon>
                 <CartIconXLFill />
               </ListItemIcon>
-              <ListItemText className={classes.listItemText} primary={CategoryType.Inventory} />
+              <ListItemText className={classes.listItemText} primary={OrganizerModule.Inventory} />
             </ListItem>
 
-            <ListItem className={classes.listItem} onClick={handleChangeCategory(CategoryType.Recipes)}>
+            <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Recipes)}>
               <ListItemIcon>
                 <FoodIconXL />
               </ListItemIcon>
-              <ListItemText className={classes.listItemText} primary={CategoryType.Recipes} />
+              <ListItemText className={classes.listItemText} primary={OrganizerModule.Recipes} />
             </ListItem>
 
           </List>

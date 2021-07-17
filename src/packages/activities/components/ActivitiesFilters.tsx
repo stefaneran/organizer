@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import SelectInput from 'core/components/inputs/SelectInput';
+import { InputEvent, SelectEvent } from 'core/types';
 import { ActivityFilters, ParticipantType } from 'activities/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   input: {
     marginTop: '1em',
     width: '100%'
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   activityFilters: ActivityFilters;
-  onChangeFilter: (property: string) => (event: any) => void;
+  onChangeFilter: (property: string) => (event: InputEvent | SelectEvent<string[]>) => void;
 }
 
 const ActivitiesFilters: React.FC<Props> = ({

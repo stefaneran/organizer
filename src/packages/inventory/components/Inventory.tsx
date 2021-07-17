@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider } from '@material-ui/core';
 import InventoryAll from 'inventory/components/InventoryAll';
 import InventoryAvailable from 'inventory/components/InventoryAvailable';
 import { InventoryTabs, InventoryItem, InventoryActions } from 'inventory/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     padding: '1em',
     display: 'inline-block',

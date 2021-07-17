@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List } from '@material-ui/core';
 import ContactsListItem from './ContactsListItem';
 import { Contact } from 'contacts/types'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '92%',
     overflowY: 'auto',

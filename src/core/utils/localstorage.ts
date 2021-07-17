@@ -1,4 +1,4 @@
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const saveToLocalStorage = (data: any) => {
   try {
     localStorage.setItem('data', JSON.stringify(data));

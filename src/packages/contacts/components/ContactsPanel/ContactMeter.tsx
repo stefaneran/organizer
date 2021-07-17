@@ -1,10 +1,10 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 import calculateContactUrgency from 'contacts/utils/calculateContactUrgency';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     height: '1em',
     width: '5em',

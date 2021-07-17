@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
@@ -10,7 +10,7 @@ import { IngredientEdit, RecipeEdit, EditMode } from 'recipes/types';
 import { InventoryItem } from 'inventory/types';
 import { InputEvent, AutoCompleteHandler } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
     width: '100%',
     paddingBottom: '1.5em'
@@ -46,7 +46,7 @@ const RecipeInfoEdit: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleDataChange = (property: string, value: any) => {
+  const handleDataChange = (property: string, value: string | IngredientEdit[]) => {
     setRecipeData({
       ...recipeData,
       [property]: value

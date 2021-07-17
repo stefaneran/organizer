@@ -14,7 +14,7 @@ import { PeopleIconSmall } from 'core/components/Icons/PeopleIcon';
 import { CartIconSmall } from 'core/components/Icons/CartIcon';
 import { FoodIconSmall } from 'core/components/Icons/FoodIcon';
 import { LogInIconSmall } from 'core/components/Icons/LoginIcon';
-import { CategoryType, AppStore } from 'core/types';
+import { OrganizerModule, AppStore } from 'core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -82,21 +82,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface AppBarProps {
   app: AppStore["app"];
-  setCurrentCategory: (categoryType: CategoryType) => void;
+  setCurrentModule: (OrganizerModule: OrganizerModule) => void;
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
   onLogout: () => void;
 }
 
 const AppBar = ({ 
   app,
-  setCurrentCategory,
+  setCurrentModule,
   setLoginDialog,
   onLogout
 }: AppBarProps) => {
   const classes = useStyles();
 
-  const handleChangeCategory = (categoryType: CategoryType) => () => {
-    setCurrentCategory(categoryType)
+  const handleChangeModule = (OrganizerModule: OrganizerModule) => () => {
+    setCurrentModule(OrganizerModule)
   }
 
   return (
@@ -105,7 +105,7 @@ const AppBar = ({
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Contacts">
-            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Contacts)}>
+            <IconButton className={classes.button} onClick={handleChangeModule(OrganizerModule.Contacts)}>
               <PeopleIconSmall />
             </IconButton>
           </Tooltip>
@@ -113,7 +113,7 @@ const AppBar = ({
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Activities">
-            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Activities)}>
+            <IconButton className={classes.button} onClick={handleChangeModule(OrganizerModule.Activities)}>
               <LocalActivityIcon className={classes.activitiesIcon} />
             </IconButton>
           </Tooltip>
@@ -121,7 +121,7 @@ const AppBar = ({
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Inventory">
-            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Inventory)}>
+            <IconButton className={classes.button} onClick={handleChangeModule(OrganizerModule.Inventory)}>
               <CartIconSmall />
             </IconButton>
           </Tooltip>
@@ -129,7 +129,7 @@ const AppBar = ({
 
         <Grid item className={classes.buttonContainer}>
           <Tooltip title="Show Recipes">
-            <IconButton className={classes.button} onClick={handleChangeCategory(CategoryType.Recipes)}>
+            <IconButton className={classes.button} onClick={handleChangeModule(OrganizerModule.Recipes)}>
               <FoodIconSmall />
             </IconButton>
           </Tooltip>

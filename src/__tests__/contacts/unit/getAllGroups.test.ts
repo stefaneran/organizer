@@ -1,4 +1,3 @@
-// @ts-nocheck
 import getAllGroups from 'contacts/utils/getAllGroups';
 
 const mockContacts1 = {

@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { IconButton, Button, Checkbox, Tooltip } from '@material-ui/core';
+// Icons
 import { TrashIconXS } from 'core/components/Icons/DeleteIcon';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+// Components
 import IngredientInput from 'recipes/components/IngredientInput'
-import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
-import { InventoryItem } from 'inventory/types';
-import { AutoCompleteHandler, InputEvent } from 'core/types';
+// Utils
 import assignValueToAlternative from 'recipes/utils/assignValueToAlternative';
+// Types
+import { IngredientEdit } from 'recipes/types';
+import { InventoryItem } from 'inventory/types';
+import { AutoCompleteHandler } from 'core/types';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   inputGroup: {
     display: 'flex',
     marginBottom: '0.5em'
@@ -33,8 +37,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     maxWidth: '90px'
   }
 }))
-
-type Property = keyof AlternativeIngredientEdit;
 
 interface Props {
   ingredients: IngredientEdit[]; 
@@ -74,6 +76,8 @@ const IngredientsEdit: React.FC<Props> = ({
     const ingredient = assignValueToAlternative(ingredients, index, subIndex, property, value);
     onIngredientsChange(index, ingredient);
   }
+  // TypeScript conflict: <Checkbox /> doesn't think it returns event with target.checked, but it does
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCheck = (index: number) => (event: any) => {
     const ingredient = { 
       ...ingredients[index], 

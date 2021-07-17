@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, Typography } from '@material-ui/core';
 // Icons
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
@@ -12,10 +12,11 @@ import SwitchInput from 'core/components/inputs/SwitchInput';
 // Utils
 import defaultContactProps from 'contacts/utils/defaultContactProps';
 // Types
+import { Option } from 'core/types';
 import { Contact, Genders, RelationshipStatus } from 'contacts/types';
 import { ReduxProps } from 'contacts/container/index';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   headline: {
     position: 'absolute',
     top: '0.5em',
@@ -88,10 +89,11 @@ const ContactInfo: React.FC<Props> = ({
     }
   }, [contactId])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeContactData = (property: string) => (eventOrValue: any) => {
     let value = eventOrValue.target?.value ?? eventOrValue;
     if (property === 'groups') {
-      value = value.map((v: any) => v.value);
+      value = value.map((v: Option) => v.value);
     }
     setContactData({
       ...contactData,

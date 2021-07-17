@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Dispatch } from 'redux';
 import { updateActivityDone, deleteActivityDone } from 'activities/store';
 import genericRequest from 'core/utils/genericRequest';
