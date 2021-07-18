@@ -57,6 +57,7 @@ Recipes:
 - Recipe: When creating new recipe, set as selected to avoid confusion
 - (MVP) Recipe: Make alternatives count for availability
 - (MVP) Recipe: When clicking add to cart - Show popup with optionals if missing
+- (MVP) Recipe: Show "missing optionals" indicator that recipe is missing some optional
 - Recipe: Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
 - Mobile: Add/Edit recipe
 - Mobile: Optional icon too small

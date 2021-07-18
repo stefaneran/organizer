@@ -1,4 +1,5 @@
 import { InventoryItem } from 'inventory/types';
+import { warningYellow, warningRed } from 'inventory/constants/warningColor';
 
 const isItemAvailable = (item: InventoryItem, availableItems: string[]): boolean => 
   item ? availableItems.includes(item.id) : false;
@@ -10,15 +11,18 @@ const getWarningColor = (
   cart: string[], 
   availableItems: string[]
 ): string => {
+  if (!item) {
+    return '';
+  }
   // If item missing from inventory, but is in cart
   if (!isItemAvailable(item, availableItems) && isItemInCart(item, cart)) {
     // Return yellow
-    return 'rgb(255, 231, 76)';
+    return warningYellow;
   }
   // If item is missing
   else if (!isItemAvailable(item, availableItems)) {
     // Return red
-    return 'rgb(255, 89, 100)';
+    return warningRed;
   }
   return '';
 }

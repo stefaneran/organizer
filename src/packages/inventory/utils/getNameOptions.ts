@@ -1,23 +1,21 @@
 import genericSort from '@core/utils/genericSort';
 import { InventoryItemEdit } from 'inventory/types';
+import { Option } from '@core/types';
 
-interface Option {
-  label: string;
-  value: string;
-}
-
-export default (
+const getNameOptions = (
   allItems: Record<string, InventoryItemEdit>, 
   targetCollection: string[]
-) => {
+): Option[] => {
   const names: Option[] = [];
-  Object.keys(allItems).forEach(id => {
+  Object.entries(allItems).forEach(([id, item]) => {
     if (!targetCollection.includes(id)) {
       names.push({ 
-        label: allItems[id].name, 
+        label: item.name, 
         value: id 
       });
     }
   })
   return names.sort((a, b) => genericSort(a.label, b.label));
 }
+
+export default getNameOptions;

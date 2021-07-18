@@ -20,12 +20,44 @@ const unitTests = [
   }
 ]
 
-test('allItemsToArray', () => {
-  for (const unitTest of unitTests) {
+describe('allItemsToArray', () => {
+
+  it('should return full set with empty filter', () => {
+    const input = '';
     const result = allItemsToArray({ 
-      allItems: mockAllItems, 
-      textFilter: unitTest.input 
+      allItems: {
+        '1': mockAllItems['1'],
+        '2': mockAllItems['2']
+      },
+      textFilter: input 
     });
-    expect(result).toEqual(unitTest.output);
-  }
+    const expectedOutput = [
+      { id: '1', name: 'Spaghetti', category: 'Pasta' },
+      { id: '2', name: 'Ground Beef', category: 'Meat' }
+    ];
+    expect(result).toEqual(expectedOutput);
+  })
+
+  it('should return correct result with matching filter', () => {
+    const input = 'oregano';
+    const result = allItemsToArray({ 
+      allItems: mockAllItems,
+      textFilter: input 
+    });
+    const expectedOutput = [
+      { id: '3', name: 'Oregano', category: 'Cooking' }
+    ];
+    expect(result).toEqual(expectedOutput);
+  })
+
+  it('should return empty set with non-matching filter', () => {
+    const input = 'beer';
+    const result = allItemsToArray({ 
+      allItems: mockAllItems,
+      textFilter: input 
+    });
+    const expectedOutput = [];
+    expect(result).toEqual(expectedOutput);
+  })
+
 })

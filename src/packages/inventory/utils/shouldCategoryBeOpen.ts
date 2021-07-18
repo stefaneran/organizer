@@ -19,7 +19,7 @@ const shouldCategoryBeOpen = (
   textFilter: string
 ): boolean => {
   // Only check existence of filter - Filtering done up the component tree
-  // so we have items, it means they got through the filter, and the category
+  // so if we have items, it means they got through the filter, and the category
   // should be open by default
   if (textFilter && textFilter.length) {
     return true;

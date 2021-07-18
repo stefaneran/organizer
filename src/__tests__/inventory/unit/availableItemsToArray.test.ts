@@ -1,56 +1,67 @@
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
 import { mockAllItems } from '@core/mocks/mockInventory';
 
-const unitTests = [
-  {
-    input: {
+describe('availableItemsToArray', () => {
+
+  it('should return no results for empty set and empty filter', () => {
+    const input = {
       items: [],
       textFilter: ''
-    },
-    output: []
-  },
-  {
-    input: {
+    }
+    const result = availableItemsToArray({ 
+      availableItems: input.items,
+      allItems: mockAllItems, 
+      textFilter: input.textFilter 
+    });
+    const expectedOutput = [];
+    expect(result).toEqual(expectedOutput);
+  })
+
+  it('should return no results for non-matching filter', () => {
+    const input = {
       items: ['1', '2', '3'],
       textFilter: 'wine'
-    },
-    output: []
-  },
-  {
-    input: {
-      items: Object.keys(mockAllItems).map(id => id),
+    }
+    const result = availableItemsToArray({ 
+      availableItems: input.items,
+      allItems: mockAllItems, 
+      textFilter: input.textFilter 
+    });
+    const expectedOutput = [];
+    expect(result).toEqual(expectedOutput);
+  })
+
+  it('should return full set with empty filter', () => {
+    const input = {
+      items: ['1', '2'],
       textFilter: ''
-    },
-    output: Object.keys(mockAllItems).map(id => ({ id, ...mockAllItems[id] }))
-  },
-  {
-    input: {
-      items: ['1','2'],
-      textFilter: ''
-    },
-    output: [
+    }
+    const result = availableItemsToArray({ 
+      availableItems: input.items,
+      allItems: mockAllItems, 
+      textFilter: input.textFilter 
+    });
+    const expectedOutput = [
       { id: '1', name: 'Spaghetti', category: 'Pasta' },
       { id: '2', name: 'Ground Beef', category: 'Meat' }
     ]
-  },
-  {
-    input: {
+    expect(result).toEqual(expectedOutput);
+  })
+
+  it('should return matching items with matching filter', () => {
+    const input = {
       items: ['1','2'],
       textFilter: 'beef'
-    },
-    output: [
+    }
+    const result = availableItemsToArray({ 
+      availableItems: input.items,
+      allItems: mockAllItems, 
+      textFilter: input.textFilter 
+    });
+    const expectedOutput = [
       { id: '2', name: 'Ground Beef', category: 'Meat' }
     ]
-  },
-]
+    expect(result).toEqual(expectedOutput);
+  })
 
-test('availableItemsToArray', () => {
-  for (const unitTest of unitTests) {
-    const result = availableItemsToArray({ 
-      availableItems: unitTest.input.items,
-      allItems: mockAllItems, 
-      textFilter: unitTest.input.textFilter 
-    });
-    expect(result).toEqual(unitTest.output);
-  }
 })
