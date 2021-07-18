@@ -7,8 +7,7 @@ const checkItemsMissing = (
   availableItems: string[], 
   cart: string[]
 ): boolean => {
-  for (let i = 0; i < Object.keys(allItems).length; i += 1) {
-    const id = Object.keys(allItems)[i];
+  for (const id of Object.keys(allItems)) {
     const isItemAvailable = availableItems.includes(id);
     const isItemInCart = cart.includes(id);
     if (!isItemAvailable && !isItemInCart) {

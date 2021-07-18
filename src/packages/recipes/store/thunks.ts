@@ -11,10 +11,11 @@ import { Recipe, RecipeEdit } from 'recipes/types';
 
 export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
+  const addThunk = async (name, category) => dispatch(addToAllItems({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
     recipe.ingredients, 
     allItems, 
-    async (name, category) => dispatch(addToAllItems({ name, category }))
+    addThunk
   );
   const newId = v4();
   const newRecipe = {
@@ -34,10 +35,11 @@ export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getS
 
 export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
   const { inventoryStore: { allItems } } = getState();
+  const addThunk = async (name, category) => dispatch(addToAllItems({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
     recipe.ingredients, 
     allItems, 
-    async (name, category) => dispatch(addToAllItems({ name, category }))
+    addThunk
   );
   const updatedRecipe = {
     ...recipe,

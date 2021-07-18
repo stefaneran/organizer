@@ -11,6 +11,7 @@ import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
 // Utils
 import defaultContactProps from 'contacts/utils/defaultContactProps';
+import getEnumValues from '@core/utils/getEnumValues';
 // Types
 import { Option } from '@core/types';
 import { Contact, Genders, RelationshipStatus } from 'contacts/types';
@@ -153,14 +154,14 @@ const ContactInfo: React.FC<Props> = ({
         <SelectInput
           className={classes.inputGroupItemOne}
           value={contactData.gender}
-          options={Object.keys(Genders)}
+          options={getEnumValues(Genders)}
           onChange={handleChangeContactData('gender')}
           label="Gender"
         />
         <SelectInput
           className={classes.inputGroupItemTwo}
           value={contactData.relationshipStatus}
-          options={Object.keys(RelationshipStatus)}
+          options={getEnumValues(RelationshipStatus)}
           onChange={handleChangeContactData('relationshipStatus')}
           label="Relationship"
         />

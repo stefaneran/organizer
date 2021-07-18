@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import SelectInput from '@core/components/inputs/SelectInput';
+import getEnumValues from '@core/utils/getEnumValues';
 import { RecipeFilters, GroupByMode } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -32,7 +33,7 @@ const RecipesFilters: React.FC<Props> = ({
       <SelectInput
         className={classes.input}
         value={recipeFilters.groupBy}
-        options={Object.keys(GroupByMode)}
+        options={getEnumValues(GroupByMode)}
         onChange={onChangeFilter('groupBy')}
         label="Group By"
         fullWidth

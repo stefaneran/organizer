@@ -5,8 +5,8 @@ const getActivitiesArray = (
   filters: ActivityFilters
 ): Activity[] => {
   const { name, participants } = filters;
-  let filteredActivities = Object.keys(activities).map(id => ({ 
-    ...activities[id],
+  let filteredActivities = Object.entries(activities).map(([id, activity]) => ({ 
+    ...activity,
     id
   }))
   if (name.length) {

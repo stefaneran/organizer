@@ -12,6 +12,7 @@ import getActivityOptions from 'activities/utils/getActivityOptions';
 import getActivityLocations from 'activities/utils/getActivityLocations';
 import getContactsByIds from 'contacts/utils/getContactsByIds';
 import getContactsArray from 'contacts/utils/getContactsArray';
+import getEnumValues from '@core/utils/getEnumValues';
 // Types
 import { ReduxProps } from 'contacts/container';
 import { Contact, Event } from 'contacts/types';
@@ -77,7 +78,7 @@ const EventInfoEdit: React.FC<Props> = ({
     React.useState<Option[]>(getActivityOptions(activities, activityType));
 
   const activityTypes: string[] = 
-    Object.keys(ActivityType).map((type) => type);
+    getEnumValues(ActivityType);
   const activity: Activity = 
     activities[eventData?.activityId];
   const participants = 

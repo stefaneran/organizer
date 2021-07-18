@@ -121,12 +121,12 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
     setEditMode(mode);
   }
   const handleSubmitEditRecipe = () => {
-    setEditMode('');
     if (editMode === 'new') {
       actions.addRecipe(recipeData);
     } else if (editMode === 'edit') {
       actions.editRecipe(recipeData, selectedRecipe);
     }
+    setEditMode('');
   }
   const handleDeleteRecipe = () => {
     actions.deleteRecipe(selectedRecipe);

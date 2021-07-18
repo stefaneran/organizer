@@ -4,9 +4,9 @@ const getEventsArray = (
   events: Record<string, Event>, 
   filters: EventFilters
 ): Event[] => {
-  const eventsArray = Object.keys(events).map(eventId => ({
-    ...events[eventId],
-    id: eventId,
+  const eventsArray = Object.entries(events).map(([id, event]) => ({
+    ...event,
+    id,
   }));
   let filteredEvents = eventsArray;
   const now = Date.now();

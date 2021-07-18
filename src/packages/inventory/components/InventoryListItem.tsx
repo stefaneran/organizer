@@ -10,7 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
-import { InventoryItem, RowIcon } from 'inventory/types';
+import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
 import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  allItems?: Record<string, InventoryItem>;
+  allItems?: Record<string, InventoryItemEdit>;
   availableItems?: string[];
   item: InventoryItem;
   selectedItems: string[];
@@ -37,7 +37,7 @@ interface Props {
   rowIcons?: RowIcon[];
   cart?: string[];
   onSelect: (id: string) => () => void;
-  onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+  onEdit?: (id: string, item: InventoryItemEdit) => void;
 }
 
 const getIcon = (

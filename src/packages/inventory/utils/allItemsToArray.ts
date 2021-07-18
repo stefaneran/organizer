@@ -9,10 +9,9 @@ const allItemsToArray = ({
   allItems, 
   textFilter
 }: Props): InventoryItem[] => {
-  let listItems = Object.keys(allItems).map(id => ({ 
+  let listItems = Object.entries(allItems).map(([id, item]) => ({ 
     id, 
-    name: allItems[id].name, 
-    category: allItems[id].category  
+    ...item
   }))
   if (textFilter.length) {
     listItems = listItems.filter(item => 

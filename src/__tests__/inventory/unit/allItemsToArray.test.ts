@@ -4,7 +4,7 @@ import { mockAllItems } from '@core/mocks/mockInventory';
 const unitTests = [
   {
     input: '',
-    output: Object.keys(mockAllItems).map(id => ({ id, ...mockAllItems[id] }))
+    output: Object.entries(mockAllItems).map(([id, item]) => ({ id, ...item }))
   },
   {
     input: 'oregano',
@@ -22,7 +22,10 @@ const unitTests = [
 
 test('allItemsToArray', () => {
   for (const unitTest of unitTests) {
-    const result = allItemsToArray({ allItems: mockAllItems, textFilter: unitTest.input });
+    const result = allItemsToArray({ 
+      allItems: mockAllItems, 
+      textFilter: unitTest.input 
+    });
     expect(result).toEqual(unitTest.output);
   }
 })

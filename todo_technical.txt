@@ -6,8 +6,9 @@ General:
 - Host on Firebase
 - Implement localstorage to save transfer sizes
 - Treeshake and invalidate NPM modules
-- Make landing page
+- (MVP) Make landing page
 - Change local storage to cookies
+- (MVP) Save last visited app to open automatically on next visit
 - Use tokens for authorization instead of sending user/pass in post
 - Add patchnotes dialog/button
 - Use mongoose in back-end
@@ -52,11 +53,14 @@ Recipes:
 - Recipe Tags:
   - Add tags like "No Meat", "No Carbs" etc 
   - Allow filtering by these
-- Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
+- Recipe: Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
 - Recipe: When creating new recipe, set as selected to avoid confusion
+- (MVP) Recipe: Make alternatives count for availability
+- (MVP) Recipe: When clicking add to cart - Show popup with optionals if missing
+- Recipe: Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
 - Mobile: Add/Edit recipe
 - Mobile: Optional icon too small
-- Mobile: Click on icon wonky - Remove isHover for mobile
+- (MVP) Mobile: Click on icon wonky - Remove isHover for mobile
 
 - Add new ingredient (with category)
 - Group By - Should be saved in back end
@@ -70,13 +74,13 @@ Recipes:
 
 Inventory:
 
-- # Add "De-select All" button
+- (MVP) Add "De-select All" button
 - "Finish Shopping" btn too low on laptop
-- BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
-- Add debounce to requests 
+- (MVP) BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
+- (MVP) Add debounce to requests 
 - Clear name when adding new
 - Controls UI - Handle long lists better (fixed position, or whatever)
-- Add chip to ingredients that shows how many recipes its used in
+- (MVP) Add chip to ingredients that shows how many recipes its used in
 - Mobile: Cart & Inventory: Add option to switch between sort by alphabetical or category
 -----------------------------------------------
 - Add optional chaining across Recipes
@@ -89,21 +93,21 @@ Inventory:
 
 Contacts:
 
-- Contacts: Show mini chips for gender, last contact, etc
-- Activities: Add "Social" type
+- (MVP) Activities: Add "Social" type
 - Activities: Expand
   - Name 
     - Address 
     - Website
     - City
-- Events: Show more details in info
+- (MVP) Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)
-- Contacts: Show more details in info
+- (MVP) Contacts: Show more details in info
   - Last hangout (days ago)
   - Friendship levels (hangoutTally/dateCreated)
   - Acquaintances
 - Contacts: Let user set current Location
+- (MVP) Mobile: Start working on mobile version
 -----------------------------------------------
 - Events: Participant suggestion function
 - Events: Filters - Activity Type / Date range (before/after)

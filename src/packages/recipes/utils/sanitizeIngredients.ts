@@ -7,11 +7,11 @@ import { InventoryItemEdit } from 'inventory/types';
 const sanitizeIngredients = async (
   ingredients: IngredientEdit[], 
   allItems: Record<string, InventoryItemEdit>,
-  addToAllItems: (name: string, category: string) => Promise<string>
+  addThunk: (name: string, category: string) => Promise<string>
 ): Promise<Ingredient[]> => {
   const ingredientsWithId = [];
   // Verify each ingredient and get its existing/newly created itemId
-  for await (const ingredient of ingredients) {
+  for (const ingredient of ingredients) {
     const { name, alternatives } = ingredient;
     const alternativesWithId = [];
     if (name.length) {
@@ -20,24 +20,26 @@ const sanitizeIngredients = async (
       let ingredientItemId = getIngredientIdByName(name, allItems);
       // If no ID exists, create the new item and assign it an ID
       if (!ingredientItemId) {
-        ingredientItemId = await addToAllItems(name, 'Uncategorized');
+        ingredientItemId = await addThunk(name, 'Uncategorized');
       }
 
       // Do the same verification for an ingredient's alternatives
-      for await (const alternative of alternatives) {
-        const { name } = alternative;
-        if (name.length) {
+      if (alternatives) {
+        for (const alternative of alternatives) {
+          const { name } = alternative;
+          if (name.length) {
 
-          // Look up item's ID by name
-          let ingredientItemId = getIngredientIdByName(name, allItems);
-          // If no ID exists, create the new item and assign it an ID
-          if (!ingredientItemId) {
-            ingredientItemId = await addToAllItems(name, 'Uncategorized')
+            // Look up item's ID by name
+            let ingredientItemId = getIngredientIdByName(name, allItems);
+            // If no ID exists, create the new item and assign it an ID
+            if (!ingredientItemId) {
+              ingredientItemId = await addThunk(name, 'Uncategorized')
+            }
+            alternativesWithId.push({ 
+              ...alternative, 
+              itemId: ingredientItemId 
+            });
           }
-          alternativesWithId.push({ 
-            ...alternative, 
-            itemId: ingredientItemId 
-          });
         }
       }
 

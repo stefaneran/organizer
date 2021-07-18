@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import SelectInput from '@core/components/inputs/SelectInput';
+import getEnumValues from '@core/utils/getEnumValues';
 import { InputEvent, SelectEvent } from '@core/types';
 import { ActivityFilters, ParticipantType } from 'activities/types';
 
@@ -36,7 +37,7 @@ const ActivitiesFilters: React.FC<Props> = ({
       <SelectInput
         className={classes.input}
         value={activityFilters.participants}
-        options={['All', ...Object.keys(ParticipantType)]}
+        options={['All', ...getEnumValues(ParticipantType)]}
         onChange={onChangeFilter('participants')}
         label="Participants"
         inputProps={{ "data-testid": "participants-select" }}

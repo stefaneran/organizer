@@ -6,8 +6,8 @@ const getCategoryOptions = (
   allItems: Record<string, InventoryItemEdit>
 ): string[] => {
   const categories: string[] = [];
-  Object.keys(allItems).forEach(id => {
-    const { category } = allItems[id];
+  Object.entries(allItems).forEach(([id, item]) => {
+    const { category } = item;
     const containsValue = categoryValue.length ? 
       category.toLowerCase().includes(categoryValue.toLowerCase()) : true;
     if (!categories.includes(category) && containsValue) {
