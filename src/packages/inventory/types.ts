@@ -1,4 +1,4 @@
-import { ReduxProps } from 'inventory/container';
+import { ReduxProps } from 'inventory/container/InventoryConnector';
 
 export enum InventoryTabs {
   Cart = "Cart",

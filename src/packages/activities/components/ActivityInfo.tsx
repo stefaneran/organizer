@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
+// Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+// Components
 import ActivityInfoEdit from 'activities/components/ActivityInfoEdit';
 import ActivityLocations from 'activities/components/ActivityLocations';
 import ActivityParticipants from 'activities/components/ActivityParticipants';
+// Utils
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
-import { ReduxProps } from 'activities/container';
+// Types
+import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({

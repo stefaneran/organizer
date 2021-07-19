@@ -10,7 +10,7 @@ import SlidingPanel from '@core/components/SlidingPanel';
 import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import getContactsArray from 'contacts/utils/getContactsArray';
 import { Contact } from 'contacts/types';
-import { DispatchProps } from './index';
+import { DispatchProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   container: {

@@ -5,7 +5,7 @@ import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import ItemList from 'inventory/mobile/components/ItemList';
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
-import { InventoryActions, InventoryItem } from 'inventory/types';
+import { InventoryActions, InventoryItemEdit } from 'inventory/types';
 import { InputEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  allItems: Record<string, InventoryItem>;
+  allItems: Record<string, InventoryItemEdit>;
   availableItems: string[];
   actions: InventoryActions;
 }

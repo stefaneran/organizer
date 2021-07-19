@@ -14,7 +14,7 @@ import getEventsArray from 'contacts/utils/getEventsArray';
 // Types
 import { Event, Contact } from 'contacts/types';
 import { Activity } from 'activities/types';
-import { DispatchProps } from './index';
+import { DispatchProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   container: {

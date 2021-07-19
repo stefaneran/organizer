@@ -11,7 +11,7 @@ import LocationLink from 'activities/components/LocationLink';
 // Utils
 import getActivityLocation from 'activities/utils/getActivityLocation';
 // Types
-import { ReduxProps } from 'contacts/container';
+import { ReduxProps } from 'contacts/container/ContactsConnector';
 import { Contact, Event } from 'contacts/types';
 import { Activity } from 'activities/types';
 

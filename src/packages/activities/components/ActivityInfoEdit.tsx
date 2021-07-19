@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
+// Icons
 import CloseIcon from '@material-ui/icons/Close';
+// Components
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import EditLocations from 'activities/components/EditLocations';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import SelectInput from '@core/components/inputs/SelectInput';
+// Utils
 import defaultActivityProps from 'activities/utils/defaultActivityProps';
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 import getEnumValues from '@core/utils/getEnumValues';
-import { ReduxProps } from 'activities/container';
+// Types
+import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity, ActivityType, ParticipantType, ActivityLocation } from 'activities/types';
 import { Option } from '@core/types';
 

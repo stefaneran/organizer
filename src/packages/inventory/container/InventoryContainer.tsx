@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core'; 
-import { connector, ReduxProps, DispatchProps } from './index';
+import { connector, ReduxProps, DispatchProps } from 'inventory/container/InventoryConnector';
 import Cart from 'inventory/components/Cart';
 import Inventory from 'inventory/components/Inventory';
 import mapActions from 'inventory/utils/mapActions';

@@ -14,7 +14,7 @@ import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
 import { InventoryItemEdit } from 'inventory/types';
 import { Recipe, EditMode } from 'recipes/types';
-import { DispatchProps } from 'recipes/container';
+import { DispatchProps } from 'recipes/container/RecipesConnector';
 
 const useStyles = makeStyles(() => createStyles({
   detailsContainer: {

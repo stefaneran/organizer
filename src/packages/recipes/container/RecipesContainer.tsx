@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { connector, ReduxProps, DispatchProps } from './index';
+import { connector, ReduxProps, DispatchProps } from 'recipes/container/RecipesConnector';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import RecipesToolbar from 'recipes/components/RecipesToolbar';

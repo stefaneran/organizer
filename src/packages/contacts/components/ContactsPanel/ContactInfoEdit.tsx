@@ -15,7 +15,7 @@ import getEnumValues from '@core/utils/getEnumValues';
 // Types
 import { Option } from '@core/types';
 import { Contact, Genders, RelationshipStatus } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/index';
+import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   headline: {

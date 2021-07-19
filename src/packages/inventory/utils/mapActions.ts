@@ -1,5 +1,5 @@
 import { InventoryActions } from 'inventory/types';
-import { DispatchProps } from 'inventory/container';
+import { DispatchProps } from 'inventory/container/InventoryConnector';
 
 // When called from mobile version, will contain only a few of all actions, hence the Partial
 const mapActions = (actionProps: Partial<DispatchProps>): InventoryActions => ({

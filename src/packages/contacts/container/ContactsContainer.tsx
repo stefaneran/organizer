@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { connector, ReduxProps, DispatchProps } from './index';
+import { connector, ReduxProps, DispatchProps } from 'contacts/container/ContactsConnector';
 import ContactsPanel from 'contacts/container/ContactsPanel';
 import EventsPanel from 'contacts/container//EventsPanel';
 

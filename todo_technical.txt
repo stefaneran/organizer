@@ -26,18 +26,18 @@ Tests:
 - Learn how to use jest-dom
 
 -Core: 
-  - Unit tests 
+  - Unit tests (Use Describe)
   - Component tests
 - Activities: 
-  X Unit tests 
+  X Unit tests (Use Describe)
   - Component tests 
   - Features
 - Contacts: 
-  X Unit tests 
+  X Unit tests (Use Describe)
   - Component tests 
   - Features
 - Inventory: 
-  - Unit tests 
+  X Unit tests 
   - Component tests 
   - Features
 - Recipes: 

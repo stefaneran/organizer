@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { connector, ReduxProps, DispatchProps } from './index';
+import { connector, ReduxProps, DispatchProps } from 'inventory/container/InventoryConnector';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';

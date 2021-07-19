@@ -16,7 +16,7 @@ import Chips from 'contacts/components/Chips';
 import { formatDateClassic } from '@core/utils/dateUtils';
 // Types
 import { Contact } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/index';
+import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   sidepanel: {

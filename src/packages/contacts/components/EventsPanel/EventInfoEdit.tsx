@@ -14,7 +14,7 @@ import getContactsByIds from 'contacts/utils/getContactsByIds';
 import getContactsArray from 'contacts/utils/getContactsArray';
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
-import { ReduxProps } from 'contacts/container';
+import { ReduxProps } from 'contacts/container/ContactsConnector';
 import { Contact, Event } from 'contacts/types';
 import { Activity, ActivityType } from 'activities/types';
 import { Option, SelectEvent } from '@core/types';
