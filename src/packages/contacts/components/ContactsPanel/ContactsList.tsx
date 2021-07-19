@@ -14,16 +14,22 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   contactsList: Contact[];
-  onOpenInfo: (contactId?: string) => void;
+  mobile?: boolean;
+  onSelect: (contactId?: string) => void;
 }
 
-const ContactsList: React.FC<Props> = ({ contactsList, onOpenInfo }) => {
+const ContactsList: React.FC<Props> = ({ contactsList, mobile, onSelect }) => {
   const classes = useStyles();
   
   return (
     <List component="div" className={classes.container}>
       {contactsList && contactsList.map(contact => (
-        <ContactsListItem key={contact.id} contact={contact} onOpenInfo={onOpenInfo} />
+        <ContactsListItem 
+          key={contact.id} 
+          contact={contact} 
+          onSelect={onSelect} 
+          mobile={mobile}
+        />
       ))}
     </List>
   )

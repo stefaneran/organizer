@@ -9,33 +9,42 @@ import { Contact } from 'contacts/types';
 const useStyles = makeStyles(() => createStyles({
   miniChips: {
     display: 'flex'
+  },
+  mobileContainer: {
+    fontSize: '3em',
+    '& span': { fontSize: '4rem '},
+    '& p': { fontSize: '3rem' }
   }
 }));
 
 interface Props {
   contact: Contact;
-  onOpenInfo: (contactId?: string) => void;
+  mobile?: boolean;
+  onSelect: (contactId?: string) => void;
 }
 
-const ContactsListItem: React.FC<Props> = ({ contact, onOpenInfo }) => {
+const ContactsListItem: React.FC<Props> = ({ contact, mobile, onSelect }) => {
   const classes = useStyles();
   const { id, name, location, lastContact, gender, relationshipStatus } = contact;
 
   const handleOpenInfoPanel = () => {
-    onOpenInfo(id)
+    onSelect(id)
   }
 
   return (
     <ListItem
       button
       onClick={handleOpenInfoPanel}
+      className={mobile ? classes.mobileContainer : ''}
     >
       <ListItemText primary={name} secondary={location} />
-      <div className={classes.miniChips}>
-        <GenderChip gender={gender} mini />
-        <RelationshipChip relationshipStatus={relationshipStatus} mini />
-      </div>
-      <ContactMeter lastContact={lastContact}  />
+      {!mobile ? (
+        <div className={classes.miniChips}>
+          <GenderChip gender={gender} mini />\
+          <RelationshipChip relationshipStatus={relationshipStatus} mini />\
+        </div>
+      ) : null}
+      <ContactMeter mobile={mobile} lastContact={lastContact}  />
     </ListItem>
   )
 }

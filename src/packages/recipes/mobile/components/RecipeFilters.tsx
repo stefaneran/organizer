@@ -7,12 +7,19 @@ import { RecipeFilters } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
   mobileSelect: {
-    marginBottom: '100px',
-    fontSize: '3rem'
+    width: '100%',
+    fontSize: '3em',
+    '& > div': {
+      fontSize: '1em'
+    },
+    '& option': {
+      fontSize: '1rem'
+    }
   },
   label: {
     fontSize: '3em',
-    marginBottom: '0.5em'
+    marginTop: '0.7em',
+    marginBottom: '0.3em'
   },
   navRight: {
     position: 'absolute',
@@ -45,21 +52,19 @@ const RecipesFilters: React.FC<Props> = ({
       </div>
       <InputLabel className={classes.label}>Nationality</InputLabel>
       <SelectInput
+        native
         className={classes.mobileSelect}
         value={recipeFilters.nationality}
         options={['All', ...nationalityOptions]}
         onChange={onChangeFilter('nationality')}
-        label="Nationalities"
-        fullWidth
       />
       <InputLabel className={classes.label}>Category</InputLabel>
       <SelectInput
+        native
         className={classes.mobileSelect}
         value={recipeFilters.category}
         options={['All', ...categoryOptions]}
         onChange={onChangeFilter('category')}
-        label="Categories"
-        fullWidth
       />
     </>
   )

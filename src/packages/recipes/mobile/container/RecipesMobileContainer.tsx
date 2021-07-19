@@ -25,6 +25,9 @@ const useStyles = makeStyles(() => createStyles({
     padding: '1.5em',
     position: 'relative'
   },
+  header: {
+    textAlign: 'center'
+  },
   navRight: {
     position: 'absolute',
     right: '3em'
@@ -35,9 +38,6 @@ const useStyles = makeStyles(() => createStyles({
     position: 'relative', 
     top: '2em', 
     color: '#3f51b5'
-  },
-  header: {
-    textAlign: 'center'
   },
   mobileTextField: {
     marginTop: '20px',
@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => createStyles({
     height: '100%',
     width: '75%',
     background: '#ecedf0',
-    padding: '14em 8em'
+    padding: '10em 6em'
   },
   filtersExit: {
     height: '100%',

@@ -84,7 +84,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
       />
       <ContactsList 
         contactsList={contactsList}
-        onOpenInfo={handleOpenInfoPanel}
+        onSelect={handleOpenInfoPanel}
       />
       {/** Sliding Side Panels */}
       <ContactInfo 

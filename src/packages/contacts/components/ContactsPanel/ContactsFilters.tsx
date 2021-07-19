@@ -72,14 +72,14 @@ const ContactsFilters: React.FC<Props> = ({
         <SelectInput
           className={classes.genderSelect}
           value={contactsFilters.gender}
-          options={['All', ...Object.keys(Genders)]}
+          options={['All', ...getEnumValues(Genders)]}
           onChange={onChangeFilter('gender')}
           label="Gender"
         />
         <SelectInput
           className={classes.relationshipSelect}
           value={contactsFilters.relationshipStatus}
-          options={['All', ...Object.keys(RelationshipStatus)]}
+          options={['All', ...getEnumValues(RelationshipStatus)]}
           onChange={onChangeFilter('relationshipStatus')}
           label="Relationship"
         />

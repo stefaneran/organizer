@@ -32,7 +32,12 @@ const SwitchInput: React.FC<Props> = ({
     onChange(isChecked)
   }
   return (
-    <div className={className ? clsx(classes.switchContainer, className) : classes.switchContainer}>
+    <div 
+      className={className ? 
+        clsx(classes.switchContainer, className) : 
+        classes.switchContainer
+      }
+    >
       {uncheckedIcon ? uncheckedIcon : null}
       <Switch 
         checked={isChecked} 

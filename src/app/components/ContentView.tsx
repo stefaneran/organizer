@@ -4,6 +4,7 @@ import AppBar from 'app/components/AppBar';
 import AppBarMobile from 'app/components/AppBarMobile';
 import ActivitiesContainer from 'activities/container/ActivitiesContainer';
 import ContactsContainer from 'contacts/container/ContactsContainer';
+import ContactsMobileContainer from 'contacts/mobile/container/ContactsMobileContainer';
 import InventoryContainer from 'inventory/container/InventoryContainer';
 import InventoryMobileContainer from 'inventory/mobile/container/InventoryMobileContainer';
 import RecipesContainer from 'recipes/container/RecipesContainer';
@@ -58,7 +59,11 @@ const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
         )}
         {currentModule === OrganizerModule.Contacts && (
           <>
+          {isMobile ? (
+            <ContactsMobileContainer />
+          ) : (
             <ContactsContainer />
+          )}
           </>
         )}
         {currentModule === OrganizerModule.Inventory && (

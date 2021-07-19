@@ -27,9 +27,10 @@ const negativeColor = '#F51720';
 
 interface Props {
   lastContact: number;
+  mobile?: boolean;
 }
 
-const ContactMeter: React.FC<Props> = ({ lastContact }) => {
+const ContactMeter: React.FC<Props> = ({ lastContact, mobile }) => {
   const classes = useStyles();
 
   const { urgent, percent, daysPassed } = calculateContactUrgency(lastContact);
@@ -40,7 +41,10 @@ const ContactMeter: React.FC<Props> = ({ lastContact }) => {
 
   return (
     <Tooltip title={tooltip}>
-      <div className={clsx(classes.container, classes.rounded)}>
+      <div 
+        className={clsx(classes.container, classes.rounded)}
+        style={{ width: mobile ? '3em' : '5em' }}
+      >
         <div 
           className={clsx(classes.progress, classes.rounded)} 
           style={{ width, background }} 
