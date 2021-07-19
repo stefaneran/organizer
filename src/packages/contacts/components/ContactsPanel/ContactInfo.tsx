@@ -63,7 +63,7 @@ interface Props {
   groups: string[];
   isOpen: boolean;
   onClose: () => void;
-  onSnoozeContact: () => void;
+  onSnoozeContact: ReduxProps["updateLastContact"];
   onDeleteContact: () => void;
   createContact: ReduxProps["createContact"];
   editContact: ReduxProps["editContact"];
@@ -95,6 +95,7 @@ const ContactInfo: React.FC<Props> = ({
 
   const toggleEdit = () => setIsEdit(!isEdit);
   const handleClose = () => onClose();
+  const handleSnooze = () => onSnoozeContact(contactId);
 
   return (
     <div className={classes.sidepanel} style={{ right: isOpen ? '0%' : '-100%' }}>
@@ -165,7 +166,7 @@ const ContactInfo: React.FC<Props> = ({
                     <Button 
                       variant="outlined"
                       color="primary"
-                      onClick={onSnoozeContact}
+                      onClick={handleSnooze}
                     >
                       Update Last Contact
                     </Button>

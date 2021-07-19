@@ -28,9 +28,10 @@ const negativeColor = '#F51720';
 interface Props {
   lastContact: number;
   mobile?: boolean;
+  onClick: (event) => void;
 }
 
-const ContactMeter: React.FC<Props> = ({ lastContact, mobile }) => {
+const ContactMeter: React.FC<Props> = ({ lastContact, mobile, onClick }) => {
   const classes = useStyles();
 
   const { urgent, percent, daysPassed } = calculateContactUrgency(lastContact);
@@ -44,6 +45,7 @@ const ContactMeter: React.FC<Props> = ({ lastContact, mobile }) => {
       <div 
         className={clsx(classes.container, classes.rounded)}
         style={{ width: mobile ? '3em' : '5em' }}
+        onClick={onClick}
       >
         <div 
           className={clsx(classes.progress, classes.rounded)} 

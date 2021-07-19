@@ -11,6 +11,7 @@ import {
 import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
 import { CartIconXLFill } from '@core/components/Icons/CartIcon';
 import { FoodIconXL } from '@core/components/Icons/FoodIcon';
+import { PeopleIconXL } from '@core/components/Icons/PeopleIcon';
 import { LogInIconXL } from '@core/components/Icons/LoginIcon';
 import { StateSetter, OrganizerModule, AppStore } from '@core/types';
 
@@ -100,14 +101,12 @@ const AppBarMobile: React.FC<Props> = ({
         <div className={classes.menuContent}>
           <List component="div" className={classes.listContainer}>
 
-            {/*
             <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Contacts)}>
               <ListItemIcon>
                 <PeopleIconXL />
               </ListItemIcon>
               <ListItemText className={classes.listItemText} primary={OrganizerModule.Contacts} />
             </ListItem>
-            */}
 
             <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Inventory)}>
               <ListItemIcon>

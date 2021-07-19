@@ -124,10 +124,12 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
           )}
         </div>
       </div>
+      <br/>
       <ContactsList 
         contactsList={contactsList}
         mobile
         onSelect={handleSelectContact}
+        onSnoozeContact={actions.updateLastContact}
       />
       <div 
         className={classes.filtersDrawer}

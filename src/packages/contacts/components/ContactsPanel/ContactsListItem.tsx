@@ -5,6 +5,7 @@ import ContactMeter from 'contacts/components/ContactsPanel/ContactMeter';
 import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
 import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
 import { Contact } from 'contacts/types';
+import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   miniChips: {
@@ -21,14 +22,24 @@ interface Props {
   contact: Contact;
   mobile?: boolean;
   onSelect: (contactId?: string) => void;
+  onSnoozeContact: ReduxProps["updateLastContact"];
 }
 
-const ContactsListItem: React.FC<Props> = ({ contact, mobile, onSelect }) => {
+const ContactsListItem: React.FC<Props> = ({ 
+  contact, 
+  mobile, 
+  onSelect, 
+  onSnoozeContact 
+}) => {
   const classes = useStyles();
   const { id, name, location, lastContact, gender, relationshipStatus } = contact;
 
   const handleOpenInfoPanel = () => {
     onSelect(id)
+  }
+  const handleSnooze = (event) => {
+    event.stopPropagation();
+    onSnoozeContact(id);
   }
 
   return (
@@ -40,11 +51,15 @@ const ContactsListItem: React.FC<Props> = ({ contact, mobile, onSelect }) => {
       <ListItemText primary={name} secondary={location} />
       {!mobile ? (
         <div className={classes.miniChips}>
-          <GenderChip gender={gender} mini />\
-          <RelationshipChip relationshipStatus={relationshipStatus} mini />\
+          <GenderChip gender={gender} mini />
+          <RelationshipChip relationshipStatus={relationshipStatus} mini />
         </div>
       ) : null}
-      <ContactMeter mobile={mobile} lastContact={lastContact}  />
+      <ContactMeter 
+        lastContact={lastContact} 
+        mobile={mobile} 
+        onClick={handleSnooze}  
+      />
     </ListItem>
   )
 }

@@ -69,9 +69,6 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
     handleCloseInfoPanel();
     toggleConfirmationDialog();
   }
-  const handleSnoozeContact = () => {
-    actions.updateLastContact(selectedContact);
-  }
 
   return (
     <div className={classes.container}>
@@ -85,6 +82,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
       <ContactsList 
         contactsList={contactsList}
         onSelect={handleOpenInfoPanel}
+        onSnoozeContact={actions.updateLastContact}
       />
       {/** Sliding Side Panels */}
       <ContactInfo 
@@ -93,7 +91,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
         groups={groups}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
-        onSnoozeContact={handleSnoozeContact}
+        onSnoozeContact={actions.updateLastContact}
         onDeleteContact={toggleConfirmationDialog}
         createContact={actions.createContact}
         editContact={actions.editContact}

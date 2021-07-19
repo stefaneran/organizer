@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { InputLabel, TextField, NativeSelect  } from '@material-ui/core';
+import { InputLabel, TextField } from '@material-ui/core';
 // Icons
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
