@@ -27,28 +27,24 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   options: string[];
   selectedOption: string; 
-  onSelect: (option: string) => void;
+  onSelect?: (option: string) => void;
+  allBlue?: boolean;
 }
 
 const ChipsGroup: React.FC<Props> = ({ 
   options, 
   selectedOption, 
-  onSelect
+  onSelect,
+  allBlue
 }) => {
   const classes = useStyles();
 
-  const isSelected = (option: string) => selectedOption === option;
+  const isSelected = (option: string) => allBlue ? true : selectedOption === option;
 
   const handleSelect = (option: string) => () => onSelect(option);
 
   return (
     <div className={classes.container}>
-      <Chip 
-        label="All" 
-        className={clsx(classes.chip, isSelected('All') && 'selected')}
-        color={isSelected('All') ? "primary" : undefined}
-        onClick={handleSelect('All')} 
-      />
       {options.map(option => (
         <Chip 
           key={option} 

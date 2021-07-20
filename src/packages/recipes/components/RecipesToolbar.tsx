@@ -55,7 +55,7 @@ const RecipesToolbar: React.FC<Props> = ({
         </IconButton>
       </Tooltip>
       <ChipsGroup 
-        options={options}
+        options={["All", ...options]}
         selectedOption={selectedOption}
         onSelect={onChangeFilter(groupByFilter)}
       />

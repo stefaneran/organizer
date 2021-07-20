@@ -41,7 +41,7 @@ const ContactsToolBar: React.FC<Props> = ({
         </IconButton>
       </Tooltip>
       <ChipsGroup 
-        options={groups} 
+        options={["All", ...groups]} 
         selectedOption={contactsFilters.group}
         onSelect={onChangeFilter('group')}
       />

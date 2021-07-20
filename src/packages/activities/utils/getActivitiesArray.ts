@@ -1,3 +1,4 @@
+import genericSort from '@core/utils/genericSort';
 import { Activity, ActivityFilters } from "activities/types";
 
 const getActivitiesArray = (
@@ -19,7 +20,7 @@ const getActivitiesArray = (
       activity.participantType.includes(participants)
     )
   }
-  return filteredActivities;
+  return filteredActivities.sort((a, b) => genericSort(a.activityType, b.activityType));
 }
 
 export default getActivitiesArray;

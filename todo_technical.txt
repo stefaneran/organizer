@@ -1,22 +1,26 @@
 
 General:
-- Add CI/CD pipeline
-- Learn how to use jest-dom
-- Learn Redux Store mocking for testing (maybe use wrapper/provider)
-- Host on Firebase
+- (MVP) Make landing page
+- (MVP) Save last visited app to open automatically on next visit
 - Implement localstorage to save transfer sizes
 - Treeshake and invalidate NPM modules
-- (MVP) Make landing page
-- Change local storage to cookies
-- (MVP) Save last visited app to open automatically on next visit
 - Use tokens for authorization instead of sending user/pass in post
 - Add patchnotes dialog/button
-- Use mongoose in back-end
 - Change APIs verbs to more appropriate (DELETE, PUT, etc)
-- Remove PeopleIcon and use material UI equivalent
 - Add error boundry
 - Use MUI theme and make Dark theme
 - Add sync button in appbar to update info
+
+Back-End: 
+- Add CI/CD pipeline
+- Use Mongoose
+- Host on Firebase
+
+Refactors:
+- Mobile: Make a MobileHeader
+- Mobile: Make MobileScreens (sliding views with props.children)
+- Mobile: Make exportable mobile styles (containers and input, other general things)
+- Change local storage to cookies
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
 ===============================================================
@@ -24,6 +28,7 @@ General:
 Tests:
 
 - Learn how to use jest-dom
+- Learn Redux Store mocking for testing (maybe use wrapper/provider)
 
 -Core: 
   - Unit tests (Use Describe)
@@ -49,57 +54,71 @@ Tests:
 
 Recipes:
 
-- Recipe: Filter by available ingredients option, etc
+- (MVP) Make alternatives count for availability
+- (MVP) When clicking add to cart - Show popup with optionals if missing
+- (MVP) Show "missing optionals" indicator that recipe is missing some optional
+- (MVP) Filter by available ingredients option, etc
 - Recipe Tags:
   - Add tags like "No Meat", "No Carbs" etc 
   - Allow filtering by these
-- Recipe: Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
-- Recipe: When creating new recipe, set as selected to avoid confusion
-- (MVP) Recipe: Make alternatives count for availability
-- (MVP) Recipe: When clicking add to cart - Show popup with optionals if missing
-- (MVP) Recipe: Show "missing optionals" indicator that recipe is missing some optional
-- Recipe: Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
-- Mobile: Add/Edit recipe
-- Mobile: Optional icon too small
-- (MVP) Mobile: Click on icon wonky - Remove isHover for mobile
-
-- Add new ingredient (with category)
+- Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
+- When creating new recipe, set as selected to avoid confusion
+- Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
 - Group By - Should be saved in back end
 - Is Optional - Make a custom checkbox with question icon instead of classic checkbox
------------------------------------------------
+- Add nationality flags to options/chips
+
+Mobile:
+- (MVP) Click on icon wonky - Remove isHover for mobile
+- Add/Edit recipe
+- Optional icon too small
+
+Refactor: 
+- Find duplicate util functions and move to /utils
 - Add optional chaining across Recipes
-- Bonus: Add nationality flags to options/chips
-- Refactor: Find duplicate util functions and move to /utils
 
 ===============================================================
 
 Inventory:
 
 - (MVP) Add "De-select All" button
-- "Finish Shopping" btn too low on laptop
 - (MVP) BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
 - (MVP) Add debounce to requests 
-- Clear name when adding new
-- Controls UI - Handle long lists better (fixed position, or whatever)
 - (MVP) Add chip to ingredients that shows how many recipes its used in
-- Mobile: Cart & Inventory: Add option to switch between sort by alphabetical or category
------------------------------------------------
+- "Finish Shopping" btn too low on laptop
+- Clear name when adding new item to allItems
+- Controls UI - Handle long lists better (fixed position, or whatever)
+
+Refactor:
+- Move everything from <Inventory /> to <InventoryContainer />
+- Generalize inventory control panels to one component
+- Find duplicate util functions and move to /utils
+
+Mobile: 
+- Cart & Inventory: Add option to switch between sort by alphabetical or category
 - Add optional chaining across Recipes
-- Optimize: Memoize stuff (categories, etc)
-- Refactor: Move everything from <Inventory /> to <InventoryContainer />
-- Refactor: Generalize inventory control panels to one component
-- Refactor: Find duplicate util functions and move to /utils
+
 
 ===============================================================
 
-Contacts:
+Activities:
 
 - (MVP) Activities: Add "Social" type
+- Activities: Add upcoming events
 - Activities: Expand
   - Name 
     - Address 
     - Website
     - City
+
+Mobile:
+  - Use Google location to automatically find address for new location
+
+===============================================================
+
+
+Contacts:
+
 - (MVP) Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)
@@ -108,18 +127,20 @@ Contacts:
   - Friendship levels (hangoutTally/dateCreated)
   - Acquaintances
 - Contacts: Let user set current Location
-- (MVP) Mobile: Start working on mobile version
------------------------------------------------
 - Events: Participant suggestion function
+  - Show male/female ratio + suggestion how many to add to achieve balance
 - Events: Filters - Activity Type / Date range (before/after)
-- Events: Show male/female ratio + suggestion how many to add to achieve balance
 - Events: ListItem undefined values (show something nicer)
 - Events: Don't show activity types that have no items + Add 'All' option
 - Contacts: See number of contacts (and num of ones in current location)
-- Activities: Add upcoming events
 
-Stage 4 - Reminders
+Refactor:
+- Remove PeopleIcon and use material UI equivalent
 
+Mobile:
+- Show contact details
+
+Reminders:
 - Declare reminder 
   - People 
   - Type (Event/Maintenance)

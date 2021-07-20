@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
-import { connector, ReduxProps } from './index';
+import { connector, ReduxProps } from './RecipesMobileConnector';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FoodIconLarge } from '@core/components/Icons/FoodIcon';

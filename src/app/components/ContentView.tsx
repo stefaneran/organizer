@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from 'app/components/AppBar';
 import AppBarMobile from 'app/components/AppBarMobile';
 import ActivitiesContainer from 'activities/container/ActivitiesContainer';
+import ActivitiesMobileContainer from 'activities/mobile/container/ActivitiesMobileContainer';
 import ContactsContainer from 'contacts/container/ContactsContainer';
 import ContactsMobileContainer from 'contacts/mobile/container/ContactsMobileContainer';
 import InventoryContainer from 'inventory/container/InventoryContainer';
@@ -54,7 +55,11 @@ const ContentView: React.FC<Props> = ({ app, setLoginDialog, onLogout }) => {
       >
         {currentModule === OrganizerModule.Activities && (
           <>
+          {isMobile ? (
+            <ActivitiesMobileContainer />
+          ) : (
             <ActivitiesContainer />
+          )}
           </>
         )}
         {currentModule === OrganizerModule.Contacts && (
