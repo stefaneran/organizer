@@ -8,65 +8,69 @@ const mockFilters = [
   { ...defaultActivityFilters, participants: ParticipantType.Pair },
   { ...defaultActivityFilters, participants: ParticipantType.Group },
   { ...defaultActivityFilters, name: "game" },
-  { ...defaultActivityFilters, name: "ar" },
+  { ...defaultActivityFilters, name: "GAME" },
 ];
 
-const unitTests = [
-  { 
-    input: defaultActivityFilters,
-    output: { 
-      length: 5, 
-      names: ["Bar", "Hiking", "Board Game Night", "Game Arcade", "Mexican Food"] 
-    }
-  },
-  // By ParticipantType ("Alone")
-  { 
-    input: mockFilters[0],
-    output: { 
-      length: 3, 
-      names: ["Bar", "Hiking", "Mexican Food"] 
-    }
-  },
-  // By ParticipantType ("Pair")
-  { 
-    input: mockFilters[1],
-    output: { 
-      length: 4, 
-      names: ["Bar", "Hiking", "Game Arcade", "Mexican Food"] 
-    }
-  },
-  // By ParticipantType ("Group")
-  { 
-    input: mockFilters[2],
-    output: { 
-      length: 2, 
-      names: ["Board Game Night", "Game Arcade"] 
-    }
-  },
-  // By name ("game")
-  { 
-    input: mockFilters[3],
-    output: { 
-      length: 2, 
-      names: ["Board Game Night", "Game Arcade"] 
-    }
-  },
-  // By name ("ar")
-  { 
-    input: mockFilters[4],
-    output: { 
-      length: 3, 
-      names: ["Bar", "Board Game Night", "Game Arcade"] 
-    }
-  },
-]
+describe('getActivitiesArray', () => {
 
-test('getActivitiesArray', () => {
-  for (const unitTest of unitTests) {
-    const filters = unitTest.input;
+  it('handles empty filters', () => {
+    const filters = defaultActivityFilters;
     const result = getActivitiesArray(mockActivities, filters);
     const resultNames = result.map(activity => activity.name);
-    expect(result.length).toBe(unitTest.output.length)
-    expect(resultNames).toEqual(unitTest.output.names)
-  }
+    const expectedLength = 5;
+    const expectedNames = ["Bar", "Hiking", "Mexican Food", "Board Game Night", "Game Arcade"];
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
+  it('handles ParticipantType filter ("Alone")', () => {
+    const filters = mockFilters[0];
+    const result = getActivitiesArray(mockActivities, filters);
+    const resultNames = result.map(activity => activity.name);
+    const expectedLength = 3;
+    const expectedNames = ["Bar", "Hiking", "Mexican Food"];
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
+  it('handles ParticipantType filter ("Pair")', () => {
+    const filters = mockFilters[1];
+    const result = getActivitiesArray(mockActivities, filters);
+    const resultNames = result.map(activity => activity.name);
+    const expectedLength = 4;
+    const expectedNames = ["Bar", "Hiking", "Mexican Food", "Game Arcade"];
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
+  it('handles ParticipantType filter ("Group")', () => {
+    const filters = mockFilters[2];
+    const result = getActivitiesArray(mockActivities, filters);
+    const resultNames = result.map(activity => activity.name);
+    const expectedLength = 2;
+    const expectedNames = ["Board Game Night", "Game Arcade"] ;
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
+  it('handles lower-case name filter ("game")', () => {
+    const filters = mockFilters[3];
+    const result = getActivitiesArray(mockActivities, filters);
+    const resultNames = result.map(activity => activity.name);
+    const expectedLength = 2;
+    const expectedNames = ["Board Game Night", "Game Arcade"];
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
+  it('handles upper-case name filter ("game")', () => {
+    const filters = mockFilters[4];
+    const result = getActivitiesArray(mockActivities, filters);
+    const resultNames = result.map(activity => activity.name);
+    const expectedLength = 2;
+    const expectedNames = ["Board Game Night", "Game Arcade"];
+    expect(result.length).toBe(expectedLength)
+    expect(resultNames).toEqual(expectedNames)
+  })
+
 })

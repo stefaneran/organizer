@@ -1,5 +1,4 @@
 import shouldCategoryBeOpen from 'inventory/utils/shouldCategoryBeOpen';
-import { InventoryItem } from 'inventory/types';
 import { mockAllItems } from '@core/mocks/mockInventory';
 
 // Items of the "Meat" category

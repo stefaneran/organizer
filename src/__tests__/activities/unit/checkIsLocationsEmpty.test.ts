@@ -1,35 +1,47 @@
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 
-const unitTests = [
-  {
-    input: [],
-    output: true
-  },
-  {
-    input: [{ name: '', address: '' }],
-    output: true
-  },
-  {
-    input: [{ name: 'Test', address: '' }],
-    output: false
-  },
-  {
-    input: [{ name: '', address: 'Test' }],
-    output: false
-  },
-  {
-    input: [{ name: 'Test', address: 'Test' }],
-    output: false
-  },
-  {
-    input: [{ name: '', address: '' }, { name: 'Test', address: '' }],
-    output: false
-  }
-]
+describe('checkIsLocationsEmpty', () => {
 
-test('checkIsLocationsEmpty', () => {
-  for (const unitTest of unitTests) {
-    const result = checkIsLocationsEmpty(unitTest.input);
-    expect(result).toBe(unitTest.output);
-  }
+  it('handles empty set', () => {
+    const input = [];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = true;
+    expect(result).toBe(expectedOutput);
+  })
+
+  it('handles non-empty set with empty values', () => {
+    const input = [{ name: '', address: '' }];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = true;
+    expect(result).toBe(expectedOutput);
+  })
+
+  it('handles non-empty set with only name value', () => {
+    const input = [{ name: 'Test', address: '' }];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = false;
+    expect(result).toBe(expectedOutput);
+  })
+
+  it('handles non-empty set with only address value', () => {
+    const input = [{ name: '', address: 'Test' }];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = false;
+    expect(result).toBe(expectedOutput);
+  })
+
+  it('handles non-empty set with both name and address', () => {
+    const input = [{ name: 'Test', address: 'Test' }];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = false;
+    expect(result).toBe(expectedOutput);
+  })
+
+  it('handles non-empty set with one empty object and one non-empty object', () => {
+    const input = [{ name: '', address: '' }, { name: 'Test', address: '' }];
+    const result = checkIsLocationsEmpty(input);
+    const expectedOutput = false;
+    expect(result).toBe(expectedOutput);
+  })
+
 })
