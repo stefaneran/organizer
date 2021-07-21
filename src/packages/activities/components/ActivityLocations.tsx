@@ -23,7 +23,7 @@ const ActivityLocations: React.FC<Props> = ({ locations, className, mobile }) =>
         <ListItem key={getKey(location, index)} data-testid="activity-location-item">
           <ListItemText 
             primary={location.name} 
-            secondary={<LocationLink address={location.address} mobile />} 
+            secondary={<LocationLink address={location.address} mobile={mobile} />} 
           />
         </ListItem>
       ))}

@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Divider, Button, IconButton } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 // Icons
-import EditIcon from '@material-ui/icons/Edit';
+// import EditIcon from '@material-ui/icons/Edit';
 // Components
-import ActivityInfoEdit from 'activities/components/ActivityInfoEdit';
+// import ActivityInfoEdit from 'activities/components/ActivityInfoEdit';
 import ActivityLocations from 'activities/components/ActivityLocations';
-import ActivityParticipants from 'activities/components/ActivityParticipants';
 // Utils
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 // Types
-import { ReduxProps } from 'activities/container/ActivitiesConnector';
+// import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity } from 'activities/types';
 import ChipsGroup from '@core/components/ChipsGroup';
 
@@ -81,9 +80,7 @@ const ActivityInfo: React.FC<Props> = ({
     }
   }, [activityId])
 
-  const toggleEdit = (): void => {
-    setIsEdit(!isEdit);
-  }
+  // const toggleEdit = (): void => setIsEdit(!isEdit);
 
   return (
     <div className={classes.container}>

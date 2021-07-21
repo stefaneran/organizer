@@ -8,6 +8,7 @@ import {
   IconButton,
   Button
 } from '@material-ui/core';
+import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { HamburgerIconLarge } from '@core/components/Icons/ListIcon';
 import { CartIconXLFill } from '@core/components/Icons/CartIcon';
 import { FoodIconXL } from '@core/components/Icons/FoodIcon';
@@ -106,6 +107,13 @@ const AppBarMobile: React.FC<Props> = ({
                 <PeopleIconXL />
               </ListItemIcon>
               <ListItemText className={classes.listItemText} primary={OrganizerModule.Contacts} />
+            </ListItem>
+
+            <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Activities)}>
+              <ListItemIcon>
+                <LocalActivityIcon style={{ height: '5em', width: '5em', color: '#3f51b5' }} />
+              </ListItemIcon>
+              <ListItemText className={classes.listItemText} primary={OrganizerModule.Activities} />
             </ListItem>
 
             <ListItem className={classes.listItem} onClick={handleChangeModule(OrganizerModule.Inventory)}>

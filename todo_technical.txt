@@ -20,6 +20,7 @@ Refactors:
 - Mobile: Make a MobileHeader
 - Mobile: Make MobileScreens (sliding views with props.children)
 - Mobile: Make exportable mobile styles (containers and input, other general things)
+- Mobile: Don't use "transform:scale" anywhere
 - Change local storage to cookies
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
@@ -105,6 +106,7 @@ Activities:
 
 - (MVP) Add "Social" type
 - (MVP) Automatically add new actvity when creating event
+- Change Layout to resemble Inventory (3 vertical panels)
 - Add upcoming events
 - Expand
   - Name 
@@ -113,6 +115,7 @@ Activities:
     - City
 
 Mobile:
+  - Add ActivityInfoEdit
   - Use Google location to automatically find address for new location
 
 ===============================================================
