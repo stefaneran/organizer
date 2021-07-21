@@ -40,7 +40,10 @@ const ActivitiesTypesListItem: React.FC<Props> = ({
       onClick={handleSelect}
       className={classes.container}
     >
-      <ListItemText primary={activityType} secondary={`${activitiesAmount} Activities`} />
+      <ListItemText 
+        primary={activityType} 
+        secondary={`${activitiesAmount} ${activitiesAmount > 1 ? 'Activities' : 'Activity'}`} 
+      />
       <ListItemIcon className={classes.activityIcon}>
         <ActivityTypeIcon activityType={activityType} style={{ width: '3.5em', height: '3.5em' }} />
       </ListItemIcon>

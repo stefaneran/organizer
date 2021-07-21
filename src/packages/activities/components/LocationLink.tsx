@@ -12,12 +12,18 @@ const styles = {
   top: '0.1em',
   marginRight: '0.3em'
 }
+const mobileStyles = {
+  height: '2em', 
+  width: '2em',
+  marginTop: '0.3em'
+}
 
 interface Props {
   address: string;
+  mobile?: boolean;
 }
 
-const LocationLink: React.FC<Props> = ({ address = '' }) => {
+const LocationLink: React.FC<Props> = ({ address = '', mobile }) => {
   
   const hasAddress = Boolean(address.length);
   const isLink = Boolean(address.includes('http'))
@@ -29,9 +35,13 @@ const LocationLink: React.FC<Props> = ({ address = '' }) => {
       {hasAddress ? (
         <div style={{ display: 'flex' }}>
           {isLink ? (
-            <LinkIcon style={styles} />
+            <LinkIcon 
+              style={mobile ? { ...styles, ...mobileStyles } : styles} 
+            />
           ) : (
-            <LocationOnIcon style={styles} />
+            <LocationOnIcon 
+              style={mobile ? { ...styles, ...mobileStyles } : styles} 
+            />
           )}
           <Link target="_blank" href={link} variant="subtitle2">{linkText}</Link>
         </div>

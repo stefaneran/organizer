@@ -16,6 +16,7 @@ interface Props {
   participantType: ParticipantType[]
 }
 
+// TODO delete component and replace with ChipsGroup
 const ActivityParticipants: React.FC<Props> = ({ participantType }) => {
   const classes = useStyles();
   return (

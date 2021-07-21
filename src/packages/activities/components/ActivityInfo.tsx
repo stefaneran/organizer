@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => createStyles({
     transition: 'width 300ms',
     height: '100%',
     overflowY: 'auto',
-    paddingRight: '1em',
+    paddingRight: '1em'
   },
   detailsContainer: {
     width: '100%'
@@ -89,7 +89,7 @@ const ActivityInfo: React.FC<Props> = ({
               </Typography>
             </div> 
             <div>
-              <Tooltip title="Edit Recipe Details">
+              <Tooltip title="Edit Activity Details">
                 <IconButton onClick={toggleEdit}>
                   <EditIcon />
                 </IconButton>

@@ -1,3 +1,4 @@
+import genericSort from '@core/utils/genericSort';
 import { Event, EventFilters } from 'contacts/types';
 
 const getEventsArray = (
@@ -21,7 +22,7 @@ const getEventsArray = (
   else {
     filteredEvents = filteredEvents.filter(event => event.date < now);
   }
-  return filteredEvents;
+  return filteredEvents.sort((a, b) => genericSort(a.date, b.date));
 }
 
 export default getEventsArray;

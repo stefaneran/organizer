@@ -44,7 +44,7 @@ const ActivitiesListItem: React.FC<Props> = ({
     >
       <ListItemText 
         primary={name} 
-        secondary={`${locationsAmount} Locations`} 
+        secondary={`${locationsAmount} ${locationsAmount > 1 ? 'Locations' : 'Location'}`} 
       />
       <ListItemIcon className={classes.activityIcon}>
         <ActivityTypeIcon 

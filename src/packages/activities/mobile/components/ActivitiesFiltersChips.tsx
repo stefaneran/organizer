@@ -10,6 +10,7 @@ import { ActivityFilters } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
+    // TODO - Hack: refactor this later
     '& > div': {
       transform: 'scale(2)',
       marginLeft: '18em',

@@ -103,9 +103,10 @@ Mobile:
 
 Activities:
 
-- (MVP) Activities: Add "Social" type
-- Activities: Add upcoming events
-- Activities: Expand
+- (MVP) Add "Social" type
+- (MVP) Automatically add new actvity when creating event
+- Add upcoming events
+- Expand
   - Name 
     - Address 
     - Website

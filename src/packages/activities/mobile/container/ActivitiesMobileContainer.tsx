@@ -13,9 +13,11 @@ import ActivitiesFilters from 'activities/mobile/components/ActivitiesFilters';
 import ActivitiesFiltersChips from 'activities/mobile/components/ActivitiesFiltersChips';
 import ActivitiesTypesList from 'activities/mobile/components/ActivitiesTypesList';
 import ActivitiesList from 'activities/mobile/components/ActivitiesList';
+import ActivityInfo from 'activities/mobile/components/ActivityInfo';
 // Utils
-import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 import getEnumValues from '@core/utils/getEnumValues';
+import getLeftOffset from '@core/utils/calculateLeftOffsetOfMobilePanel';
+import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 import areFiltersEmpty from 'activities/utils/areFiltersEmpty';
 // Types
 import { ActivityType } from 'activities/types';
@@ -75,6 +77,19 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
+const getCurrentOpenPanelIndex = (
+  isTypeListView, 
+  isActivitiesListView, 
+  isActivityView 
+) => {
+  if (isTypeListView) 
+    return 1;
+  else if (isActivitiesListView)
+    return 2;
+  else if (isActivityView)
+    return 3
+}
+
 const ActivitiesMobileContainer: React.FC<ReduxProps> = ({ 
   activities,
   // addActivity,
@@ -90,8 +105,10 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
 
   const hasSelectedActivityType = Boolean(selectedActivityType);
   const hasSelectedActivity = Boolean(selectedActivity.length);
-  const isTypeView = hasSelectedActivityType && !hasSelectedActivity;
-  const isActivityView = hasSelectedActivityType && hasSelectedActivity;
+  const isTypeListView = !hasSelectedActivityType && !hasSelectedActivity;
+  const isActivitiesListView = hasSelectedActivityType && !hasSelectedActivity;
+  const isActivityView = hasSelectedActivity;
+  const currentOpenPanel = getCurrentOpenPanelIndex(isTypeListView, isActivitiesListView, isActivityView);
 
   const activitiesTypesList = getEnumValues(ActivityType);
   
@@ -99,31 +116,33 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
     setFilterMenuOpen(!filterMenuOpen);
   }
   const handleSelectActivityType = (type?: ActivityType | "Filter") => {
-    if (selectedActivityType !== type) {
-      setSelectedActivityType(type);
-    } else {
+    if (!type) {
       setSelectedActivityType(null);
+    }
+    else {
+      setSelectedActivityType(type);
     }
   }
   const handleSelectActivity = (id?: string) => {
-    if (selectedActivity !== id) {
-      setSelectedActivity(id);
-    } else {
+    if (!id) {
       setSelectedActivity('');
+    }
+    else {
+      setSelectedActivity(id);
     }
   }
   const handleNavClick = () => {
-    if (!isTypeView && !isActivityView) {
+    if (isTypeListView) {
       toggleFilterMenuOpen();
     } 
-    else if (isTypeView) {
+    else if (isActivitiesListView) {
       // If navigating back from a filtered view, reset filters
       if (selectedActivityType === "Filter") {
         setActivitiesFilters(defaultActivityFilters)
       }
       handleSelectActivityType();
     }
-    else {
+    else if (isActivityView) {
       handleSelectActivity();
     }
   }
@@ -155,7 +174,7 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
           style={{ top: selectedActivityType ? '-1em' : '2em' }}
           onClick={handleNavClick}
         >
-          {isTypeView || isActivityView ? (
+          {isActivitiesListView || isActivityView ? (
             <>
               <ChevronLeftIcon className={classes.arrowIcon} />
             </>
@@ -173,7 +192,7 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
       <div className={classes.contentContainer}>
         <div 
           className={classes.contentWindow} 
-          style={{ left: !isTypeView && !isActivityView ? '0%' : '-100%' }}
+          style={{ left: getLeftOffset(1, currentOpenPanel) }}
         >
           <ActivitiesTypesList 
             activities={activities}
@@ -183,13 +202,22 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
         </div>
         <div 
           className={classes.contentWindow} 
-          style={{ left: isTypeView ? '0%' : '100%'}}
+          style={{ left: getLeftOffset(2, currentOpenPanel) }}
         >
           <ActivitiesList 
             activities={activities}
             activityType={selectedActivityType}
             activitiesFilters={activitiesFilters}
             onSelect={handleSelectActivity}
+          />
+        </div>
+        <div 
+          className={classes.contentWindow} 
+          style={{ left: getLeftOffset(3, currentOpenPanel) }}
+        >
+          <ActivityInfo 
+            activity={activities[selectedActivity]}
+            activityId={selectedActivity}
           />
         </div>
       </div>

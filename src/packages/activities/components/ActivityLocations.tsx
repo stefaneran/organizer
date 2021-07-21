@@ -5,13 +5,16 @@ import { ActivityLocation } from 'activities/types';
 
 interface Props {
   locations: ActivityLocation[];
+  className?: string;
+  mobile?: boolean;
 }
 
 const getKey = (location, index) => `${location.name}-${location.address}-${index}`;
 
-const ActivityLocations: React.FC<Props> = ({ locations }) => {
+const ActivityLocations: React.FC<Props> = ({ locations, className, mobile }) => {
   return (
     <List 
+      className={className}
       component="div" 
       disablePadding 
       data-testid="activity-location-list"
@@ -20,7 +23,7 @@ const ActivityLocations: React.FC<Props> = ({ locations }) => {
         <ListItem key={getKey(location, index)} data-testid="activity-location-item">
           <ListItemText 
             primary={location.name} 
-            secondary={<LocationLink address={location.address} />} 
+            secondary={<LocationLink address={location.address} mobile />} 
           />
         </ListItem>
       ))}
