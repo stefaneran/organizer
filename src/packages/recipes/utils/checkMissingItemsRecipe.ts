@@ -5,9 +5,21 @@ const checkMissingItemsRecipe = (
   recipe: Recipe,
   availableItems: string[]
 ): boolean => {
-  for (let i = 0; i < recipe.ingredients.length; i += 1) {
-    const { itemId, isOptional } = recipe.ingredients[i];
+  for (const ingredient of recipe.ingredients) {
+    const { itemId, isOptional, alternatives } = ingredient;
     if (!availableItems.includes(itemId) && !isOptional) {
+      // If missing ingredient has alternative
+      if (alternatives) {
+        let hasAvailableAlternative = false;
+        for (const alternative of alternatives) {
+          if (availableItems.includes(alternative.itemId)) {
+            hasAvailableAlternative = true;
+          }
+        }
+        if (hasAvailableAlternative) {
+          continue;
+        }
+      }
       return true;
     }
   }

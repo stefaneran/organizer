@@ -53,6 +53,18 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
+// Get text for confirmation dialog
+const getConfirmationDialogDescription = (action, props) => {
+  const { recipes, selectedRecipe, missingOptionals } = props;
+  if (action === "Delete") {
+    return `Are you sure you want to delete ${selectedRecipe.length && recipes[selectedRecipe].name}?`
+  } else {
+    const missing = missingOptionals.reduce((acc, ing) => acc += `(${ing.name}) `, '');
+    const description = `The following optional ingredients are missing: ${missing} Would you like to add them to cart as well?`
+    return description;
+  }
+}
+
 const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   recipes,
   allItems, 
@@ -67,16 +79,24 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   const [isFiltersOpen, setFiltersOpen] = React.useState(false);
   const [editMode, setEditMode] = React.useState<EditMode>('');
   const [recipeData, setRecipeData] = React.useState(defaultRecipeProps);
+  const [missingPrimaryIngredients, setMissingPrimary] = React.useState([])
+  const [missingOptionalIngredients, setMissingOptional] = React.useState([])
   const [isConfirmationOpen, setConfirmationOpen] = React.useState(false);
+  const [onConfirmationAction, setOnConfirmationAction] = React.useState(null);
+  const [confirmationText, setConfirmationText] = React.useState('');
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
   const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes])
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
-  const filteredRecipes = React.useMemo(() => getRecipesArray(recipes, recipeFilters), [recipes, recipeFilters]);
+  const filteredRecipes = React.useMemo(() => 
+    getRecipesArray(recipes, recipeFilters, availableItems), 
+    [recipes, recipeFilters]
+  );
 
-  const toggleConfirmationDialog = () => {
+  const openConfirmationDialog = (action: "Delete" | "Optional") => () => {
+    setOnConfirmationAction(action);
     setConfirmationOpen(!isConfirmationOpen);
   }
   const toggleFiltersOpen = () => {
@@ -131,11 +151,27 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   const handleDeleteRecipe = () => {
     actions.deleteRecipe(selectedRecipe);
     setSelectedRecipe('');
-    toggleConfirmationDialog()
+    openConfirmationDialog(null)()
   }
   const handleAddMissing = (ingredients = []) => () => {
-    const missing = getMissingIngredients(ingredients, availableItems, cart);
-    actions.addToCart(missing);
+    const { missingIngredients, missingOptionals } = getMissingIngredients(ingredients, availableItems, cart);
+    if (missingOptionals.length) {
+      const text = getConfirmationDialogDescription(onConfirmationAction, {recipes, selectedRecipe, missingOptionals})
+      setConfirmationText(text);
+      openConfirmationDialog("Optional")();
+      setMissingPrimary(missingIngredients);
+      setMissingOptional(missingOptionals.map(ing => ing.itemId));
+    } else {
+      actions.addToCart(missingIngredients);
+    }
+  }
+  const handleAddMissingPrimary = () => {
+    actions.addToCart(missingPrimaryIngredients);
+    openConfirmationDialog(null)();
+  }
+  const handleAddMissingOptionals = () => {
+    actions.addToCart([...missingOptionalIngredients, ...missingPrimaryIngredients]);
+    openConfirmationDialog(null)();
   }
 
   return (
@@ -189,7 +225,7 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
               onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}
-              onDeleteRecipe={toggleConfirmationDialog}
+              onDeleteRecipe={openConfirmationDialog("Delete")}
             />
           )}
         </div>
@@ -210,14 +246,33 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
       {isConfirmationOpen && (
         <ConfirmationDialog 
           isOpen 
-          onClose={toggleConfirmationDialog}
-          confirmationTitle={'Confirm To Delete Recipe'}
-          confirmationText={`Are you sure you want to delete ${selectedRecipe.length && recipes[selectedRecipe].name}?`}
-          secondaryIcon={<TrashIconXS />}
-          primaryText="Cancel"
-          secondaryText="Delete"
-          onPrimaryAction={toggleConfirmationDialog}
-          onSecondaryAction={handleDeleteRecipe}
+          onClose={openConfirmationDialog(null)}
+          confirmationTitle={
+            onConfirmationAction === 'Delete' ? 
+              'Confirm To Delete Recipe' :
+              'Missing Optional Ingredients'
+          }
+          confirmationText={confirmationText}
+          primaryText={
+            onConfirmationAction === 'Delete' ?
+              "Cancel" :
+              "Add Optionals"
+          }
+          secondaryText={
+            onConfirmationAction === 'Delete' ?
+              "Delete" :
+              "Add Primary Only"
+          }
+          onPrimaryAction={
+            onConfirmationAction === 'Delete' ?
+              openConfirmationDialog(null) :
+              handleAddMissingOptionals
+          }
+          onSecondaryAction={
+            onConfirmationAction === 'Delete' ?
+              handleDeleteRecipe :
+              handleAddMissingPrimary
+          }
         />
       )}
     </Paper>

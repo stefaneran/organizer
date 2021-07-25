@@ -97,7 +97,10 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
   const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes]);
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
-  const filteredRecipes = React.useMemo(() => getRecipesArray(recipes, recipeFilters), [recipes, recipeFilters]);
+  const filteredRecipes = React.useMemo(() => 
+    getRecipesArray(recipes, recipeFilters, availableItems), 
+    [recipes, recipeFilters]
+  );
   
   const toggleFilterMenuOpen = () => {
     setFilterMenuOpen(!filterMenuOpen);
@@ -118,8 +121,8 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
     })
   }
   const handleAddMissing = (ingredients = []) => () => {
-    const missing = getMissingIngredients(ingredients, availableItems, cart);
-    addToCart(missing);
+    const { missingIngredients } = getMissingIngredients(ingredients, availableItems, cart);
+    addToCart(missingIngredients);
   }
 
   return (

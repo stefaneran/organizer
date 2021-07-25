@@ -10,6 +10,7 @@ export interface RecipeFilters {
   category: string;
   name: string;
   groupBy: GroupByMode;
+  availableOnly: boolean;
 }
 
 export interface AlternativeIngredient {

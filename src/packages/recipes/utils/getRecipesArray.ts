@@ -1,37 +1,39 @@
 import { Recipe, RecipeFilters } from 'recipes/types';
 import genericSort from '@core/utils/genericSort';
+import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 
 const getRecipesArray = (
   recipes: Record<string, Recipe>, 
-  recipeFilters: RecipeFilters
+  filters: RecipeFilters,
+  availableItems: string[]
 ): Recipe[] => {
+
+  const recipesArray = Object.entries(recipes).map(([id, recipe]) => ({
+    id,
+    ...recipe
+  }));
+  if (!filters) {
+    return recipesArray;
+  }
   
-  const filteredRecipes: Recipe[] = [];
-  const recipeIds = Object.keys(recipes);
-  const { nationality, category, name } = recipeFilters;
+  let filteredRecipes: Recipe[] = recipesArray;
 
-  recipeIds.forEach(recipeId => {
-    const recipe = recipes[recipeId];
+  if (filters.name.length) {
+    filteredRecipes = filteredRecipes.filter(recipe => recipe.name.toLowerCase().includes(filters.name.toLowerCase()))
+  }
+  if (filters.nationality !== "All") {
+    filteredRecipes = filteredRecipes.filter(recipe => recipe.nationality === filters.nationality)
+  }
+  if (filters.category !== "All") {
+    filteredRecipes = filteredRecipes.filter(recipe => recipe.category === filters.category);
+  }
+  if (filters.availableOnly) {
+    filteredRecipes = filteredRecipes.filter(recipe => {
+      const hasMissing = checkMissingItemsRecipe(recipe, availableItems);
+      return !hasMissing;
+    })
+  }
 
-    const passesNationality = 
-      nationality === 'All' || 
-      (nationality !== 'All' && recipe.nationality === nationality);
-
-    const passedCategory = 
-      category === 'All' ||
-      (category !== 'All' && recipe.category === category);
-
-    const passesNameFilter = 
-      name === '' ||
-      (name.length && recipe.name.toLowerCase().includes(name.toLowerCase()));
-
-    if (passesNationality && passedCategory && passesNameFilter) {
-      filteredRecipes.push({
-        ...recipe,
-        id: recipeId
-      });
-    }
-  })
   return filteredRecipes.sort((a, b) => genericSort(a.name, b.name));
 }
 

@@ -55,10 +55,7 @@ Tests:
 
 Recipes:
 
-- (MVP) Make alternatives count for availability
-- (MVP) When clicking add to cart - Show popup with optionals if missing
 - (MVP) Show "missing optionals" indicator that recipe is missing some optional
-- (MVP) Filter by available ingredients option, etc
 - Recipe Tags:
   - Add tags like "No Meat", "No Carbs" etc 
   - Allow filtering by these
@@ -77,6 +74,7 @@ Mobile:
 Refactor: 
 - Find duplicate util functions and move to /utils
 - Add optional chaining across Recipes
+- Refactr the way Optional Confirmation is handled (very hacky)
 
 ===============================================================
 

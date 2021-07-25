@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
+import { 
+  RemoveBagIconSmallFill,
+  CheckBagIconSmallFill
+} from '@core/components/Icons/BagIcon';
 import SelectInput from '@core/components/inputs/SelectInput';
+import SwitchInput from '@core/components/inputs/SwitchInput';
 import getEnumValues from '@core/utils/getEnumValues';
 import { RecipeFilters, GroupByMode } from 'recipes/types';
 
@@ -9,6 +14,14 @@ const useStyles = makeStyles(() => createStyles({
   input: {
     marginTop: '1em',
     width: '100%'
+  },
+  availableOnly: {
+    marginTop: '1em',
+    justifyContent: 'center',
+    '& svg': {
+      position: 'relative',
+      top: '0.3em'
+    }
   }
 }));
 
@@ -36,7 +49,6 @@ const RecipesFilters: React.FC<Props> = ({
         options={getEnumValues(GroupByMode)}
         onChange={onChangeFilter('groupBy')}
         label="Group By"
-        fullWidth
       />
       <TextField
         className={classes.input}
@@ -53,7 +65,6 @@ const RecipesFilters: React.FC<Props> = ({
           options={['All', ...categoryOptions]}
           onChange={onChangeFilter('category')}
           label="Category"
-          fullWidth
         />
       ) : null}
       {recipeFilters.groupBy !== GroupByMode.Nationality ? (
@@ -63,9 +74,17 @@ const RecipesFilters: React.FC<Props> = ({
           options={['All', ...nationalityOptions]}
           onChange={onChangeFilter('nationality')}
           label="Nationality"
-          fullWidth
         />
       ) : null}
+      <div style={{ textAlign: 'center' }}>
+        <SwitchInput
+          isChecked={recipeFilters.availableOnly}
+          onChange={onChangeFilter('availableOnly')}
+          className={classes.availableOnly}
+          uncheckedIcon={<RemoveBagIconSmallFill />}
+          checkedIcon={<CheckBagIconSmallFill />}
+        />
+      </div>
     </>
   )
 }
