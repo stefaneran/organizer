@@ -20,33 +20,22 @@ const useStyles = makeStyles(() => createStyles({
   },
 }));
 
-interface CollapsibleProps {
-  isSelectedTab: boolean;
-  category: string;
-  listItems: InventoryItem[];
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
-  selectedItems: string[];
-  onItemSelection: (selected: string[]) => void;
-  textFilter: string;
-  rowIcons: RowIcon[];
-  cart?: string[];
-  onEdit?: (id: string, item: InventoryItemEdit) => void;
-}
+const Collapsible = (props) => {
 
-const Collapsible: React.FC<CollapsibleProps> = ({ 
-  isSelectedTab,
-  category, 
-  listItems, 
-  allItems,
-  availableItems,
-  selectedItems, 
-  onItemSelection,
-  textFilter,
-  rowIcons,
-  cart,
-  onEdit
-}) => {
+  const {
+    isSelectedTab,
+    category, 
+    listItems, 
+    allItems,
+    availableItems,
+    selectedItems, 
+    onItemSelection,
+    textFilter,
+    rowIcons,
+    cart,
+    onEdit,
+    toggleNutrition
+  } = props;
 
   const classes = useStyles();
 
@@ -88,6 +77,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
               onSelect={handleSelection}
               rowIcons={rowIcons}
               onEdit={onEdit}
+              toggleNutrition={toggleNutrition}
             />
             )
           )}
@@ -97,7 +87,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   )
 }
 
-interface NestedProps {
+interface Props {
   isSelectedTab: boolean;
   listItems: InventoryItem[];
   allItems: Record<string, InventoryItemEdit>;
@@ -108,37 +98,23 @@ interface NestedProps {
   rowIcons: RowIcon[];
   cart?: string[];
   onEdit?: (id: string, item: InventoryItemEdit) => void;
+  toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 
-const NestedList: React.FC<NestedProps> = ({ 
-  isSelectedTab,
-  listItems, 
-  allItems,
-  availableItems, 
-  selectedItems, 
-  onItemSelection,
-  textFilter,
-  rowIcons,
-  cart,
-  onEdit
-}) => {
-  const categories = React.useMemo(() => categorizeItems(listItems, "category"), [listItems]);
+const NestedList: React.FC<Props> = (props) => {
+
+  const categories = React.useMemo(() => {
+    return categorizeItems(props.listItems, "category")
+  }, [props.listItems]);
+
   return (
     <List component="div" disablePadding>
       {categories && Object.keys(categories).sort((a, b) => genericSort(a, b)).map(category => (
         <Collapsible 
           key={category}
-          isSelectedTab={isSelectedTab}
-          category={category} 
-          listItems={categories[category]} 
-          allItems={allItems}
-          availableItems={availableItems} 
-          cart={cart}
-          selectedItems={selectedItems}
-          onItemSelection={onItemSelection}
-          rowIcons={rowIcons}
-          textFilter={textFilter}
-          onEdit={onEdit}
+          {...props}
+          category={category}
+          listItems={categories[category]}
         />
       ))}
     </List>

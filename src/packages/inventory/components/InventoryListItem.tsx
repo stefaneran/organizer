@@ -1,32 +1,18 @@
 import * as React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { ListItem, ListItemText, ListItemIcon, Checkbox, TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { ListItem, ListItemText, ListItemIcon, Checkbox, Tooltip } from '@material-ui/core';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+// Components
+import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
 // Utils
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
 import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
-import { ClickEvent, InputEvent, AutoCompleteHandler } from '@core/types';
-
-const useStyles = makeStyles(() => createStyles({
-  editContainer: {
-    '& > span': {
-      display: 'flex'
-    }
-  },
-  nameInput: {
-    width: '160px', 
-    marginRight: '1em'
-  },
-  categoryInput: {
-    width: '160px'
-  }
-}))
+import { ClickEvent } from '@core/types';
 
 interface Props {
   allItems?: Record<string, InventoryItemEdit>;
@@ -38,6 +24,7 @@ interface Props {
   cart?: string[];
   onSelect: (id: string) => () => void;
   onEdit?: (id: string, item: InventoryItemEdit) => void;
+  toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 
 const getIcon = (
@@ -60,44 +47,47 @@ const InventoryListItem: React.FC<Props> = ({
   rowIcons,
   cart,
   onSelect,
-  onEdit
+  onEdit,
+  toggleNutrition
 }) => {
-
-  const classes = useStyles();
 
   const [itemName, setItemName] = React.useState(item.name);
   const [itemCategory, setItemCategory] = React.useState(item.category);
   const [isEditing, setIsEditing] = React.useState(false);
 
   const hasSelection = Boolean(selectedItems);
-  const categoryOptions = allItems ? getCategoryOptions(itemCategory, allItems) : [];
+
+  const categoryOptions = React.useMemo(() => {
+    return allItems ? getCategoryOptions(itemCategory, allItems) : []
+  }, [itemCategory, allItems])
 
   const toggleEditing = (event: ClickEvent) => {
     event.stopPropagation();
     setIsEditing(!isEditing);
   }
-  const handleChangeName = (event: InputEvent) => {
-    setItemName(event.target.value);
+
+  const toggleEditNutrition = () => {
+    toggleNutrition(item.id, true);
   }
-  const handleCategorySelect: AutoCompleteHandler = (event, newValue) => {
-    if (newValue) {
-      setItemCategory(newValue);
-    }
-  }
-  const handleCategoryInput = (event: InputEvent) => {
-    setItemCategory(event.target.value);
-  }
+
   const handleSaveEdit = () => {
     if (onEdit) {
-      onEdit(item.id, { name: itemName, category: itemCategory });
+      const updatedItem = { 
+        name: itemName, 
+        category: itemCategory,
+        nutrition: item.nutrition
+      }
+      onEdit(item.id, updatedItem);
     }
     setIsEditing(false);
   }
+
   const handleCancelEdit = () => {
     setItemName(item.name);
     setItemCategory(item.category);
     setIsEditing(false);
   }
+
   const handleIconAction = (
     id: string, 
     handler: (id: string) => void
@@ -128,58 +118,44 @@ const InventoryListItem: React.FC<Props> = ({
         </ListItemIcon>
       )}
       {isEditing ? (
-        <ListItemText className={classes.editContainer}>
-          <TextField
-            className={classes.nameInput}
-            value={itemName}
-            onChange={handleChangeName}
-            variant="outlined"
-            size="small"
-            placeholder="Name"
-          />
-          <Autocomplete
-            className={classes.categoryInput}
-            value={itemCategory}
-            options={categoryOptions}
-            onChange={handleCategorySelect}
-            getOptionLabel={(option) => option}
-            noOptionsText={<></>}
-            renderInput={(params) => 
-              <TextField 
-                {...params} 
-                onChange={handleCategoryInput} 
-                placeholder="Category"  
-                size="small" 
-                variant={'outlined'} 
-              />
-            }
-          />
-        </ListItemText>
+        <InventoryListItemEdit 
+          itemName={itemName}
+          itemCategory={itemCategory}
+          categoryOptions={categoryOptions}
+          setItemName={setItemName}
+          setItemCategory={setItemCategory}
+          toggleNutrition={toggleNutrition}
+        />
       ) : (
         <ListItemText primary={item.name} secondary={item.category} />
       )}
       
       <>
-      {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
-        <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, rowIcon.handler)}>
-          {getIcon(rowIcon, itemBackground(item))}
-        </ListItemIcon>
-      )) : null}
-      {onEdit && !isEditing ? (
-        <ListItemIcon onClick={toggleEditing}>
-          <EditIcon style={{ color: '#3f51b5' }} />
-        </ListItemIcon>
-      ) : null}
-      {isEditing ? (
-        <>
-          <ListItemIcon onClick={handleSaveEdit}>
-            <CheckIcon style={{ color: '#3f51b5' }} />
+        {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
+          <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, rowIcon.handler)}>
+            {getIcon(rowIcon, itemBackground(item))}
           </ListItemIcon>
-          <ListItemIcon onClick={handleCancelEdit}>
-            <CloseIcon />
+        )) : null}
+        {onEdit && !isEditing ? (
+          <ListItemIcon onClick={toggleEditing}>
+            <EditIcon style={{ color: '#3f51b5' }} />
           </ListItemIcon>
-        </>
-      ) : null}
+        ) : null}
+        {isEditing ? (
+          <>
+            <ListItemIcon onClick={toggleEditNutrition}>
+              <Tooltip title="Add Nutritional Info">
+                <PlaylistAddIcon style={{ color: '#3f51b5' }} />
+              </Tooltip>
+            </ListItemIcon>
+            <ListItemIcon onClick={handleSaveEdit}>
+              <CheckIcon style={{ color: '#3f51b5' }} />
+            </ListItemIcon>
+            <ListItemIcon onClick={handleCancelEdit}>
+              <CloseIcon />
+            </ListItemIcon>
+          </>
+        ) : null}
       </>
     </ListItem>
   )

@@ -177,6 +177,7 @@ const InventorySection: React.FC<Props> = ({
                 rowIcons={rowIcons}
                 textFilter={textFilter}
                 onEdit={isAllType ? actions.inventory.edit : undefined}
+                toggleNutrition={specificActions.toggleNutrition}
               />
             ) : (
               <SimpleList 
@@ -189,6 +190,7 @@ const InventorySection: React.FC<Props> = ({
                 onItemSelection={handleItemSelection} 
                 rowIcons={rowIcons}
                 onEdit={isAllType ? actions.inventory.edit : undefined}
+                toggleNutrition={specificActions.toggleNutrition}
               />
             )}
           </Collapse>

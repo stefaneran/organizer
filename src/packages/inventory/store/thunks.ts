@@ -31,6 +31,7 @@ export const addToAllItems = (item: InventoryItemEdit) => async (dispatch: Dispa
 }
 
 export const editItem = (itemId: string, item: InventoryItem) => async (dispatch: Dispatch, getState: GetState) => {
+  console.log('Did this get called?')
   await genericRequest(
     dispatch,
     getState,
@@ -68,13 +69,6 @@ export const addToAvailable = (itemIds: string[]) => async (dispatch: Dispatch, 
   );
 }
 
-// TODO - USE THIS
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const addNewToAvailable = (item: InventoryItemEdit) => async (dispatch: Dispatch, getState: GetState) => {
-  const id = await dispatch(addToAllItems(item))
-  dispatch(addToAvailableDone({ itemIds: [id] }));
-}
-
 export const removeFromAvailable = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {
   genericRequest(
     dispatch,
@@ -97,13 +91,6 @@ export const addToCart = (itemIds: string[]) => async (dispatch: Dispatch, getSt
     { itemIds },
     `Could not add to cart`
   );
-}
-
-// TODO - USE THIS
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const addNewToCart = (item: InventoryItemEdit) => async (dispatch: Dispatch, getState: GetState) => {
-  const id = await dispatch(addToAllItems(item))
-  dispatch(addToCartDone({ itemIds: [id] }));
 }
 
 export const removeFromCart = (itemIds: string[]) => async (dispatch: Dispatch, getState: GetState) => {

@@ -1,14 +1,24 @@
 import { ReduxProps } from 'inventory/container/InventoryConnector';
+import { UnitType } from '@core/types';
 
 export enum InventoryTabs {
   Cart = "Cart",
   Inventory = "Inventory"
 }
 
+export interface NutritionalInfo {
+  unit: UnitType;
+  amount: number;
+  calories: number; // Amount of kcal
+  proteins: number; // Grams of proteins
+  fat: number; // Grams of fat
+}
+
 export interface InventoryItem {
   id: string;
   name: string;
   category: string;
+  nutrition: NutritionalInfo[];
 }
 
 export type InventoryItemEdit = Omit<InventoryItem, "id">;
@@ -18,13 +28,11 @@ export interface InventoryActions {
     addToAll: ReduxProps["addToAllItems"];
     removeFromAll: ReduxProps["removeFromAllItems"];
     addToAvailable: ReduxProps["addToAvailable"];
-    addNewToAvailable: ReduxProps["addNewToAvailable"];
     removeFromAvailable: ReduxProps["removeFromAvailable"];
     edit: ReduxProps["editItem"];
   },
   cart: {
     add: ReduxProps["addToCart"];
-    addNew: ReduxProps["addNewToCart"];
     remove: ReduxProps["removeFromCart"];
     updateSelected: ReduxProps["updateSelectedInCart"];
     finishShopping: ReduxProps["finishShopping"];

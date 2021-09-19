@@ -1,10 +1,15 @@
 import * as React from 'react';
+// Icons
 import { AddBagIconSmall } from '@core/components/Icons/BagIcon';
 import { TrashIconSmall, TrashIconSmallWhite, TrashIconXS } from '@core/components/Icons/DeleteIcon';
+// Components
 import InventorySection from 'inventory/components/InventorySection';
+import NutritionEditDialog from 'inventory/components/NutritionEditDialog';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
+// Utils
 import allItemsToArray from 'inventory/utils/allItemsToArray';
-import { InventoryActions, InventoryItemEdit } from 'inventory/types';
+// Types
+import { InventoryActions, InventoryItemEdit, NutritionalInfo } from 'inventory/types';
 
 interface Props {
   allItems: Record<string, InventoryItemEdit>;
@@ -23,29 +28,46 @@ const InventoryAll: React.FC<Props> = ({
 }) => {
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
-  const [isConfirmationOpen, setConfirmationOpen] = React.useState({ isOpen: false, itemId: '' });
+  const [confirmationDialog, setConfirmationDialog] = React.useState({ isOpen: false, itemId: '' });
+  const [nutritionDialog, setNutritionDialog] = React.useState({ isOpen: false, itemId: '', isEdit: false });
 
   const hasSelectedItems = Boolean(selectedItems.length);
 
   const toggleConfirmationDialog = (id?: string) => {
-    const { isOpen } = isConfirmationOpen;
+    const { isOpen } = confirmationDialog;
     // From lists we receive the itemId as an argument, but everywhere else we receive event object
     const itemId = typeof id === 'string' ? id : '';
     // If clicked on "Delete" row action, but there are selected, clear selection so they don't all get deleted
     if (itemId && selectedItems) {
       setSelectedItems([])
     }
-    setConfirmationOpen({ isOpen: !isOpen, itemId });
+    setConfirmationDialog({ isOpen: !isOpen, itemId });
   }
+
+  const toggleNutritionDialog = (id?: string, isEdit?: boolean) => {
+    const { isOpen } = nutritionDialog;
+    const itemId = typeof id === 'string' ? id : '';
+    setNutritionDialog({ isOpen: !isOpen, itemId, isEdit: Boolean(isEdit) })
+  }
+
+  const handleSaveNutrition = (itemId: string, nutrition: NutritionalInfo[]) => {
+    const item = allItems[itemId];
+    actions.inventory.edit(itemId, { ...item, id: itemId, nutrition })
+    toggleNutritionDialog();
+  }
+
   const handleAddToAvailable = (id: string) => {
     actions.inventory.addToAvailable([id]);
   }
+
   const handleAddNew = ({ name, category }: Record<string, string>) => {
-    actions.inventory.addToAll({ name, category });
+    actions.inventory.addToAll({ name, category, nutrition: [] });
   }
+
   const handleAddSelectedToAvailable = () => {
     actions.inventory.addToAvailable(selectedItems);
   }
+
   const handleRemove = (itemId?: string) => async () => {
     // Are we removing a single item
     const isSingleItem = Boolean(itemId);
@@ -73,10 +95,11 @@ const InventoryAll: React.FC<Props> = ({
         specificActions={{
           addNew: handleAddNew,
           addSelectedToAvailable: handleAddSelectedToAvailable,
-          removeSelected: handleRemove()
+          removeSelected: handleRemove(),
+          toggleNutrition: toggleNutritionDialog
         }}
       />
-      {isConfirmationOpen.isOpen && (
+      {confirmationDialog.isOpen && (
         <ConfirmationDialog 
           isOpen 
           onClose={toggleConfirmationDialog}
@@ -86,7 +109,16 @@ const InventoryAll: React.FC<Props> = ({
           primaryText="Cancel"
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}
-          onSecondaryAction={hasSelectedItems ? handleRemove() : handleRemove(isConfirmationOpen.itemId)}
+          onSecondaryAction={hasSelectedItems ? handleRemove() : handleRemove(confirmationDialog.itemId)}
+        />
+      )}
+      {nutritionDialog.isOpen && (
+        <NutritionEditDialog
+          isOpen
+          allItems={allItems}
+          itemId={nutritionDialog.itemId}
+          onClose={toggleNutritionDialog}
+          onSave={handleSaveNutrition}
         />
       )}
     </>

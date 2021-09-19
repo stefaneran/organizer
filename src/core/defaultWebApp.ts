@@ -1,5 +1,5 @@
 import { OrganizerModule } from '@core/types';
 
-const defaultWebApp = OrganizerModule.Activities;
+const defaultWebApp = OrganizerModule.Inventory;
 
 export default defaultWebApp;

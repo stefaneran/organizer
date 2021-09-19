@@ -14,6 +14,7 @@ interface Props {
   rowIcons?: RowIcon[];
   onItemSelection: (selected: string[]) => void;
   onEdit?: (id: string, item: Omit<InventoryItem, "id">) => void;
+  toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 
 const SimpleList: React.FC<Props> = ({ 
@@ -25,7 +26,8 @@ const SimpleList: React.FC<Props> = ({
   selectedItems, 
   rowIcons,
   onItemSelection,
-  onEdit
+  onEdit,
+  toggleNutrition
 }) => {
 
   const handleSelection = (id: string) => () => {
@@ -47,6 +49,7 @@ const SimpleList: React.FC<Props> = ({
           onSelect={handleSelection}
           rowIcons={rowIcons}
           onEdit={onEdit}
+          toggleNutrition={toggleNutrition}
         />
       ))}
     </List>

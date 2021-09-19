@@ -7,13 +7,11 @@ const mapActions = (actionProps: Partial<DispatchProps>): InventoryActions => ({
     addToAll: actionProps.addToAllItems,
     removeFromAll: actionProps.removeFromAllItems,
     addToAvailable: actionProps.addToAvailable,
-    addNewToAvailable: actionProps.addNewToAvailable,
     removeFromAvailable: actionProps.removeFromAvailable,
     edit: actionProps.editItem
   },
   cart: {
     add: actionProps.addToCart,
-    addNew: actionProps.addNewToCart,
     remove: actionProps.removeFromCart,
     updateSelected: actionProps.updateSelectedInCart,
     finishShopping: actionProps.finishShopping
