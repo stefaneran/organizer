@@ -56,11 +56,11 @@ const InventoryAll: React.FC<Props> = ({
     toggleNutritionDialog();
   }
 
-  const handleAddToAvailable = (id: string) => {
+  const handleAddFromAllToAvailable = (id: string) => {
     actions.inventory.addToAvailable([id]);
   }
 
-  const handleAddNew = ({ name, category }: Record<string, string>) => {
+  const handleAddNewToAll = ({ name, category }: Record<string, string>) => {
     actions.inventory.addToAll({ name, category, nutrition: [] });
   }
 
@@ -68,7 +68,7 @@ const InventoryAll: React.FC<Props> = ({
     actions.inventory.addToAvailable(selectedItems);
   }
 
-  const handleRemove = (itemId?: string) => async () => {
+  const handleRemoveFromAll = (itemId?: string) => async () => {
     // Are we removing a single item
     const isSingleItem = Boolean(itemId);
     actions.inventory.removeFromAll(isSingleItem ? [itemId] : selectedItems);
@@ -90,12 +90,12 @@ const InventoryAll: React.FC<Props> = ({
         getList={allItemsToArray}
         customRowIcons={[
           { icon: <TrashIconSmall />, handler: toggleConfirmationDialog, altIcon: <TrashIconSmallWhite /> },
-          { icon: <AddBagIconSmall />, handler: handleAddToAvailable }
+          { icon: <AddBagIconSmall />, handler: handleAddFromAllToAvailable }
         ]}
         specificActions={{
-          addNew: handleAddNew,
+          addNew: handleAddNewToAll,
           addSelectedToAvailable: handleAddSelectedToAvailable,
-          removeSelected: handleRemove(),
+          removeSelected: handleRemoveFromAll(),
           toggleNutrition: toggleNutritionDialog
         }}
       />
@@ -109,7 +109,7 @@ const InventoryAll: React.FC<Props> = ({
           primaryText="Cancel"
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}
-          onSecondaryAction={hasSelectedItems ? handleRemove() : handleRemove(confirmationDialog.itemId)}
+          onSecondaryAction={hasSelectedItems ? handleRemoveFromAll() : handleRemoveFromAll(confirmationDialog.itemId)}
         />
       )}
       {nutritionDialog.isOpen && (

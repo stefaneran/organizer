@@ -7,11 +7,29 @@ import { BagPlus } from '@styled-icons/bootstrap/BagPlus';
 import { BagCheck } from '@styled-icons/bootstrap/BagCheck';
 import { BagCheckFill } from '@styled-icons/bootstrap/BagCheckFill';
 
+const BagXS = styled(BagFill)`
+  height: 0.9em;
+  color: #3f51b5;
+`;
+export const BagIconXS = () => <BagXS />
+
+const BagWhiteXS = styled(BagFill)`
+  height: 0.9em;
+  color: #fff;
+`;
+export const BagIconWhiteXS = () => <BagWhiteXS />
+
 const BagSmall = styled(BagFill)`
   height: 1.5em;
   color: #3f51b5;
 `;
 export const BagIconSmall = () => <BagSmall />
+
+const BagSmallWhite = styled(BagFill)`
+  height: 1.5em;
+  color: #fff;
+`;
+export const BagIconSmallWhite = () => <BagSmallWhite />
 
 const BagMedium = styled(BagFill)`
   height: 2.5em;

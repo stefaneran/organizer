@@ -2,12 +2,12 @@ import * as React from 'react';
 import { List } from '@material-ui/core';
 import InventoryListItem from 'inventory/components/InventoryListItem';
 import genericSort from '@core/utils/genericSort';
-import { InventoryItem, RowIcon } from 'inventory/types';
+import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
 
 interface Props {
   isSelectedTab: boolean;
   listItems: InventoryItem[];
-  allItems?: Record<string, InventoryItem>;
+  allItems?: Record<string, InventoryItemEdit>;
   availableItems?: string[];
   cart?: string[];
   selectedItems: string[];

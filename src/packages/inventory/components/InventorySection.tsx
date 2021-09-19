@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { 
-  List, ListItem, ListItemText, ListItemIcon, Collapse,
+  List, ListItem, ListItemText, Collapse,
   Button, Divider, Tooltip, TextField
 } from '@material-ui/core';
 // Icons
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { AddCartIconXS, AddCartIconSmall } from '@core/components/Icons/CartIcon';
-import { AddBagIconXS, BagIconSmall } from '@core/components/Icons/BagIcon';
-import { DatabaseIconSmall } from '@core/components/Icons/DatabaseIcon';
+import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
 // Components
 import SwitchInput from '@core/components/inputs/SwitchInput';
@@ -22,7 +19,7 @@ import AddNewItemInput from 'inventory/components/AddNewItemInput';
 import AddItemInput from 'inventory/components/AddItemInput';
 // Types
 import { InventoryItem, InventoryItemEdit, RowIcon, InventoryActions } from 'inventory/types';
-import { StateSetter, ClickEvent, InputEvent } from '@core/types';
+import { StateSetter, InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -106,7 +103,6 @@ const InventorySection: React.FC<Props> = ({
   const [textFilter, setTextFilter] = React.useState('');
   // Should group items by category
   const [isNested, setIsNested] = React.useState(true);
-  const [isOpen, setIsOpen] = React.useState(false);
   const [isControlsOpen, setIsControlsOpen] = React.useState(true);
 
   const isAllType = inventoryType === 'all';
@@ -117,10 +113,6 @@ const InventorySection: React.FC<Props> = ({
     () => getList({ allItems, availableItems, textFilter }), 
   [textFilter, memoDep]);
 
-  const toggleOpen = (event: ClickEvent) => {
-    event.stopPropagation();
-    setIsOpen(!isOpen);
-  }
   const toggleControlsOpen = () => {
     setIsControlsOpen(!isControlsOpen);
   }
@@ -153,18 +145,14 @@ const InventorySection: React.FC<Props> = ({
       <div 
         style={{ 
           transition: 'width 300ms',
-          width: isSelectedTab && isOpen && isControlsOpen ? '62%' : '100%' 
+          width: isSelectedTab && isControlsOpen ? '62%' : '100%' 
         }}
       >
         <List component="div" disablePadding>
-          <ListItem button onClick={toggleOpen} className={classes.title}>
-            <ListItemIcon>
-              {isAllType ? <DatabaseIconSmall /> : <BagIconSmall />}
-            </ListItemIcon>
+          <ListItem className={classes.title}>
             <ListItemText primary={isAllType ? "All Items" : "Available Items"} />
-            {isOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse in={isOpen} timeout="auto" unmountOnExit>
+          <Collapse in={true} timeout="auto" unmountOnExit>
             {isNested ? (
               <NestedList 
                 isSelectedTab={isSelectedTab}
@@ -196,7 +184,7 @@ const InventorySection: React.FC<Props> = ({
           </Collapse>
         </List>
       </div>
-      {isSelectedTab && isOpen && (
+      {isSelectedTab && (
         <>
           <div className={classes.controlsSwitch} onClick={toggleControlsOpen}>
             {isControlsOpen ? (
