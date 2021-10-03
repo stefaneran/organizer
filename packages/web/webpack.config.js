@@ -3,36 +3,33 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-
   mode: 'development',
-
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    historyApiFallback: true,
-    port: 3420
-  },
-
-  entry: ['babel-polyfill', path.resolve(__dirname, "src/index.tsx")],
-
-  resolve: {
-    alias: {
-      "app": path.resolve(__dirname, './src/app'),
-      // Need to invoke as @core for imports to work in Jest
-      "@core": path.resolve(__dirname, './src/core'),
-      "activities": path.resolve(__dirname, './src/packages/activities'),
-      "contacts": path.resolve(__dirname, './src/packages/contacts'),
-      "inventory": path.resolve(__dirname, './src/packages/inventory'),
-      "recipes": path.resolve(__dirname, './src/packages/recipes')
-    },
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
-  },
-
+  entry: [
+    'babel-polyfill', path.resolve(__dirname, "src/index.tsx")
+  ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'build.js',
     publicPath: '/'
   },
-
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true,
+    hot: true,
+    port: 3420
+  },
+  resolve: {
+    alias: {
+      // Need to invoke as @core for imports to work in Jest
+      "@core": path.resolve(__dirname, './src/core'),
+      "app": path.resolve(__dirname, './src/app'),
+      "activities": path.resolve(__dirname, './src/views/activities'),
+      "contacts": path.resolve(__dirname, './src/views/contacts'),
+      "inventory": path.resolve(__dirname, './src/views/inventory'),
+      "recipes": path.resolve(__dirname, './src/views/recipes')
+    },
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
+  },
   module: {
     rules: [
       {
@@ -60,13 +57,11 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Organizer App',
-      template: 'static/index.html'
+      template: 'public/index.html'
     }),
     new ESLintPlugin({ extensions: ['ts', 'tsx', 'js'] })
-  ],
-
+  ]
 }

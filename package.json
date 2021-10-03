@@ -1,79 +1,17 @@
 {
-  "name": "organizer-app",
+  "name": "organizer",
+  "private": true,
   "homepage": "https://stefaneran.github.io/organizer/",
   "version": "1.0.0",
   "description": "An app for organizing different categories of life",
-  "main": "babel.config.js",
-  "scripts": {
-    "start": "webpack-dev-server --hot",
-    "build": "webpack",
-    "deploy": "gh-pages -d dist",
-    "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet --fix",
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stefaneran/organizer.git"
-  },
-  "moduleDirectories": [
-    "node_modules",
-    "src"
-  ],
   "author": "Stefan Eran Milenkovic",
   "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": "git+https://github.com/stefaneran/organizer.git",
   "bugs": {
     "url": "https://github.com/stefaneran/organizer/issues"
   },
-  "dependencies": {
-    "@date-io/date-fns": "^1.3.13",
-    "@material-ui/core": "^4.9.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.55",
-    "@material-ui/pickers": "^3.3.10",
-    "@reduxjs/toolkit": "^1.2.3",
-    "clsx": "^1.1.0",
-    "date-fns": "^2.12.0",
-    "file-loader": "^6.0.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.1.2",
-    "react-virtualized": "^9.22.3",
-    "redux-thunk": "^2.3.0",
-    "styled-components": "^5.1.0",
-    "styled-icons": "^10.23.0",
-    "uuid": "^8.3.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.6.0",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.1.9",
-    "@types/jest": "^26.0.24",
-    "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.3",
-    "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
-    "css-loader": "^3.4.2",
-    "eslint": "^7.30.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-webpack-plugin": "^2.5.4",
-    "gh-pages": "^2.2.0",
-    "global-jsdom": "^8.1.0",
-    "html-webpack-plugin": "^3.2.0",
-    "jest": "^27.0.6",
-    "jsdom": "^16.6.0",
-    "msw": "^0.32.0",
-    "prettier": "^2.3.2",
-    "style-loader": "^1.1.3",
-    "typescript": "^4.3.2",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1"
-  }
+  "main": "index.js"
 }
