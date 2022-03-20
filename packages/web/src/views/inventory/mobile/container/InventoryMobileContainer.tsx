@@ -54,10 +54,11 @@ enum ViewType {
 }
 
 const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
-  allItems,
-  availableItems,
+  loggedIn,
+  groceries,
+  inventory,
   cart,
-  selectedInCart,
+  cartSelected,
   ...actionProps
  }) => {
   const classes = useStyles();
@@ -74,6 +75,12 @@ const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       setCurrentView(ViewType.Cart)
     }
   }
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      actionProps.getItems();
+    }
+  }, [loggedIn])
 
   return (
     <div className={classes.container}>
@@ -101,16 +108,16 @@ const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       <div className={classes.contentContainer}>
         <div className={classes.contentWindow} style={{ left: isCart ? '0%' : '-100%' }}>
           <Cart 
+            groceries={groceries}
             cart={cart}
-            selectedInCart={selectedInCart}
-            allItems={allItems}
+            cartSelected={cartSelected}
             actions={actions}
           />
         </div>
         <div className={classes.contentWindow} style={{ left: isCart ? '100%' : '0%'}}>
           <Inventory 
-            availableItems={availableItems}
-            allItems={allItems}
+            groceries={groceries}
+            inventory={inventory}
             actions={actions}
           />
         </div>

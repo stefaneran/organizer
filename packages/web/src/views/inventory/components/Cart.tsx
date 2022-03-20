@@ -2,12 +2,12 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import SimpleList from 'inventory/components/SimpleList';
-import AddItemInput from 'inventory/components/AddItemInput';
+import AddGroceryInput from 'inventory/components/AddGroceryInput';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
 import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryTabs, InventoryItemEdit, InventoryActions } from 'inventory/types';
+import { InventoryTabs, GroceryItemEdit, InventoryActions } from 'inventory/types';
 import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -32,25 +32,25 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   cart: string[];
-  selectedInCart: string[];
+  cartSelected: string[];
   actions: InventoryActions;
-  allItems: Record<string, InventoryItemEdit>;
+  groceries: Record<string, GroceryItemEdit>;
   isSelectedTab: boolean;
   setSelectedTab: (selected: InventoryTabs) => () => void;
 }
 
 const Cart: React.FC<Props> = ({
   cart, 
-  selectedInCart,
+  cartSelected,
   actions, 
-  allItems, 
+  groceries, 
   isSelectedTab, 
   setSelectedTab 
 }) => {
 
   const classes = useStyles();
-  const listItems = cartItemsToArray(cart, allItems)
-  const hasSelectedItems = Boolean(selectedInCart.length);
+  const listItems = cartItemsToArray(cart, groceries)
+  const hasSelectedItems = Boolean(cartSelected.length);
 
   const handleItemSelection = (newSelected: string[]) => {
     actions.cart.updateSelected(newSelected);
@@ -59,7 +59,7 @@ const Cart: React.FC<Props> = ({
     actions.cart.remove([id]);
   }
   const handleRemoveSelected = () => {
-    actions.cart.remove(selectedInCart);
+    actions.cart.remove(cartSelected);
   }
   const handleAddToCart = (id: string) => {
     actions.cart.add([id]);
@@ -87,7 +87,7 @@ const Cart: React.FC<Props> = ({
           <SimpleList 
             isSelectedTab={isSelectedTab}
             listItems={listItems} 
-            selectedItems={selectedInCart} 
+            selectedItems={cartSelected} 
             onItemSelection={handleItemSelection}
             rowIcons={[
               { icon: <RemoveCartIconSmall />, handler: handleRemoveItem }
@@ -110,12 +110,12 @@ const Cart: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <AddItemInput 
-        allItems={allItems} 
+      <AddGroceryInput 
+        groceries={groceries} 
         targetCollection={cart} 
         onChange={handleAddToCart} 
       />
-      <Tooltip title="Add to Available">
+      <Tooltip title="Add to Inventory">
         <Button 
           variant="outlined" 
           color="primary" 

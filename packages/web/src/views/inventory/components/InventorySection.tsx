@@ -15,10 +15,10 @@ import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon'
 import SwitchInput from '@core/components/inputs/SwitchInput';
 import NestedList from 'inventory/components/NestedList';
 import SimpleList from 'inventory/components/SimpleList';
-import AddNewItemInput from 'inventory/components/AddNewItemInput';
-import AddItemInput from 'inventory/components/AddItemInput';
+import AddNewItemInput from 'inventory/components/AddNewGroceryInput';
+import AddGroceryInput from 'inventory/components/AddGroceryInput';
 // Types
-import { InventoryItem, InventoryItemEdit, RowIcon, InventoryActions } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit, RowIcon, InventoryActions } from 'inventory/types';
 import { StateSetter, InputEvent } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -74,15 +74,15 @@ interface Props {
   isSelectedTab: boolean;
   selectedItems: string[];
   setSelectedItems: StateSetter<string[]>;
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   cart?: string[];
   customRowIcons: RowIcon[];
   actions: InventoryActions;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   specificActions: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getList: (...args: any[]) => InventoryItem[];
+  getList: (...args: any[]) => GroceryItem[];
 }
 
 const InventorySection: React.FC<Props> = ({
@@ -90,8 +90,8 @@ const InventorySection: React.FC<Props> = ({
   isSelectedTab,
   selectedItems,
   setSelectedItems,
-  allItems, 
-  availableItems,
+  groceries, 
+  inventory,
   cart,
   customRowIcons,
   actions,
@@ -108,9 +108,9 @@ const InventorySection: React.FC<Props> = ({
   const isAllType = inventoryType === 'all';
   const hasSelectedItems = Boolean(selectedItems.length);
 
-  const memoDep = isAllType ? allItems : availableItems;
+  const memoDep = isAllType ? groceries : inventory;
   const listItems = React.useMemo(
-    () => getList({ allItems, availableItems, textFilter }), 
+    () => getList({ groceries, inventory, textFilter }), 
   [textFilter, memoDep]);
 
   const toggleControlsOpen = () => {
@@ -132,7 +132,7 @@ const InventorySection: React.FC<Props> = ({
     actions.cart.add([id]);
   }
   const handleAddToAvailable = (id: string) => {
-    actions.inventory.addToAvailable([id])
+    actions.inventory.add([id])
   }
 
   const rowIcons = [
@@ -150,34 +150,34 @@ const InventorySection: React.FC<Props> = ({
       >
         <List component="div" disablePadding>
           <ListItem className={classes.title}>
-            <ListItemText primary={isAllType ? "All Items" : "Available Items"} />
+            <ListItemText primary={isAllType ? "Groceries" : "Inventory"} />
           </ListItem>
           <Collapse in={true} timeout="auto" unmountOnExit>
             {isNested ? (
               <NestedList 
                 isSelectedTab={isSelectedTab}
                 listItems={listItems} 
-                allItems={allItems}
-                availableItems={availableItems} 
+                groceries={groceries}
+                inventory={inventory} 
                 cart={cart}
                 selectedItems={selectedItems} 
                 onItemSelection={handleItemSelection} 
                 rowIcons={rowIcons}
                 textFilter={textFilter}
-                onEdit={isAllType ? actions.inventory.edit : undefined}
+                onEdit={isAllType ? actions.groceries.update : undefined}
                 toggleNutrition={specificActions.toggleNutrition}
               />
             ) : (
               <SimpleList 
                 isSelectedTab={isSelectedTab}
                 listItems={listItems} 
-                allItems={allItems}
-                availableItems={availableItems} 
+                groceries={groceries}
+                inventory={inventory} 
                 cart={cart}
                 selectedItems={selectedItems} 
                 onItemSelection={handleItemSelection} 
                 rowIcons={rowIcons}
-                onEdit={isAllType ? actions.inventory.edit : undefined}
+                onEdit={isAllType ? actions.groceries.update : undefined}
                 toggleNutrition={specificActions.toggleNutrition}
               />
             )}
@@ -225,14 +225,14 @@ const InventorySection: React.FC<Props> = ({
             <Divider className={classes.divider} />
 
             {inventoryType === "available" ? (
-              <AddItemInput 
-                allItems={allItems} 
-                targetCollection={availableItems} 
+              <AddGroceryInput 
+                groceries={groceries} 
+                targetCollection={inventory} 
                 onChange={handleAddToAvailable} 
               />
             ) : (
               <AddNewItemInput 
-                allItems={allItems} 
+                groceries={groceries} 
                 onSubmit={specificActions.addNew} 
               />
             )}

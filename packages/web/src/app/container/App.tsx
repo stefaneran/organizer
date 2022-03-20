@@ -22,19 +22,14 @@ interface DialogState {
 
 const App: React.FC<ReduxProps> = ({
   app,
-  getAllData,
   login,
   register,
   logout,
   setIsMobile,
-  setActivities,
   clearActivities,
-  setContactsAndEvents,
   clearContactsAndEvents,
-  setRecipes,
   clearRecipes,
-  setInventory,
-  clearInventory
+  clearInventoryData
 }) => {
   const classes = useStyles();
   const { user: { loggedIn }, isMobile, error } = app;
@@ -58,7 +53,7 @@ const App: React.FC<ReduxProps> = ({
     // Otherwise try to load user creds from localstorage and login (TODO change to cookies)
     else {
       const loadResult = loadUserFromLocalStorage();
-      if (loadResult.success) {
+      if (loadResult.success && !loggedIn) {
         const { userName, password } = loadResult.user;
         if (userName && password) {
           login(loadResult.user)
@@ -75,20 +70,15 @@ const App: React.FC<ReduxProps> = ({
   React.useEffect(() => {
     async function fetchUserData() {
       if (loggedIn) {
-        const data = await getAllData();
-        const { activities, contacts, events, inventory, recipes } = data;
-        setActivities(activities);
-        setContactsAndEvents({ contacts, events });
-        setInventory(inventory);
-        setRecipes(recipes);
+        // TODO - Load user data from localstorage
       } else {
         clearActivities();
         clearContactsAndEvents();
-        clearInventory();
+        clearInventoryData();
         clearRecipes();
       }
     }
-    fetchUserData();
+    // fetchUserData();
   }, [loggedIn]);
 
   const handleChangeLoginDialog = (props: DialogState) => () => {

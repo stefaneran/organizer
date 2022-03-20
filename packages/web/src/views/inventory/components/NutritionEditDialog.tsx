@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import NutritionEditRow from 'inventory/components/NutritionEditRow';
-import { InventoryItemEdit, NutritionalInfo } from 'inventory/types';
+import { GroceryItemEdit, NutritionalInfo } from 'inventory/types';
 import { UnitType } from '@core/types';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -37,33 +37,33 @@ const useStyles = makeStyles((theme) => createStyles({
 
 interface Props {
   isOpen: boolean;
-  allItems: Record<string, InventoryItemEdit>;
-  itemId: string;
+  groceries: Record<string, GroceryItemEdit>;
+  groceryId: string;
   onClose: () => void;
   onSave: (itemId: string, nutrition: NutritionalInfo[]) => void;
 }
 
 const defaultNutritionInfo = { unit: "units" as UnitType, amount: 0, calories: 0, proteins: 0, fat: 0 };
 
-const getNutrition = (item: InventoryItemEdit) => {
-  if (!item || !item.nutrition) {
+const getNutrition = (groceryItem: GroceryItemEdit) => {
+  if (!groceryItem || !groceryItem.nutrition) {
     return [defaultNutritionInfo];
   }
-  return Object.values(item.nutrition);
+  return Object.values(groceryItem.nutrition);
 }
 
 const NutritionEditDialog: React.FC<Props> = ({
   isOpen,
-  allItems,
-  itemId,
+  groceries,
+  groceryId,
   onClose,
   onSave
 }) => {
   const classes = useStyles();
 
-  const item = allItems[itemId];
+  const groceryItem = groceries[groceryId];
 
-  const [nutritionalInfo, setNutritionalInfo] = React.useState(getNutrition(item));
+  const [nutritionalInfo, setNutritionalInfo] = React.useState(getNutrition(groceryItem));
 
   const handleChange = (property: string, index: number) => (eventOrValue) => {
     const value = eventOrValue.target?.value ?? eventOrValue;
@@ -85,7 +85,7 @@ const NutritionEditDialog: React.FC<Props> = ({
   }
 
   const handleSave = () => {
-    onSave(itemId, nutritionalInfo)
+    onSave(groceryId, nutritionalInfo)
   }
 
   return (

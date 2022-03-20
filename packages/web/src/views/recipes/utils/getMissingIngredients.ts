@@ -10,7 +10,7 @@ type ReturnType = {
 
 const getMissingIngredients = (
   ingredients: Recipe["ingredients"],
-  availableItems: string[],
+  inventory: string[],
   cart: string[]
 ): ReturnType => {
   const missingIngredients: string[] = [];
@@ -18,7 +18,7 @@ const getMissingIngredients = (
   // Scan all ingredients for only the missing ones
   ingredients.forEach(ingredient => {
     const { name, itemId, isOptional } = ingredient;
-    const shouldAdd = !availableItems.includes(itemId) && !cart.includes(itemId);
+    const shouldAdd = !inventory.includes(itemId) && !cart.includes(itemId);
     if (shouldAdd) {
       if (isOptional) {
         missingOptionals.push({ itemId, name })

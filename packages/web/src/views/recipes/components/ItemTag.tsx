@@ -50,8 +50,8 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 // Check if even one ingredient is missing
-const checkMissingIngredient = (ingredient: string, availableItems: string[]) => {
-  return !availableItems.includes(ingredient);
+const checkMissingIngredient = (ingredient: string, inventory: string[]) => {
+  return !inventory.includes(ingredient);
 }
 
 // Check if item is in cart 
@@ -61,7 +61,7 @@ const checkMissingIngredientInCart = (ingredient: string, cart: string[]) => {
 }
 
 interface Props {
-  availableItems: string[];
+  inventory: string[];
   cart: string[];
   recipe?: Recipe;
   ingredient?: Ingredient | AlternativeIngredient;
@@ -76,7 +76,7 @@ interface Props {
 // 2) All missing ingredients are in cart (yellow icon)
 // 3) All ingredients available (green icon)
 const ItemTag: React.FC<Props> = ({ 
-  availableItems, 
+  inventory, 
   cart, 
   recipe, 
   ingredient,
@@ -92,10 +92,10 @@ const ItemTag: React.FC<Props> = ({
   const isRecipe = Boolean(recipe);
 
   const hasMissingItems = isRecipe ?
-    checkMissingItemsRecipe(recipe, availableItems) :
-    checkMissingIngredient(ingredient.itemId, availableItems)
+    checkMissingItemsRecipe(recipe, inventory) :
+    checkMissingIngredient(ingredient.itemId, inventory)
   const hasMissingInCart = isRecipe ?
-    checkMissingInCartRecipe(recipe, availableItems, cart) :
+    checkMissingInCartRecipe(recipe, inventory, cart) :
     checkMissingIngredientInCart(ingredient.itemId, cart);
   const isOptional = !isRecipe && ingredient.isOptional;
 

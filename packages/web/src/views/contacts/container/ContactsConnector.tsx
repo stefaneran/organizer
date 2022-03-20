@@ -1,5 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { 
+  getContactsAndEvents,
   createContact, 
   editContact, 
   deleteContact, 
@@ -12,6 +13,7 @@ import { initGroups } from 'contacts/store';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
+  loggedIn: state.app.user.loggedIn,
   contacts: state.contactsStore.contacts,
   groups: state.contactsStore.groups,
   events: state.contactsStore.events,
@@ -19,6 +21,7 @@ const mapStateToProps = (state: AppStore) => ({
 });
 
 const mapDispatchToProps = {
+  getContactsAndEvents,
   initGroups,
   createContact,
   editContact,
@@ -34,6 +37,7 @@ export const connector = connect(mapStateToProps, mapDispatchToProps);
 export type ReduxProps = ConnectedProps<typeof connector>;
 
 export type DispatchProps = {
+  getContactsAndEvents: ReduxProps["getContactsAndEvents"],
   initGroups: ReduxProps["initGroups"],
   createContact: ReduxProps["createContact"],
   editContact: ReduxProps["editContact"],

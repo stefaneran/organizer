@@ -3,16 +3,16 @@ import { Recipe } from 'recipes/types';
 // Checks missing ingredients for whole recipe
 const checkMissingItemsRecipe = (
   recipe: Recipe,
-  availableItems: string[]
+  inventory: string[]
 ): boolean => {
   for (const ingredient of recipe.ingredients) {
     const { itemId, isOptional, alternatives } = ingredient;
-    if (!availableItems.includes(itemId) && !isOptional) {
+    if (!inventory.includes(itemId) && !isOptional) {
       // If missing ingredient has alternative
       if (alternatives) {
         let hasAvailableAlternative = false;
         for (const alternative of alternatives) {
-          if (availableItems.includes(alternative.itemId)) {
+          if (inventory.includes(alternative.itemId)) {
             hasAvailableAlternative = true;
           }
         }

@@ -8,7 +8,7 @@ import { DatabaseIconXS, DatabaseIconWhiteXS } from '@core/components/Icons/Data
 import InventoryAll from 'inventory/components/InventoryAll';
 import InventoryAvailable from 'inventory/components/InventoryAvailable';
 // Utils
-import { InventoryTabs, InventoryItemEdit, InventoryActions } from 'inventory/types';
+import { InventoryTabs, GroceryItemEdit, InventoryActions } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -36,8 +36,8 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>; 
-  availableItems: string[]; 
+  groceries: Record<string, GroceryItemEdit>; 
+  inventory: string[]; 
   cart: string[]; 
   actions: InventoryActions; 
   isSelectedTab: boolean; 
@@ -45,8 +45,8 @@ interface Props {
 }
 
 const Inventory: React.FC<Props> = ({ 
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   cart, 
   actions, 
   isSelectedTab, 
@@ -76,7 +76,7 @@ const Inventory: React.FC<Props> = ({
         Inventory
       </Typography>
       <div className={classes.inventoryButtons}>
-        <Tooltip title="All Items">
+        <Tooltip title="Groceries">
           <IconButton 
             onClick={handleSelectInventory('all')} 
             className={selectedInventory === 'all' ? 'selected' : ''}
@@ -96,15 +96,15 @@ const Inventory: React.FC<Props> = ({
       <div className={classes.contentContainer}>
         {selectedInventory === 'available' ? (
           <InventoryAvailable
-            allItems={allItems}
-            availableItems={availableItems}
+            groceries={groceries}
+            inventory={inventory}
             isSelectedTab={isSelectedTab}
             actions={actions}
           />
         ) : (
           <InventoryAll
-            allItems={allItems}
-            availableItems={availableItems}
+            groceries={groceries}
+            inventory={inventory}
             cart={cart}
             isSelectedTab={isSelectedTab}
             actions={actions}

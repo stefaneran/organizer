@@ -5,7 +5,7 @@ import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 const getRecipesArray = (
   recipes: Record<string, Recipe>, 
   filters: RecipeFilters,
-  availableItems: string[]
+  inventory: string[]
 ): Recipe[] => {
 
   const recipesArray = Object.entries(recipes).map(([id, recipe]) => ({
@@ -29,7 +29,7 @@ const getRecipesArray = (
   }
   if (filters.availableOnly) {
     filteredRecipes = filteredRecipes.filter(recipe => {
-      const hasMissing = checkMissingItemsRecipe(recipe, availableItems);
+      const hasMissing = checkMissingItemsRecipe(recipe, inventory);
       return !hasMissing;
     })
   }

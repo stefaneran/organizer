@@ -1,34 +1,37 @@
 import { connect, ConnectedProps } from 'react-redux';
 import {
-  addToAllItems,
-  editItem,
-  removeFromAllItems,
-  addToAvailable,
-  removeFromAvailable,
-  addToCart,
-  removeFromCart,
-  updateSelectedInCart,
+  getItems,
+  createItem,
+  updateItem,
+  deleteItems,
+  addInventory,
+  removeInventory,
+  addCart,
+  removeCart,
+  updateCartSelected,
   finishShopping
 } from 'inventory/store/thunks';
 import { removeIngredient } from 'recipes/store';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
-  allItems: state.inventoryStore.allItems,
-  availableItems: state.inventoryStore.availableItems,
+  loggedIn: state.app.user.loggedIn,
+  groceries: state.inventoryStore.groceries,
+  inventory: state.inventoryStore.inventory,
   cart: state.inventoryStore.cart,
-  selectedInCart: state.inventoryStore.selectedInCart
+  cartSelected: state.inventoryStore.cartSelected
 });
 
 const mapDispatchToProps = {
-  addToAllItems,
-  editItem,
-  removeFromAllItems,
-  addToAvailable,
-  removeFromAvailable,
-  addToCart,
-  removeFromCart,
-  updateSelectedInCart,
+  getItems,
+  createItem,
+  updateItem,
+  deleteItems,
+  addInventory,
+  removeInventory,
+  addCart,
+  removeCart,
+  updateCartSelected,
   finishShopping,
   removeIngredient
 }
@@ -38,14 +41,15 @@ export const connector = connect(mapStateToProps, mapDispatchToProps);
 export type ReduxProps = ConnectedProps<typeof connector>;
 
 export type DispatchProps = {
-  addToAllItems: ReduxProps["addToAllItems"],
-  editItem: ReduxProps["editItem"],
-  removeFromAllItems: ReduxProps["removeFromAllItems"],
-  addToAvailable: ReduxProps["addToAvailable"],
-  removeFromAvailable: ReduxProps["removeFromAvailable"],
-  addToCart: ReduxProps["addToCart"],
-  removeFromCart: ReduxProps["removeFromCart"],
-  updateSelectedInCart: ReduxProps["updateSelectedInCart"],
+  getItems: ReduxProps["getItems"],
+  createItem: ReduxProps["createItem"],
+  updateItem: ReduxProps["updateItem"],
+  deleteItems: ReduxProps["deleteItems"],
+  addInventory: ReduxProps["addInventory"],
+  removeInventory: ReduxProps["removeInventory"],
+  addCart: ReduxProps["addCart"],
+  removeCart: ReduxProps["removeCart"],
+  updateCartSelected: ReduxProps["updateCartSelected"],
   finishShopping: ReduxProps["finishShopping"],
   removeIngredient: ReduxProps["removeIngredient"]
 }

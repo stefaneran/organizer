@@ -12,7 +12,7 @@ import Ingredients from 'recipes/components/Ingredients';
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { Recipe, EditMode } from 'recipes/types';
 import { DispatchProps } from 'recipes/container/RecipesConnector';
 
@@ -49,10 +49,10 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipe: Recipe; 
-  allItems: Record<string, InventoryItemEdit>; 
-  availableItems: string[]; 
+  groceries: Record<string, GroceryItemEdit>; 
+  inventory: string[]; 
   cart: string[]; 
-  addToCart: DispatchProps["addToCart"];
+  addCart: DispatchProps["addCart"];
   onAddMissing: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
   onSelectRecipe: (id: string) => () => void;
@@ -61,10 +61,10 @@ interface Props {
 
 const RecipeInfo: React.FC<Props> = ({ 
   recipe, 
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   cart, 
-  addToCart,
+  addCart,
   onAddMissing,
   onOpenEditRecipe,
   onSelectRecipe,
@@ -73,8 +73,8 @@ const RecipeInfo: React.FC<Props> = ({
   const classes = useStyles();
 
   const hasRecipe = Boolean(recipe);
-  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
-  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
+  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, inventory);
+  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, inventory, cart);
 
   return (
     <>
@@ -110,10 +110,10 @@ const RecipeInfo: React.FC<Props> = ({
         <div className={classes.ingredientsContainer}>
           <Ingredients 
             ingredients={recipe.ingredients}
-            allItems={allItems}
-            availableItems={availableItems}
+            groceries={groceries}
+            inventory={inventory}
             cart={cart}
-            addToCart={addToCart}
+            addCart={addCart}
           />
         </div>
         {hasMissingItems && !hasMissingInCart && (

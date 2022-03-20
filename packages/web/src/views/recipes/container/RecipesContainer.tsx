@@ -65,9 +65,10 @@ const getConfirmationDialogDescription = (action, props) => {
 }
 
 const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
+  loggedIn,
   recipes,
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   cart,
   ...actions
 }) => {
@@ -86,13 +87,24 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
 
   const hasSelectedRecipe = Boolean(selectedRecipe.length);
 
-  const nationalities = React.useMemo(() => getNationalityOptions(recipes), [recipes])
-  const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
-
+  const nationalities = React.useMemo(() => 
+    getNationalityOptions(recipes), 
+    [recipes]
+  )
+  const categories = React.useMemo(() => 
+    getCategoryOptions(recipes), 
+    [recipes]
+  );
   const filteredRecipes = React.useMemo(() => 
-    getRecipesArray(recipes, recipeFilters, availableItems), 
+    getRecipesArray(recipes, recipeFilters, inventory), 
     [recipes, recipeFilters]
   );
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      actions.getRecipes();
+    }
+  }, [loggedIn])
 
   const openConfirmationDialog = (action: "Delete" | "Optional") => () => {
     setOnConfirmationAction(action);
@@ -131,7 +143,7 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
       };
       const ingredients = recipes[selectedRecipe].ingredients.map(ingredient => {
         const { itemId } = ingredient;
-        const { name } = allItems[itemId];
+        const { name } = groceries[itemId];
         return { ...ingredient, name };
       })
       recipe.ingredients = ingredients;
@@ -153,7 +165,7 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
     openConfirmationDialog(null)()
   }
   const handleAddMissing = (ingredients = []) => () => {
-    const { missingIngredients, missingOptionals } = getMissingIngredients(ingredients, availableItems, cart);
+    const { missingIngredients, missingOptionals } = getMissingIngredients(ingredients, inventory, cart);
     if (missingOptionals.length) {
       const text = getConfirmationDialogDescription(onConfirmationAction, {recipes, selectedRecipe, missingOptionals})
       setConfirmationText(text);
@@ -161,15 +173,15 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
       setMissingPrimary(missingIngredients);
       setMissingOptional(missingOptionals.map(ing => ing.itemId));
     } else {
-      actions.addToCart(missingIngredients);
+      actions.addCart(missingIngredients);
     }
   }
   const handleAddMissingPrimary = () => {
-    actions.addToCart(missingPrimaryIngredients);
+    actions.addCart(missingPrimaryIngredients);
     openConfirmationDialog(null)();
   }
   const handleAddMissingOptionals = () => {
-    actions.addToCart([...missingOptionalIngredients, ...missingPrimaryIngredients]);
+    actions.addCart([...missingOptionalIngredients, ...missingPrimaryIngredients]);
     openConfirmationDialog(null)();
   }
 
@@ -196,7 +208,7 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
               selectedRecipe={selectedRecipe}
               onSelectRecipe={handleSelectRecipe}
               onAddMissing={handleAddMissing(recipe.ingredients)}
-              availableItems={availableItems}
+              inventory={inventory}
               cart={cart}
             />
           ))}
@@ -210,17 +222,17 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
               recipeData={recipeData}
               setRecipeData={setRecipeData}
               categoryOptions={categories}
-              allItems={allItems}
+              groceries={groceries}
               onSubmitEditRecipe={handleSubmitEditRecipe}
               onOpenEditRecipe={handleOpenEditRecipe}
             />
           ) : (
             <RecipeInfo 
               recipe={recipes[selectedRecipe]}
-              allItems={allItems}
-              availableItems={availableItems}
+              groceries={groceries}
+              inventory={inventory}
               cart={cart}
-              addToCart={actions.addToCart}
+              addCart={actions.addCart}
               onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}

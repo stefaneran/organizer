@@ -80,11 +80,13 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const RecipesMobileContainer: React.FC<ReduxProps> = ({
+  loggedIn,
   recipes,
-  availableItems, 
-  allItems, 
+  inventory, 
+  groceries, 
   cart,
-  addToCart
+  getRecipes,
+  addCart
 }) => {
   const classes = useStyles();
 
@@ -98,9 +100,15 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
   const categories = React.useMemo(() => getCategoryOptions(recipes), [recipes]);
 
   const filteredRecipes = React.useMemo(() => 
-    getRecipesArray(recipes, recipeFilters, availableItems), 
+    getRecipesArray(recipes, recipeFilters, inventory), 
     [recipes, recipeFilters]
   );
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      getRecipes();
+    }
+  }, [loggedIn])
   
   const toggleFilterMenuOpen = () => {
     setFilterMenuOpen(!filterMenuOpen);
@@ -121,8 +129,8 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
     })
   }
   const handleAddMissing = (ingredients = []) => () => {
-    const { missingIngredients } = getMissingIngredients(ingredients, availableItems, cart);
-    addToCart(missingIngredients);
+    const { missingIngredients } = getMissingIngredients(ingredients, inventory, cart);
+    addCart(missingIngredients);
   }
 
   return (
@@ -159,10 +167,10 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '0%' : '100%' }}>
           <RecipeInfo 
             recipe={recipes[selectedRecipe]} 
-            allItems={allItems} 
-            availableItems={availableItems} 
+            groceries={groceries} 
+            inventory={inventory} 
             cart={cart} 
-            addToCart={addToCart}
+            addCart={addCart}
             onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
           />
         </div>
@@ -173,7 +181,7 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
               recipeId={recipe.id}
               recipe={recipe}
               onSelectRecipe={handleSelectRecipe}
-              availableItems={availableItems}
+              inventory={inventory}
               cart={cart}
               onAddMissing={handleAddMissing(recipe.ingredients)}
             />

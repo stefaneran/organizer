@@ -1,16 +1,16 @@
 import genericSort from '@core/utils/genericSort';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { Option } from '@core/types';
 
 const getNameOptions = (
-  allItems: Record<string, InventoryItemEdit>, 
+  groceries: Record<string, GroceryItemEdit>, 
   targetCollection: string[]
 ): Option[] => {
   const names: Option[] = [];
-  Object.entries(allItems).forEach(([id, item]) => {
+  Object.entries(groceries).forEach(([id, item]) => {
     if (!targetCollection.includes(id)) {
       names.push({ 
-        label: item.name, 
+        label: item?.name, 
         value: id 
       });
     }

@@ -1,25 +1,28 @@
 import { connect, ConnectedProps } from 'react-redux';
 import {
-  removeFromAvailable,
-  addToCart,
-  removeFromCart,
-  updateSelectedInCart,
+  getItems,
+  removeInventory,
+  addCart,
+  removeCart,
+  updateCartSelected,
   finishShopping
 } from 'inventory/store/thunks';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
-  allItems: state.inventoryStore.allItems,
-  availableItems: state.inventoryStore.availableItems,
+  loggedIn: state.app.user.loggedIn,
+  groceries: state.inventoryStore.groceries,
+  inventory: state.inventoryStore.inventory,
   cart: state.inventoryStore.cart,
-  selectedInCart: state.inventoryStore.selectedInCart
+  cartSelected: state.inventoryStore.cartSelected
 });
 
 const mapDispatchToProps = {
-  removeFromAvailable,
-  addToCart,
-  removeFromCart,
-  updateSelectedInCart,
+  getItems,
+  removeInventory,
+  addCart,
+  removeCart,
+  updateCartSelected,
   finishShopping
 }
 
@@ -28,9 +31,10 @@ export const connector = connect(mapStateToProps, mapDispatchToProps);
 export type ReduxProps = ConnectedProps<typeof connector>;
 
 export type DispatchProps = {
-  removeFromAvailable: ReduxProps["removeFromAvailable"],
-  addToCart: ReduxProps["addToCart"],
-  removeFromCart: ReduxProps["removeFromCart"],
-  updateSelectedInCart: ReduxProps["updateSelectedInCart"],
+  getItems: ReduxProps["getItems"],
+  removeFromAvailable: ReduxProps["removeInventory"],
+  addToCart: ReduxProps["addCart"],
+  removeFromCart: ReduxProps["removeCart"],
+  updateSelectedInCart: ReduxProps["updateCartSelected"],
   finishShopping: ReduxProps["finishShopping"]
 }

@@ -1,13 +1,13 @@
-import { InventoryItem, InventoryItemEdit } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit } from 'inventory/types';
 
 const cartItemsToArray = (
   cart: string[], 
-  allItems: Record<string, InventoryItemEdit>
-): InventoryItem[] => 
+  groceries: Record<string, GroceryItemEdit>
+): GroceryItem[] => 
   cart.map(id => ({ 
     id, 
-    name: allItems[id] ? allItems[id].name : '', 
-    category: allItems[id] ? allItems[id].category : ''  
+    name: groceries[id] ? groceries[id].name : '', 
+    category: groceries[id] ? groceries[id].category : ''
   }))
 
 export default cartItemsToArray;

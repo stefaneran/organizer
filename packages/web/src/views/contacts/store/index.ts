@@ -25,25 +25,25 @@ const slice = createSlice({
       state.groups = getAllGroups(state.contacts);
     },
     updateContactDone: (state: ContactsStore, { payload }) => {
-      const { id, contact } = payload;
-      state.contacts[id] = { ...contact };
+      const { contactId, contact } = payload;
+      state.contacts[contactId] = { ...contact };
       state.groups = getAllGroups(state.contacts);
     },
     updateLastContactDone: (state: ContactsStore, { payload }) => {
-      const { id } = payload;
-      state.contacts[id].lastContact = Date.now();
+      const { contactId } = payload;
+      state.contacts[contactId].lastContact = Date.now();
     },
     deleteContactDone: (state: ContactsStore, { payload }) => {
-      const { id } = payload;
-      delete state.contacts[id];
+      const { contactId } = payload;
+      delete state.contacts[contactId];
     },
     updateEventDone: (state: ContactsStore, { payload }) => {
-      const { id, event } = payload;
-      state.events[id] = { ...event };
+      const { eventId, event } = payload;
+      state.events[eventId] = { ...event };
     },
     deleteEventDone: (state: ContactsStore, { payload }) => {
-      const { id } = payload;
-      delete state.events[id];
+      const { eventId } = payload;
+      delete state.events[eventId];
     }
   }
 });

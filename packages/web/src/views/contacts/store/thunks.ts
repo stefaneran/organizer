@@ -1,99 +1,159 @@
 import { Dispatch } from 'redux';
+import { v4 } from 'uuid';
+// Actions
 import {
+  setContactsAndEvents,
   updateContactDone, 
   deleteContactDone,
   updateLastContactDone,
   updateEventDone,
   deleteEventDone
 } from '.';
+import { setActivities } from 'activities/store';
+// Constants
 import baseUrl from '@core/baseUrl';
-import { v4 } from 'uuid';
+import STATUS_CODES from '@core/constants/statusCodes';
+// Utils
 import genericRequest from '@core/utils/genericRequest';
-import { GetState } from '@core/types';
+import genericRequestWithDispatch from '@core/utils/genericRequestWithDispatch';
+// Types
+import { GetState, RequestOptions } from '@core/types';
 
-export const createContact = (contact) => async (dispatch: Dispatch, getState: GetState) => {
-  const newContactId = v4();
-  genericRequest(
+export const getContactsAndEvents = () => async (dispatch: Dispatch, getState: GetState) => {
+  const options: RequestOptions = {
+    url: `${baseUrl}/contacts/get`,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not get contact and events"
+  }
+  const response = await genericRequest(
     dispatch,
     getState,
-    `${baseUrl}/contacts/create`,
-    { newId: newContactId, contact },
+    options
+  )
+  dispatch(setContactsAndEvents(response.data))
+  dispatch(setActivities(response.data.activities))
+}
+
+export const createContact = (contact) => async (dispatch: Dispatch, getState: GetState) => {
+  const contactId = v4();
+  const params = { contactId, contact };
+  const options: RequestOptions = {
+    url: `${baseUrl}/contacts/create`,
+    params,
+    acceptedStatusCode: STATUS_CODES.CREATED,
+    errorMessage: "Could not create contact"
+  }
+  await genericRequestWithDispatch(
+    dispatch,
+    getState,
+    options,
     updateContactDone,
-    { id: newContactId, contact },
-    `Could not create contact`
+    params
   );
 }
 
+// TODO - Rename to updateContact
 export const editContact = (contactId, contact) => async (dispatch: Dispatch, getState: GetState) => {
-  genericRequest(
+  const params = { contactId, contact };
+  const options: RequestOptions = {
+    url: `${baseUrl}/contacts/update`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not update contact"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/contacts/edit`,
-    { id: contactId, contact },
+    options,
     updateContactDone,
-    { id: contactId, contact },
-    `Could not edit contact`
+    params
   );
 }
 
 export const deleteContact = (contactId) => async (dispatch: Dispatch, getState: GetState) => {
-  genericRequest(
+  const params = { contactId };
+  const options: RequestOptions = {
+    url: `${baseUrl}/contacts/delete`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not delete contact"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/contacts/delete`,
-    { id: contactId },
+    options,
     deleteContactDone,
-    { id: contactId },
-    `Could not delete contact`
+    params
   );
 }
 
 export const updateLastContact = (contactId) => async (dispatch: Dispatch, getState: GetState) => {
-  genericRequest(
+  const params = { contactId };
+  const options: RequestOptions = {
+    url: `${baseUrl}/contacts/updateLast`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not update last contact"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/contacts/updateLast`,
-    { id: contactId },
+    options,
     updateLastContactDone,
-    { id: contactId },
-    `Could not update last contact`
+    params
   );
 }
 
 export const createEvent = (event) => async (dispatch: Dispatch, getState: GetState) => {
-  const newEventId = v4();
-  genericRequest(
+  const eventId = v4();
+  const params = { eventId, event };
+  const options: RequestOptions = {
+    url: `${baseUrl}/events/create`,
+    params,
+    acceptedStatusCode: STATUS_CODES.CREATED,
+    errorMessage: "Could not create event"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/events/create`,
-    { newId: newEventId, event },
+    options,
     updateEventDone,
-    { id: newEventId, event },
-    `Could not create event`
+    params
   );
 }
 
+// TODO - Rename to updateEvent
 export const editEvent = (eventId, event) => async (dispatch: Dispatch, getState: GetState) => {
-  genericRequest(
+  const params = { eventId, event };
+  const options: RequestOptions = {
+    url: `${baseUrl}/events/update`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not update event"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/events/edit`,
-    { id: eventId, event },
+    options,
     updateEventDone,
-    { id: eventId, event },
-    `Could not edit event`
+    params
   );
 }
 
 export const deleteEvent = (eventId) => async (dispatch: Dispatch, getState: GetState) => {
-  dispatch(deleteEventDone({ id: eventId }));
-  genericRequest(
+  dispatch(deleteEventDone({ eventId }));
+  const params = { eventId };
+  const options: RequestOptions = {
+    url: `${baseUrl}/events/delete`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not delete event"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/events/delete`,
-    { id: eventId },
+    options,
     deleteEventDone,
-    { id: eventId },
-    `Could not delete event`
+    params
   );
 }

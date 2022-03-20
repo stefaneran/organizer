@@ -1,6 +1,6 @@
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
-export const mockAllItems: Record<string, InventoryItemEdit> = {
+export const mockAllItems: Record<string, GroceryItemEdit> = {
   // Spaghetti bolognese ingredients
   '1': {
     name: 'Spaghetti',

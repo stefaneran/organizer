@@ -15,12 +15,12 @@ const slice = createSlice({
       state.activities = {};
     },
     updateActivityDone: (state: ActivitiesStore, { payload }) => {
-      const { id } = payload;
-      state.activities[id] = { ...payload };
+      const { activityId, activity } = payload;
+      state.activities[activityId] = activity;
     },
     deleteActivityDone: (state: ActivitiesStore, { payload }) => {
-      const { id } = payload;
-      delete state.activities[id];
+      const { activityId } = payload;
+      delete state.activities[activityId];
     }
   }
 });

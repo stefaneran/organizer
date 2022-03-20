@@ -1,16 +1,19 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { addToCart } from 'inventory/store/thunks';
+import { addCart } from 'inventory/store/thunks';
+import { getRecipes } from 'recipes/store/thunks';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
+  loggedIn: state.app.user.loggedIn,
   recipes: state.recipesStore.recipes,
-  allItems: state.inventoryStore.allItems,
-  availableItems: state.inventoryStore.availableItems,
+  groceries: state.inventoryStore.groceries,
+  inventory: state.inventoryStore.inventory,
   cart: state.inventoryStore.cart
 });
 
 const mapDispatchToProps = {
-  addToCart
+  getRecipes,
+  addCart
 }
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);

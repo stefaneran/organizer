@@ -7,7 +7,7 @@ import { FoodIconXS } from '@core/components/Icons/FoodIcon';
 import IngredientsEdit from 'recipes/components/IngredientsEdit';
 import countries from '@core/data/countries';
 import { IngredientEdit, RecipeEdit, EditMode } from 'recipes/types';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -29,18 +29,18 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipeData: RecipeEdit; 
-  setRecipeData: (recipe: RecipeEdit) => void; 
   categoryOptions: string[]; 
-  allItems: Record<string, InventoryItemEdit>;
+  groceries: Record<string, GroceryItemEdit>;
+  setRecipeData: (recipe: RecipeEdit) => void; 
   onSubmitEditRecipe: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
 }
 
 const RecipeInfoEdit: React.FC<Props> = ({
   recipeData, 
-  setRecipeData, 
   categoryOptions, 
-  allItems,
+  groceries,
+  setRecipeData, 
   onSubmitEditRecipe,
   onOpenEditRecipe
 }) => {
@@ -140,7 +140,7 @@ const RecipeInfoEdit: React.FC<Props> = ({
       />
       <IngredientsEdit 
         ingredients={recipeData.ingredients} 
-        allItems={allItems}
+        groceries={groceries}
         onIngredientsChange={handleIngredientsChange}
       />
       <div className={classes.finishButtonContainer}>

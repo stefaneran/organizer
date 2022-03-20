@@ -1,6 +1,5 @@
 # To run locally
 
-
 - In 'webpack.config.js' change:
   publicPath: './' 
   to 
@@ -8,7 +7,20 @@
 
 - Run "yarn"
 
-- Run "yarn build"
+=== Running client
+- In first terminal
+- cd packages/web
+- yarn start
+
+=== Running api
+- In second terminal
+- cd packages/api
+- yarn serve
+
+=== Running api watcher
+- In third terminal
+- cd packages/api
+- yarn watch
 
 - Accessible now on "localhost:3420"
 

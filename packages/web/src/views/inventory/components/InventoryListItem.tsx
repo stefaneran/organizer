@@ -11,19 +11,19 @@ import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
-import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
 import { ClickEvent } from '@core/types';
 
 interface Props {
-  allItems?: Record<string, InventoryItemEdit>;
-  availableItems?: string[];
-  item: InventoryItem;
+  groceries?: Record<string, GroceryItemEdit>;
+  inventory?: string[];
+  groceryItem: GroceryItem;
   selectedItems: string[];
   isSelectedTab: boolean;
   rowIcons?: RowIcon[];
   cart?: string[];
   onSelect: (id: string) => () => void;
-  onEdit?: (id: string, item: InventoryItemEdit) => void;
+  onEdit?: (id: string, item: GroceryItemEdit) => void;
   toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 
@@ -39,9 +39,9 @@ const getIcon = (
 }
 
 const InventoryListItem: React.FC<Props> = ({
-  allItems,
-  availableItems,
-  item,
+  groceries,
+  inventory,
+  groceryItem,
   selectedItems,
   isSelectedTab,
   rowIcons,
@@ -51,15 +51,15 @@ const InventoryListItem: React.FC<Props> = ({
   toggleNutrition
 }) => {
 
-  const [itemName, setItemName] = React.useState(item.name);
-  const [itemCategory, setItemCategory] = React.useState(item.category);
+  const [groceryName, setGroceryName] = React.useState(groceryItem.name);
+  const [groceryCategory, setGroceryCategory] = React.useState(groceryItem.category);
   const [isEditing, setIsEditing] = React.useState(false);
 
   const hasSelection = Boolean(selectedItems);
 
   const categoryOptions = React.useMemo(() => {
-    return allItems ? getCategoryOptions(itemCategory, allItems) : []
-  }, [itemCategory, allItems])
+    return groceries ? getCategoryOptions(groceryCategory, groceries) : []
+  }, [groceryCategory, groceries])
 
   const toggleEditing = (event: ClickEvent) => {
     event.stopPropagation();
@@ -67,24 +67,24 @@ const InventoryListItem: React.FC<Props> = ({
   }
 
   const toggleEditNutrition = () => {
-    toggleNutrition(item.id, true);
+    toggleNutrition(groceryItem.id, true);
   }
 
   const handleSaveEdit = () => {
     if (onEdit) {
       const updatedItem = { 
-        name: itemName, 
-        category: itemCategory,
-        nutrition: item.nutrition
+        name: groceryName, 
+        category: groceryCategory,
+        nutrition: groceryItem.nutrition
       }
-      onEdit(item.id, updatedItem);
+      onEdit(groceryItem.id, updatedItem);
     }
     setIsEditing(false);
   }
 
   const handleCancelEdit = () => {
-    setItemName(item.name);
-    setItemCategory(item.category);
+    setGroceryName(groceryItem.name);
+    setGroceryCategory(groceryItem.category);
     setIsEditing(false);
   }
 
@@ -96,44 +96,44 @@ const InventoryListItem: React.FC<Props> = ({
     handler(id);
   }
 
-  // Used only in case of AllItems
+  // Used only in case of groceries
   const itemBackground = 
-    (item: InventoryItem) => allItems && availableItems && cart ? getWarningColor(item, cart, availableItems) : '';
+    (groceryItem: GroceryItem) => groceries && inventory && cart ? getWarningColor(groceryItem, cart, inventory) : '';
 
   return (
     <ListItem 
       button 
-      onClick={hasSelection && !isEditing ? onSelect(item.id) : undefined}
+      onClick={hasSelection && !isEditing ? onSelect(groceryItem.id) : undefined}
       style={{ 
-        background: itemBackground(item)
+        background: itemBackground(groceryItem)
       }}
     >
       {hasSelection && isSelectedTab && !isEditing && (
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={selectedItems.includes(item.id)}
+            checked={selectedItems.includes(groceryItem.id)}
             color="primary"
           />
         </ListItemIcon>
       )}
       {isEditing ? (
         <InventoryListItemEdit 
-          itemName={itemName}
-          itemCategory={itemCategory}
+          groceryName={groceryName}
+          groceryCategory={groceryCategory}
           categoryOptions={categoryOptions}
-          setItemName={setItemName}
-          setItemCategory={setItemCategory}
+          setGroceryName={setGroceryName}
+          setGroceryCategory={setGroceryCategory}
           toggleNutrition={toggleNutrition}
         />
       ) : (
-        <ListItemText primary={item.name} secondary={item.category} />
+        <ListItemText primary={groceryItem.name} secondary={groceryItem.category} />
       )}
       
       <>
         {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
-          <ListItemIcon key={`${item.id}-${index}`} onClick={handleIconAction(item.id, rowIcon.handler)}>
-            {getIcon(rowIcon, itemBackground(item))}
+          <ListItemIcon key={`${groceryItem.id}-${index}`} onClick={handleIconAction(groceryItem.id, rowIcon.handler)}>
+            {getIcon(rowIcon, itemBackground(groceryItem))}
           </ListItemIcon>
         )) : null}
         {onEdit && !isEditing ? (

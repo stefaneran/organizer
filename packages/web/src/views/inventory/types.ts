@@ -14,27 +14,29 @@ export interface NutritionalInfo {
   fat: number; // Grams of fat
 }
 
-export interface InventoryItem {
+export interface GroceryItem {
   id: string;
   name: string;
   category: string;
   nutrition: NutritionalInfo[];
 }
 
-export type InventoryItemEdit = Omit<InventoryItem, "id">;
+export type GroceryItemEdit = Omit<GroceryItem, "id">;
 
 export interface InventoryActions {
+  groceries: {
+    create: ReduxProps["createItem"],
+    update: ReduxProps["updateItem"]
+    delete: ReduxProps["deleteItems"]
+  },
   inventory: {
-    addToAll: ReduxProps["addToAllItems"];
-    removeFromAll: ReduxProps["removeFromAllItems"];
-    addToAvailable: ReduxProps["addToAvailable"];
-    removeFromAvailable: ReduxProps["removeFromAvailable"];
-    edit: ReduxProps["editItem"];
+    add: ReduxProps["addInventory"];
+    remove: ReduxProps["removeInventory"];
   },
   cart: {
-    add: ReduxProps["addToCart"];
-    remove: ReduxProps["removeFromCart"];
-    updateSelected: ReduxProps["updateSelectedInCart"];
+    add: ReduxProps["addCart"];
+    remove: ReduxProps["removeCart"];
+    updateSelected: ReduxProps["updateCartSelected"];
     finishShopping: ReduxProps["finishShopping"];
   }
 }

@@ -1,12 +1,12 @@
 import genericSort from '@core/utils/genericSort';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 const getCategoryOptions = (
   categoryValue: string, 
-  allItems: Record<string, InventoryItemEdit>
+  groceries: Record<string, GroceryItemEdit>
 ): string[] => {
   const categories: string[] = [];
-  Object.entries(allItems).forEach(([, item]) => {
+  Object.entries(groceries).forEach(([, item]) => {
     const { category } = item;
     const containsValue = categoryValue.length ? 
       category.toLowerCase().includes(categoryValue.toLowerCase()) : true;

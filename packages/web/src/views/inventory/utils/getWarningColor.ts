@@ -1,26 +1,26 @@
-import { InventoryItem } from 'inventory/types';
+import { GroceryItem } from 'inventory/types';
 import { warningYellow, warningRed } from 'inventory/constants/warningColor';
 
-const isItemAvailable = (item: InventoryItem, availableItems: string[]): boolean => 
-  item ? availableItems.includes(item.id) : false;
-const isItemInCart = (item: InventoryItem, cart: string[]): boolean => 
+const isItemAvailable = (item: GroceryItem, inventory: string[]): boolean => 
+  item ? inventory.includes(item.id) : false;
+const isItemInCart = (item: GroceryItem, cart: string[]): boolean => 
   item ? cart.includes(item.id) : false;
 
 const getWarningColor = (
-  item: InventoryItem, 
+  item: GroceryItem, 
   cart: string[], 
-  availableItems: string[]
+  inventory: string[]
 ): string => {
   if (!item) {
     return '';
   }
   // If item missing from inventory, but is in cart
-  if (!isItemAvailable(item, availableItems) && isItemInCart(item, cart)) {
+  if (!isItemAvailable(item, inventory) && isItemInCart(item, cart)) {
     // Return yellow
     return warningYellow;
   }
   // If item is missing
-  else if (!isItemAvailable(item, availableItems)) {
+  else if (!isItemAvailable(item, inventory)) {
     // Return red
     return warningRed;
   }

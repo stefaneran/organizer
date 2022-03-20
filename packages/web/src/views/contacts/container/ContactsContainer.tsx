@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const ContactsContainer: React.FC<ReduxProps & DispatchProps> = ({ 
+  loggedIn,
   contacts, 
   groups, 
   events, 
@@ -23,6 +24,12 @@ const ContactsContainer: React.FC<ReduxProps & DispatchProps> = ({
   ...actions
 }) => {
   const classes = useStyles();
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      actions.getContactsAndEvents();
+    }
+  }, [loggedIn])
 
   // Initialize contact groups when receving contacts
   React.useEffect(() => {

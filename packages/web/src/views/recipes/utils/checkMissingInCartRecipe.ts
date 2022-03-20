@@ -4,12 +4,12 @@ import { Recipe } from 'recipes/types';
 // Note: We don't really care about this function's return value unless checkMissingItems returns true
 const checkMissingInCartRecipe = (
   recipe: Recipe, 
-  availableItems: string[], 
+  inventory: string[], 
   cart: string[]
 ): boolean => {
   for (let i = 0; i < recipe.ingredients.length; i += 1) {
     const { itemId, isOptional } = recipe.ingredients[i];
-    if (!availableItems.includes(itemId) && !cart.includes(itemId) && !isOptional) {
+    if (!inventory.includes(itemId) && !cart.includes(itemId) && !isOptional) {
       return false;
     }
   }

@@ -2,30 +2,30 @@ import * as React from 'react';
 import { RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
 import InventorySection from 'inventory/components/InventorySection';
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
-import { InventoryActions, InventoryItemEdit } from 'inventory/types';
+import { InventoryActions, GroceryItemEdit } from 'inventory/types';
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   isSelectedTab: boolean;
   actions: InventoryActions;
 }
 
 const InventoryAvailable: React.FC<Props> = ({
-  allItems,
-  availableItems,
+  groceries,
+  inventory,
   isSelectedTab,
   actions
 }) => {
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
-  const handleRemove = (itemId: string) => {
-    actions.inventory.removeFromAvailable([itemId]);
-    setSelectedItems(selectedItems.filter(id => id !== itemId));
+  const handleRemove = (groceryId: string) => {
+    actions.inventory.remove([groceryId]);
+    setSelectedItems(selectedItems.filter(id => id !== groceryId));
   }
   const handleRemoveSelected = () => {
-    actions.inventory.removeFromAvailable(selectedItems);
+    actions.inventory.remove(selectedItems);
     setSelectedItems([]);
   }
 
@@ -35,8 +35,8 @@ const InventoryAvailable: React.FC<Props> = ({
       isSelectedTab={isSelectedTab}
       selectedItems={selectedItems}
       setSelectedItems={setSelectedItems}
-      allItems={allItems}
-      availableItems={availableItems}
+      groceries={groceries}
+      inventory={inventory}
       actions={actions}
       getList={availableItemsToArray}
       customRowIcons={[

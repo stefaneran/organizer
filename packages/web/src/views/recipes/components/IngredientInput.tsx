@@ -6,7 +6,7 @@ import { IconButton, TextField } from '@material-ui/core';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import getItemsOptions from 'recipes/utils/getItemsOptions';
 import isAlternativeIngredient from 'recipes/utils/isAlternativeIngredient';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
 import { InputEvent, AutoCompleteHandler } from '@core/types';
 
@@ -36,7 +36,7 @@ interface Props {
   ingredient: IngredientEdit | AlternativeIngredientEdit;
   index: number;
   subIndex?: number;
-  allItems: Record<string, InventoryItemEdit>;
+  groceries: Record<string, GroceryItemEdit>;
   onItemSelect: (index: number, subIndex?: number) => AutoCompleteHandler;
   onChange: (props: OnChangeProps) => void;
   onDelete?: (index: number, subIndex?: number) => () => void;
@@ -48,7 +48,7 @@ const IngredientInput: React.FC<Props> = ({
   ingredient,
   index,
   subIndex,
-  allItems,
+  groceries,
   onItemSelect,
   onChange,
   onDelete
@@ -59,7 +59,7 @@ const IngredientInput: React.FC<Props> = ({
   const isOptional = 'isOptional' in ingredient && ingredient.isOptional;
   const label = isAlternative ? "Alternative" : `${isOptional ? 'Optional' : ''} Ingredient`;
   
-  const options = getItemsOptions(ingredient.name, allItems);
+  const options = getItemsOptions(ingredient.name, groceries);
 
   const handleChange = (property: Property) => (event: InputEvent) => {
     const { value } = event.target;

@@ -1,20 +1,20 @@
-import { InventoryItem, InventoryItemEdit } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit } from 'inventory/types';
 
 interface Props {
-  availableItems: string[];
-  allItems: Record<string, InventoryItemEdit>;
+  inventory: string[];
+  groceries: Record<string, GroceryItemEdit>;
   textFilter: string;
 }
 
 const availableItemsToArray = ({
-  availableItems, 
-  allItems, 
+  inventory, 
+  groceries, 
   textFilter
-}: Props): InventoryItem[] => {
-  let listItems: InventoryItem[] = availableItems.map(id => ({ 
+}: Props): GroceryItem[] => {
+  let listItems: GroceryItem[] = inventory.map(id => ({ 
     id, 
-    name: allItems[id] ? allItems[id].name : '', 
-    category: allItems[id] ? allItems[id].category : ''  
+    name: groceries[id] ? groceries[id].name : '', 
+    category: groceries[id] ? groceries[id].category : ''  
   }))
   if (textFilter.length) {
     listItems = listItems.filter(item => 

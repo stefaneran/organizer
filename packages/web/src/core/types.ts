@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Activity } from 'activities/types';
 import { Contact, Event } from 'contacts/types';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { Recipe } from 'recipes/types';
 
-// General types
+// ********** General types ********** //
 
 export type Option = { 
   label: string; 
@@ -16,6 +16,15 @@ export type UnitType = 'units' | 'grams' | 'milliliters' | 'teaspoons' | 'tables
 // React.useState setter function
 export type StateSetter<T> = 
   React.Dispatch<React.SetStateAction<T>>;
+
+export type RequestOptions = {
+  url: string;
+  params?: any;
+  acceptedStatusCode: number;
+  errorMessage: string;
+}
+
+// ********** Event types ********** //
 
 // MUI <TextField /> or <Switch /> onChange event
 export type InputEvent = 
@@ -46,7 +55,7 @@ export enum OrganizerModule {
   Recipes = "Recipes"
 }
 
-// Redux -------------------------------------------------- //
+// ********** Redux types ********** //
 
 export interface ActivitiesStore {
   activities: Record<string, Activity>;
@@ -59,10 +68,10 @@ export interface ContactsStore {
 }
 
 export interface InventoryStore {
-  allItems: Record<string, InventoryItemEdit>,
-  availableItems: string[],
+  groceries: Record<string, GroceryItemEdit>,
+  inventory: string[],
   cart: string[],
-  selectedInCart: string[]
+  cartSelected: string[]
 }
 
 export interface RecipeStore {

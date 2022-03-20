@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
 import { Ingredient } from 'recipes/types';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   mobileText: {
@@ -24,24 +24,24 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   ingredients: Ingredient[];
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   cart: string[];
-  addToCart: (itemIds: string[]) => void;
+  addCart: (itemIds: string[]) => void;
   isMobile?: boolean;
 }
 
 const Ingredients: React.FC<Props> = ({ 
   ingredients, 
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   cart,
-  addToCart,
+  addCart,
   isMobile 
 }: Props) => {
   const classes = useStyles();
 
-  const handleAddMissing = (itemId) => () => addToCart([itemId]);
+  const handleAddMissing = (itemId) => () => addCart([itemId]);
 
   return (
     <List>
@@ -50,14 +50,14 @@ const Ingredients: React.FC<Props> = ({
           <ListItem className={classes.ingredient}>
             <ItemTag 
               ingredient={ingredient}
-              availableItems={availableItems}
+              inventory={inventory}
               cart={cart}
               onAddMissing={handleAddMissing(ingredient.itemId)}
               style={{ marginRight: '1.5em' }}
               isMobile={isMobile}
             />
             <ListItemText 
-              primary={allItems[ingredient.itemId] ? allItems[ingredient.itemId].name : ''} 
+              primary={groceries[ingredient.itemId] ? groceries[ingredient.itemId].name : ''} 
               secondary={ingredient.amount}
               className={isMobile ? classes.mobileText : ''}
             />
@@ -66,14 +66,14 @@ const Ingredients: React.FC<Props> = ({
             <ListItem className={classes.alternative} key={`${alternative.itemId}-${subIndex}`}>
               <ItemTag 
                 ingredient={alternative}
-                availableItems={availableItems}
+                inventory={inventory}
                 cart={cart}
                 onAddMissing={handleAddMissing(alternative.itemId)}
                 style={{ marginRight: '1.5em' }}
                 isMobile={isMobile}
               />
               <ListItemText 
-                primary={allItems[alternative.itemId] ? allItems[alternative.itemId].name : ''} 
+                primary={groceries[alternative.itemId] ? groceries[alternative.itemId].name : ''} 
                 secondary={alternative.amount}
                 className={isMobile ? classes.mobileText : ''}
               />

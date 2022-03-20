@@ -1,7 +1,7 @@
-import { InventoryItem } from 'inventory/types';
+import { GroceryItem } from 'inventory/types';
 
 const isSelectedItemInGroup = (
-  listItems: InventoryItem[], 
+  listItems: GroceryItem[], 
   selectedItems?: string[]
 ): boolean => {
   for (let i = 0; i < listItems.length; i += 1) {
@@ -13,7 +13,7 @@ const isSelectedItemInGroup = (
 }
 
 const shouldCategoryBeOpen = (
-  listItems: InventoryItem[], 
+  listItems: GroceryItem[], 
   selectedItems: string[],
   hasSelection: boolean, 
   textFilter: string

@@ -2,10 +2,11 @@ import { Dispatch } from 'redux';
 import {
   loadingStart,
   loadingEnd,
-  updateError
+  updateError,
+  refreshLastUpdateValue
 } from 'app/store/reducer';
 import jsonFetch from '@core/utils/jsonFetch';
-import { GetState } from '@core/types';
+import { GetState, RequestOptions } from '@core/types';
 
 type Response = {
   status: number;
@@ -13,49 +14,40 @@ type Response = {
   data: any;
 }
 
-export default async (
+async function genericRequest(
   dispatch: Dispatch, 
   getState: GetState, 
-  url: string, 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params: any, 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  dispatchFunction: Function, 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatchParams: any,
-  errorMessage: string,
-  skipWait?: boolean // Should skip waiting for response before dispatching store action
-) => {
+  options: RequestOptions
+) {
   dispatch(loadingStart());
+  const { url, acceptedStatusCode, params, errorMessage } = options;
   let response: Response = { status: 0, data: null };
   try {
     const { app: { user } } = getState();
     const { userName, password, loggedIn } = user;
-    if (skipWait) {
-      dispatch(dispatchFunction(dispatchParams));
-    }
+    console.log(loggedIn)
+    // We make no request if not loggedIn to allow non-loggedIn users to play around with the app
     response = loggedIn ? await jsonFetch({
       url,
       method: 'POST',
       body: JSON.stringify({ userName, password, ...params })
     }) : { status: 200, data: {} };
-    if (response.status === 200) {
-      if (dispatchFunction && !skipWait) {
-        const hasDispatchParams = Boolean(Object.keys(dispatchParams).length);
-        dispatch(dispatchFunction(hasDispatchParams ? dispatchParams : response.data));
-      }
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `${errorMessage} - Response Status ${response.status}`
-      }));
+    if (response.status !== acceptedStatusCode) {
+      const message = `Response Status ${response.status}`;
+      throw new Error(message);
     }
   } catch (e) {
     dispatch(updateError({
       active: true,
-      message: `${errorMessage} - ${e}`
+      message: `${errorMessage} - ${e.message}`
     }));
   }
   dispatch(loadingEnd());
+
+  if (response.data?.lastUpdate) {
+    dispatch(refreshLastUpdateValue(response.data.lastUpdate))
+  }
   return response;
 }
+
+export default genericRequest;

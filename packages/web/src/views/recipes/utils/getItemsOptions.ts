@@ -1,12 +1,12 @@
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 const getItemsOptions = (
   ingredientName: string, 
-  allItems: Record<string, InventoryItemEdit>
+  groceries: Record<string, GroceryItemEdit>
 ): string[] => {
   const itemNames: string[] = [];
-  Object.keys(allItems).forEach(itemId => {
-    const { name } = allItems[itemId];
+  Object.keys(groceries).forEach(itemId => {
+    const { name } = groceries[itemId];
     const containsValue = ingredientName?.length ?
       name.toLowerCase().includes(ingredientName.toLowerCase()) : true;
     if (!itemNames.includes(name) && containsValue) {

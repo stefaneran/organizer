@@ -1,15 +1,15 @@
-import { InventoryItem, InventoryItemEdit } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit } from 'inventory/types';
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>, 
+  groceries: Record<string, GroceryItemEdit>, 
   textFilter: string
 }
 
 const allItemsToArray = ({
-  allItems, 
+  groceries, 
   textFilter
-}: Props): InventoryItem[] => {
-  let listItems = Object.entries(allItems).map(([id, item]) => ({ 
+}: Props): GroceryItem[] => {
+  let listItems = Object.entries(groceries).map(([id, item]) => ({ 
     id, 
     ...item
   }))

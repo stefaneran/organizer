@@ -1,12 +1,12 @@
 import getIngredientIdByName from 'recipes/utils/getIngredientIdByName';
 import { Ingredient, IngredientEdit } from 'recipes/types';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 // Maps all ingredients with itemIds - Whether they're existing items or new items that need new ids to be created
 // We do this because ingredients in edit mode don't have ids by default
 const sanitizeIngredients = async (
   ingredients: IngredientEdit[], 
-  allItems: Record<string, InventoryItemEdit>,
+  groceries: Record<string, GroceryItemEdit>,
   addThunk: (name: string, category: string) => Promise<string>
 ): Promise<Ingredient[]> => {
   const ingredientsWithId = [];
@@ -17,7 +17,7 @@ const sanitizeIngredients = async (
     if (name.length) {
 
       // Look up item's ID
-      let ingredientItemId = getIngredientIdByName(name, allItems);
+      let ingredientItemId = getIngredientIdByName(name, groceries);
       // If no ID exists, create the new item and assign it an ID
       if (!ingredientItemId) {
         ingredientItemId = await addThunk(name, 'Uncategorized');
@@ -30,7 +30,7 @@ const sanitizeIngredients = async (
           if (name.length) {
 
             // Look up item's ID by name
-            let ingredientItemId = getIngredientIdByName(name, allItems);
+            let ingredientItemId = getIngredientIdByName(name, groceries);
             // If no ID exists, create the new item and assign it an ID
             if (!ingredientItemId) {
               ingredientItemId = await addThunk(name, 'Uncategorized')

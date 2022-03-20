@@ -9,70 +9,70 @@ import ConfirmationDialog from '@core/components/ConfirmationDialog';
 // Utils
 import allItemsToArray from 'inventory/utils/allItemsToArray';
 // Types
-import { InventoryActions, InventoryItemEdit, NutritionalInfo } from 'inventory/types';
+import { InventoryActions, GroceryItemEdit, NutritionalInfo } from 'inventory/types';
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   cart: string[];
   isSelectedTab: boolean;
   actions: InventoryActions;
 }
 
 const InventoryAll: React.FC<Props> = ({
-  allItems,
-  availableItems,
+  groceries,
+  inventory,
   cart,
   isSelectedTab,
   actions
 }) => {
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
-  const [confirmationDialog, setConfirmationDialog] = React.useState({ isOpen: false, itemId: '' });
-  const [nutritionDialog, setNutritionDialog] = React.useState({ isOpen: false, itemId: '', isEdit: false });
+  const [confirmationDialog, setConfirmationDialog] = React.useState({ isOpen: false, groceryId: '' });
+  const [nutritionDialog, setNutritionDialog] = React.useState({ isOpen: false, groceryId: '', isEdit: false });
 
   const hasSelectedItems = Boolean(selectedItems.length);
 
   const toggleConfirmationDialog = (id?: string) => {
     const { isOpen } = confirmationDialog;
-    // From lists we receive the itemId as an argument, but everywhere else we receive event object
-    const itemId = typeof id === 'string' ? id : '';
+    // From lists we receive the groceryId as an argument, but everywhere else we receive event object
+    const groceryId = typeof id === 'string' ? id : '';
     // If clicked on "Delete" row action, but there are selected, clear selection so they don't all get deleted
-    if (itemId && selectedItems) {
+    if (groceryId && selectedItems) {
       setSelectedItems([])
     }
-    setConfirmationDialog({ isOpen: !isOpen, itemId });
+    setConfirmationDialog({ isOpen: !isOpen, groceryId });
   }
 
   const toggleNutritionDialog = (id?: string, isEdit?: boolean) => {
     const { isOpen } = nutritionDialog;
-    const itemId = typeof id === 'string' ? id : '';
-    setNutritionDialog({ isOpen: !isOpen, itemId, isEdit: Boolean(isEdit) })
+    const groceryId = typeof id === 'string' ? id : '';
+    setNutritionDialog({ isOpen: !isOpen, groceryId, isEdit: Boolean(isEdit) })
   }
 
-  const handleSaveNutrition = (itemId: string, nutrition: NutritionalInfo[]) => {
-    const item = allItems[itemId];
-    actions.inventory.edit(itemId, { ...item, id: itemId, nutrition })
+  const handleSaveNutrition = (groceryId: string, nutrition: NutritionalInfo[]) => {
+    const groceryItem = groceries[groceryId];
+    actions.groceries.update(groceryId, { ...groceryItem, id: groceryId, nutrition })
     toggleNutritionDialog();
   }
 
   const handleAddFromAllToAvailable = (id: string) => {
-    actions.inventory.addToAvailable([id]);
+    actions.inventory.add([id]);
   }
 
   const handleAddNewToAll = ({ name, category }: Record<string, string>) => {
-    actions.inventory.addToAll({ name, category, nutrition: [] });
+    actions.groceries.create({ name, category, nutrition: [] });
   }
 
   const handleAddSelectedToAvailable = () => {
-    actions.inventory.addToAvailable(selectedItems);
+    actions.inventory.add(selectedItems);
   }
 
-  const handleRemoveFromAll = (itemId?: string) => async () => {
+  const handleRemoveFromAll = (groceryId?: string) => async () => {
     // Are we removing a single item
-    const isSingleItem = Boolean(itemId);
-    actions.inventory.removeFromAll(isSingleItem ? [itemId] : selectedItems);
-    setSelectedItems(isSingleItem ? selectedItems.filter(id => id !== itemId) : []);
+    const isSingleItem = Boolean(groceryId);
+    actions.groceries.delete(isSingleItem ? [groceryId] : selectedItems);
+    setSelectedItems(isSingleItem ? selectedItems.filter(id => id !== groceryId) : []);
     toggleConfirmationDialog();
   }
 
@@ -83,8 +83,8 @@ const InventoryAll: React.FC<Props> = ({
         isSelectedTab={isSelectedTab}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        allItems={allItems}
-        availableItems={availableItems}
+        groceries={groceries}
+        inventory={inventory}
         cart={cart}
         actions={actions}
         getList={allItemsToArray}
@@ -103,20 +103,20 @@ const InventoryAll: React.FC<Props> = ({
         <ConfirmationDialog 
           isOpen 
           onClose={toggleConfirmationDialog}
-          confirmationTitle={`Confirm To Delete Item${hasSelectedItems ? 's' : ''}`}
+          confirmationTitle={`Confirm To Delete Item ${hasSelectedItems ? 's' : ''}`}
           confirmationText={`Are you sure you want to delete ${hasSelectedItems ? 'these items' : 'this item'}?`}
           secondaryIcon={<TrashIconXS />}
           primaryText="Cancel"
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}
-          onSecondaryAction={hasSelectedItems ? handleRemoveFromAll() : handleRemoveFromAll(confirmationDialog.itemId)}
+          onSecondaryAction={hasSelectedItems ? handleRemoveFromAll() : handleRemoveFromAll(confirmationDialog.groceryId)}
         />
       )}
       {nutritionDialog.isOpen && (
         <NutritionEditDialog
           isOpen
-          allItems={allItems}
-          itemId={nutritionDialog.itemId}
+          groceries={groceries}
+          groceryId={nutritionDialog.groceryId}
           onClose={toggleNutritionDialog}
           onSave={handleSaveNutrition}
         />

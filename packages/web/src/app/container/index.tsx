@@ -4,9 +4,9 @@ import { setIsMobile } from 'app/store/reducer';
 import { setActivities, clearActivities } from 'activities/store';
 import { setContactsAndEvents, clearContactsAndEvents } from 'contacts/store';
 import { setRecipes, clearRecipes } from 'recipes/store';
-import { setInventory, clearInventory } from 'inventory/store';
+import { setInventoryData, clearInventoryData } from 'inventory/store';
 // Thunks
-import { getAllData, register, login, logout } from 'app/store/thunks';
+import { register, login, logout } from 'app/store/thunks';
 // Types
 import { AppStore } from '@core/types';
 
@@ -18,7 +18,6 @@ const mapStateToProps = (state: AppStore) => ({
 });
 
 const mapDispatchToProps = { 
-  getAllData,
   register,
   login,
   logout,
@@ -29,8 +28,8 @@ const mapDispatchToProps = {
   clearContactsAndEvents,
   setRecipes,
   clearRecipes,
-  setInventory,
-  clearInventory
+  setInventoryData,
+  clearInventoryData
 }
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);

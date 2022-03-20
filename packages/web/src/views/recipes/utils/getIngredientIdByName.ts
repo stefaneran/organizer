@@ -1,11 +1,11 @@
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 const getIngredientIdByName = (
   name: string, 
-  allItems: Record<string, InventoryItemEdit>
+  groceries: Record<string, GroceryItemEdit>
 ): string | undefined => {
-  const items = Object.entries(allItems);
-  for (const [id, item] of items) {
+  const itemsObjects = Object.entries(groceries);
+  for (const [id, item] of itemsObjects) {
     const itemName = item.name;
     if (itemName === name) {
       return id;

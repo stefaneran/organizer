@@ -17,10 +17,11 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
-  allItems,
-  availableItems,
+  loggedIn,
+  groceries,
+  inventory,
   cart,
-  selectedInCart,
+  cartSelected,
   ...actionProps
 }) => {
   const classes = useStyles();
@@ -30,20 +31,26 @@ const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
 
   const handleSelectTab = (selected: InventoryTabs) => () => setSelectedTab(selected);
 
+  React.useEffect(() => {
+    if (loggedIn) {
+      actionProps.getItems();
+    }
+  }, [loggedIn])
+
   return (
     <Paper className={classes.container}>
       <Cart 
+        groceries={groceries}
         cart={cart}
-        selectedInCart={selectedInCart}
+        cartSelected={cartSelected}
         actions={actions}
-        allItems={allItems}
         isSelectedTab={selectedTab === InventoryTabs.Cart}
         setSelectedTab={handleSelectTab}
       />
       <Inventory 
+        groceries={groceries}
+        inventory={inventory} 
         cart={cart} 
-        availableItems={availableItems} 
-        allItems={allItems}
         actions={actions} 
         isSelectedTab={selectedTab === InventoryTabs.Inventory}
         setSelectedTab={handleSelectTab}

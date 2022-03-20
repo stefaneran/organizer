@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import MobileAutocomplete from '@core/components/inputs/MobileAutocomplete';
 import getNameOptions from 'inventory/utils/getNameOptions';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { Option } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -12,18 +12,18 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>;
+  groceries: Record<string, GroceryItemEdit>;
   targetCollection: string[];
   onChange: (id: string) => void;
 }
 
 const AddItemInput: React.FC<Props> = ({ 
-  allItems, 
+  groceries, 
   targetCollection, 
   onChange 
 }) => {
   const classes = useStyles();
-  const nameOptions = getNameOptions(allItems, targetCollection);
+  const nameOptions = getNameOptions(groceries, targetCollection);
 
   const handleNameSelect = (newValue: Option) => {
     if (newValue) {

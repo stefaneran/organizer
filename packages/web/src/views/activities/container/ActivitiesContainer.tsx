@@ -39,7 +39,9 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const ActivitiesContainer: React.FC<ReduxProps> = ({ 
+  loggedIn,
   activities, 
+  getActivities,
   addActivity, 
   editActivity, 
   deleteActivity 
@@ -56,6 +58,12 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
     getActivitiesArray(activities, activityFilters), 
     [activities, activityFilters]
   );
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      getActivities();
+    }
+  }, [loggedIn])
 
   const toggleFilterPanel = () => {
     setFiltersPanelOpen(!isFiltersPanelOpen);

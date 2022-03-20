@@ -9,7 +9,8 @@ const slice = createSlice({
     user: {
       userName: undefined,
       password: undefined,
-      loggedIn: false
+      loggedIn: false,
+      lastUpdate: undefined
     },
     error: {
       active: false,
@@ -34,15 +35,20 @@ const slice = createSlice({
         message
       }
     },
+    refreshLastUpdateValue: (state, { payload }) => {
+      state.user.lastUpdate = payload;
+    },
     loginDone: (state, { payload }) => {
       state.user.loggedIn = true;
       state.user.userName = payload.userName;
       state.user.password = payload.password;
+      state.user.lastUpdate = payload.lastUpdate;
     },
     logoutDone: (state) => {
       state.user.loggedIn = false;
       state.user.userName = undefined;
       state.user.password = undefined;
+      state.user.lastUpdate = undefined;
     }
   }
 });
@@ -52,6 +58,7 @@ export const {
   loadingEnd,
   setIsMobile,
   updateError,
+  refreshLastUpdateValue,
   loginDone,
   logoutDone
 } = slice.actions;

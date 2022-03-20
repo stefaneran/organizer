@@ -6,7 +6,7 @@ import { RemoveCartIconLarge } from '@core/components/Icons/CartIcon';
 import AddItemInput from 'inventory/mobile/components/AddItemInput';
 import ItemList from 'inventory/mobile/components/ItemList';
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryActions, InventoryItemEdit } from 'inventory/types';
+import { InventoryActions, GroceryItemEdit } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   list: {
@@ -20,20 +20,20 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
+  groceries: Record<string, GroceryItemEdit>;
   cart: string[];
-  selectedInCart: string[];
-  allItems: Record<string, InventoryItemEdit>;
+  cartSelected: string[];
   actions: InventoryActions;
 }
 
 const Cart: React.FC<Props> = ({
+  groceries,
   cart,
-  selectedInCart,
-  allItems,
+  cartSelected,
   actions
 }) => {
   const classes = useStyles();
-  const listItems = cartItemsToArray(cart, allItems)
+  const listItems = cartItemsToArray(cart, groceries)
 
   const handleItemSelection = (selected: string[]) => {
     actions.cart.updateSelected(selected);
@@ -51,14 +51,14 @@ const Cart: React.FC<Props> = ({
   return (
     <>
       <AddItemInput 
-        allItems={allItems} 
+        groceries={groceries} 
         targetCollection={cart} 
         onChange={handleAddToCart} 
       />
       <div className={classes.list}>
         <ItemList 
           listItems={listItems}
-          selectedItems={selectedInCart} 
+          selectedItems={cartSelected} 
           onItemSelection={handleItemSelection}
           rowIcons={[
             { icon: <RemoveCartIconLarge />, handler: handleRemoveItem }

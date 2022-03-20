@@ -20,40 +20,40 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  itemName: string;
-  itemCategory: string;
+  groceryName: string;
+  groceryCategory: string;
   categoryOptions: string[];
-  setItemName: StateSetter<string>;
-  setItemCategory: StateSetter<string>;
+  setGroceryName: StateSetter<string>;
+  setGroceryCategory: StateSetter<string>;
   toggleNutrition: (id?: string, isEdit?: boolean) => void;
 }
 
 const InventoryListItemEdit: React.FC<Props> = ({
-  itemName,
-  itemCategory,
+  groceryName,
+  groceryCategory,
   categoryOptions,
-  setItemName,
-  setItemCategory
+  setGroceryName,
+  setGroceryCategory
 }) => {
   const classes = useStyles();
 
   const handleChangeName = (event: InputEvent) => {
-    setItemName(event.target.value);
+    setGroceryName(event.target.value);
   }
   const handleCategorySelect: AutoCompleteHandler = (event, newValue) => {
     if (newValue) {
-      setItemCategory(newValue);
+      setGroceryCategory(newValue);
     }
   }
   const handleCategoryInput = (event: InputEvent) => {
-    setItemCategory(event.target.value);
+    setGroceryCategory(event.target.value);
   }
 
   return (
     <ListItemText className={classes.editContainer}>
       <TextField
         className={classes.nameInput}
-        value={itemName}
+        value={groceryName}
         onChange={handleChangeName}
         variant="outlined"
         size="small"
@@ -61,7 +61,7 @@ const InventoryListItemEdit: React.FC<Props> = ({
       />
       <Autocomplete
         className={classes.categoryInput}
-        value={itemCategory}
+        value={groceryCategory}
         options={categoryOptions}
         onChange={handleCategorySelect}
         getOptionLabel={(option) => option}

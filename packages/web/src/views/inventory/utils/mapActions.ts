@@ -3,17 +3,19 @@ import { DispatchProps } from 'inventory/container/InventoryConnector';
 
 // When called from mobile version, will contain only a few of all actions, hence the Partial
 const mapActions = (actionProps: Partial<DispatchProps>): InventoryActions => ({
+  groceries: {
+    create: actionProps.createItem,
+    update: actionProps.updateItem,
+    delete: actionProps.deleteItems
+  },
   inventory: {
-    addToAll: actionProps.addToAllItems,
-    removeFromAll: actionProps.removeFromAllItems,
-    addToAvailable: actionProps.addToAvailable,
-    removeFromAvailable: actionProps.removeFromAvailable,
-    edit: actionProps.editItem
+    add: actionProps.addInventory,
+    remove: actionProps.removeInventory,
   },
   cart: {
-    add: actionProps.addToCart,
-    remove: actionProps.removeFromCart,
-    updateSelected: actionProps.updateSelectedInCart,
+    add: actionProps.addCart,
+    remove: actionProps.removeCart,
+    updateSelected: actionProps.updateCartSelected,
     finishShopping: actionProps.finishShopping
   }
 })

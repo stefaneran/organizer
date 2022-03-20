@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   recipeId: string; 
   recipe: Recipe;
-  availableItems: string[];
+  inventory: string[];
   cart: string[];
   onSelectRecipe: (id: string) => () => void;
   onAddMissing: () => void;
@@ -40,7 +40,7 @@ interface Props {
 const RecipeItem: React.FC<Props> = ({ 
   recipeId, 
   recipe,
-  availableItems,
+  inventory,
   cart,
   onSelectRecipe,
   onAddMissing
@@ -55,7 +55,7 @@ const RecipeItem: React.FC<Props> = ({
     >
       <ItemTag 
         recipe={recipe} 
-        availableItems={availableItems} 
+        inventory={inventory} 
         cart={cart} 
         onAddMissing={onAddMissing}
         style={{ marginRight: '1.5em' }}

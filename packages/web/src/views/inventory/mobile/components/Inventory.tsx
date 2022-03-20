@@ -5,7 +5,7 @@ import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import ItemList from 'inventory/mobile/components/ItemList';
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
-import { InventoryActions, InventoryItemEdit } from 'inventory/types';
+import { InventoryActions, GroceryItemEdit } from 'inventory/types';
 import { InputEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -26,27 +26,27 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   actions: InventoryActions;
 }
 
 const Inventory: React.FC<Props> = ({ 
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   actions 
 }) => {
   const classes = useStyles();
 
   const [textFilter, setTextFilter] = React.useState('');
 
-  const listItems = availableItemsToArray({ availableItems, allItems, textFilter }) 
+  const listItems = availableItemsToArray({ inventory, groceries, textFilter }) 
 
   const handleTextFilterInput = (event: InputEvent) => {
     setTextFilter(event.target.value)
   }
   const handleRemoveItem = (id: string) => {
-    actions.inventory.removeFromAvailable([id]);
+    actions.inventory.remove([id]);
   }
   const handleAddToCart = (id: string) => {
     actions.cart.add([id]);

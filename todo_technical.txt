@@ -1,7 +1,24 @@
 
+Migration:
+- Implement caching in localstorage (with lastUpdate value in user) + Interval polling
+- Optimize firebase startup (unfreeze)
+// Commit
+- use UseDispatch and useSelector
+- Use AsyncThunk
+- Write integration tests
+// Commit
+- Fix console warnings
+- Remove all console.logs
+- Treeshake
+- Fresh clone to make sure the modules are installed properly
+- Implement Auth0
+
+
 General:
 - (MVP) Make landing page
 - (MVP) Save last visited app to open automatically on next visit
+- Disable actions (like create) if not logged in
+- Make loading screen when loading large data (not for minor requests)
 - Implement localstorage to save transfer sizes
 - Treeshake and invalidate NPM modules
 - Use tokens for authorization instead of sending user/pass in post
@@ -10,11 +27,11 @@ General:
 - Add error boundry
 - Use MUI theme and make Dark theme
 - Add sync button in appbar to update info
+- Add filter options to store and save in cloud
 
 Back-End: 
+- Host site on Firebase
 - Add CI/CD pipeline
-- Use Mongoose
-- Host on Firebase
 
 Refactors:
 - Mobile: Make a MobileHeader
@@ -24,32 +41,6 @@ Refactors:
 - Change local storage to cookies
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
-===============================================================
-
-Tests:
-
-- Learn how to use jest-dom
-- Learn Redux Store mocking for testing (maybe use wrapper/provider)
-
--Core: 
-  - Unit tests (Use Describe)
-  - Component tests
-- Activities: 
-  X Unit tests (Use Describe)
-  - Component tests 
-  - Features
-- Contacts: 
-  X Unit tests (Use Describe)
-  - Component tests 
-  - Features
-- Inventory: 
-  X Unit tests 
-  - Component tests 
-  - Features
-- Recipes: 
-  - Unit tests 
-  - Component tests 
-  - Features
   
 ===============================================================
 
@@ -89,8 +80,10 @@ Inventory:
 - Controls UI - Handle long lists better (fixed position, or whatever)
 
 Refactor:
+- Rename components and util files with new Grocery naming
+- Fix how TypeScript handles GroceryItem/GroceryItemEdit across the app
 - Move everything from <Inventory /> to <InventoryContainer />
-- Generalize inventory control panels to one component
+- Generalize inventory control panels to one component, then separate from InventorySection
 - Find duplicate util functions and move to /utils
 
 Mobile: 
@@ -134,6 +127,7 @@ Contacts:
 - Events: Filters - Activity Type / Date range (before/after)
 - Events: ListItem undefined values (show something nicer)
 - Events: Don't show activity types that have no items + Add 'All' option
+- Events: Get rid of virtualized list
 - Contacts: See number of contacts (and num of ones in current location)
 
 Refactor:

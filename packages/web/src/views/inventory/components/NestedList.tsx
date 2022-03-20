@@ -11,7 +11,7 @@ import categorizeItems from '@core/utils/categorizeItems';
 import genericSort from '@core/utils/genericSort';
 import shouldCategoryBeOpen from 'inventory/utils/shouldCategoryBeOpen';
 // Types
-import { InventoryItem, InventoryItemEdit, RowIcon } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
 import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -26,8 +26,8 @@ const Collapsible = (props) => {
     isSelectedTab,
     category, 
     listItems, 
-    allItems,
-    availableItems,
+    groceries,
+    inventory,
     selectedItems, 
     onItemSelection,
     textFilter,
@@ -65,13 +65,13 @@ const Collapsible = (props) => {
       </ListItem>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" className={classes.item}>
-          {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(item => (
+          {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(groceryItem => (
             <InventoryListItem 
-              key={item.id}
-              allItems={allItems}
-              availableItems={availableItems}
+              key={groceryItem.id}
+              groceries={groceries}
+              inventory={inventory}
               cart={cart}
-              item={item}
+              groceryItem={groceryItem}
               selectedItems={selectedItems}
               isSelectedTab={isSelectedTab}
               onSelect={handleSelection}
@@ -89,15 +89,15 @@ const Collapsible = (props) => {
 
 interface Props {
   isSelectedTab: boolean;
-  listItems: InventoryItem[];
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  listItems: GroceryItem[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
+  cart?: string[];
   selectedItems: string[];
-  onItemSelection: (selected: string[]) => void;
   textFilter: string;
   rowIcons: RowIcon[];
-  cart?: string[];
-  onEdit?: (id: string, item: InventoryItemEdit) => void;
+  onItemSelection: (selected: string[]) => void;
+  onEdit?: (id: string, item: GroceryItemEdit) => void;
   toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 

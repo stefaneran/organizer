@@ -5,7 +5,7 @@ import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
 import Ingredients from 'recipes/components/Ingredients';
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
-import { InventoryItemEdit } from 'inventory/types';
+import { GroceryItemEdit } from 'inventory/types';
 import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -41,26 +41,26 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipe: Recipe;
-  allItems: Record<string, InventoryItemEdit>;
-  availableItems: string[];
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
   cart: string[];
-  addToCart: (itemIds: string[]) => void;
+  addCart: (itemIds: string[]) => void;
   onAddMissing: () => void;
 }
 
 const RecipeDetails: React.FC<Props> = ({ 
   recipe, 
-  allItems, 
-  availableItems, 
+  groceries, 
+  inventory, 
   cart, 
-  addToCart,
+  addCart,
   onAddMissing
 }) => {
   const classes = useStyles();
 
   const hasRecipe = Boolean(recipe);
-  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, availableItems);
-  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, availableItems, cart);
+  const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, inventory);
+  const hasMissingInCart = recipe && checkMissingInCartRecipe(recipe, inventory, cart);
 
   return (
     <>
@@ -84,10 +84,10 @@ const RecipeDetails: React.FC<Props> = ({
         <div className={classes.ingredientsContainer}>
           <Ingredients 
             ingredients={recipe.ingredients}
-            allItems={allItems}
-            availableItems={availableItems}
+            groceries={groceries}
+            inventory={inventory}
             cart={cart}
-            addToCart={addToCart}
+            addCart={addCart}
             isMobile={true}
           />
         </div>

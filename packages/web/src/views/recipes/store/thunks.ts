@@ -1,69 +1,108 @@
 // eslint-disable
 import { Dispatch } from 'redux';
-import { updateRecipe, deleteRecipeDone } from '.';
-import { addToAllItems } from 'inventory/store/thunks';
-import baseUrl from '@core/baseUrl';
 import { v4 } from 'uuid';
-import genericRequest from '@core/utils/genericRequest';
+// Actions
+import { setRecipes, updateRecipe, deleteRecipeDone } from '.';
+import { setInventoryData } from 'inventory/store';
+import { createItem } from 'inventory/store/thunks';
+// Constants
+import baseUrl from '@core/baseUrl';
+import STATUS_CODES from '@core/constants/statusCodes';
+// Utils
 import sanitizeIngredients from 'recipes/utils/sanitizeIngredients';
-import { GetState } from '@core/types';
+import genericRequest from '@core/utils/genericRequest';
+import genericRequestWithDispatch from '@core/utils/genericRequestWithDispatch';
+// Types
+import { GetState, RequestOptions } from '@core/types';
 import { Recipe, RecipeEdit } from 'recipes/types';
 
+export const getRecipes = () => async (dispatch: Dispatch, getState: GetState) => {
+  const options: RequestOptions = {
+    url: `${baseUrl}/recipes/get`,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not get recipes"
+  }
+  const response = await genericRequest(
+    dispatch,
+    getState,
+    options
+  );
+  dispatch(setRecipes(response.data.recipes))
+  dispatch(setInventoryData(response.data))
+}
+
+// TODO - Rename to createRecipe
 export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getState: GetState) => {
-  const { inventoryStore: { allItems } } = getState();
-  const addThunk = async (name, category) => dispatch(addToAllItems({ name, category }));
+  const { inventoryStore: { groceries } } = getState();
+  const createGroceryThunk = async (name, category) => dispatch(createItem({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
     recipe.ingredients, 
-    allItems, 
-    addThunk
+    groceries, 
+    createGroceryThunk
   );
-  const newId = v4();
+  const recipeId = v4();
   const newRecipe = {
     ...recipe,
     ingredients: ingredientsWithId
   }
-  genericRequest(
+  const params = { recipeId, recipe: newRecipe };
+  const options: RequestOptions = {
+    url: `${baseUrl}/recipes/create`,
+    params,
+    acceptedStatusCode: STATUS_CODES.CREATED,
+    errorMessage: "Could not create recipe"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/recipes/add`,
-    { newId, recipe: newRecipe },
+    options,
     updateRecipe,
-    { recipeId: newId, recipe: newRecipe, },
-    `Could not add recipe`
+    params
   );
 }
 
+// TODO - Rename to updateRecipe
 export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
-  const { inventoryStore: { allItems } } = getState();
-  const addThunk = async (name, category) => dispatch(addToAllItems({ name, category }));
+  const { inventoryStore: { groceries } } = getState();
+  const createGroceryThunk = async (name, category) => dispatch(createItem({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
     recipe.ingredients, 
-    allItems, 
-    addThunk
+    groceries, 
+    createGroceryThunk
   );
   const updatedRecipe = {
     ...recipe,
     ingredients: ingredientsWithId
   }
-  genericRequest(
+  const params = { recipeId, recipe: updatedRecipe }
+  const options: RequestOptions = {
+    url: `${baseUrl}/recipes/update`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not update recipe"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/recipes/edit`,
-    { recipeId, recipe: updatedRecipe },
+    options,
     updateRecipe,
-    { recipeId, recipe: updatedRecipe, },
-    `Could not edit recipe`
+    params
   );
 }
 
 export const deleteRecipe = (recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
-  genericRequest(
+  const params = { recipeId };
+  const options: RequestOptions = {
+    url: `${baseUrl}/recipes/delete`,
+    params,
+    acceptedStatusCode: STATUS_CODES.OK,
+    errorMessage: "Could not delete recipe"
+  }
+  await genericRequestWithDispatch(
     dispatch,
     getState,
-    `${baseUrl}/recipes/delete`,
-    { recipeId },
+    options,
     deleteRecipeDone,
-    { recipeId },
-    `Could not remove recipe`
+    params
   );
 }

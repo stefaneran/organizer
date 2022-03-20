@@ -2,7 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
 import genericSort from '@core/utils/genericSort';
-import { InventoryItem, RowIcon } from 'inventory/types';
+import { GroceryItem, RowIcon } from 'inventory/types';
 import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  listItems: InventoryItem[];
+  listItems: GroceryItem[];
   selectedItems?: string[];
   onItemSelection?: (selected: string[]) => void;
   rowIcons: RowIcon[];

@@ -1,1 +1,0 @@
-{"version":3,"file":"getUserData.js","sourceRoot":"","sources":["../../functions/src/utils/getUserData.ts"],"names":[],"mappings":";;AAAA,kBAAe,KAAK,EAClB,QAA6E,EACxB,EAAE;IACvD,MAAM,YAAY,GAAG,MAAM,QAAQ,CAAC,GAAG,EAAE,CAAC;IAC1C,MAAM,IAAI,GAAG,YAAY,CAAC,IAAI,EAAE,CAAC;IACjC,OAAO,IAAI,CAAC;AACd,CAAC,CAAA"}

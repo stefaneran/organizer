@@ -1,78 +1,50 @@
 import { Dispatch } from 'redux';
 import {
-  loadingStart,
-  loadingEnd,
   loginDone,
-  logoutDone,
-  updateError
+  logoutDone
 } from './reducer';
-import jsonFetch from '@core/utils/jsonFetch';
-import genericRequest from '@core/utils/genericRequest';
 import baseUrl from '@core/baseUrl';
+import STATUS_CODES from '@core/constants/statusCodes';
+import genericRequest from '@core/utils/genericRequest';
+import jsonFetch from '@core/utils/jsonFetch';
+import { GetState, RequestOptions } from '@core/types';
 
-export const getAllData = () => async (dispatch: Dispatch, getState: GetState) => {
-  const response = await genericRequest(
-    dispatch,
-    getState,
-    `${baseUrl}/app/getAll`,
-    {},
-    undefined,
-    {},
-    `Could not fetch user data`
-  );
-  return response?.data ?? {};
-}
-
-export const register = ({ userName, password }) => async (dispatch) => {
-  dispatch(loadingStart());
+export const register = ({ userName, password }) => async (dispatch: Dispatch, getState: GetState) => {
+  const params = { userName, password }
   try {
     const response = await jsonFetch({
       url: `${baseUrl}/app/register`,
       method: 'POST',
-      body: JSON.stringify({ userName, password })
-    });
-    if (response.status === 200) {
-      dispatch(loginDone({ userName, password }));
+      body: JSON.stringify(params)
+    })
+    if (response.status === STATUS_CODES.CREATED) {
+      dispatch(loginDone({ userName, password }))
       localStorage.setItem('user', JSON.stringify({ userName, password }));
-    } else {
-      dispatch(updateError({
-        active: true,
-        message: `Could not register - Response Status ${response.status}`
-      }));
     }
   } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not register - ${e.message}`
-    }));
+    return;
   }
-  dispatch(loadingEnd());
 }
 
-export const login = ({ userName, password }) => async (dispatch) => {
-  dispatch(loadingStart());
+export const login = ({ userName, password }) => async (dispatch: Dispatch, getState: GetState) => {
+  const params = { userName, password }
   try {
     const response = await jsonFetch({
       url: `${baseUrl}/app/login`,
       method: 'POST',
-      body: JSON.stringify({ userName, password })
-    });
-    if (response.status === 200) {
-      dispatch(loginDone({ userName, password }))
+      body: JSON.stringify(params)
+    })
+    const { lastUpdate } = response.data;
+    if (response.status === STATUS_CODES.OK) {
+      dispatch(loginDone({ userName, password, lastUpdate }))
       localStorage.setItem('user', JSON.stringify({ userName, password }));
-    } else {
-      localStorage.removeItem('user');
     }
   } catch (e) {
-    dispatch(updateError({
-      active: true,
-      message: `Could not login - ${e.message}`
-    }));
+    localStorage.removeItem('user');
   }
-  dispatch(loadingEnd());
 }
 
-export const logout = () => async dispatch => {
+export const logout = () => async (dispatch: Dispatch) => {
   localStorage.removeItem('user');
   dispatch(logoutDone());
 }
