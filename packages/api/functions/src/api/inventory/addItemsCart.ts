@@ -31,7 +31,7 @@ function addItemsCartEndpoint(router: express.Router, firestore: FirebaseFiresto
       // ------------------------------------------------------- //
       await addItemsCartService(firestore, userName, groceriesIds);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

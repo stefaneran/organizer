@@ -15,6 +15,9 @@ import ContactsList from 'contacts/components/ContactsPanel/ContactsList';
 // Utils
 import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import getContactsArray from 'contacts/utils/getContactsArray';
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
+// Types
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -59,6 +62,8 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({ 
+  loggedIn,
+  lastUpdate,
   contacts, 
   groups,
   ...actions
@@ -76,6 +81,19 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       getContactsArray(contacts, contactsFilters), 
       [contacts, contactsFilters]
     );
+
+    React.useEffect(() => {
+      const isContactsDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Contacts, lastUpdate);
+      const isActivitiesDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
+      if (loggedIn) {
+        if (!isContactsDataUpToDate) {
+          actions.getContactsAndEvents();
+        }
+        if (!isActivitiesDataUpToDate) {
+          actions.getActivities();
+        }
+      }
+    }, [loggedIn])
 
   // Initialize contact groups when receving contacts
   React.useEffect(() => {

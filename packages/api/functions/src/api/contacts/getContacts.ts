@@ -20,11 +20,8 @@ function getContactsEndpoint(router: express.Router, firestore: FirebaseFirestor
       verifyUser(user, password);
       // ------------------------------------------------------- //
       const contactsData = await getContactsService(firestore, userName);
-      console.log('### Contacts Retrieved Success')
       const eventsData = await getEventsService(firestore, userName);
-      console.log('### Events Retrieved Success')
       const activitiesData = await getActivitiesService(firestore, userName);
-      console.log('### Activities Retrieved Success')
       const responseData = {
         contacts: contactsData,
         events: eventsData,
@@ -33,7 +30,6 @@ function getContactsEndpoint(router: express.Router, firestore: FirebaseFirestor
       // ------------------------------------------------------- //
       return res.status(200).send(responseData);
     } catch (e) {
-      console.log(e)
       return res.status(500).send(e);
     }
   });

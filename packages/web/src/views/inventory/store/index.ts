@@ -11,7 +11,9 @@ const slice = createSlice({
     // Array of grocery IDs in user's cart
     cart: [],
     // Array of grocery IDs in user's cart which are selected
-    cartSelected: []
+    cartSelected: [],
+    // Last time there was an update in inventory
+    lastUpdate: null
   },
   reducers: {
 
@@ -32,6 +34,7 @@ const slice = createSlice({
       state.inventory = [];
       state.cart = [];
       state.cartSelected = [];
+      state.lastUpdate = null;
     },
 
     setGroceryItem: (state: InventoryStore, { payload }) => {
@@ -112,6 +115,10 @@ const slice = createSlice({
       }
     },
 
+    setLastInventoryUpdate: (state: InventoryStore, { payload }) => {
+      state.lastUpdate = payload;
+    }
+
   }
 });
 
@@ -125,7 +132,8 @@ export const {
   addCartDone,
   removeCartDone,
   updateCartSelectedDone,
-  finishShoppingDone
+  finishShoppingDone,
+  setLastInventoryUpdate
 } = slice.actions;
 
 export default slice.reducer;

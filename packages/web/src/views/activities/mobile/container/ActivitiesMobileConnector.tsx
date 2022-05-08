@@ -1,15 +1,15 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { addActivity, editActivity, deleteActivity } from 'activities/store/thunks';
+import { getActivities } from 'activities/store/thunks';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
-  activities: state.activitiesStore.activities
+  loggedIn: state.app.user.loggedIn,
+  activities: state.activitiesStore.activities,
+  lastUpdate: state.activitiesStore.lastUpdate
 });
 
 const mapDispatchToProps = {
-  addActivity,
-  editActivity,
-  deleteActivity 
+  getActivities
 }
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);

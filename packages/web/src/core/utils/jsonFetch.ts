@@ -1,16 +1,18 @@
+import STATUS from '@core/constants/statusCodes'
+
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
 }
 
-export default async ({ url, ...options }) => {
+const jsonFetch = async ({ url, ...options }) => {
   const response = await fetch(url, {
     headers,
     ...options
   });
-  let responseData = {};
+  let responseData: any = {};
   try {
-    responseData = response.status === 204 ? {} : await response.json();
+    responseData = response.status === STATUS.NO_CONTENT ? {} : await response.json();
   } catch (e) {
     return {
       data: responseData,
@@ -22,3 +24,5 @@ export default async ({ url, ...options }) => {
     status: response.status
   };
 }
+
+export default jsonFetch

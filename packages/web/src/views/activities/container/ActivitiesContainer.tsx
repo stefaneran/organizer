@@ -12,8 +12,11 @@ import ActivityFilters from 'activities/components/ActivitiesFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import defaultFilters from 'activities/utils/defaultActivityFilters';
+// Types
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -40,6 +43,7 @@ const useStyles = makeStyles(() => createStyles({
 
 const ActivitiesContainer: React.FC<ReduxProps> = ({ 
   loggedIn,
+  lastUpdate,
   activities, 
   getActivities,
   addActivity, 
@@ -60,7 +64,8 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
   );
 
   React.useEffect(() => {
-    if (loggedIn) {
+    const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
+    if (loggedIn && !isDataUpToDate) {
       getActivities();
     }
   }, [loggedIn])

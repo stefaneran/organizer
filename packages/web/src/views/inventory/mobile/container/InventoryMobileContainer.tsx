@@ -12,6 +12,9 @@ import Cart from 'inventory/mobile/components/Cart';
 import Inventory from 'inventory/mobile/components/Inventory';
 // Utils
 import mapActions from 'inventory/utils/mapActions';
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
+// Types
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -55,6 +58,7 @@ enum ViewType {
 
 const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   loggedIn,
+  lastUpdate,
   groceries,
   inventory,
   cart,
@@ -77,7 +81,8 @@ const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   }
 
   React.useEffect(() => {
-    if (loggedIn) {
+    const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
+    if (loggedIn && !isDataUpToDate) {
       actionProps.getItems();
     }
   }, [loggedIn])

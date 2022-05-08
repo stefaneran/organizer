@@ -3,7 +3,7 @@ import getUserData from '../../utils/getUserData';
 import verifyUser from '../../utils/verifyUser';
 
 export async function updateEventService(
-  firestore: FirebaseFirestore.Firestore, 
+  firestore: FirebaseFirestore.Firestore,
   eventId: string, 
   event: any
 ) {
@@ -23,7 +23,7 @@ function updateEventEndpoint(router: express.Router, firestore: FirebaseFirestor
       // ------------------------------------------------------- //
       await updateEventService(firestore, eventId, event);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

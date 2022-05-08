@@ -2,7 +2,10 @@ const getDefaultUserData = (userName, password) => {
   return {
     userName,
     password,
-    lastUpdate: Date.now(),
+    lastRecipeUpdate: Date.now(),
+    lastInventoryUpdate: Date.now(),
+    lastActivityUpdate: Date.now(),
+    lastContactUpdate: Date.now(),
     groceries: [],
     inventory: [],
     cart: [],

@@ -10,7 +10,6 @@ function registerUser(router, firestore: FirebaseFirestore.Firestore) {
       await userCollectionRef.doc(userName).create(newUser);
       return res.status(201).send();
     } catch (e) { 
-      console.log(e)
       return res.status(500).send(e);
     }
   })

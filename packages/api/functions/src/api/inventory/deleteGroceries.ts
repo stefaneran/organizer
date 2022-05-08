@@ -62,7 +62,7 @@ function deleteGroceriesEndpoint(router: express.Router, firestore: FirebaseFire
       return res.status(200).send({ 
         hasChanges, 
         changes, 
-        lastUpdate: user.lastUpdate 
+        lastInventoryUpdate: user.lastInventoryUpdate 
       });
     } catch (e) {
       return res.status(500).send(e);

@@ -32,9 +32,8 @@ function deleteRecipeEndpoint(router: express.Router, firestore: FirebaseFiresto
       // ------------------------------------------------------- //
       await deleteRecipeService(firestore, userName, recipeId);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
-      console.log(e)
       return res.status(500).send(e);
     }
   });

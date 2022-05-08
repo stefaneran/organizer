@@ -16,6 +16,7 @@ import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   loggedIn: state.app.user.loggedIn,
+  lastUpdate: state.inventoryStore.lastUpdate,
   groceries: state.inventoryStore.groceries,
   inventory: state.inventoryStore.inventory,
   cart: state.inventoryStore.cart,

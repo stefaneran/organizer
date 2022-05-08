@@ -26,7 +26,7 @@ function removeItemsInventoryEndpoint(router: express.Router, firestore: Firebas
       // ------------------------------------------------------- //
       await removeItemsInventoryService(firestore, userName, groceriesIds);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

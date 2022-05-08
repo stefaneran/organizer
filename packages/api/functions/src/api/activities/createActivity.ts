@@ -15,7 +15,9 @@ export async function createActivityService(
   const userCollectionRef = firestore.collection("users");
   const userDocument = await userCollectionRef.doc(userName).get();
   const activitiesIdsList = userDocument.data().activities;
-  await userCollectionRef.doc(userName).update({ activities: [...activitiesIdsList, activityId] })
+  await userCollectionRef.doc(userName).update({ 
+    activities: [...activitiesIdsList, activityId]
+  })
 }
 
 function createActivityEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -30,7 +32,7 @@ function createActivityEndpoint(router: express.Router, firestore: FirebaseFires
       // ------------------------------------------------------- //
       await createActivityService(firestore, userName, activityId, activity);
       // ------------------------------------------------------- //
-      return res.status(201).send({ lastUpdate: user.lastUpdate });
+      return res.status(201).send();
     } catch (e) {
       return res.status(500).send(e);
     }

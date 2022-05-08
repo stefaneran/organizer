@@ -176,7 +176,7 @@ const AppBar = ({
           </span>
 
           <div className={classes.loading}>
-            {app.loading && (
+            {app.isLoading && (
               <CircularProgress color="inherit" />
             )}
           </div>

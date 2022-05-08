@@ -11,11 +11,14 @@ import RecipeInfo from 'recipes/mobile/components/RecipeInfo';
 import RecipeItem from 'recipes/mobile/components/RecipeItem';
 import RecipeFilters from 'recipes/mobile/components/RecipeFilters';
 // Utils
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 import getMissingIngredients from 'recipes/utils/getMissingIngredients';
 import defaultRecipeFilters from 'recipes/utils/defaultRecipeFilters';
 import getNationalityOptions from 'recipes/utils/getNationalityOptions';
 import getCategoryOptions from 'recipes/utils/getCategoryOptions';
 import getRecipesArray from 'recipes/utils/getRecipesArray';
+// Types
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -81,10 +84,12 @@ const useStyles = makeStyles(() => createStyles({
 
 const RecipesMobileContainer: React.FC<ReduxProps> = ({
   loggedIn,
+  lastUpdate,
   recipes,
   inventory, 
   groceries, 
   cart,
+  getItems,
   getRecipes,
   addCart
 }) => {
@@ -105,8 +110,15 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
   );
 
   React.useEffect(() => {
+    const isRecipeDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Recipes, lastUpdate);
+    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
     if (loggedIn) {
-      getRecipes();
+      if (!isRecipeDataUpToDate) {
+        getRecipes();
+      }
+      if (!isInventoryDataUpToDate) {
+        getItems();
+      }
     }
   }, [loggedIn])
   

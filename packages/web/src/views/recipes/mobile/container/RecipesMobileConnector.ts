@@ -1,10 +1,11 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { addCart } from 'inventory/store/thunks';
+import { addCart, getItems } from 'inventory/store/thunks';
 import { getRecipes } from 'recipes/store/thunks';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   loggedIn: state.app.user.loggedIn,
+  lastUpdate: state.recipesStore.lastUpdate,
   recipes: state.recipesStore.recipes,
   groceries: state.inventoryStore.groceries,
   inventory: state.inventoryStore.inventory,
@@ -12,6 +13,7 @@ const mapStateToProps = (state: AppStore) => ({
 });
 
 const mapDispatchToProps = {
+  getItems,
   getRecipes,
   addCart
 }

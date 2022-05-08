@@ -6,7 +6,9 @@ import { RecipeStore } from '@core/types';
 const slice = createSlice({
   name: 'recipesStore',
   initialState: {
-    recipes: {}
+    recipes: {},
+    // Last time there was an update in recipes
+    lastUpdate: null
   },
   reducers: {
     setRecipes: (state: RecipeStore, { payload }) => {
@@ -14,6 +16,7 @@ const slice = createSlice({
     },
     clearRecipes: (state: RecipeStore) => {
       state.recipes = {};
+      state.lastUpdate = null;
     },
     updateRecipe: (state: RecipeStore, { payload }) => {
       const { recipeId, recipe } = payload;
@@ -35,7 +38,7 @@ const slice = createSlice({
       }
     },
     // Dispatched after an item in inventory gets permanently deleted (we remove it from recipes' ingredients)
-    updateAfterItemDelete: (state, { payload }) => {
+    updateAfterItemDelete: (state: RecipeStore, { payload }) => {
       const { hasChanges, changes } = payload;
       if (hasChanges) {
         changes.forEach((change: IngredientChange) => {
@@ -53,6 +56,9 @@ const slice = createSlice({
           }
         })
       }
+    },
+    setLastRecipeUpdate: (state: RecipeStore, { payload }) => {
+      state.lastUpdate = payload;
     }
   }
 });
@@ -63,7 +69,8 @@ export const {
   updateRecipe,
   deleteRecipeDone,
   removeIngredient,
-  updateAfterItemDelete
+  updateAfterItemDelete,
+  setLastRecipeUpdate
 } = slice.actions;
 
 export default slice.reducer;

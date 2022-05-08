@@ -19,8 +19,10 @@ import getEnumValues from '@core/utils/getEnumValues';
 import getLeftOffset from '@core/utils/calculateLeftOffsetOfMobilePanel';
 import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 import areFiltersEmpty from 'activities/utils/areFiltersEmpty';
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 // Types
 import { ActivityType } from 'activities/types';
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -91,10 +93,10 @@ const getCurrentOpenPanelIndex = (
 }
 
 const ActivitiesMobileContainer: React.FC<ReduxProps> = ({ 
+  loggedIn,
   activities,
-  // addActivity,
-  // editActivity,
-  // deleteActivity 
+  lastUpdate,
+  getActivities
 }) => {
   const classes = useStyles();
 
@@ -111,6 +113,13 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
   const currentOpenPanel = getCurrentOpenPanelIndex(isTypeListView, isActivitiesListView, isActivityView);
 
   const activitiesTypesList = getEnumValues(ActivityType);
+
+  React.useEffect(() => {
+    const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
+    if (loggedIn && !isDataUpToDate) {
+      getActivities();
+    }
+  }, [loggedIn])
   
   const toggleFilterMenuOpen = () => {
     setFilterMenuOpen(!filterMenuOpen);

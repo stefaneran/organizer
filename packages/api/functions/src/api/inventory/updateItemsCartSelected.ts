@@ -23,7 +23,7 @@ function updateItemsCartSelectedEndpoint(router: express.Router, firestore: Fire
       // ------------------------------------------------------- //
       await updateItemsCartSelectedService(firestore, userName, groceriesIds);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

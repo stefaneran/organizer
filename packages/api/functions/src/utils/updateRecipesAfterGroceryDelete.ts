@@ -1,5 +1,9 @@
 import { updateRecipeService } from '../api/recipes/updateRecipe';
 
+/**
+ * This function updates any recipes that contain the grocery item that has just been deleted
+ * also accounting if the ingredient was an alternative, or was the main ingredient with alternatives 
+ */
 const updateRecipesAfterGroceryDelete = async (
   firestore: FirebaseFirestore.Firestore,
   userRecipes: Record<string, any>, 
@@ -19,7 +23,7 @@ const updateRecipesAfterGroceryDelete = async (
       const { itemId, alternatives } = ingredient;
       const shouldRemove = groceriesIds.includes(itemId);
       const hasAlternatives = alternatives.length;
-      // If ingredient should be removed, but has alternatives
+      // If ingredient being removed has alternatives
       if (shouldRemove && hasAlternatives) {
         // Then Check for first viable alternative
         for (const alternative of ingredient.alternatives) {
@@ -40,7 +44,7 @@ const updateRecipesAfterGroceryDelete = async (
           }
         }
       }
-      // If ingredient shouldn't be removed, but has alternative(s)
+      // If not the ingredient being removed, but has alternatives (one of which may be the ingredient we are removing)
       else if (!shouldRemove && hasAlternatives) {
         // Then filter out the alternative(s) of any that might need to be removed
         const updatedIngredient = {

@@ -3,7 +3,7 @@ import getUserData from '../../utils/getUserData';
 import verifyUser from '../../utils/verifyUser';
 
 export async function updateLastContactService(
-  firestore: FirebaseFirestore.Firestore, 
+  firestore: FirebaseFirestore.Firestore,
   contactId: string
 ) {
   const contactDocRef = firestore.collection("contacts");
@@ -22,7 +22,7 @@ function updateLastContactEndpoint(router: express.Router, firestore: FirebaseFi
       // ------------------------------------------------------- //
       await updateLastContactService(firestore, contactId);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

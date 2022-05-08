@@ -1,17 +1,26 @@
 
 Migration:
-- Implement caching in localstorage (with lastUpdate value in user) + Interval polling
+- Edit migration script to add isEssential to inventory items
+- Edit migration script to differentiate contact lastContact between communication and hangout
 - Optimize firebase startup (unfreeze)
+- Do test migration and TEST
+- DEPLOY
+- Make Inventory essential items feature
 // Commit
-- use UseDispatch and useSelector
+- Interval pinging for last update
+- Refactor to use UseDispatch and useSelector
+  - Activities then TEST
+  - Contacts then TEST 
+  - Inventory then TEST 
+  - Recipes then TEST
 - Use AsyncThunk
-- Write integration tests
 // Commit
 - Fix console warnings
 - Remove all console.logs
 - Treeshake
 - Fresh clone to make sure the modules are installed properly
-- Implement Auth0
+- Implement Auth0 / JWT
+- Write integration tests
 
 
 General:
@@ -107,6 +116,7 @@ Activities:
 
 Mobile:
   - Add ActivityInfoEdit
+  - 0 Locations if no address/link - Fix bug
   - Use Google location to automatically find address for new location
 
 ===============================================================
@@ -114,6 +124,7 @@ Mobile:
 
 Contacts:
 
+- Make lastContact requests every time (they dont update)
 - (MVP) Events: Show more details in info
   - Date/Time 
   - Participants (Better UI)

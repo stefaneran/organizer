@@ -30,7 +30,7 @@ function createGroceryEndpoint(router: express.Router, firestore: FirebaseFirest
       // ------------------------------------------------------- //
       await createGroceryService(firestore, userName, groceryId, groceryItem)
       // ------------------------------------------------------- //
-      return res.status(201).send({ lastUpdate: user.lastUpdate });
+      return res.status(201).send();
     } catch (e) {
       return res.status(500).send(e);
     }

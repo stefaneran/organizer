@@ -2,8 +2,13 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { connector, ReduxProps, DispatchProps } from 'contacts/container/ContactsConnector';
+// Components
 import ContactsPanel from 'contacts/container/ContactsPanel';
-import EventsPanel from 'contacts/container//EventsPanel';
+import EventsPanel from 'contacts/container/EventsPanel';
+// Utils
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
+// Types
+import { OrganizerModule } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -17,6 +22,7 @@ const useStyles = makeStyles(() => createStyles({
 
 const ContactsContainer: React.FC<ReduxProps & DispatchProps> = ({ 
   loggedIn,
+  lastUpdate,
   contacts, 
   groups, 
   events, 
@@ -26,8 +32,15 @@ const ContactsContainer: React.FC<ReduxProps & DispatchProps> = ({
   const classes = useStyles();
 
   React.useEffect(() => {
+    const isContactsDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Contacts, lastUpdate);
+    const isActivitiesDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
     if (loggedIn) {
-      actions.getContactsAndEvents();
+      if (!isContactsDataUpToDate) {
+        actions.getContactsAndEvents();
+      }
+      if (!isActivitiesDataUpToDate) {
+        actions.getActivities();
+      }
     }
   }, [loggedIn])
 

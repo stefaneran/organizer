@@ -9,11 +9,13 @@ import {
   editEvent, 
   deleteEvent 
 } from 'contacts/store/thunks';
+import { getActivities } from 'activities/store/thunks';
 import { initGroups } from 'contacts/store';
 import { AppStore } from '@core/types';
 
 const mapStateToProps = (state: AppStore) => ({
   loggedIn: state.app.user.loggedIn,
+  lastUpdate: state.contactsStore.lastUpdate,
   contacts: state.contactsStore.contacts,
   groups: state.contactsStore.groups,
   events: state.contactsStore.events,
@@ -21,6 +23,7 @@ const mapStateToProps = (state: AppStore) => ({
 });
 
 const mapDispatchToProps = {
+  getActivities,
   getContactsAndEvents,
   initGroups,
   createContact,
@@ -37,6 +40,7 @@ export const connector = connect(mapStateToProps, mapDispatchToProps);
 export type ReduxProps = ConnectedProps<typeof connector>;
 
 export type DispatchProps = {
+  getActivities: ReduxProps["getActivities"],
   getContactsAndEvents: ReduxProps["getContactsAndEvents"],
   initGroups: ReduxProps["initGroups"],
   createContact: ReduxProps["createContact"],

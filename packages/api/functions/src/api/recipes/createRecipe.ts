@@ -30,7 +30,7 @@ function createRecipeEndpoint(router: express.Router, firestore: FirebaseFiresto
       // ------------------------------------------------------- //
       await createRecipeService(firestore, userName, recipeId, recipe);
       // ------------------------------------------------------- //
-      return res.status(201).send({ lastUpdate: user.lastUpdate });
+      return res.status(201).send();
     } catch (e) {
       return res.status(500).send(e);
     }

@@ -22,6 +22,12 @@ export type RequestOptions = {
   params?: any;
   acceptedStatusCode: number;
   errorMessage: string;
+  timestamp?: number;
+}
+
+export type UserData = {
+  userName: string;
+  password: string;
 }
 
 // ********** Event types ********** //
@@ -55,33 +61,44 @@ export enum OrganizerModule {
   Recipes = "Recipes"
 }
 
+export enum ModuleStoreName {
+  Activities = "activitiesStore",
+  Contacts = "contactsStore",
+  Inventory = "inventoryStore",
+  Recipes = "recipesStore"
+}
+
 // ********** Redux types ********** //
 
 export interface ActivitiesStore {
   activities: Record<string, Activity>;
+  lastUpdate: number;
 }
 
 export interface ContactsStore {
   contacts: Record<string, Contact>;
   events: Record<string, Event>;
   groups: string[];
+  lastUpdate: number;
 }
 
 export interface InventoryStore {
-  groceries: Record<string, GroceryItemEdit>,
-  inventory: string[],
-  cart: string[],
-  cartSelected: string[]
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
+  cart: string[];
+  cartSelected: string[];
+  lastUpdate: number;
 }
 
 export interface RecipeStore {
-  recipes: Record<string, Recipe>
+  recipes: Record<string, Recipe>;
+  lastUpdate: number;
 }
 
 export interface AppStore {
   app: {
     version: string;
-    loading: boolean;
+    isLoading: boolean;
     isMobile: boolean;
     user: {
       userName: string;

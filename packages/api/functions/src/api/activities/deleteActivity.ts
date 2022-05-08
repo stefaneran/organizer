@@ -17,7 +17,9 @@ export async function deleteActivityService(
   const updatedActivities = activitiesIdsList.filter(activity => {
     return activity !== activityId
   });
-  await userCollectionRef.doc(userName).update({ activities: updatedActivities })
+  await userCollectionRef.doc(userName).update({ 
+    activities: updatedActivities
+  })
 }
 
 function deleteActivityEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -32,7 +34,7 @@ function deleteActivityEndpoint(router: express.Router, firestore: FirebaseFires
       // ------------------------------------------------------- //
       await deleteActivityService(firestore, userName, activityId);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

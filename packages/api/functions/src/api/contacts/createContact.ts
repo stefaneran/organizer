@@ -15,7 +15,9 @@ export async function createContactService(
   const userCollectionRef = firestore.collection("users");
   const userDocument = await userCollectionRef.doc(userName).get();
   const contactsIdsList = userDocument.data().contacts;
-  await userCollectionRef.doc(userName).update({ contacts: [...contactsIdsList, contactId] })
+  await userCollectionRef.doc(userName).update({ 
+    contacts: [...contactsIdsList, contactId]
+  })
 }
 
 function createContactEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -30,7 +32,7 @@ function createContactEndpoint(router: express.Router, firestore: FirebaseFirest
       // ------------------------------------------------------- //
       await createContactService(firestore, userName, contactId, contact);
       // ------------------------------------------------------- //
-      return res.status(201).send({ lastUpdate: user.lastUpdate });
+      return res.status(201).send();
     } catch (e) {
       return res.status(500).send(e);
     }

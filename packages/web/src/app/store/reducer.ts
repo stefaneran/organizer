@@ -3,14 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '2.3.0',
-    loading: false,
+    version: '1.0.0',
+    isLoading: false,
     isMobile: false,
     user: {
       userName: undefined,
       password: undefined,
-      loggedIn: false,
-      lastUpdate: undefined
+      loggedIn: false
     },
     error: {
       active: false,
@@ -19,10 +18,10 @@ const slice = createSlice({
   },
   reducers: {
     loadingStart: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     loadingEnd: (state) => {
-      state.loading = false;
+      state.isLoading = false;
     },
     setIsMobile: (state, { payload }) => {
       const { isMobile } = payload;
@@ -35,20 +34,15 @@ const slice = createSlice({
         message
       }
     },
-    refreshLastUpdateValue: (state, { payload }) => {
-      state.user.lastUpdate = payload;
-    },
     loginDone: (state, { payload }) => {
       state.user.loggedIn = true;
       state.user.userName = payload.userName;
       state.user.password = payload.password;
-      state.user.lastUpdate = payload.lastUpdate;
     },
     logoutDone: (state) => {
       state.user.loggedIn = false;
       state.user.userName = undefined;
       state.user.password = undefined;
-      state.user.lastUpdate = undefined;
     }
   }
 });
@@ -58,7 +52,6 @@ export const {
   loadingEnd,
   setIsMobile,
   updateError,
-  refreshLastUpdateValue,
   loginDone,
   logoutDone
 } = slice.actions;

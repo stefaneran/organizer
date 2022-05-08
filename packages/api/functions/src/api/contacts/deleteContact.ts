@@ -17,7 +17,9 @@ export async function deleteContactService(
   const updatedList = contactsIdsList.filter(contact => {
     return contact !== contactId
   });
-  await userCollectionRef.doc(userName).update({ contacts: updatedList })
+  await userCollectionRef.doc(userName).update({ 
+    contacts: updatedList
+  })
 }
 
 function deleteContactEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -32,9 +34,8 @@ function deleteContactEndpoint(router: express.Router, firestore: FirebaseFirest
       // ------------------------------------------------------- //
       await deleteContactService(firestore, userName, contactId);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
-      console.log(e)
       return res.status(500).send(e);
     }
   });

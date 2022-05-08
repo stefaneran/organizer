@@ -17,7 +17,9 @@ export async function deleteEventService(
   const updatedList = eventsIdsList.filter(event => {
     return event !== eventId
   });
-  await userCollectionRef.doc(userName).update({ events: updatedList })
+  await userCollectionRef.doc(userName).update({ 
+    events: updatedList
+  })
 }
 
 function deleteEventEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -32,7 +34,7 @@ function deleteEventEndpoint(router: express.Router, firestore: FirebaseFirestor
       // ------------------------------------------------------- //
       await deleteEventService(firestore, userName, eventId);
       // ------------------------------------------------------- //
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send();
     } catch (e) {
       return res.status(500).send(e);
     }

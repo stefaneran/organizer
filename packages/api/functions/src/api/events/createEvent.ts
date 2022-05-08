@@ -15,7 +15,9 @@ export async function createEventService(
   const userCollectionRef = firestore.collection("users");
   const userDocument = await userCollectionRef.doc(userName).get();
   const eventsIdsList = userDocument.data().events;
-  await userCollectionRef.doc(userName).update({ events: [...eventsIdsList, eventId] })
+  await userCollectionRef.doc(userName).update({ 
+    events: [...eventsIdsList, eventId]
+  })
 }
 
 function createEventEndpoint(router: express.Router, firestore: FirebaseFirestore.Firestore) {
@@ -30,9 +32,8 @@ function createEventEndpoint(router: express.Router, firestore: FirebaseFirestor
       // ------------------------------------------------------- //
       await createEventService(firestore, userName, eventId, event);
       // ------------------------------------------------------- //
-      return res.status(201).send({ lastUpdate: user.lastUpdate });
+      return res.status(201).send();
     } catch (e) {
-      console.log(e)
       return res.status(500).send(e);
     }
   });

@@ -16,9 +16,13 @@ function loginUser(router, firestore: FirebaseFirestore.Firestore) {
       } else if (user.password !== password) {
         throw new Error("Error: Wrong password");
       }
-      return res.status(200).send({ lastUpdate: user.lastUpdate });
+      return res.status(200).send({ 
+        lastRecipeUpdate: user.lastRecipeUpdate,
+        lastInventoryUpdate: user.lastInventoryUpdate,
+        lastActivityUpdate: user.lastActivityUpdate,
+        lastContactUpdate: user.lastContactUpdate
+      });
     } catch (e) {
-      console.log(e)
       return res.status(500).send(e);
     }
   })

@@ -11,6 +11,7 @@ import RecipeInfo from 'recipes/components/RecipeInfo';
 import ConfirmationDialog from '@core/components/ConfirmationDialog'; 
 import SlidingPanel from '@core/components/SlidingPanel';
 // Utils
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 import getMissingIngredients from 'recipes/utils/getMissingIngredients';
 import defaultRecipeProps from 'recipes/utils/defaultRecipeProps';
 import defaultRecipeFilters from 'recipes/utils/defaultRecipeFilters';
@@ -18,6 +19,7 @@ import getRecipesArray from 'recipes/utils/getRecipesArray';
 import getNationalityOptions from 'recipes/utils/getNationalityOptions';
 import getCategoryOptions from 'recipes/utils/getCategoryOptions';
 // Types
+import { OrganizerModule } from '@core/types';
 import { RecipeEdit, EditMode } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -66,6 +68,7 @@ const getConfirmationDialogDescription = (action, props) => {
 
 const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   loggedIn,
+  lastUpdate,
   recipes,
   groceries, 
   inventory, 
@@ -101,8 +104,15 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   );
 
   React.useEffect(() => {
+    const isRecipeDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Recipes, lastUpdate);
+    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
     if (loggedIn) {
-      actions.getRecipes();
+      if (!isRecipeDataUpToDate) {
+        actions.getRecipes();
+      }
+      if (!isInventoryDataUpToDate) {
+        actions.getItems();
+      }
     }
   }, [loggedIn])
 

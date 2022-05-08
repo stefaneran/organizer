@@ -5,7 +5,8 @@ import ContentView from 'app/components/ContentView';
 import RegistrationDialog from '@core/components/RegistrationDialog';
 import checkIsMobile from '@core/utils/checkIsMobile';
 import parseGetParams from '@core/utils/parseGetParams';
-import { loadUserFromLocalStorage } from '@core/utils/localstorage';
+import { loadUserFromLocalStorage } from '@core/localstorage/user';
+import { loadStoreDataFromLocalStorage } from '@core/localstorage/store';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -25,11 +26,7 @@ const App: React.FC<ReduxProps> = ({
   login,
   register,
   logout,
-  setIsMobile,
-  clearActivities,
-  clearContactsAndEvents,
-  clearRecipes,
-  clearInventoryData
+  setIsMobile
 }) => {
   const classes = useStyles();
   const { user: { loggedIn }, isMobile, error } = app;
@@ -52,11 +49,11 @@ const App: React.FC<ReduxProps> = ({
     } 
     // Otherwise try to load user creds from localstorage and login (TODO change to cookies)
     else {
-      const loadResult = loadUserFromLocalStorage();
-      if (loadResult.success && !loggedIn) {
-        const { userName, password } = loadResult.user;
+      const user = loadUserFromLocalStorage();
+      if (user && !loggedIn) {
+        const { userName, password } = user;
         if (userName && password) {
-          login(loadResult.user)
+          login(user)
         }
       }
     }
@@ -66,20 +63,6 @@ const App: React.FC<ReduxProps> = ({
       setIsMobile({ isMobile })
     }
   }, []);
-
-  React.useEffect(() => {
-    async function fetchUserData() {
-      if (loggedIn) {
-        // TODO - Load user data from localstorage
-      } else {
-        clearActivities();
-        clearContactsAndEvents();
-        clearInventoryData();
-        clearRecipes();
-      }
-    }
-    // fetchUserData();
-  }, [loggedIn]);
 
   const handleChangeLoginDialog = (props: DialogState) => () => {
     setDialog(props);

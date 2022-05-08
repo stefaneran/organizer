@@ -10,16 +10,23 @@ const slice = createSlice({
     // All events (past and future) serialized by UUID
     events: {},
     // Array of all unique group names (eg: Friends, Coworkers) derived from contacts
-    groups: []
+    groups: [],
+    // Last time there was an update in contacts
+    lastUpdate: null
   },
   reducers: {
     setContactsAndEvents: (state: ContactsStore, { payload }) => {
       state.contacts = payload.contacts;
       state.events = payload.events;
+      if (payload.groups) {
+        state.groups = payload.groups;
+      }
     },
     clearContactsAndEvents: (state: ContactsStore) => {
       state.contacts = {};
       state.events = {};
+      state.groups = [];
+      state.lastUpdate = null;
     },
     initGroups: (state: ContactsStore) => {
       state.groups = getAllGroups(state.contacts);
@@ -44,6 +51,9 @@ const slice = createSlice({
     deleteEventDone: (state: ContactsStore, { payload }) => {
       const { eventId } = payload;
       delete state.events[eventId];
+    },
+    setLastContactUpdate: (state: ContactsStore, { payload }) => {
+      state.lastUpdate = payload;
     }
   }
 });
@@ -56,7 +66,8 @@ export const {
   updateLastContactDone,
   deleteContactDone,
   updateEventDone,
-  deleteEventDone
+  deleteEventDone,
+  setLastContactUpdate
 } = slice.actions;
 
 export default slice.reducer;

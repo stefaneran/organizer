@@ -11,7 +11,7 @@ export const migration = async (firestore) => {
   const user = await getUserData(firestore, "stefan");
 
   // Create new user
-  const newUserName = "migration-test1"
+  const newUserName = "migration-test2"
   const newUser = getDefaultUserData(newUserName, "123");
   const userCollectionRef = firestore.collection("users");
   await userCollectionRef.doc(newUserName).create(newUser);

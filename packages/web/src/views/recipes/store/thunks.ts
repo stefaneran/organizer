@@ -7,19 +7,21 @@ import { setInventoryData } from 'inventory/store';
 import { createItem } from 'inventory/store/thunks';
 // Constants
 import baseUrl from '@core/baseUrl';
-import STATUS_CODES from '@core/constants/statusCodes';
+import STATUS from '@core/constants/statusCodes';
 // Utils
 import sanitizeIngredients from 'recipes/utils/sanitizeIngredients';
 import genericRequest from '@core/utils/genericRequest';
 import genericRequestWithDispatch from '@core/utils/genericRequestWithDispatch';
+import { saveModuleStoreDataToLocalStorage } from '@core/localstorage/store';
+import { setModuleLastUpdateInLocalStorage } from '@core/localstorage/lastUpdate';
 // Types
-import { GetState, RequestOptions } from '@core/types';
+import { GetState, RequestOptions, OrganizerModule } from '@core/types';
 import { Recipe, RecipeEdit } from 'recipes/types';
 
 export const getRecipes = () => async (dispatch: Dispatch, getState: GetState) => {
   const options: RequestOptions = {
     url: `${baseUrl}/recipes/get`,
-    acceptedStatusCode: STATUS_CODES.OK,
+    acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not get recipes"
   }
   const response = await genericRequest(
@@ -29,6 +31,7 @@ export const getRecipes = () => async (dispatch: Dispatch, getState: GetState) =
   );
   dispatch(setRecipes(response.data.recipes))
   dispatch(setInventoryData(response.data))
+  saveModuleStoreDataToLocalStorage(getState, OrganizerModule.Recipes);
 }
 
 // TODO - Rename to createRecipe
@@ -46,19 +49,23 @@ export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getS
     ingredients: ingredientsWithId
   }
   const params = { recipeId, recipe: newRecipe };
+  const timestamp = Date.now();
   const options: RequestOptions = {
     url: `${baseUrl}/recipes/create`,
     params,
-    acceptedStatusCode: STATUS_CODES.CREATED,
-    errorMessage: "Could not create recipe"
+    acceptedStatusCode: STATUS.CREATED,
+    errorMessage: "Could not create recipe",
+    timestamp
   }
   await genericRequestWithDispatch(
     dispatch,
     getState,
     options,
     updateRecipe,
-    params
+    params,
+    OrganizerModule.Recipes
   );
+  setModuleLastUpdateInLocalStorage(timestamp, OrganizerModule.Recipes);
 }
 
 // TODO - Rename to updateRecipe
@@ -75,34 +82,42 @@ export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => asy
     ingredients: ingredientsWithId
   }
   const params = { recipeId, recipe: updatedRecipe }
+  const timestamp = Date.now();
   const options: RequestOptions = {
     url: `${baseUrl}/recipes/update`,
     params,
-    acceptedStatusCode: STATUS_CODES.OK,
-    errorMessage: "Could not update recipe"
+    acceptedStatusCode: STATUS.OK,
+    errorMessage: "Could not update recipe",
+    timestamp
   }
   await genericRequestWithDispatch(
     dispatch,
     getState,
     options,
     updateRecipe,
-    params
+    params,
+    OrganizerModule.Recipes
   );
+  setModuleLastUpdateInLocalStorage(timestamp, OrganizerModule.Recipes);
 }
 
 export const deleteRecipe = (recipeId: string) => async (dispatch: Dispatch, getState: GetState) => {
   const params = { recipeId };
+  const timestamp = Date.now();
   const options: RequestOptions = {
     url: `${baseUrl}/recipes/delete`,
     params,
-    acceptedStatusCode: STATUS_CODES.OK,
-    errorMessage: "Could not delete recipe"
+    acceptedStatusCode: STATUS.OK,
+    errorMessage: "Could not delete recipe",
+    timestamp
   }
   await genericRequestWithDispatch(
     dispatch,
     getState,
     options,
     deleteRecipeDone,
-    params
+    params,
+    OrganizerModule.Recipes
   );
+  setModuleLastUpdateInLocalStorage(timestamp, OrganizerModule.Recipes);
 }

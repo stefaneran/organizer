@@ -1,10 +1,10 @@
 import { connect, ConnectedProps } from 'react-redux';
 // Reducer actions
 import { setIsMobile } from 'app/store/reducer';
-import { setActivities, clearActivities } from 'activities/store';
-import { setContactsAndEvents, clearContactsAndEvents } from 'contacts/store';
-import { setRecipes, clearRecipes } from 'recipes/store';
-import { setInventoryData, clearInventoryData } from 'inventory/store';
+import { setActivities } from 'activities/store';
+import { setContactsAndEvents } from 'contacts/store';
+import { setRecipes } from 'recipes/store';
+import { setInventoryData } from 'inventory/store';
 // Thunks
 import { register, login, logout } from 'app/store/thunks';
 // Types
@@ -23,13 +23,9 @@ const mapDispatchToProps = {
   logout,
   setIsMobile,
   setActivities,
-  clearActivities,
   setContactsAndEvents,
-  clearContactsAndEvents,
   setRecipes,
-  clearRecipes,
-  setInventoryData,
-  clearInventoryData
+  setInventoryData
 }
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);
