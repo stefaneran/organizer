@@ -34,7 +34,7 @@ or to re-run with every file change
 
 - yarn test:watch
 
-# To deploy to "https://stefaneran.github.io/organizer"
+# To deploy front-end to "https://stefaneran.github.io/organizer"
 
 - Change version: Where #.#.# are [Major Iteration].[Major feature].[Minor changes commit]
   - Go to src/app/store/reducer.ts
@@ -48,7 +48,7 @@ or to re-run with every file change
   - Go to src/core/baseUrl.ts
   - Change default export to 'baseUrlRemote' if not already
 
-- In 'webpack.config.js' change 
+- In 'packages/web/webpack.config.js' change 
   publicPath: '/' 
   to 
   publicPath: './'
@@ -56,6 +56,12 @@ or to re-run with every file change
 - Run "yarn build"
 
 - Run "yarn deploy"
+
+# To deploy firebase functions (back-end) 
+
+- cd packages/api/functions
+
+- Run "yarn deploy" or "firebase deploy"
 
 # To add an alias path
 

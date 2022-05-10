@@ -64,6 +64,7 @@ const useStyles = makeStyles(() => createStyles({
 const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({ 
   loggedIn,
   lastUpdate,
+  activitiesLastUpdate,
   contacts, 
   groups,
   ...actions
@@ -84,7 +85,7 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
 
     React.useEffect(() => {
       const isContactsDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Contacts, lastUpdate);
-      const isActivitiesDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
+      const isActivitiesDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, activitiesLastUpdate);
       if (loggedIn) {
         if (!isContactsDataUpToDate) {
           actions.getContactsAndEvents();

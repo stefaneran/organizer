@@ -6,6 +6,7 @@ import { AppStore } from '@core/types';
 const mapStateToProps = (state: AppStore) => ({
   loggedIn: state.app.user.loggedIn,
   lastUpdate: state.recipesStore.lastUpdate,
+  inventoryLastUpdate: state.inventoryStore.lastUpdate,
   recipes: state.recipesStore.recipes,
   groceries: state.inventoryStore.groceries,
   inventory: state.inventoryStore.inventory,

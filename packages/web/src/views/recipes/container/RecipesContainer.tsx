@@ -69,6 +69,7 @@ const getConfirmationDialogDescription = (action, props) => {
 const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   loggedIn,
   lastUpdate,
+  inventoryLastUpdate,
   recipes,
   groceries, 
   inventory, 
@@ -105,7 +106,7 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
 
   React.useEffect(() => {
     const isRecipeDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Recipes, lastUpdate);
-    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
+    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, inventoryLastUpdate);
     if (loggedIn) {
       if (!isRecipeDataUpToDate) {
         actions.getRecipes();

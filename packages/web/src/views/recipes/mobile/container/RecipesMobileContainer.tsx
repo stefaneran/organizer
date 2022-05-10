@@ -85,6 +85,7 @@ const useStyles = makeStyles(() => createStyles({
 const RecipesMobileContainer: React.FC<ReduxProps> = ({
   loggedIn,
   lastUpdate,
+  inventoryLastUpdate,
   recipes,
   inventory, 
   groceries, 
@@ -111,7 +112,7 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
 
   React.useEffect(() => {
     const isRecipeDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Recipes, lastUpdate);
-    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
+    const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, inventoryLastUpdate);
     if (loggedIn) {
       if (!isRecipeDataUpToDate) {
         getRecipes();

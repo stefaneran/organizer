@@ -1,8 +1,5 @@
 
 Migration:
-- Edit migration script to add isEssential to inventory items
-- Edit migration script to differentiate contact lastContact between communication and hangout
-- Optimize firebase startup (unfreeze)
 - Do test migration and TEST
 - DEPLOY
 - Make Inventory essential items feature

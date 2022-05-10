@@ -1,4 +1,5 @@
 
+/*
 import getUserData from '../utils/getUserData';
 import getDefaultUserData from '../utils/getDefaultUserData';
 import { createGroceryService } from '../api/inventory/createGrocery';
@@ -11,15 +12,25 @@ export const migration = async (firestore) => {
   const user = await getUserData(firestore, "stefan");
 
   // Create new user
-  const newUserName = "migration-test2"
-  const newUser = getDefaultUserData(newUserName, "123");
+  const newUserName = "Stefan"
+  const newUser = getDefaultUserData(newUserName, "2210");
   const userCollectionRef = firestore.collection("users");
   await userCollectionRef.doc(newUserName).create(newUser);
 
   // Migrate groceries items DB
   const groceriesItems = user.inventory.allItems;
   await Promise.all(
-    Object.entries(groceriesItems).map(([id, grocery]) => createGroceryService(firestore, newUserName, id, grocery))
+    Object.entries(groceriesItems).map(
+      ([id, grocery]: [id: string, grocery: object]) => {
+        const newGrocery = {
+          ...grocery,
+          isEssential: false,
+          dateBought: 0,
+          expirationPeriod: 0
+        }
+        return createGroceryService(firestore, newUserName, id, newGrocery)
+      }
+    )
   )
 
   // Migrate groceries, inventory and cart collections
@@ -59,3 +70,4 @@ export const migration = async (firestore) => {
   
 
 }
+*/
