@@ -1,9 +1,11 @@
 import * as React from 'react';
-import combinedReducer from 'app/store/combinedReducer';
+import { AnyAction } from "redux";
+import { ThunkDispatch } from 'redux-thunk';
 import { Activity } from 'activities/types';
 import { Contact, Event } from 'contacts/types';
 import { GroceryItemEdit } from 'inventory/types';
 import { Recipe } from 'recipes/types';
+import combinedReducer from 'app/store/combinedReducer';
 
 // ********** General types ********** //
 
@@ -99,3 +101,6 @@ export interface RecipeStore {
 export type RootState = ReturnType<typeof combinedReducer>;
 
 export type GetState = () => RootState;
+
+export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>; 
+

@@ -8,7 +8,7 @@ const slice = createSlice({
     activities: {},
     // Last time there was an update in activities
     lastUpdate: 0
-  },
+  } as ActivitiesStore,
   reducers: {
     setActivities: (state: ActivitiesStore, { payload }) => {
       state.activities = payload;

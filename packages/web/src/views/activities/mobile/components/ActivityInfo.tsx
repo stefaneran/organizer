@@ -9,7 +9,6 @@ import ActivityLocations from 'activities/components/ActivityLocations';
 // Utils
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 // Types
-// import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity } from 'activities/types';
 import ChipsGroup from '@core/components/ChipsGroup';
 

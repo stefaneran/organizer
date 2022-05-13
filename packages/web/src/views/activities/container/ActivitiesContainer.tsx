@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { connector, ReduxProps } from 'activities/container/ActivitiesConnector';
+import { getActivities, deleteActivity } from 'activities/store/thunks';
 // Icons
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
@@ -16,7 +17,7 @@ import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate'
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import defaultFilters from 'activities/utils/defaultActivityFilters';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, AppDispatch, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -41,16 +42,11 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-const ActivitiesContainer: React.FC<ReduxProps> = ({ 
-  loggedIn,
-  lastUpdate,
-  activities, 
-  getActivities,
-  addActivity, 
-  editActivity, 
-  deleteActivity 
-}) => {
+const ActivitiesContainer: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { activities, lastUpdate } = useSelector((state: RootState) => state.activitiesStore)
+  const { loggedIn } = useSelector((state: RootState) => state.app.user)
 
   const [selectedActivity, setSelectedActivity] = React.useState("");
   const [activityFilters, setActivityFilter] = React.useState(defaultFilters);
@@ -66,7 +62,7 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
   React.useEffect(() => {
     const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
     if (loggedIn && !isDataUpToDate) {
-      getActivities();
+      dispatch(getActivities());
     }
   }, [loggedIn])
 
@@ -93,7 +89,7 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
     setInfoPanelOpen(false);
   }
   const handleDeleteActivity = () => {
-    deleteActivity(selectedActivity);
+    dispatch(deleteActivity(selectedActivity));
     setSelectedActivity('');
     toggleConfirmationDialog()
   }
@@ -122,8 +118,6 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
           activity={activities[selectedActivity]}
           onClose={handleCloseInfoPanel}
           onDeleteActivity={toggleConfirmationDialog}
-          editActivity={editActivity}
-          addActivity={addActivity}
         />
       </div>
       <SlidingPanel
@@ -154,4 +148,4 @@ const ActivitiesContainer: React.FC<ReduxProps> = ({
   )
 }
 
-export default connector(ActivitiesContainer);
+export default ActivitiesContainer;

@@ -12,7 +12,6 @@ import ActivityParticipants from 'activities/components/ActivityParticipants';
 // Utils
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 // Types
-import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -45,8 +44,6 @@ interface Props {
   activity: Activity;
   onClose: () => void;
   onDeleteActivity: () => void;
-  editActivity: ReduxProps["editActivity"];
-  addActivity: ReduxProps["addActivity"];
 }
 
 const ActivityInfo: React.FC<Props> = ({ 
@@ -54,9 +51,7 @@ const ActivityInfo: React.FC<Props> = ({
   activityId,
   activity,
   onClose,
-  onDeleteActivity,
-  editActivity,
-  addActivity
+  onDeleteActivity
 }) => {
   const classes = useStyles();
   const isCreate = !Boolean(activityId);
@@ -108,8 +103,6 @@ const ActivityInfo: React.FC<Props> = ({
               activity={activity}
               onClose={onClose}
               toggleEdit={toggleEdit}
-              editActivity={editActivity}
-              addActivity={addActivity}
             />
           ) : (
             <>

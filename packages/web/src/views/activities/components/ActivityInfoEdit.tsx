@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
+import { addActivity, editActivity } from 'activities/store/thunks';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 // Components
@@ -13,9 +15,8 @@ import defaultActivityProps from 'activities/utils/defaultActivityProps';
 import checkIsLocationsEmpty from 'activities/utils/checkIsLocationsEmpty';
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
-import { ReduxProps } from 'activities/container/ActivitiesConnector';
 import { Activity, ActivityType, ParticipantType, ActivityLocation } from 'activities/types';
-import { Option } from '@core/types';
+import { Option, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -38,19 +39,17 @@ interface Props {
   activity: Activity;
   onClose: () => void;
   toggleEdit: () => void;
-  addActivity: ReduxProps["addActivity"];
-  editActivity: ReduxProps["editActivity"];
 }
 
 const ActivityInfoEdit: React.FC<Props> = ({
   activityId,
   activity,
   onClose,
-  toggleEdit,
-  addActivity,
-  editActivity
+  toggleEdit
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+
   const isCreate = !Boolean(activityId);
 
   const [activityData, setActivityData] = React.useState<Activity>(isCreate ? defaultActivityProps : activity);
@@ -95,10 +94,10 @@ const ActivityInfoEdit: React.FC<Props> = ({
       locations: checkIsLocationsEmpty(locations) ? [] : locations
     }
     if (isCreate) {
-      await addActivity(submitData);
+      await dispatch(addActivity(submitData));
       onClose();
     } else {
-      await editActivity(activityId, submitData);
+      await dispatch(editActivity(activityId, submitData));
       toggleEdit();
     }
   }
