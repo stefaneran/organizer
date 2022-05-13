@@ -1,10 +1,15 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Components
 import { Chip, Tooltip } from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
+// Utils
 import getShortName from 'contacts/utils/getShortName';
+// Types
 import { Contact } from 'contacts/types';
+import { RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   chip: {
@@ -43,16 +48,15 @@ const ToolTipText: React.FC<TooltipProps> = ({
 
 interface Props {
   participants: string[];
-  contacts: Record<string, Contact>;
   style?: Record<string, string | number>;
 }
 
 const ParticipantsChip: React.FC<Props> = ({ 
-  participants = [], 
-  contacts, 
+  participants = [],
   style 
 }) => {
   const classes = useStyles();
+  const { contacts } = useSelector((state: RootState) => state.contactsStore)
 
   const numOfParticipants = participants.length;
   const isGroup = Boolean(numOfParticipants > 1);

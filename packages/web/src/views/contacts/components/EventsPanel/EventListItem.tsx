@@ -1,11 +1,16 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+// Components
 import { Paper, Typography } from '@material-ui/core';
 import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
 import ParticipantsChip from 'contacts/components/EventsPanel/ParticipantsChip';
+// Utils
 import getActivityLocation from 'activities/utils/getActivityLocation';
 import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
-import { Contact, Event } from 'contacts/types';
+// Types
+import { RootState } from '@core/types';
+import { Event } from 'contacts/types';
 import { Activity } from 'activities/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -48,18 +53,15 @@ const iconStyles = {
 
 interface Props {
   event: Event;
-  activities: Record<string, Activity>;
-  contacts: Record<string, Contact>;
   onOpenInfo: (id: string) => void;
 }
 
 const EventListItem: React.FC<Props> = ({ 
   event = {} as Event, 
-  activities, 
-  contacts, 
   onOpenInfo 
 }) => {
   const classes = useStyles();
+  const { activities } = useSelector((state: RootState) => state.activitiesStore)
 
   const activity: Activity = activities[event.activityId];
 
@@ -94,7 +96,6 @@ const EventListItem: React.FC<Props> = ({
         </div>
         <ParticipantsChip
           participants={event.participants}
-          contacts={contacts}
           style={{ marginTop: '0.3em' }}
         />
       </div>

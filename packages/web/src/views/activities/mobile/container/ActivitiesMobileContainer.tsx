@@ -1,28 +1,27 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import { 
-  connector, 
-  ReduxProps
-} from 'activities/mobile/container/ActivitiesMobileConnector';
+import { getActivities } from 'activities/store/thunks';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 // Components
+import { Typography } from '@material-ui/core';
 import ActivitiesFilters from 'activities/mobile/components/ActivitiesFilters';
 import ActivitiesFiltersChips from 'activities/mobile/components/ActivitiesFiltersChips';
 import ActivitiesTypesList from 'activities/mobile/components/ActivitiesTypesList';
 import ActivitiesList from 'activities/mobile/components/ActivitiesList';
 import ActivityInfo from 'activities/mobile/components/ActivityInfo';
 // Utils
+import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 import getEnumValues from '@core/utils/getEnumValues';
 import getLeftOffset from '@core/utils/calculateLeftOffsetOfMobilePanel';
 import defaultActivityFilters from 'activities/utils/defaultActivityFilters';
 import areFiltersEmpty from 'activities/utils/areFiltersEmpty';
-import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
+import getCurrentOpenPanelIndex from 'activities/utils/getCurrentOpenPanelIndex';
 // Types
 import { ActivityType } from 'activities/types';
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -79,26 +78,11 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-const getCurrentOpenPanelIndex = (
-  isTypeListView, 
-  isActivitiesListView, 
-  isActivityView 
-) => {
-  if (isTypeListView) 
-    return 1;
-  else if (isActivitiesListView)
-    return 2;
-  else if (isActivityView)
-    return 3
-}
-
-const ActivitiesMobileContainer: React.FC<ReduxProps> = ({ 
-  loggedIn,
-  activities,
-  lastUpdate,
-  getActivities
-}) => {
+const ActivitiesMobileContainer: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((store: RootState) => store.app.user);
+  const { activities, lastUpdate } = useSelector((store: RootState) => store.activitiesStore);
 
   const [selectedActivityType, setSelectedActivityType] = React.useState<ActivityType | "Filter">(null);
   const [selectedActivity, setSelectedActivity] = React.useState('');
@@ -110,14 +94,14 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
   const isTypeListView = !hasSelectedActivityType && !hasSelectedActivity;
   const isActivitiesListView = hasSelectedActivityType && !hasSelectedActivity;
   const isActivityView = hasSelectedActivity;
-  const currentOpenPanel = getCurrentOpenPanelIndex(isTypeListView, isActivitiesListView, isActivityView);
 
+  const currentOpenPanel = getCurrentOpenPanelIndex(isTypeListView, isActivitiesListView, isActivityView);
   const activitiesTypesList = getEnumValues(ActivityType);
 
   React.useEffect(() => {
     const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, lastUpdate);
     if (loggedIn && !isDataUpToDate) {
-      getActivities();
+      dispatch(getActivities());
     }
   }, [loggedIn])
   
@@ -203,8 +187,7 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
           className={classes.contentWindow} 
           style={{ left: getLeftOffset(1, currentOpenPanel) }}
         >
-          <ActivitiesTypesList 
-            activities={activities}
+          <ActivitiesTypesList
             activitiesTypesList={activitiesTypesList}
             onSelect={handleSelectActivityType}
           />
@@ -213,8 +196,7 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
           className={classes.contentWindow} 
           style={{ left: getLeftOffset(2, currentOpenPanel) }}
         >
-          <ActivitiesList 
-            activities={activities}
+          <ActivitiesList
             activityType={selectedActivityType}
             activitiesFilters={activitiesFilters}
             onSelect={handleSelectActivity}
@@ -247,4 +229,4 @@ const ActivitiesMobileContainer: React.FC<ReduxProps> = ({
   )
 }
 
-export default connector(ActivitiesMobileContainer);
+export default ActivitiesMobileContainer;

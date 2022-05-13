@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { updateLastContact } from 'contacts/store/thunks';
+// Components
 import { ListItem, ListItemText } from '@material-ui/core';
 import ContactMeter from 'contacts/components/ContactsPanel/ContactMeter';
 import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
 import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
+// Types
 import { Contact } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/ContactsConnector';
+import { AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   miniChips: {
@@ -22,16 +26,16 @@ interface Props {
   contact: Contact;
   mobile?: boolean;
   onSelect: (contactId?: string) => void;
-  onSnoozeContact: ReduxProps["updateLastContact"];
 }
 
 const ContactsListItem: React.FC<Props> = ({ 
   contact, 
   mobile, 
-  onSelect, 
-  onSnoozeContact 
+  onSelect
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+
   const { id, name, location, lastContact, gender, relationshipStatus } = contact;
 
   const handleOpenInfoPanel = () => {
@@ -39,7 +43,7 @@ const ContactsListItem: React.FC<Props> = ({
   }
   const handleSnooze = (event) => {
     event.stopPropagation();
-    onSnoozeContact(id);
+    dispatch(updateLastContact(id));
   }
 
   return (

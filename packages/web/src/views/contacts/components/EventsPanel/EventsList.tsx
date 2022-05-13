@@ -3,8 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List } from 'react-virtualized';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import EventListItem from 'contacts/components/EventsPanel/EventListItem';
-import { Contact, Event } from 'contacts/types';
-import { Activity } from 'activities/types';
+import { Event } from 'contacts/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -19,18 +18,14 @@ const useStyles = makeStyles(() => createStyles({
 
 interface ItemProps {
   event: Event;
-  activities: Record<string, Activity>;
-  contacts: Record<string, Contact>;
   onOpenInfoPanel: () => void;
 }
 
-const ListItem: React.FC<ItemProps> = ({ event, ...props }) => {
+const ListItem: React.FC<ItemProps> = ({ event, onOpenInfoPanel }) => {
   return (
     <EventListItem
-      event={event} 
-      activities={props.activities}
-      contacts={props.contacts} 
-      onOpenInfo={props.onOpenInfoPanel}
+      event={event}
+      onOpenInfo={onOpenInfoPanel}
     />
   )
 }
@@ -38,8 +33,6 @@ const ListItem: React.FC<ItemProps> = ({ event, ...props }) => {
 interface ListProps {
   showUpcoming: boolean; 
   eventsList: Event[];
-  activities: Record<string, Activity>;
-  contacts: Record<string, Contact>;
   onOpenInfoPanel: (eventId?: string) => void;
 }
 
@@ -48,12 +41,12 @@ interface RenderRowProps {
   index: number;
 }
 
-const EventsList: React.FC<ListProps> = ({ showUpcoming, eventsList, ...props }) => {
+const EventsList: React.FC<ListProps> = ({ showUpcoming, eventsList, onOpenInfoPanel }) => {
   const classes = useStyles();
 
   const renderRow = ({ index }: RenderRowProps) => {
     const event = eventsList[index];
-    return <ListItem key={event.id} event={event} {...props} />
+    return <ListItem key={event.id} event={event} onOpenInfoPanel={onOpenInfoPanel} />
   }
 
   return (

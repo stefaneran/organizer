@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Components
 import { List } from '@material-ui/core';
-import ContactsListItem from './ContactsListItem';
+import ContactsListItem from 'contacts/components/ContactsPanel/ContactsListItem';
+// Types
 import { Contact } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -14,17 +15,15 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  contactsList: Contact[];
   mobile?: boolean;
+  contactsList: Contact[];
   onSelect: (contactId?: string) => void;
-  onSnoozeContact: ReduxProps["updateLastContact"];
 }
 
 const ContactsList: React.FC<Props> = ({ 
   contactsList, 
   mobile, 
-  onSelect, 
-  onSnoozeContact 
+  onSelect
 }) => {
   const classes = useStyles();
   return (
@@ -34,8 +33,7 @@ const ContactsList: React.FC<Props> = ({
           key={contact.id} 
           contact={contact} 
           mobile={mobile}
-          onSelect={onSelect} 
-          onSnoozeContact={onSnoozeContact}
+          onSelect={onSelect}
         />
       ))}
     </List>

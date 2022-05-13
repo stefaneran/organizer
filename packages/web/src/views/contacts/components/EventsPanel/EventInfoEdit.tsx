@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, TextField } from '@material-ui/core';
+import { createEvent, editEvent } from 'contacts/store/thunks';
 // Components
+import { Typography, TextField } from '@material-ui/core';
 import EditButtonGroup from 'contacts/components/EditButtonGroup';
 import SelectInput from '@core/components/inputs/SelectInput';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
@@ -14,10 +16,9 @@ import getContactsByIds from 'contacts/utils/getContactsByIds';
 import getContactsArray from 'contacts/utils/getContactsArray';
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
-import { ReduxProps } from 'contacts/container/ContactsConnector';
-import { Contact, Event } from 'contacts/types';
+import { Event } from 'contacts/types';
 import { Activity, ActivityType } from 'activities/types';
-import { Option, SelectEvent } from '@core/types';
+import { Option, RootState, AppDispatch, SelectEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   headline: {
@@ -47,27 +48,23 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   event: Event;
   eventId: string;
-  activities: Record<string, Activity>;
-  contacts: Record<string, Contact>;
   toggleEdit: () => void;
   onClose: () => void;
   onDeleteEvent: () => void;
-  createEvent: ReduxProps["createEvent"];
-  editEvent: ReduxProps["editEvent"];
 }
 
 const EventInfoEdit: React.FC<Props> = ({ 
   event, 
-  eventId, 
-  activities,
-  contacts,
+  eventId,
   toggleEdit,
   onClose,
   onDeleteEvent,
-  createEvent,
-  editEvent
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { contacts } = useSelector((state: RootState) => state.contactsStore)
+  const { activities } = useSelector((state: RootState) => state.activitiesStore)
+  
   const isCreate = !Boolean(eventId);
 
   const [eventData, setEventData] = 
@@ -77,12 +74,9 @@ const EventInfoEdit: React.FC<Props> = ({
   const [activityOptions, setActivityOptions] = 
     React.useState<Option[]>(getActivityOptions(activities, activityType));
 
-  const activityTypes: string[] = 
-    getEnumValues(ActivityType);
-  const activity: Activity = 
-    activities[eventData?.activityId];
-  const participants = 
-    getContactsByIds(contacts, eventData?.participants).map(p => ({ label: p.name, value: p.id }));
+  const activityTypes: string[] = getEnumValues(ActivityType);
+  const activity: Activity = activities[eventData?.activityId];
+  const participants = getContactsByIds(contacts, eventData?.participants).map(p => ({ label: p.name, value: p.id }));
 
   const contactsOptions = React.useMemo(() => 
     getContactsArray(contacts).map(contact => ({ label: contact.name, value: contact.id })),
@@ -130,10 +124,10 @@ const EventInfoEdit: React.FC<Props> = ({
   }
   const handleSubmit = async () => {
     if (isCreate) {
-      await createEvent(eventData);
+      await dispatch(createEvent(eventData));
       onClose();
     } else {
-      await editEvent(eventId, eventData);
+      await dispatch(editEvent(eventId, eventData));
       toggleEdit();
     }
   }

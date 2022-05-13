@@ -1,7 +1,13 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Components
 import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
+// Utils
+import getNumOfActivities from 'activities/utils/getNumOfActivities';
+// Types
+import { RootState } from '@core/types';
 import { ActivityType } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -19,16 +25,17 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   activityType: ActivityType;
-  activitiesAmount: number;
   onSelect: (activityType?: ActivityType) => void;
 }
 
 const ActivitiesTypesListItem: React.FC<Props> = ({ 
   activityType,
-  activitiesAmount,
   onSelect
 }) => {
   const classes = useStyles();
+  const { activities } = useSelector((store: RootState) => store.activitiesStore);
+
+  const activitiesAmount = getNumOfActivities(activities, activityType);
 
   const handleSelect = () => {
     onSelect(activityType);

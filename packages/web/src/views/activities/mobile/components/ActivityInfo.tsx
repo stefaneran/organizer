@@ -53,15 +53,11 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   activityId: string;
   activity: Activity;
-  // editActivity: ReduxProps["editActivity"];
-  // addActivity: ReduxProps["addActivity"];
 }
 
 const ActivityInfo: React.FC<Props> = ({
   activityId,
-  activity,
-  // editActivity,
-  // addActivity
+  activity
 }) => {
   const classes = useStyles();
   const isCreate = !Boolean(activityId);

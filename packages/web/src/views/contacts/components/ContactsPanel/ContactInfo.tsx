@@ -1,12 +1,14 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, IconButton, Button, Tooltip } from '@material-ui/core';
+import { updateLastContact } from 'contacts/store/thunks';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { PeopleIconMediumInfo } from '@core/components/Icons/PeopleIcon';
 // Components
+import { Typography, IconButton, Button, Tooltip } from '@material-ui/core';
 import ContactInfoEdit from 'contacts/components/ContactsPanel/ContactInfoEdit';
 import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
 import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
@@ -15,8 +17,8 @@ import Chips from 'contacts/components/Chips';
 // Utils
 import { formatDateClassic } from '@core/utils/dateUtils';
 // Types
+import { AppDispatch } from '@core/types';
 import { Contact } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   sidepanel: {
@@ -60,27 +62,21 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   contact: Contact;
   contactId: string;
-  groups: string[];
   isOpen: boolean;
   onClose: () => void;
-  onSnoozeContact: ReduxProps["updateLastContact"];
   onDeleteContact: () => void;
-  createContact: ReduxProps["createContact"];
-  editContact: ReduxProps["editContact"];
 }
 
 const ContactInfo: React.FC<Props> = ({ 
   contact,
   contactId,
-  groups,
   isOpen,
   onClose,
-  onSnoozeContact,
-  onDeleteContact,
-  createContact,
-  editContact
+  onDeleteContact
  }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+
   const isCreate = !Boolean(contactId);
 
   const [isEdit, setIsEdit] = React.useState(isCreate);
@@ -95,7 +91,7 @@ const ContactInfo: React.FC<Props> = ({
 
   const toggleEdit = () => setIsEdit(!isEdit);
   const handleClose = () => onClose();
-  const handleSnooze = () => onSnoozeContact(contactId);
+  const handleSnooze = () => dispatch(updateLastContact(contactId));
 
   return (
     <div className={classes.sidepanel} style={{ right: isOpen ? '0%' : '-100%' }}>
@@ -116,11 +112,8 @@ const ContactInfo: React.FC<Props> = ({
             <ContactInfoEdit 
               contact={contact}
               contactId={contactId}
-              groups={groups}
               onClose={handleClose}
               toggleEdit={toggleEdit}
-              createContact={createContact}
-              editContact={editContact}
               onDeleteContact={onDeleteContact}
             />
           ) : (

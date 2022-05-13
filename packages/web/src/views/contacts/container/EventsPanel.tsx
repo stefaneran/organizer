@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+import { deleteEvent } from 'contacts/store/thunks';
 // Components
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import EventsToolbar from 'contacts/components/EventsPanel/EventsToolbar';
 import EventsList from 'contacts/components/EventsPanel/EventsList';
 import EventInfo from 'contacts/components/EventsPanel/EventInfo';
@@ -12,9 +14,7 @@ import SlidingPanel from '@core/components/SlidingPanel';
 import defaultEventFilters from 'contacts/utils/defaultEventFilters';
 import getEventsArray from 'contacts/utils/getEventsArray';
 // Types
-import { Event, Contact } from 'contacts/types';
-import { Activity } from 'activities/types';
-import { DispatchProps } from 'contacts/container/ContactsConnector';
+import { RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -25,20 +25,11 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-interface Props {
-  events: Record<string, Event>; 
-  contacts: Record<string, Contact>; 
-  activities: Record<string, Activity>;
-  actions: DispatchProps
-}
 
-const EventsPanel: React.FC<Props> = ({ 
-  events, 
-  contacts, 
-  activities,
-  actions 
-}) => {
+const EventsPanel: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { events } = useSelector((state: RootState) => state.contactsStore);
 
   const [selectedEvent, setSelectedEvent] = React.useState('');
   const [eventsFilters, setEventsFilters] = React.useState(defaultEventFilters);
@@ -73,8 +64,8 @@ const EventsPanel: React.FC<Props> = ({
       [property]: value
     });
   }
-  const handleDeleteEvent = () => {
-    actions.deleteEvent(selectedEvent);
+  const handleDeleteEvent = async () => {
+    await dispatch(deleteEvent(selectedEvent));
     handleCloseInfoPanel();
     toggleConfirmationDialog();
   }
@@ -88,8 +79,6 @@ const EventsPanel: React.FC<Props> = ({
         onChangeFilter={handleChangeFilter}
       />
       <EventsList
-        contacts={contacts}
-        activities={activities}
         eventsList={eventsList}
         showUpcoming={eventsFilters.showUpcoming}
         onOpenInfoPanel={handleOpenInfoPanel}
@@ -98,13 +87,9 @@ const EventsPanel: React.FC<Props> = ({
       <EventInfo
         event={events[selectedEvent]}
         eventId={selectedEvent}
-        activities={activities}
-        contacts={contacts}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
         onDeleteEvent={toggleConfirmationDialog}
-        createEvent={actions.createEvent}
-        editEvent={actions.editEvent}
       />
       <SlidingPanel
         isOpen={isFiltersPanelOpen}

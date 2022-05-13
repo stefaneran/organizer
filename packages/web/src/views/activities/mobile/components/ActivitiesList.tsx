@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { List } from '@material-ui/core';
 // Components
+import { List } from '@material-ui/core';
 import ActivitiesListItem from 'activities/mobile/components/ActivitiesListItem';
 // Utils
 import getActivitiesArray from 'activities/utils/getActivitiesArray';
 import getActivitiesOfType from 'activities/utils/getActivitiesOfType';
 import getActivityLocations from 'activities/utils/getActivityLocations';
 // Types
-import { Activity, ActivityType, ActivityFilters } from 'activities/types';
+import { RootState } from '@core/types';
+import { ActivityType, ActivityFilters } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -19,19 +21,18 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  activities: Record<string, Activity>;
   activityType: ActivityType | "Filter";
   activitiesFilters: ActivityFilters;
   onSelect: (activityId?: string) => void;
 }
 
-const ActivitiesList: React.FC<Props> = ({ 
-  activities,
+const ActivitiesList: React.FC<Props> = ({
   activityType,
   activitiesFilters,
   onSelect
 }) => {
   const classes = useStyles();
+  const { activities } = useSelector((state: RootState) => state.activitiesStore)
 
   const activitiesList = 
     React.useMemo(() => {

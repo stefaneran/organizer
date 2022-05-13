@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TextField, Typography } from '@material-ui/core';
+import { createContact, editContact } from 'contacts/store/thunks';
 // Icons
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
 // Components
+import { TextField, Typography } from '@material-ui/core';
 import EditButtonGroup from 'contacts/components/EditButtonGroup';
 import TextMultiSelect from '@core/components/inputs/TextMultiSelect';
 import SelectInput from '@core/components/inputs/SelectInput';
@@ -13,9 +15,8 @@ import SwitchInput from '@core/components/inputs/SwitchInput';
 import defaultContactProps from 'contacts/utils/defaultContactProps';
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
-import { Option } from '@core/types';
+import { Option, RootState, AppDispatch } from '@core/types';
 import { Contact, Genders, RelationshipStatus } from 'contacts/types';
-import { ReduxProps } from 'contacts/container/ContactsConnector';
 
 const useStyles = makeStyles(() => createStyles({
   headline: {
@@ -59,25 +60,22 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   contact: Contact;
   contactId: string;
-  groups: string[];
   onClose: () => void;
   toggleEdit: () => void;
   onDeleteContact: () => void;
-  createContact: ReduxProps["createContact"];
-  editContact: ReduxProps["editContact"];
 }
 
 const ContactInfo: React.FC<Props> = ({ 
   contact,
   contactId,
-  groups,
   onClose,
   toggleEdit,
-  onDeleteContact,
-  createContact,
-  editContact
+  onDeleteContact
  }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groups } = useSelector((state: RootState) => state.contactsStore);
+
   const isCreate = !Boolean(contactId);
 
   const [contactData, setContactData] = React.useState(isCreate ? defaultContactProps : contact);
@@ -103,10 +101,10 @@ const ContactInfo: React.FC<Props> = ({
   }
   const handleSubmit = async () => {
     if (isCreate) {
-      await createContact(contactData);
+      await dispatch(createContact(contactData));
       onClose();
     } else {
-      await editContact(contactId, contactData)
+      await dispatch(editContact(contactId, contactData));
       toggleEdit();
     }
   }

@@ -13,7 +13,7 @@ const slice = createSlice({
     groups: [],
     // Last time there was an update in contacts
     lastUpdate: 0
-  },
+  } as ContactsStore,
   reducers: {
     setContactsAndEvents: (state: ContactsStore, { payload }) => {
       state.contacts = payload.contacts;

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { List } from '@material-ui/core';
 import ActivitiesTypesListItem from 'activities/mobile/components/ActivitiesTypesListItem';
-import getNumOfActivities from 'activities/utils/getNumOfActivities';
-import { ActivityType, Activity } from 'activities/types';
+import { ActivityType } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -14,13 +13,11 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  activities: Record<string, Activity>;
   activitiesTypesList: ActivityType[];
   onSelect: (activityType?: ActivityType) => void;
 }
 
-const ActivitiesTypesList: React.FC<Props> = ({ 
-  activities,
+const ActivitiesTypesList: React.FC<Props> = ({
   activitiesTypesList,
   onSelect
 }) => {
@@ -31,7 +28,6 @@ const ActivitiesTypesList: React.FC<Props> = ({
         <ActivitiesTypesListItem 
           key={activityType} 
           activityType={activityType}
-          activitiesAmount={getNumOfActivities(activities, activityType)}
           onSelect={onSelect}
         />
       ))}

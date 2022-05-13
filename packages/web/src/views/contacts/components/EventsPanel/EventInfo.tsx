@@ -1,18 +1,19 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, IconButton } from '@material-ui/core';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 // Components
+import { Typography, IconButton } from '@material-ui/core';
 import EventInfoEdit from 'contacts/components/EventsPanel/EventInfoEdit';
 import Chips from 'contacts/components/Chips';
 import LocationLink from 'activities/components/LocationLink';
 // Utils
 import getActivityLocation from 'activities/utils/getActivityLocation';
 // Types
-import { ReduxProps } from 'contacts/container/ContactsConnector';
-import { Contact, Event } from 'contacts/types';
+import { RootState } from '@core/types';
+import { Event } from 'contacts/types';
 import { Activity } from 'activities/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -42,27 +43,21 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   event: Event;
   eventId: string;
-  activities: Record<string, Activity>;
-  contacts: Record<string, Contact>;
   isOpen: boolean;
   onClose: () => void;
   onDeleteEvent: () => void;
-  createEvent: ReduxProps["createEvent"];
-  editEvent: ReduxProps["editEvent"];
 }
 
 const EventInfo: React.FC<Props> = ({ 
   event = {} as Event, 
-  eventId, 
-  activities,
-  contacts,
+  eventId,
   isOpen, 
   onClose,
-  onDeleteEvent,
-  createEvent,
-  editEvent
+  onDeleteEvent
 }) => {
   const classes = useStyles();
+  const { contacts } = useSelector((state: RootState) => state.contactsStore)
+  const { activities } = useSelector((state: RootState) => state.activitiesStore)
 
   const { title, participants, activityId, activityLocationIndex } = event;
 
@@ -106,13 +101,9 @@ const EventInfo: React.FC<Props> = ({
             <EventInfoEdit 
               event={event}
               eventId={eventId}
-              activities={activities}
-              contacts={contacts}
               toggleEdit={toggleEdit}
               onClose={onClose}
               onDeleteEvent={onDeleteEvent}
-              createEvent={createEvent}
-              editEvent={editEvent}
             />
           ) : (
             <>

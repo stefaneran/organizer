@@ -1,15 +1,15 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import { 
-  connector, 
-  ReduxProps, 
-  DispatchProps 
-} from 'contacts/mobile/container/ContactsMobileConnector';
+// Thunks/Actions
+import { initGroups } from 'contacts/store';
+import { getContactsAndEvents } from 'contacts/store/thunks';
+import { getActivities } from 'activities/store/thunks';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 // Components
+import { Typography } from '@material-ui/core';
 import ContactsFilters from 'contacts/mobile/components/ContactsFilters';
 import ContactsList from 'contacts/components/ContactsPanel/ContactsList';
 // Utils
@@ -17,7 +17,7 @@ import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import getContactsArray from 'contacts/utils/getContactsArray';
 import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -61,15 +61,12 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({ 
-  loggedIn,
-  lastUpdate,
-  activitiesLastUpdate,
-  contacts, 
-  groups,
-  ...actions
-}) => {
+const ContactsMobileContainer: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((state: RootState) => state.app.user);
+  const { lastUpdate, contacts, groups } = useSelector((state: RootState) => state.contactsStore);
+  const activitiesLastUpdate = useSelector((state: RootState) => state.activitiesStore.lastUpdate);
 
   const [selectedContact, setSelectedContact] = React.useState('');
   const [contactsFilters, setContactsFilters] = React.useState(defaultContactFilters);
@@ -88,10 +85,10 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       const isActivitiesDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Activities, activitiesLastUpdate);
       if (loggedIn) {
         if (!isContactsDataUpToDate) {
-          actions.getContactsAndEvents();
+          dispatch(getContactsAndEvents());
         }
         if (!isActivitiesDataUpToDate) {
-          actions.getActivities();
+          dispatch(getActivities());
         }
       }
     }, [loggedIn])
@@ -99,7 +96,7 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   // Initialize contact groups when receving contacts
   React.useEffect(() => {
     if (!groups.length) {
-      actions.initGroups();
+      dispatch(initGroups());
     }
   }, [contacts])
 
@@ -145,10 +142,9 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       </div>
       <br/>
       <ContactsList 
-        contactsList={contactsList}
         mobile
+        contactsList={contactsList}
         onSelect={handleSelectContact}
-        onSnoozeContact={actions.updateLastContact}
       />
       <div 
         className={classes.filtersDrawer}
@@ -167,4 +163,4 @@ const ContactsMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   )
 }
 
-export default connector(ContactsMobileContainer);
+export default ContactsMobileContainer;

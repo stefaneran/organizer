@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { deleteContact } from 'contacts/store/thunks';
+// Components
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 import ContactsToolBar from 'contacts/components/ContactsPanel/ContactsToolBar';
 import ContactsList from 'contacts/components/ContactsPanel/ContactsList';
@@ -7,10 +10,11 @@ import ContactInfo from 'contacts/components/ContactsPanel/ContactInfo';
 import ContactsFilters from 'contacts/components/ContactsPanel/ContactsFilters';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
 import SlidingPanel from '@core/components/SlidingPanel';
+// Utils
 import defaultContactFilters from 'contacts/utils/defaultContactFilters';
 import getContactsArray from 'contacts/utils/getContactsArray';
-import { Contact } from 'contacts/types';
-import { DispatchProps } from 'contacts/container/ContactsConnector';
+// Types
+import { RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -21,14 +25,10 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-interface Props {
-  contacts: Record<string, Contact>;
-  groups: string[];
-  actions: DispatchProps;
-}
-
-const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
+const ContactsPanel: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { contacts } = useSelector((state: RootState) => state.contactsStore)
 
   const [selectedContact, setSelectedContact] = React.useState('');
   const [contactsFilters, setContactsFilters] = React.useState(defaultContactFilters);
@@ -65,7 +65,7 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
     });
   }
   const handleDeleteContact = () => {
-    actions.deleteContact(selectedContact);
+    dispatch(deleteContact(selectedContact));
     handleCloseInfoPanel();
     toggleConfirmationDialog();
   }
@@ -75,26 +75,20 @@ const ContactsPanel: React.FC<Props> = ({ contacts, groups, actions }) => {
       <ContactsToolBar 
         onOpenInfo={handleOpenInfoPanel}
         toggleFilterPanel={toggleFilterPanel}
-        groups={groups}
         contactsFilters={contactsFilters}
         onChangeFilter={handleChangeFilter}
       />
-      <ContactsList 
+      <ContactsList
         contactsList={contactsList}
         onSelect={handleOpenInfoPanel}
-        onSnoozeContact={actions.updateLastContact}
       />
       {/** Sliding Side Panels */}
       <ContactInfo 
         contact={contacts[selectedContact]}
         contactId={selectedContact}
-        groups={groups}
         isOpen={isInfoPanelOpen}
         onClose={handleCloseInfoPanel}
-        onSnoozeContact={actions.updateLastContact}
         onDeleteContact={toggleConfirmationDialog}
-        createContact={actions.createContact}
-        editContact={actions.editContact}
       />
       <SlidingPanel
         isOpen={isFiltersPanelOpen}
