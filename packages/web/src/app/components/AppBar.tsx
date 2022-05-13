@@ -14,7 +14,7 @@ import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
 import { CartIconSmall } from '@core/components/Icons/CartIcon';
 import { FoodIconSmall } from '@core/components/Icons/FoodIcon';
 import { LogInIconSmall } from '@core/components/Icons/LoginIcon';
-import { OrganizerModule, AppStore } from '@core/types';
+import { OrganizerModule, RootState } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface AppBarProps {
-  app: AppStore["app"];
+  app: RootState["app"];
   setCurrentModule: (OrganizerModule: OrganizerModule) => void;
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
   onLogout: () => void;

@@ -8,7 +8,7 @@ const slice = createSlice({
   initialState: {
     recipes: {},
     // Last time there was an update in recipes
-    lastUpdate: null
+    lastUpdate: 0
   },
   reducers: {
     setRecipes: (state: RecipeStore, { payload }) => {
@@ -16,7 +16,7 @@ const slice = createSlice({
     },
     clearRecipes: (state: RecipeStore) => {
       state.recipes = {};
-      state.lastUpdate = null;
+      state.lastUpdate = 0;
     },
     updateRecipe: (state: RecipeStore, { payload }) => {
       const { recipeId, recipe } = payload;
@@ -58,7 +58,7 @@ const slice = createSlice({
       }
     },
     setLastRecipeUpdate: (state: RecipeStore, { payload }) => {
-      state.lastUpdate = payload;
+      state.lastUpdate = Number(payload);
     }
   }
 });

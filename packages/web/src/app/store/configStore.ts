@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk'; 
-import combinedReducer from './combinedReducer';
+import combinedReducer from 'app/store/combinedReducer';
 
 export default () => {
 

@@ -13,7 +13,7 @@ const slice = createSlice({
     // Array of grocery IDs in user's cart which are selected
     cartSelected: [],
     // Last time there was an update in inventory
-    lastUpdate: null
+    lastUpdate: 0
   },
   reducers: {
 
@@ -34,7 +34,7 @@ const slice = createSlice({
       state.inventory = [];
       state.cart = [];
       state.cartSelected = [];
-      state.lastUpdate = null;
+      state.lastUpdate = 0;
     },
 
     setGroceryItem: (state: InventoryStore, { payload }) => {
@@ -116,7 +116,7 @@ const slice = createSlice({
     },
 
     setLastInventoryUpdate: (state: InventoryStore, { payload }) => {
-      state.lastUpdate = payload;
+      state.lastUpdate = Number(payload);
     }
 
   }

@@ -51,7 +51,7 @@ const AppContainer: React.FC<ReduxProps> = ({
       const user = loadUserFromLocalStorage();
       if (user && !loggedIn) {
         const { userName, password } = user;
-        if (userName && password) {
+        if (userName?.length && password?.length) {
           login(user)
         }
       }

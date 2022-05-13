@@ -2,9 +2,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { getContactsAndEvents, updateLastContact } from 'contacts/store/thunks';
 import { getActivities } from 'activities/store/thunks'
 import { initGroups } from 'contacts/store';
-import { AppStore } from '@core/types';
+import { RootState } from '@core/types';
 
-const mapStateToProps = (state: AppStore) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedIn: state.app.user.loggedIn,
   lastUpdate: state.contactsStore.lastUpdate,
   activitiesLastUpdate: state.activitiesStore.lastUpdate,

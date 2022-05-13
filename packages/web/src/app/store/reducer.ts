@@ -7,8 +7,8 @@ const slice = createSlice({
     isLoading: false,
     isMobile: false,
     user: {
-      userName: undefined,
-      password: undefined,
+      userName: '',
+      password: '',
       loggedIn: false
     },
     error: {
@@ -41,8 +41,8 @@ const slice = createSlice({
     },
     logoutDone: (state) => {
       state.user.loggedIn = false;
-      state.user.userName = undefined;
-      state.user.password = undefined;
+      state.user.userName = '';
+      state.user.password = '';
     }
   }
 });

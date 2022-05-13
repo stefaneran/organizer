@@ -6,9 +6,9 @@ import {
   deleteRecipe
 } from 'recipes/store/thunks';
 import { addCart, getItems } from 'inventory/store/thunks';
-import { AppStore } from '@core/types';
+import { RootState } from '@core/types';
 
-const mapStateToProps = (state: AppStore) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedIn: state.app.user.loggedIn,
   lastUpdate: state.recipesStore.lastUpdate,
   inventoryLastUpdate: state.inventoryStore.lastUpdate,

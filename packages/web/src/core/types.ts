@@ -1,4 +1,5 @@
 import * as React from 'react';
+import combinedReducer from 'app/store/combinedReducer';
 import { Activity } from 'activities/types';
 import { Contact, Event } from 'contacts/types';
 import { GroceryItemEdit } from 'inventory/types';
@@ -95,25 +96,6 @@ export interface RecipeStore {
   lastUpdate: number;
 }
 
-export interface AppStore {
-  app: {
-    version: string;
-    isLoading: boolean;
-    isMobile: boolean;
-    user: {
-      userName: string;
-      password: string;
-      loggedIn: boolean;
-    };
-    error: {
-      active: boolean;
-      message: string;
-    };
-  };
-  activitiesStore: ActivitiesStore;
-  contactsStore: ContactsStore;
-  inventoryStore: InventoryStore;
-  recipesStore: RecipeStore;
-}
+export type RootState = ReturnType<typeof combinedReducer>;
 
-export type GetState = () => AppStore;
+export type GetState = () => RootState;

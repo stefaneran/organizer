@@ -1,8 +1,8 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { getActivities } from 'activities/store/thunks';
-import { AppStore } from '@core/types';
+import { RootState } from '@core/types';
 
-const mapStateToProps = (state: AppStore) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedIn: state.app.user.loggedIn,
   activities: state.activitiesStore.activities,
   lastUpdate: state.activitiesStore.lastUpdate

@@ -7,7 +7,7 @@ const slice = createSlice({
     // All individual activities serialized by UUID
     activities: {},
     // Last time there was an update in activities
-    lastUpdate: null
+    lastUpdate: 0
   },
   reducers: {
     setActivities: (state: ActivitiesStore, { payload }) => {
@@ -15,7 +15,7 @@ const slice = createSlice({
     },
     clearActivities: (state: ActivitiesStore) => {
       state.activities = {};
-      state.lastUpdate = null;
+      state.lastUpdate = 0;
     },
     updateActivityDone: (state: ActivitiesStore, { payload }) => {
       const { activityId, activity } = payload;
@@ -26,7 +26,7 @@ const slice = createSlice({
       delete state.activities[activityId];
     },
     setLastActivityUpdate: (state: ActivitiesStore, { payload }) => {
-      state.lastUpdate = payload;
+      state.lastUpdate = Number(payload);
     }
   }
 });

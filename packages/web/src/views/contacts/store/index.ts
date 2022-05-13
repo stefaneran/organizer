@@ -12,7 +12,7 @@ const slice = createSlice({
     // Array of all unique group names (eg: Friends, Coworkers) derived from contacts
     groups: [],
     // Last time there was an update in contacts
-    lastUpdate: null
+    lastUpdate: 0
   },
   reducers: {
     setContactsAndEvents: (state: ContactsStore, { payload }) => {
@@ -26,7 +26,7 @@ const slice = createSlice({
       state.contacts = {};
       state.events = {};
       state.groups = [];
-      state.lastUpdate = null;
+      state.lastUpdate = 0;
     },
     initGroups: (state: ContactsStore) => {
       state.groups = getAllGroups(state.contacts);
@@ -53,7 +53,7 @@ const slice = createSlice({
       delete state.events[eventId];
     },
     setLastContactUpdate: (state: ContactsStore, { payload }) => {
-      state.lastUpdate = payload;
+      state.lastUpdate = Number(payload);
     }
   }
 });

@@ -11,7 +11,7 @@ import InventoryMobileContainer from 'inventory/mobile/container/InventoryMobile
 import RecipesContainer from 'recipes/container/RecipesContainer';
 import RecipesMobileContainer from 'recipes/mobile/container/RecipesMobileContainer';
 import defaultWebApp from '@core/defaultWebApp';
-import { OrganizerModule, AppStore } from '@core/types';
+import { OrganizerModule, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 })); 
 
 interface Props {
-  app: AppStore["app"];
+  app: RootState["app"];
   setLoginDialog: (props: { type: string; isOpen: boolean; }) => () => void;
   onLogout: () => void;
 }

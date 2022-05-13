@@ -8,9 +8,9 @@ import { setInventoryData } from 'inventory/store';
 // Thunks
 import { register, login, logout } from 'app/store/thunks';
 // Types
-import { AppStore } from '@core/types';
+import { RootState } from '@core/types';
 
-const mapStateToProps = (state: AppStore) => ({
+const mapStateToProps = (state: RootState) => ({
   app: state.app,
   error: state.app.error,
   loggedIn: state.app.user.loggedIn,

@@ -1,92 +1,79 @@
 
-Migration:
-- Do test migration and TEST
-- DEPLOY
-- Make Inventory essential items feature
-// Commit
-- Interval pinging for last update
+NEXT:
 - Refactor to use UseDispatch and useSelector
-  - Activities then TEST
-  - Contacts then TEST 
-  - Inventory then TEST 
-  - Recipes then TEST
-- Use AsyncThunk
-// Commit
-- Fix console warnings
-- Remove all console.logs
-- Treeshake
-- Fresh clone to make sure the modules are installed properly
-- Implement Auth0 / JWT
-- Write integration tests
+- Make Inventory essential items feature
+- Make event reminders feature
+- Use routing and make homepage
 
+===============================================================
+======================  General  ==============================
+===============================================================
 
-General:
-- (MVP) Make landing page
-- (MVP) Save last visited app to open automatically on next visit
-- Disable actions (like create) if not logged in
-- Make loading screen when loading large data (not for minor requests)
-- Implement localstorage to save transfer sizes
+- Make landing page and implement routing
+- Make loading animation for mobile
 - Treeshake and invalidate NPM modules
-- Use tokens for authorization instead of sending user/pass in post
-- Add patchnotes dialog/button
-- Change APIs verbs to more appropriate (DELETE, PUT, etc)
+- Implement JWT authorization (no more string user/pass)
+- Add changelog dialog/button
 - Add error boundry
+- Disable thunks (like create) if not logged in (and show a message)
+
+Less urgent:
+- Interval pinging for last update
+- Change APIs verbs to more appropriate (DELETE, PUT, etc)
+- Look into lazy loading (using require() or import())
 - Use MUI theme and make Dark theme
-- Add sync button in appbar to update info
-- Add filter options to store and save in cloud
+- Make loading screen when loading large data (not for minor requests)
 
 Back-End: 
 - Host site on Firebase
 - Add CI/CD pipeline
 
 Refactors:
-- Mobile: Make a MobileHeader
-- Mobile: Make MobileScreens (sliding views with props.children)
-- Mobile: Make exportable mobile styles (containers and input, other general things)
-- Mobile: Don't use "transform:scale" anywhere
-- Change local storage to cookies
+- Refactor to use UseDispatch and useSelector
+- Use AsyncThunk
+- Implement user info as cookies instead of localstorage 
+- Fix console warnings/errors (eslint and ts)
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
 
   
 ===============================================================
+======================  Recipes  ==============================
+===============================================================
 
-Recipes:
-
-- (MVP) Show "missing optionals" indicator that recipe is missing some optional
-- Recipe Tags:
-  - Add tags like "No Meat", "No Carbs" etc 
-  - Allow filtering by these
+- Show "missing optionals" indicator that recipe is missing some optional ingredients
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
-- When creating new recipe, set as selected to avoid confusion
-- Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
-- Group By - Should be saved in back end
+- When finish creating new recipe, set as selected to avoid confusion
 - Is Optional - Make a custom checkbox with question icon instead of classic checkbox
-- Add nationality flags to options/chips
 
 Mobile:
-- (MVP) Click on icon wonky - Remove isHover for mobile
-- Add/Edit recipe
+- Click on icon wonky - Remove isHover for mobile
 - Optional icon too small
+- Edit recipe functionality (maybe add too?)
 
 Refactor: 
 - Find duplicate util functions and move to /utils
-- Add optional chaining across Recipes
-- Refactr the way Optional Confirmation is handled (very hacky)
+- Remove optional ingredients dialogue (useless feature that adds a lot of technical debt)
+
+Optional: 
+- Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
+- Recipe Tags:
+  - Add tags like "No Meat", "No Carbs" etc 
+  - Allow filtering by these
 
 ===============================================================
+======================  Inventory  ============================
+===============================================================
 
-Inventory:
-
-- (MVP) Add "De-select All" button
-- (MVP) BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
-- (MVP) Add debounce to requests 
-- (MVP) Add chip to ingredients that shows how many recipes its used in
-- "Finish Shopping" btn too low on laptop
-- Clear name when adding new item to allItems
+- Make Inventory essential items feature
+- Grocery spoiling feature
+- Add "De-select All" button
+- BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
+- Add chip to ingredients that shows how many recipes its used in
+- BUG: Fix "Finish Shopping" btn positioning (not visible in some dimensions)
+- Clear name input when adding new item to groceries
 - Controls UI - Handle long lists better (fixed position, or whatever)
 
 Refactor:
-- Rename components and util files with new Grocery naming
 - Fix how TypeScript handles GroceryItem/GroceryItemEdit across the app
 - Move everything from <Inventory /> to <InventoryContainer />
 - Generalize inventory control panels to one component, then separate from InventorySection
@@ -94,49 +81,49 @@ Refactor:
 
 Mobile: 
 - Cart & Inventory: Add option to switch between sort by alphabetical or category
-- Add optional chaining across Recipes
 
 
 ===============================================================
+======================  Activities  ===========================
+===============================================================
 
-Activities:
-
-- (MVP) Add "Social" type
-- (MVP) Automatically add new actvity when creating event
+- Change UI to be more similar to Inventory (3 expanding columns)
+- Add "Social" type
 - Change Layout to resemble Inventory (3 vertical panels)
-- Add upcoming events
-- Expand
-  - Name 
-    - Address 
-    - Website
-    - City
+- Integration with google maps?
 
 Mobile:
-  - Add ActivityInfoEdit
-  - 0 Locations if no address/link - Fix bug
-  - Use Google location to automatically find address for new location
+- Add ActivityInfoEdit (?)
+- BUG: Locations not showing up if they dont have address/link
+- Integration with google maps (using current location)?
+
+Optional:
+- Show upcoming events of activity type if any
 
 ===============================================================
-
-
-Contacts:
+======================  Contacts  =============================
+===============================================================
 
 - Make lastContact requests every time (they dont update)
-- (MVP) Events: Show more details in info
+
+Contacts:
+- Show last hangout (days ago)
+- Friendship details (use metrics like hangout etc)
+- Relationships with other contacts derived from hangout data
+- Remove relationship info (single/taken)
+
+Events:
+- Implement Reminder feature
+  - Abillity to turn reminder into event
+- Automatically add new actvity when creating event if activity doesn't exist
+- ListItem undefined values (show something nicer)
+- Delete past events on front end (useless info for user)
+- Show more details in info
   - Date/Time 
   - Participants (Better UI)
-- (MVP) Contacts: Show more details in info
-  - Last hangout (days ago)
-  - Friendship levels (hangoutTally/dateCreated)
-  - Acquaintances
-- Contacts: Let user set current Location
-- Events: Participant suggestion function
+- Participant suggestion function
   - Show male/female ratio + suggestion how many to add to achieve balance
-- Events: Filters - Activity Type / Date range (before/after)
-- Events: ListItem undefined values (show something nicer)
-- Events: Don't show activity types that have no items + Add 'All' option
-- Events: Get rid of virtualized list
-- Contacts: See number of contacts (and num of ones in current location)
+- Add "All" option for activity types, don't force user to select one
 
 Refactor:
 - Remove PeopleIcon and use material UI equivalent
@@ -144,15 +131,3 @@ Refactor:
 Mobile:
 - Show contact details
 
-Reminders:
-- Declare reminder 
-  - People 
-  - Type (Event/Maintenance)
-  - Activity 
-  - Reminder period 
-- Mock reminders 
-- Add reminder button/UI/Redux 
-- Edit reminder 
-- Delete reminder 
-- Turn reminder to event
-- Turn event to reminder

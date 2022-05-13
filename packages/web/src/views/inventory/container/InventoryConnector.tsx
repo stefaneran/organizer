@@ -12,9 +12,9 @@ import {
   finishShopping
 } from 'inventory/store/thunks';
 import { removeIngredient } from 'recipes/store';
-import { AppStore } from '@core/types';
+import { RootState } from '@core/types';
 
-const mapStateToProps = (state: AppStore) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedIn: state.app.user.loggedIn,
   lastUpdate: state.inventoryStore.lastUpdate,
   groceries: state.inventoryStore.groceries,

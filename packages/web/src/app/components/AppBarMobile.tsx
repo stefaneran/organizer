@@ -14,7 +14,7 @@ import { CartIconXLFill } from '@core/components/Icons/CartIcon';
 import { FoodIconXL } from '@core/components/Icons/FoodIcon';
 import { PeopleIconXL } from '@core/components/Icons/PeopleIcon';
 import { LogInIconXL } from '@core/components/Icons/LoginIcon';
-import { StateSetter, OrganizerModule, AppStore } from '@core/types';
+import { StateSetter, OrganizerModule, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   hamburger: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  app: AppStore["app"];
+  app: RootState["app"];
   setCurrentModule: StateSetter<OrganizerModule>;
   setLoginDialog: (prop: { type: string; isOpen: boolean }) => () => void;
   onLogout: () => void;
