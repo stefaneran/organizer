@@ -1,4 +1,4 @@
-import { Contact, Genders, RelationshipStatus } from 'contacts/types';
+import { Contact, Genders } from 'contacts/types';
 
 // Empty contact object for creation
 const defaultContact: Contact = {
@@ -6,7 +6,6 @@ const defaultContact: Contact = {
   location: '',
   groups: [],
   gender: Genders.Male,
-  relationshipStatus: RelationshipStatus.Single,
   oneOnOne: true,
   lastContact: 0,
   lastHangout: 0,

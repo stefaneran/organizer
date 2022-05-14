@@ -4,12 +4,6 @@ export enum Genders {
   Other = "Other"
 }
 
-export enum RelationshipStatus { 
-  Single = "Single",
-  Taken = "Taken",
-  Unknown = "Unknown"
-}
-
 export enum SortOption { 
   LastContact = "Last Contact",
   Name = "Name",
@@ -21,7 +15,6 @@ export interface ContactFilters {
   name: string;
   location: string;
   gender: Genders | 'All';
-  relationshipStatus: RelationshipStatus | 'All';
   sort: SortOption;
   oneOnOne: boolean;
 }
@@ -37,7 +30,6 @@ export interface Contact {
   location: string;
   groups: string[];
   gender: Genders;
-  relationshipStatus: RelationshipStatus;
   oneOnOne: boolean; // Can you hang out with this person one on one or just in groups
   lastContact: number; // Last hangout or talk - Can be "snoozed" to represent keeping in touch
   lastHangout: number; // Last time user hung out with contact in the real world

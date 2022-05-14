@@ -29,10 +29,6 @@ const getContactsArray = (
   if (filters.gender !== 'All') {
     filteredContacts = filteredContacts.filter(contact => contact.gender === filters.gender)
   }
-  // Filter by relationship status
-  if (filters.relationshipStatus !== 'All') {
-    filteredContacts = filteredContacts.filter(contact => contact.relationshipStatus === filters.relationshipStatus)
-  }
   // Filter by abillity to see contact one-on-one
   if (filters.oneOnOne) {
     filteredContacts = filteredContacts.filter(contact => contact.oneOnOne)

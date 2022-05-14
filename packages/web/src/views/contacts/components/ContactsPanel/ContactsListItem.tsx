@@ -6,7 +6,6 @@ import { updateLastContact } from 'contacts/store/thunks';
 import { ListItem, ListItemText } from '@material-ui/core';
 import ContactMeter from 'contacts/components/ContactsPanel/ContactMeter';
 import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
-import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
 // Types
 import { Contact } from 'contacts/types';
 import { AppDispatch } from '@core/types';
@@ -36,7 +35,7 @@ const ContactsListItem: React.FC<Props> = ({
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
 
-  const { id, name, location, lastContact, gender, relationshipStatus } = contact;
+  const { id, name, location, lastContact, lastHangout, gender } = contact;
 
   const handleOpenInfoPanel = () => {
     onSelect(id)
@@ -56,14 +55,21 @@ const ContactsListItem: React.FC<Props> = ({
       {!mobile ? (
         <div className={classes.miniChips}>
           <GenderChip gender={gender} mini />
-          <RelationshipChip relationshipStatus={relationshipStatus} mini />
         </div>
       ) : null}
-      <ContactMeter 
-        lastContact={lastContact} 
-        mobile={mobile} 
-        onClick={handleSnooze}  
-      />
+      <div>
+        <ContactMeter 
+          lastContact={lastContact} 
+          isHangout={false}
+          mobile={mobile} 
+          onClick={handleSnooze}  
+        />
+        <ContactMeter 
+          lastContact={lastHangout} 
+          isHangout
+          mobile={mobile} 
+        />
+      </div>
     </ListItem>
   )
 }

@@ -1,4 +1,4 @@
-import { Contact, Genders, RelationshipStatus } from 'contacts/types';
+import { Contact, Genders } from 'contacts/types';
 
 const oneUnixDay = 60 * 60 * 24 * 1000;
 
@@ -10,7 +10,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Sofia, Bulgaria',
     groups: ['Work'],
     gender: Genders.Male,
-    relationshipStatus: RelationshipStatus.Taken,
     oneOnOne: true,
     lastContact: daysAgo(3),
     lastHangout: daysAgo(8),
@@ -22,7 +21,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Sofia, Bulgaria',
     groups: [],
     gender: Genders.Female,
-    relationshipStatus: RelationshipStatus.Taken,
     oneOnOne: false,
     lastContact: daysAgo(8),
     lastHangout: daysAgo(8),
@@ -34,7 +32,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Sofia, Bulgaria',
     groups: ['Work'],
     gender: Genders.Male,
-    relationshipStatus: RelationshipStatus.Single,
     oneOnOne: true,
     lastContact: daysAgo(4),
     lastHangout: daysAgo(12),
@@ -46,7 +43,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Mexico City, Mexico',
     groups: ['Digital Nomading'],
     gender: Genders.Male,
-    relationshipStatus: RelationshipStatus.Unknown,
     oneOnOne: true,
     lastContact: daysAgo(41),
     lastHangout: daysAgo(89),
@@ -58,7 +54,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Sofia, Bulgaria',
     groups: ['Foreigners Group'],
     gender: Genders.Male,
-    relationshipStatus: RelationshipStatus.Unknown,
     oneOnOne: true,
     lastContact: daysAgo(15),
     lastHangout: daysAgo(15),
@@ -70,7 +65,6 @@ const mockContacts: Record<string, Contact> = {
     location: 'Sofia, Bulgaria',
     groups: ['Foreigners Group'],
     gender: Genders.Female,
-    relationshipStatus: RelationshipStatus.Single,
     oneOnOne: false,
     lastContact: daysAgo(15),
     lastHangout: daysAgo(15),

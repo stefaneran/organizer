@@ -6,7 +6,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import SelectInput from '@core/components/inputs/SelectInput';
 import SwitchInput from '@core/components/inputs/SwitchInput';
 import getEnumValues from '@core/utils/getEnumValues';
-import { ContactFilters, Genders, RelationshipStatus, SortOption } from 'contacts/types';
+import { ContactFilters, Genders, SortOption } from 'contacts/types';
 
 const useStyles = makeStyles(() => createStyles({
   input: {
@@ -21,9 +21,6 @@ const useStyles = makeStyles(() => createStyles({
   genderSelect: {
     width: '100%',
     marginRight: '0.5em'
-  },
-  relationshipSelect: {
-    width: '100%'
   },
   sortSelect: {
     marginTop: '1em',
@@ -75,13 +72,6 @@ const ContactsFilters: React.FC<Props> = ({
           options={['All', ...getEnumValues(Genders)]}
           onChange={onChangeFilter('gender')}
           label="Gender"
-        />
-        <SelectInput
-          className={classes.relationshipSelect}
-          value={contactsFilters.relationshipStatus}
-          options={['All', ...getEnumValues(RelationshipStatus)]}
-          onChange={onChangeFilter('relationshipStatus')}
-          label="Relationship"
         />
       </div>
       <SelectInput

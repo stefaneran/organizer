@@ -11,7 +11,7 @@ import SwitchInput from '@core/components/inputs/SwitchInput';
 // Utils
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
-import { ContactFilters, Genders, RelationshipStatus, SortOption } from 'contacts/types';
+import { ContactFilters, Genders, SortOption } from 'contacts/types';
 
 const useStyles = makeStyles(() => createStyles({
   mobileTextfield: {
@@ -95,14 +95,6 @@ const ContactsFilters: React.FC<Props> = ({
         value={contactsFilters.gender}
         options={['All', ...Object.keys(Genders)]}
         onChange={onChangeFilter('gender')}
-      />
-      <InputLabel className={classes.label}>Relationship</InputLabel>
-      <SelectInput
-        native
-        className={classes.mobileSelect}
-        value={contactsFilters.relationshipStatus}
-        options={['All', ...Object.keys(RelationshipStatus)]}
-        onChange={onChangeFilter('relationshipStatus')}
       />
       <InputLabel className={classes.label}>Sort By</InputLabel>
       <SelectInput

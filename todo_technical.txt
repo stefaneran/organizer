@@ -70,7 +70,6 @@ Optional:
 - BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
 - Add chip to ingredients that shows how many recipes its used in
 - BUG: Fix "Finish Shopping" btn positioning (not visible in some dimensions)
-- Clear name input when adding new item to groceries
 - Controls UI - Handle long lists better (fixed position, or whatever)
 
 Refactor:

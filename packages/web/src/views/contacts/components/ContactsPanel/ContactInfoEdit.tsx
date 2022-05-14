@@ -16,7 +16,7 @@ import defaultContactProps from 'contacts/utils/defaultContactProps';
 import getEnumValues from '@core/utils/getEnumValues';
 // Types
 import { Option, RootState, AppDispatch } from '@core/types';
-import { Contact, Genders, RelationshipStatus } from 'contacts/types';
+import { Contact, Genders } from 'contacts/types';
 
 const useStyles = makeStyles(() => createStyles({
   headline: {
@@ -155,13 +155,6 @@ const ContactInfo: React.FC<Props> = ({
           options={getEnumValues(Genders)}
           onChange={handleChangeContactData('gender')}
           label="Gender"
-        />
-        <SelectInput
-          className={classes.inputGroupItemTwo}
-          value={contactData.relationshipStatus}
-          options={getEnumValues(RelationshipStatus)}
-          onChange={handleChangeContactData('relationshipStatus')}
-          label="Relationship"
         />
       </div>
 

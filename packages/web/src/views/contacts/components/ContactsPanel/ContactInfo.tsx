@@ -11,7 +11,6 @@ import { PeopleIconMediumInfo } from '@core/components/Icons/PeopleIcon';
 import { Typography, IconButton, Button, Tooltip } from '@material-ui/core';
 import ContactInfoEdit from 'contacts/components/ContactsPanel/ContactInfoEdit';
 import GenderChip from 'contacts/components/ContactsPanel/GenderChip';
-import RelationshipChip from 'contacts/components/ContactsPanel/RelationshipChip';
 import OneOnOneChip from 'contacts/components/ContactsPanel/OneOnOneChip';
 import Chips from 'contacts/components/Chips';
 // Utils
@@ -125,7 +124,6 @@ const ContactInfo: React.FC<Props> = ({
 
                 <div className={classes.infoGroup} style={{ justifyContent: 'center' }}>
                   <GenderChip gender={contact.gender} />
-                  <RelationshipChip relationshipStatus={contact.relationshipStatus} />
                   <OneOnOneChip oneOnOne={contact.oneOnOne} />
                 </div>
 
