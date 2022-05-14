@@ -1,12 +1,14 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, TextField } from '@material-ui/core';
-import { connector, ReduxProps } from './RecipesMobileConnector';
+import { getRecipes } from 'recipes/store/thunks';
+import { addCart, getItems } from 'inventory/store/thunks';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FoodIconLarge } from '@core/components/Icons/FoodIcon';
 import { FilterListIconLarge } from '@core/components/Icons/ListIcon';
 // Components
+import { Typography, TextField } from '@material-ui/core';
 import RecipeInfo from 'recipes/mobile/components/RecipeInfo';
 import RecipeItem from 'recipes/mobile/components/RecipeItem';
 import RecipeFilters from 'recipes/mobile/components/RecipeFilters';
@@ -18,7 +20,7 @@ import getNationalityOptions from 'recipes/utils/getNationalityOptions';
 import getCategoryOptions from 'recipes/utils/getCategoryOptions';
 import getRecipesArray from 'recipes/utils/getRecipesArray';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -82,19 +84,13 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-const RecipesMobileContainer: React.FC<ReduxProps> = ({
-  loggedIn,
-  lastUpdate,
-  inventoryLastUpdate,
-  recipes,
-  inventory, 
-  groceries, 
-  cart,
-  getItems,
-  getRecipes,
-  addCart
-}) => {
+const RecipesMobileContainer: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((state: RootState) => state.app.user); 
+  const { recipes, lastUpdate } = useSelector((state: RootState) => state.recipesStore); 
+  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
+  const inventoryLastUpdate = useSelector((state: RootState) => state.inventoryStore.lastUpdate);
 
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
   const [recipeFilters, setRecipeFilters] = React.useState(defaultRecipeFilters);
@@ -115,10 +111,10 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
     const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, inventoryLastUpdate);
     if (loggedIn) {
       if (!isRecipeDataUpToDate) {
-        getRecipes();
+        dispatch(getRecipes());
       }
       if (!isInventoryDataUpToDate) {
-        getItems();
+        dispatch(getItems());
       }
     }
   }, [loggedIn])
@@ -143,7 +139,7 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
   }
   const handleAddMissing = (ingredients = []) => () => {
     const { missingIngredients } = getMissingIngredients(ingredients, inventory, cart);
-    addCart(missingIngredients);
+    dispatch(addCart(missingIngredients));
   }
 
   return (
@@ -179,11 +175,7 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
       <div className={classes.contentContainer}>
         <div className={classes.contentWindow} style={{ left: hasSelectedRecipe ? '0%' : '100%' }}>
           <RecipeInfo 
-            recipe={recipes[selectedRecipe]} 
-            groceries={groceries} 
-            inventory={inventory} 
-            cart={cart} 
-            addCart={addCart}
+            recipe={recipes[selectedRecipe]}
             onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
           />
         </div>
@@ -194,8 +186,6 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
               recipeId={recipe.id}
               recipe={recipe}
               onSelectRecipe={handleSelectRecipe}
-              inventory={inventory}
-              cart={cart}
               onAddMissing={handleAddMissing(recipe.ingredients)}
             />
           ))}
@@ -220,4 +210,4 @@ const RecipesMobileContainer: React.FC<ReduxProps> = ({
   )
 }
 
-export default connector(RecipesMobileContainer);
+export default RecipesMobileContainer;

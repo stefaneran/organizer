@@ -1,20 +1,20 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { AddCartIconXS } from '@core/components/Icons/CartIcon';
 import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
+import { Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 import Ingredients from 'recipes/components/Ingredients';
 // Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
-import { GroceryItemEdit } from 'inventory/types';
+import { RootState } from '@core/types';
 import { Recipe, EditMode } from 'recipes/types';
-import { DispatchProps } from 'recipes/container/RecipesConnector';
 
 const useStyles = makeStyles(() => createStyles({
   detailsContainer: {
@@ -48,11 +48,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 interface Props {
-  recipe: Recipe; 
-  groceries: Record<string, GroceryItemEdit>; 
-  inventory: string[]; 
-  cart: string[]; 
-  addCart: DispatchProps["addCart"];
+  recipe: Recipe;
   onAddMissing: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
   onSelectRecipe: (id: string) => () => void;
@@ -60,17 +56,14 @@ interface Props {
 }
 
 const RecipeInfo: React.FC<Props> = ({ 
-  recipe, 
-  groceries, 
-  inventory, 
-  cart, 
-  addCart,
+  recipe,
   onAddMissing,
   onOpenEditRecipe,
   onSelectRecipe,
   onDeleteRecipe
 }) => {
   const classes = useStyles();
+  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
 
   const hasRecipe = Boolean(recipe);
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, inventory);
@@ -108,13 +101,7 @@ const RecipeInfo: React.FC<Props> = ({
         </Typography>
         <Divider />
         <div className={classes.ingredientsContainer}>
-          <Ingredients 
-            ingredients={recipe.ingredients}
-            groceries={groceries}
-            inventory={inventory}
-            cart={cart}
-            addCart={addCart}
-          />
+          <Ingredients ingredients={recipe.ingredients} />
         </div>
         {hasMissingItems && !hasMissingInCart && (
           <div className={classes.buttonContainer}>

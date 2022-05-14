@@ -49,8 +49,6 @@ interface Props {
   recipeId: string; 
   recipe: Recipe;
   selectedRecipe: string; 
-  inventory: string[];
-  cart: string[];
   onSelectRecipe: (id: string) => () => void;
   onAddMissing: () => void;
 }
@@ -58,9 +56,7 @@ interface Props {
 const RecipeItem: React.FC<Props> = ({ 
   recipeId, 
   recipe, 
-  selectedRecipe, 
-  inventory,
-  cart,
+  selectedRecipe,
   onSelectRecipe,
   onAddMissing
 }) => {
@@ -74,9 +70,7 @@ const RecipeItem: React.FC<Props> = ({
       className={isSelected ? clsx(classes.container, classes.selected) : classes.container}
     >
       <ItemTag 
-        recipe={recipe} 
-        inventory={inventory} 
-        cart={cart} 
+        recipe={recipe}
         onAddMissing={onAddMissing}
       />
       <div className={classes.textContainer}>

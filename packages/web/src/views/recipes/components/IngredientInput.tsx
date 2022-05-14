@@ -1,14 +1,18 @@
 import * as React from 'react';
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Icons
+import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+// Components
 import { Autocomplete } from '@material-ui/lab';
 import { IconButton, TextField } from '@material-ui/core';
-import { TrashIconXS } from '@core/components/Icons/DeleteIcon';
+// Utils
 import getItemsOptions from 'recipes/utils/getItemsOptions';
 import isAlternativeIngredient from 'recipes/utils/isAlternativeIngredient';
-import { GroceryItemEdit } from 'inventory/types';
+// Types
 import { IngredientEdit, AlternativeIngredientEdit } from 'recipes/types';
-import { InputEvent, AutoCompleteHandler } from '@core/types';
+import { InputEvent, AutoCompleteHandler, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   input: { 
@@ -36,7 +40,6 @@ interface Props {
   ingredient: IngredientEdit | AlternativeIngredientEdit;
   index: number;
   subIndex?: number;
-  groceries: Record<string, GroceryItemEdit>;
   onItemSelect: (index: number, subIndex?: number) => AutoCompleteHandler;
   onChange: (props: OnChangeProps) => void;
   onDelete?: (index: number, subIndex?: number) => () => void;
@@ -48,12 +51,12 @@ const IngredientInput: React.FC<Props> = ({
   ingredient,
   index,
   subIndex,
-  groceries,
   onItemSelect,
   onChange,
   onDelete
 }) => {
   const classes = useStyles();
+  const { groceries } = useSelector((state: RootState) => state.inventoryStore); 
 
   const isAlternative = isAlternativeIngredient(ingredient);
   const isOptional = 'isOptional' in ingredient && ingredient.isOptional;

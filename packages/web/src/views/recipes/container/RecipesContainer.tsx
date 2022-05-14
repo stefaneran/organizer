@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
-import { connector, ReduxProps, DispatchProps } from 'recipes/container/RecipesConnector';
+import { getRecipes, addRecipe, editRecipe, deleteRecipe } from 'recipes/store/thunks';
+import { getItems, addCart } from 'inventory/store/thunks';
 // Components
+import { Paper } from '@material-ui/core';
 import RecipesToolbar from 'recipes/components/RecipesToolbar';
 import RecipeFilters from 'recipes/components/RecipeFilters';
 import RecipeItem from 'recipes/components/RecipeItem';
@@ -19,7 +21,7 @@ import getRecipesArray from 'recipes/utils/getRecipesArray';
 import getNationalityOptions from 'recipes/utils/getNationalityOptions';
 import getCategoryOptions from 'recipes/utils/getCategoryOptions';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 import { RecipeEdit, EditMode } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -66,17 +68,13 @@ const getConfirmationDialogDescription = (action, props) => {
   }
 }
 
-const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
-  loggedIn,
-  lastUpdate,
-  inventoryLastUpdate,
-  recipes,
-  groceries, 
-  inventory, 
-  cart,
-  ...actions
-}) => {
+const RecipesContainer: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((state: RootState) => state.app.user); 
+  const { recipes, lastUpdate } = useSelector((state: RootState) => state.recipesStore); 
+  const { groceries, inventory, cart } = useSelector((state: RootState) => state.inventoryStore);
+  const inventoryLastUpdate = useSelector((state: RootState) => state.inventoryStore.lastUpdate); 
 
   const [selectedRecipe, setSelectedRecipe] = React.useState('');
   const [recipeFilters, setRecipeFilters] = React.useState(defaultRecipeFilters);
@@ -109,10 +107,10 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
     const isInventoryDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, inventoryLastUpdate);
     if (loggedIn) {
       if (!isRecipeDataUpToDate) {
-        actions.getRecipes();
+        dispatch(getRecipes());
       }
       if (!isInventoryDataUpToDate) {
-        actions.getItems();
+        dispatch(getItems());
       }
     }
   }, [loggedIn])
@@ -164,14 +162,14 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   }
   const handleSubmitEditRecipe = () => {
     if (editMode === 'new') {
-      actions.addRecipe(recipeData);
+      dispatch(addRecipe(recipeData));
     } else if (editMode === 'edit') {
-      actions.editRecipe(recipeData, selectedRecipe);
+      dispatch(editRecipe(recipeData, selectedRecipe));
     }
     setEditMode('');
   }
   const handleDeleteRecipe = () => {
-    actions.deleteRecipe(selectedRecipe);
+    dispatch(deleteRecipe(selectedRecipe));
     setSelectedRecipe('');
     openConfirmationDialog(null)()
   }
@@ -184,15 +182,15 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
       setMissingPrimary(missingIngredients);
       setMissingOptional(missingOptionals.map(ing => ing.itemId));
     } else {
-      actions.addCart(missingIngredients);
+      dispatch(addCart(missingIngredients));
     }
   }
   const handleAddMissingPrimary = () => {
-    actions.addCart(missingPrimaryIngredients);
+    dispatch(addCart(missingPrimaryIngredients));
     openConfirmationDialog(null)();
   }
   const handleAddMissingOptionals = () => {
-    actions.addCart([...missingOptionalIngredients, ...missingPrimaryIngredients]);
+    dispatch(addCart([...missingOptionalIngredients, ...missingPrimaryIngredients]));
     openConfirmationDialog(null)();
   }
 
@@ -219,8 +217,6 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
               selectedRecipe={selectedRecipe}
               onSelectRecipe={handleSelectRecipe}
               onAddMissing={handleAddMissing(recipe.ingredients)}
-              inventory={inventory}
-              cart={cart}
             />
           ))}
         </div>
@@ -233,17 +229,12 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
               recipeData={recipeData}
               setRecipeData={setRecipeData}
               categoryOptions={categories}
-              groceries={groceries}
               onSubmitEditRecipe={handleSubmitEditRecipe}
               onOpenEditRecipe={handleOpenEditRecipe}
             />
           ) : (
             <RecipeInfo 
               recipe={recipes[selectedRecipe]}
-              groceries={groceries}
-              inventory={inventory}
-              cart={cart}
-              addCart={actions.addCart}
               onAddMissing={handleAddMissing(recipes[selectedRecipe]?.ingredients)}
               onOpenEditRecipe={handleOpenEditRecipe}
               onSelectRecipe={handleSelectRecipe}
@@ -301,4 +292,4 @@ const RecipesContainer: React.FC<ReduxProps & DispatchProps> = ({
   )
 }
 
-export default connector(RecipesContainer);
+export default RecipesContainer;

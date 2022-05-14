@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Components
 import { Paper, Typography } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
+// Types
 import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -31,8 +33,6 @@ const useStyles = makeStyles(() => createStyles({
 interface Props {
   recipeId: string; 
   recipe: Recipe;
-  inventory: string[];
-  cart: string[];
   onSelectRecipe: (id: string) => () => void;
   onAddMissing: () => void;
 }
@@ -40,12 +40,9 @@ interface Props {
 const RecipeItem: React.FC<Props> = ({ 
   recipeId, 
   recipe,
-  inventory,
-  cart,
   onSelectRecipe,
   onAddMissing
 }) => {
-
   const classes = useStyles();
 
   return (
@@ -54,9 +51,7 @@ const RecipeItem: React.FC<Props> = ({
       className={classes.container}
     >
       <ItemTag 
-        recipe={recipe} 
-        inventory={inventory} 
-        cart={cart} 
+        recipe={recipe}
         onAddMissing={onAddMissing}
         style={{ marginRight: '1.5em' }}
         isMobile

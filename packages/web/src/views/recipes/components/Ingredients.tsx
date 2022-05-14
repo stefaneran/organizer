@@ -1,9 +1,13 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { addCart } from 'inventory/store/thunks';
+// Components
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import ItemTag from 'recipes/components/ItemTag';
+// Types
+import { RootState, AppDispatch } from '@core/types';
 import { Ingredient } from 'recipes/types';
-import { GroceryItemEdit } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   mobileText: {
@@ -24,24 +28,18 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   ingredients: Ingredient[];
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart: string[];
-  addCart: (itemIds: string[]) => void;
   isMobile?: boolean;
 }
 
 const Ingredients: React.FC<Props> = ({ 
-  ingredients, 
-  groceries, 
-  inventory, 
-  cart,
-  addCart,
+  ingredients,
   isMobile 
 }: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries } = useSelector((state: RootState) => state.inventoryStore); 
 
-  const handleAddMissing = (itemId) => () => addCart([itemId]);
+  const handleAddMissing = (itemId) => () => dispatch(addCart([itemId]));
 
   return (
     <List>
@@ -50,8 +48,6 @@ const Ingredients: React.FC<Props> = ({
           <ListItem className={classes.ingredient}>
             <ItemTag 
               ingredient={ingredient}
-              inventory={inventory}
-              cart={cart}
               onAddMissing={handleAddMissing(ingredient.itemId)}
               style={{ marginRight: '1.5em' }}
               isMobile={isMobile}
@@ -66,8 +62,6 @@ const Ingredients: React.FC<Props> = ({
             <ListItem className={classes.alternative} key={`${alternative.itemId}-${subIndex}`}>
               <ItemTag 
                 ingredient={alternative}
-                inventory={inventory}
-                cart={cart}
                 onAddMissing={handleAddMissing(alternative.itemId)}
                 style={{ marginRight: '1.5em' }}
                 isMobile={isMobile}

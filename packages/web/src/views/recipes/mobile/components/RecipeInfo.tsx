@@ -1,11 +1,16 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Divider, Button } from '@material-ui/core';
+// Icons
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
+// Components
+import { Typography, Divider, Button } from '@material-ui/core';
 import Ingredients from 'recipes/components/Ingredients';
+// Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
-import { GroceryItemEdit } from 'inventory/types';
+// Types
+import { RootState } from '@core/types';
 import { Recipe } from 'recipes/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -41,22 +46,15 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipe: Recipe;
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart: string[];
-  addCart: (itemIds: string[]) => void;
   onAddMissing: () => void;
 }
 
 const RecipeDetails: React.FC<Props> = ({ 
   recipe, 
-  groceries, 
-  inventory, 
-  cart, 
-  addCart,
   onAddMissing
 }) => {
   const classes = useStyles();
+  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
 
   const hasRecipe = Boolean(recipe);
   const hasMissingItems = recipe && checkMissingItemsRecipe(recipe, inventory);
@@ -84,10 +82,6 @@ const RecipeDetails: React.FC<Props> = ({
         <div className={classes.ingredientsContainer}>
           <Ingredients 
             ingredients={recipe.ingredients}
-            groceries={groceries}
-            inventory={inventory}
-            cart={cart}
-            addCart={addCart}
             isMobile={true}
           />
         </div>

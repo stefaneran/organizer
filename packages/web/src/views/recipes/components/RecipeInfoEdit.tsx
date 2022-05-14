@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import countries from '@core/data/countries';
+// Icons
 import CloseIcon from '@material-ui/icons/Close';
 import { FoodIconXS } from '@core/components/Icons/FoodIcon';
+// Components
+import { TextField, Button } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import IngredientsEdit from 'recipes/components/IngredientsEdit';
-import countries from '@core/data/countries';
+// Types
 import { IngredientEdit, RecipeEdit, EditMode } from 'recipes/types';
-import { GroceryItemEdit } from 'inventory/types';
 import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -29,8 +31,7 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   recipeData: RecipeEdit; 
-  categoryOptions: string[]; 
-  groceries: Record<string, GroceryItemEdit>;
+  categoryOptions: string[];
   setRecipeData: (recipe: RecipeEdit) => void; 
   onSubmitEditRecipe: () => void;
   onOpenEditRecipe: (mode: EditMode) => () => void;
@@ -38,8 +39,7 @@ interface Props {
 
 const RecipeInfoEdit: React.FC<Props> = ({
   recipeData, 
-  categoryOptions, 
-  groceries,
+  categoryOptions,
   setRecipeData, 
   onSubmitEditRecipe,
   onOpenEditRecipe
@@ -139,8 +139,7 @@ const RecipeInfoEdit: React.FC<Props> = ({
         rows={12}
       />
       <IngredientsEdit 
-        ingredients={recipeData.ingredients} 
-        groceries={groceries}
+        ingredients={recipeData.ingredients}
         onIngredientsChange={handleIngredientsChange}
       />
       <div className={classes.finishButtonContainer}>

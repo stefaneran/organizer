@@ -1,9 +1,5 @@
 
 NEXT:
-- Refactor to use UseDispatch and useSelector
-  - Do inventory
-    - Delete mapActions + unit test + any types related to it
-  - Do recipes
 - Implement env
 - Make Inventory essential items feature
 - Make event reminders feature
@@ -34,7 +30,6 @@ Back-End:
 - Add CI/CD pipeline
 
 Refactors:
-- Refactor to use UseDispatch and useSelector
 - *Use AsyncThunk
 - Implement user info as cookies instead of localstorage 
 - Fix console warnings/errors (eslint and ts)

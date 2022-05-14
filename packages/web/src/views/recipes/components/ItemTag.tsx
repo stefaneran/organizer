@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Tooltip } from '@material-ui/core';
 // Icons
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { 
@@ -17,12 +17,14 @@ import {
   AddCartIconSmall,
   AddCartIconSmallWhite 
 } from '@core/components/Icons/CartIcon';
+// Components
+import { Tooltip } from '@material-ui/core';
 // Utils
 import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
 import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
 // Types
 import { Recipe, Ingredient, AlternativeIngredient } from 'recipes/types';
-import { ClickEvent } from '@core/types';
+import { ClickEvent, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -61,8 +63,6 @@ const checkMissingIngredientInCart = (ingredient: string, cart: string[]) => {
 }
 
 interface Props {
-  inventory: string[];
-  cart: string[];
   recipe?: Recipe;
   ingredient?: Ingredient | AlternativeIngredient;
   onAddMissing: () => void;
@@ -75,9 +75,7 @@ interface Props {
 // 1) Some/all ingredients missing (red icon)
 // 2) All missing ingredients are in cart (yellow icon)
 // 3) All ingredients available (green icon)
-const ItemTag: React.FC<Props> = ({ 
-  inventory, 
-  cart, 
+const ItemTag: React.FC<Props> = ({
   recipe, 
   ingredient,
   onAddMissing,
@@ -85,6 +83,7 @@ const ItemTag: React.FC<Props> = ({
   isMobile 
 }) => {
   const classes = useStyles();
+  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [isHover, setHover] = React.useState(false);
 

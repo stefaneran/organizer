@@ -10,7 +10,6 @@ import IngredientInput from 'recipes/components/IngredientInput'
 import assignValueToAlternative from 'recipes/utils/assignValueToAlternative';
 // Types
 import { IngredientEdit } from 'recipes/types';
-import { GroceryItemEdit } from 'inventory/types';
 import { AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -39,14 +38,12 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  ingredients: IngredientEdit[]; 
-  groceries: Record<string, GroceryItemEdit>; 
+  ingredients: IngredientEdit[];
   onIngredientsChange: (index: number, ingredient?: IngredientEdit) => void;
 }
 
 const IngredientsEdit: React.FC<Props> = ({ 
-  ingredients, 
-  groceries, 
+  ingredients,
   onIngredientsChange
 }) => {
   const classes = useStyles();
@@ -125,7 +122,6 @@ const IngredientsEdit: React.FC<Props> = ({
             <IngredientInput 
               ingredient={ingredient}
               index={index}
-              groceries={groceries}
               onItemSelect={handleItemSelect}
               onChange={handleChange}
             />
@@ -160,7 +156,6 @@ const IngredientsEdit: React.FC<Props> = ({
                 ingredient={alternative}
                 index={index}
                 subIndex={subIndex}
-                groceries={groceries}
                 onItemSelect={handleItemSelect}
                 onChange={handleChangeAlt}
                 onDelete={handleDeleteIngredient}
