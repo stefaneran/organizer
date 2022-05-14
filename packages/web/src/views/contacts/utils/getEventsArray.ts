@@ -15,13 +15,9 @@ const getEventsArray = (
   if (filters.title.length) {
     filteredEvents = filteredEvents.filter(event => event.title.toLowerCase().includes(filters.title.toLowerCase()))
   }
-  // Filter by upcoming or past event date
-  if (filters.showUpcoming) {
-    filteredEvents = filteredEvents.filter(event => event.date >= now);
-  }
-  else {
-    filteredEvents = filteredEvents.filter(event => event.date < now);
-  }
+  // Show only upcoming by default (for now?)
+  filteredEvents = filteredEvents.filter(event => event.date > now);
+
   return filteredEvents.sort((a, b) => genericSort(a.date, b.date));
 }
 

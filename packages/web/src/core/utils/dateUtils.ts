@@ -3,7 +3,7 @@ import {
   format
 } from 'date-fns';
 
-export const getDaysFromDate = (timestamp) => differenceInDays(new Date(), new Date(timestamp));
+export const getDaysFromDate = (timestamp): number => differenceInDays(new Date(), new Date(timestamp));
 
 // Returns a date like: Monday (18/02)
 export const formatEventDate = (timestamp) => 

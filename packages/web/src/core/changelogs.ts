@@ -12,6 +12,11 @@ export const changelogs = {
     `Refactor: All modules now use redux hooks (useSelector, useDispatch) instead of connectors (mapStateToProps, mapDispatchToProps)`,
     `Feature: Groceries - Can mark items as essential, have button to add all missing essentials`,
     `UX Improvement: Groceries - Name input cleared when adding new item`,
-    `Improvement: Contacts - Added second last contact bar to list items to show both hangouts and general contact`
+    `Improvement: Contacts - Added second last contact bar to list items to show both hangouts and general contact`,
+  ],
+  "1.0.2": [
+    `Improvement: Contacts - Moved hangout logic to frontend, refreshes on every events update`,
+    `Improvement: Contacts - Improved the way events show title/times`,
+    `Refactor: Contacts - Hid past events (useless feature)`
   ]
 }

@@ -74,13 +74,10 @@ const EventsPanel: React.FC = () => {
     <div className={classes.container}>
       <EventsToolbar 
         onOpenInfo={handleOpenInfoPanel} 
-        toggleFilterPanel={toggleFilterPanel} 
-        eventsFilters={eventsFilters}
-        onChangeFilter={handleChangeFilter}
+        toggleFilterPanel={toggleFilterPanel}
       />
       <EventsList
         eventsList={eventsList}
-        showUpcoming={eventsFilters.showUpcoming}
         onOpenInfoPanel={handleOpenInfoPanel}
       />
       {/* Sliding Panel */}

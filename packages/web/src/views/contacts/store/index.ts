@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getAllGroups from 'contacts/utils/getAllGroups';
-import { Contact } from 'contacts/types';
+import calculateContactRelationshipData from 'contacts/utils/calculateContactRelationshipData';
+import { Contact, Event } from 'contacts/types';
 
 interface ContactsStore {
   contacts: Record<string, Contact>;
@@ -61,6 +62,9 @@ const slice = createSlice({
     },
     setLastContactUpdate: (state: ContactsStore, { payload }) => {
       state.lastUpdate = Number(payload);
+    },
+    refreshContactData: (state: ContactsStore) => {
+      state.contacts = calculateContactRelationshipData(state.contacts, state.events);
     }
   }
 });
@@ -74,7 +78,8 @@ export const {
   deleteContactDone,
   updateEventDone,
   deleteEventDone,
-  setLastContactUpdate
+  setLastContactUpdate,
+  refreshContactData
 } = slice.actions;
 
 export default slice.reducer;

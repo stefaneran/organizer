@@ -3,6 +3,9 @@ NEXT:
 - Implement env
 - Make event reminders feature
 - Use routing and make homepage
+- Make empty UIs:
+  - Inventory 
+  - Recipes
 
 ===============================================================
 ======================  General  ==============================
@@ -39,6 +42,7 @@ Refactors:
 ======================  Recipes  ==============================
 ===============================================================
 
+- Empty UI
 - *Show "missing optionals" indicator that recipe is missing some optional ingredients
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
 - When finish creating new recipe, set as selected to avoid confusion
@@ -65,6 +69,7 @@ Optional:
 ======================  Inventory  ============================
 ===============================================================
 
+- Empty UI
 - Grocery spoiling feature
 - Add "De-select All" button
 - BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)
@@ -87,6 +92,7 @@ Mobile:
 ===============================================================
 
 - Change UI to be more similar to Inventory (3 expanding columns)
+- Empty UI
 - Add "Social" type
 - Change Layout to resemble Inventory (3 vertical panels)
 - Integration with google maps?
@@ -103,13 +109,12 @@ Optional:
 ======================  Contacts  =============================
 ===============================================================
 
-- Make lastContact requests every time (they dont update)
+- Empty UI
 
 Contacts:
 - Show last hangout (days ago)
 - Friendship details (use metrics like hangout etc)
 - Relationships with other contacts derived from hangout data
-- Remove relationship info (single/taken)
 
 Events:
 - Implement Reminder feature
@@ -126,16 +131,7 @@ Events:
 
 Refactor:
 - Remove PeopleIcon and use material UI equivalent
+- Delete all traces of past events
 
 Mobile:
 - Show contact details
-
-
-
-import { useSelector, useDispatch } from 'react-redux';
-
-RootState, AppDispatch
-import { RootState, AppDispatch } from '@core/types';
-
-const dispatch = useDispatch<AppDispatch>();
-const {  } = useSelector((state: RootState) => state); 

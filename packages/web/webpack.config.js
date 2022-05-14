@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: [
     'babel-polyfill', path.resolve(__dirname, "src/index.tsx")
   ],

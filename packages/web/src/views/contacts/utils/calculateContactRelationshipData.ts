@@ -1,7 +1,14 @@
-export default (contacts: any, events: any) => {
+import { Contact, Event } from 'contacts/types';
 
-  for(const contactId in contacts) {
-    const contact = contacts[contactId];
+const calculateContactRelationshipData = (
+  contacts: Record<string, Contact>, 
+  events: Record<string, Event>
+): Record<string, Contact> => {
+
+  const contactsCopy = { ...contacts };
+
+  for(const contactId in contactsCopy) {
+    const contact = contactsCopy[contactId];
     contact.hangoutTally = 0;
   }
 
@@ -12,7 +19,7 @@ export default (contacts: any, events: any) => {
     if (event.date < Date.now()) {
       for (let i = 0; i < participants.length; i++) {
         const contactId = participants[i];
-        const contact = contacts[participants[i]];
+        const contact = contactsCopy[participants[i]];
         if (!contact) continue;
 
         // Update number of times hung out with contact
@@ -41,5 +48,7 @@ export default (contacts: any, events: any) => {
       }
     } 
   }
-  return contacts;
+  return contactsCopy;
 }
+
+export default calculateContactRelationshipData;

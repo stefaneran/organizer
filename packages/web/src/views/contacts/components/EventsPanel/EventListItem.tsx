@@ -7,7 +7,7 @@ import ActivityTypeIcon from 'activities/components/ActivityTypeIcon';
 import ParticipantsChip from 'contacts/components/EventsPanel/ParticipantsChip';
 // Utils
 import getActivityLocation from 'activities/utils/getActivityLocation';
-import { formatEventDate, formatDateTime } from '@core/utils/dateUtils';
+import { formatEventDate, formatDateTime, getDaysFromDate } from '@core/utils/dateUtils';
 // Types
 import { RootState } from '@core/types';
 import { Event } from 'contacts/types';
@@ -65,13 +65,13 @@ const EventListItem: React.FC<Props> = ({
 
   const activity: Activity = activities[event.activityId];
 
-  const eventTitle = event.title ? `${event.title} - ` : '';
-  const activityTitle = activity?.name ? `${activity.name} - ` : '';
-  const title = `${eventTitle}${activityTitle}${formatEventDate(event.date)}`;
+  const eventTitle = event.title ? `${event.title}` : '';
+  const activityTitle = activity?.name ? ` | ${activity.name}` : '';
+  const title = `${eventTitle}${activityTitle}`;
 
   const eventLocation = getActivityLocation(activities, event.activityId, event.activityLocationIndex);
-  const eventTimeText = `${formatDateTime(event.date)}`;
-  const eventLocationText = eventLocation.name ? ` - ${eventLocation.name}` : '';
+  const eventTimeText = `${formatDateTime(event.date)} | ${formatEventDate(event.date)} | in ${Math.abs(getDaysFromDate(event.date))} days`;
+  const eventLocationText = eventLocation.name ? ` | ${eventLocation.name}` : '';
 
   const handleOpenInfo = () => {
     onOpenInfo(event.id);
@@ -84,14 +84,11 @@ const EventListItem: React.FC<Props> = ({
       </div>
       <div className={classes.infoContainer}>
         <Typography variant="h6">
-          {title}
+          {title}{eventLocationText}
         </Typography>
         <div className={classes.secondLine}>
           <Typography variant="subtitle2" className="subtitle" style={{ marginRight: '0.3em' }}>
             {eventTimeText}
-          </Typography>
-          <Typography variant="subtitle2" className="subtitle">
-            {eventLocationText}
           </Typography>
         </div>
         <ParticipantsChip

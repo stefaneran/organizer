@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { initGroups } from 'contacts/store';
+import { initGroups, refreshContactData } from 'contacts/store';
 import { getContactsAndEvents } from 'contacts/store/thunks';
 import { getActivities } from 'activities/store/thunks';
 // Components
@@ -27,7 +27,7 @@ const ContactsContainer: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const { loggedIn } = useSelector((state: RootState) => state.app.user);
-  const { lastUpdate, groups, contacts } = useSelector((state: RootState) => state.contactsStore);
+  const { lastUpdate, groups, contacts, events } = useSelector((state: RootState) => state.contactsStore);
   const activitiesLastUpdate = useSelector((state: RootState) => state.activitiesStore.lastUpdate);
 
   React.useEffect(() => {
@@ -50,6 +50,13 @@ const ContactsContainer: React.FC = () => {
       dispatch(initGroups());
     }
   }, [contacts])
+
+  // Refresh contact data that depends on events 
+  React.useEffect(() => {
+    dispatch(refreshContactData());
+  }, [events])
+
+  refreshContactData
 
   return (
     <Paper className={classes.container}>

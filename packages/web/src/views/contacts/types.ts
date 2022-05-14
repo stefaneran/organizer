@@ -20,7 +20,6 @@ export interface ContactFilters {
 }
 
 export interface EventFilters {
-  showUpcoming: boolean;
   title: string;
 }
 
@@ -35,6 +34,7 @@ export interface Contact {
   lastHangout: number; // Last time user hung out with contact in the real world
   hangoutTally: number; // Number of times user hung out with contact,
   dateCreated: number; // Date contact was created (used for calculating averages)
+  acquintances: Record<string, number>;
 }
 
 export interface Event {

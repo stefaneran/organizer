@@ -3,10 +3,9 @@ import defaultEventFilters from 'contacts/utils/defaultEventFilters';
 import mockEvents from '@core/mocks/mockEvents';
 
 const mockFilters = [
-  { ...defaultEventFilters, showUpcoming: false },
   { ...defaultEventFilters, title: 'bir' },
   { ...defaultEventFilters, title: 'ork' },
-  { ...defaultEventFilters, title: 'wor', showUpcoming: false }
+  { ...defaultEventFilters, title: 'wor' }
 ];
 
 const unitTests = [
