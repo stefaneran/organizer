@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, IconButton, Tooltip } from '@material-ui/core';
 // Icons
 import { BagIconXS, BagIconWhiteXS } from '@core/components/Icons/BagIcon';
 import { DatabaseIconXS, DatabaseIconWhiteXS } from '@core/components/Icons/DatabaseIcon';
 // Components
+import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import InventoryAll from 'inventory/components/InventoryAll';
 import InventoryAvailable from 'inventory/components/InventoryAvailable';
 // Utils
-import { InventoryTabs, GroceryItemEdit, InventoryActions } from 'inventory/types';
+import { InventoryTabs } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -36,19 +36,11 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  groceries: Record<string, GroceryItemEdit>; 
-  inventory: string[]; 
-  cart: string[]; 
-  actions: InventoryActions; 
   isSelectedTab: boolean; 
   setSelectedTab: (selected: InventoryTabs) => () => void;
 }
 
-const Inventory: React.FC<Props> = ({ 
-  groceries, 
-  inventory, 
-  cart, 
-  actions, 
+const Inventory: React.FC<Props> = ({
   isSelectedTab, 
   setSelectedTab 
 }) => {
@@ -95,20 +87,9 @@ const Inventory: React.FC<Props> = ({
       </div>
       <div className={classes.contentContainer}>
         {selectedInventory === 'available' ? (
-          <InventoryAvailable
-            groceries={groceries}
-            inventory={inventory}
-            isSelectedTab={isSelectedTab}
-            actions={actions}
-          />
+          <InventoryAvailable isSelectedTab={isSelectedTab} />
         ) : (
-          <InventoryAll
-            groceries={groceries}
-            inventory={inventory}
-            cart={cart}
-            isSelectedTab={isSelectedTab}
-            actions={actions}
-          />
+          <InventoryAll isSelectedTab={isSelectedTab} />
         )}
       </div>
     </div>

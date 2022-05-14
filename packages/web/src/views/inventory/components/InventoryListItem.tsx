@@ -1,27 +1,25 @@
 import * as React from 'react';
-import { ListItem, ListItemText, ListItemIcon, Checkbox, Tooltip } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 // Components
+import { ListItem, ListItemText, ListItemIcon, Checkbox, Tooltip } from '@material-ui/core';
 import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
 // Utils
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
 import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
-import { ClickEvent } from '@core/types';
+import { ClickEvent, RootState } from '@core/types';
 
 interface Props {
-  groceries?: Record<string, GroceryItemEdit>;
-  inventory?: string[];
   groceryItem: GroceryItem;
   selectedItems: string[];
   isSelectedTab: boolean;
   rowIcons?: RowIcon[];
-  cart?: string[];
   onSelect: (id: string) => () => void;
   onEdit?: (id: string, item: GroceryItemEdit) => void;
   toggleNutrition?: (id?: string, isEdit?: boolean) => void;
@@ -39,17 +37,15 @@ const getIcon = (
 }
 
 const InventoryListItem: React.FC<Props> = ({
-  groceries,
-  inventory,
   groceryItem,
   selectedItems,
   isSelectedTab,
   rowIcons,
-  cart,
   onSelect,
   onEdit,
   toggleNutrition
 }) => {
+  const { groceries, inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [groceryName, setGroceryName] = React.useState(groceryItem.name);
   const [groceryCategory, setGroceryCategory] = React.useState(groceryItem.category);

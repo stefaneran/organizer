@@ -1,9 +1,13 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+// Components
 import { List, ListItem, ListItemText, ListItemIcon, Checkbox } from '@material-ui/core';
+// Utils
 import genericSort from '@core/utils/genericSort';
+// Types
 import { GroceryItem, RowIcon } from 'inventory/types';
-import { ClickEvent } from '@core/types';
+import { ClickEvent, RootState } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   checkbox: {
@@ -25,23 +29,23 @@ const useStyles = makeStyles(() => createStyles({
 
 interface Props {
   listItems: GroceryItem[];
-  selectedItems?: string[];
-  onItemSelection?: (selected: string[]) => void;
   rowIcons: RowIcon[];
+  onItemSelection?: (selected: string[]) => void;
 }
 
 const ItemList: React.FC<Props> = ({ 
-  listItems, 
-  selectedItems, 
-  onItemSelection,
-  rowIcons
-}: Props) => {
+  listItems,  
+  rowIcons,
+  onItemSelection
+}) => {
   const classes = useStyles();
-  const hasSelection = Boolean(selectedItems);
+  const { cartSelected } = useSelector((state: RootState) => state.inventoryStore);
+
+  const hasSelection = Boolean(cartSelected);
 
   const handleSelection = (id: string) => () => {
-    if (selectedItems && onItemSelection) {
-      const newSelected = selectedItems.includes(id) ? selectedItems.filter(itemId => itemId !== id) : [...selectedItems, id]
+    if (cartSelected && onItemSelection) {
+      const newSelected = cartSelected.includes(id) ? cartSelected.filter(itemId => itemId !== id) : [...cartSelected, id]
       onItemSelection(newSelected);
     }
   }
@@ -64,7 +68,7 @@ const ItemList: React.FC<Props> = ({
               <Checkbox
                 className={classes.checkbox}
                 edge="start"
-                checked={selectedItems && selectedItems.includes(item.id)}
+                checked={cartSelected && cartSelected.includes(item.id)}
                 color="primary"
               />
             </ListItemIcon>

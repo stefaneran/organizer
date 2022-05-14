@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getAllGroups from 'contacts/utils/getAllGroups';
-import { ContactsStore } from '@core/types';
+import { Contact } from 'contacts/types';
+
+interface ContactsStore {
+  contacts: Record<string, Contact>;
+  events: Record<string, Event>;
+  groups: string[];
+  lastUpdate: number;
+}
 
 const slice = createSlice({
   name: 'contactsStore',

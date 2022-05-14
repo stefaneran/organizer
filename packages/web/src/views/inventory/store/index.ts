@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { InventoryStore } from '@core/types';
+import { GroceryItemEdit } from 'inventory/types';
+
+interface InventoryStore {
+  groceries: Record<string, GroceryItemEdit>;
+  inventory: string[];
+  cart: string[];
+  cartSelected: string[];
+  lastUpdate: number;
+}
 
 const slice = createSlice({
   name: 'inventoryStore',
@@ -14,7 +22,7 @@ const slice = createSlice({
     cartSelected: [],
     // Last time there was an update in inventory
     lastUpdate: 0
-  },
+  } as InventoryStore,
   reducers: {
 
     // Set all inventory and grocery data

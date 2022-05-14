@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ActivitiesStore } from '@core/types';
+import { Activity } from 'activities/types';
+
+interface ActivitiesStore {
+  activities: Record<string, Activity>;
+  lastUpdate: number;
+}
 
 const slice = createSlice({
   name: 'activitiesStore',

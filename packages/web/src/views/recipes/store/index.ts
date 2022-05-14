@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import checkRecipeHasItem from 'recipes/utils/checkRecipeHasItem';
 import { Ingredient, IngredientChange } from 'recipes/types';
-import { RecipeStore } from '@core/types';
+import { Recipe } from 'recipes/types';
+
+interface RecipeStore {
+  recipes: Record<string, Recipe>;
+  lastUpdate: number;
+}
  
 const slice = createSlice({
   name: 'recipesStore',
@@ -9,7 +14,7 @@ const slice = createSlice({
     recipes: {},
     // Last time there was an update in recipes
     lastUpdate: 0
-  },
+  } as RecipeStore,
   reducers: {
     setRecipes: (state: RecipeStore, { payload }) => {
       state.recipes = payload;

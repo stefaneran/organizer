@@ -1,14 +1,20 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { addCart, updateCartSelected, removeCart, finishShopping } from 'inventory/store/thunks';
+// Icons
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+import { AddBagIconXS } from '@core/components/Icons/BagIcon';
+import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
+// Components
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import SimpleList from 'inventory/components/SimpleList';
 import AddGroceryInput from 'inventory/components/AddGroceryInput';
-import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
-import { RemoveCartIconSmall } from '@core/components/Icons/CartIcon';
-import { AddBagIconXS } from '@core/components/Icons/BagIcon';
+// Utils
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryTabs, GroceryItemEdit, InventoryActions } from 'inventory/types';
-import { ClickEvent } from '@core/types';
+// Types
+import { InventoryTabs } from 'inventory/types';
+import { ClickEvent, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -31,42 +37,36 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  cart: string[];
-  cartSelected: string[];
-  actions: InventoryActions;
-  groceries: Record<string, GroceryItemEdit>;
   isSelectedTab: boolean;
   setSelectedTab: (selected: InventoryTabs) => () => void;
 }
 
 const Cart: React.FC<Props> = ({
-  cart, 
-  cartSelected,
-  actions, 
-  groceries, 
   isSelectedTab, 
   setSelectedTab 
 }) => {
-
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries, cart, cartSelected } = useSelector((state: RootState) => state.inventoryStore); 
+
   const listItems = cartItemsToArray(cart, groceries)
   const hasSelectedItems = Boolean(cartSelected.length);
 
   const handleItemSelection = (newSelected: string[]) => {
-    actions.cart.updateSelected(newSelected);
+    dispatch(updateCartSelected(newSelected));
   }
   const handleRemoveItem = (id: string) => {
-    actions.cart.remove([id]);
+    dispatch(removeCart([id]));
   }
   const handleRemoveSelected = () => {
-    actions.cart.remove(cartSelected);
+    dispatch(removeCart(cartSelected));
   }
   const handleAddToCart = (id: string) => {
-    actions.cart.add([id]);
+    dispatch(addCart([id]));
   }
   const handleFinishShopping = (event: ClickEvent) => {
     event.stopPropagation();
-    actions.cart.finishShopping();
+    dispatch(finishShopping());
   }
 
   return (

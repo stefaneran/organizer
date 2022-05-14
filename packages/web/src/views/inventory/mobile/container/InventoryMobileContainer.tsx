@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import { connector, ReduxProps, DispatchProps } from 'inventory/container/InventoryConnector';
+import { useSelector, useDispatch } from 'react-redux';
+import { getItems } from 'inventory/store/thunks';
 // Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { BagIconLarge } from '@core/components/Icons/BagIcon';
 import { CartIconLargeFill } from '@core/components/Icons/CartIcon';
 // Components
+import { Typography } from '@material-ui/core';
 import Cart from 'inventory/mobile/components/Cart';
 import Inventory from 'inventory/mobile/components/Inventory';
 // Utils
-import mapActions from 'inventory/utils/mapActions';
 import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -56,17 +56,11 @@ enum ViewType {
   Inventory = "Inventory"
 }
 
-const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
-  loggedIn,
-  lastUpdate,
-  groceries,
-  inventory,
-  cart,
-  cartSelected,
-  ...actionProps
- }) => {
+const InventoryMobileContainer: React.FC = () => {
   const classes = useStyles();
-  const actions = mapActions(actionProps);
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((state: RootState) => state.app.user); 
+  const { lastUpdate } = useSelector((state: RootState) => state.inventoryStore);
 
   const [currentView, setCurrentView] = React.useState(ViewType.Cart);
 
@@ -83,7 +77,7 @@ const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
   React.useEffect(() => {
     const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
     if (loggedIn && !isDataUpToDate) {
-      actionProps.getItems();
+      dispatch(getItems());
     }
   }, [loggedIn])
 
@@ -112,23 +106,14 @@ const InventoryMobileContainer: React.FC<ReduxProps & DispatchProps> = ({
       </div>
       <div className={classes.contentContainer}>
         <div className={classes.contentWindow} style={{ left: isCart ? '0%' : '-100%' }}>
-          <Cart 
-            groceries={groceries}
-            cart={cart}
-            cartSelected={cartSelected}
-            actions={actions}
-          />
+          <Cart />
         </div>
         <div className={classes.contentWindow} style={{ left: isCart ? '100%' : '0%'}}>
-          <Inventory 
-            groceries={groceries}
-            inventory={inventory}
-            actions={actions}
-          />
+          <Inventory />
         </div>
       </div>
     </div>
   )
 }
 
-export default connector(InventoryMobileContainer);
+export default InventoryMobileContainer;

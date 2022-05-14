@@ -1,31 +1,30 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeInventory } from 'inventory/store/thunks';
+// Icons
 import { RemoveBagIconSmall } from '@core/components/Icons/BagIcon';
+// Components
 import InventorySection from 'inventory/components/InventorySection';
+// Utils
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
-import { InventoryActions, GroceryItemEdit } from 'inventory/types';
+// Types
+import { AppDispatch } from '@core/types';
 
 interface Props {
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
   isSelectedTab: boolean;
-  actions: InventoryActions;
 }
 
-const InventoryAvailable: React.FC<Props> = ({
-  groceries,
-  inventory,
-  isSelectedTab,
-  actions
-}) => {
+const InventoryAvailable: React.FC<Props> = ({ isSelectedTab }) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
   const handleRemove = (groceryId: string) => {
-    actions.inventory.remove([groceryId]);
+    dispatch(removeInventory([groceryId]));
     setSelectedItems(selectedItems.filter(id => id !== groceryId));
   }
   const handleRemoveSelected = () => {
-    actions.inventory.remove(selectedItems);
+    dispatch(removeInventory(selectedItems));
     setSelectedItems([]);
   }
 
@@ -35,9 +34,6 @@ const InventoryAvailable: React.FC<Props> = ({
       isSelectedTab={isSelectedTab}
       selectedItems={selectedItems}
       setSelectedItems={setSelectedItems}
-      groceries={groceries}
-      inventory={inventory}
-      actions={actions}
       getList={availableItemsToArray}
       customRowIcons={[
         { icon: <RemoveBagIconSmall />, handler: handleRemove }

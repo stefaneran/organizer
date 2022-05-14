@@ -1,6 +1,10 @@
 
 NEXT:
 - Refactor to use UseDispatch and useSelector
+  - Do inventory
+    - Delete mapActions + unit test + any types related to it
+  - Do recipes
+- Implement env
 - Make Inventory essential items feature
 - Make event reminders feature
 - Use routing and make homepage
@@ -16,6 +20,7 @@ NEXT:
 - Add changelog dialog/button
 - Add error boundry
 - Disable thunks (like create) if not logged in (and show a message)
+- *TextMultiSelect with create - Make it so it adds new item on onUnfocus as well
 
 Less urgent:
 - Interval pinging for last update
@@ -30,7 +35,7 @@ Back-End:
 
 Refactors:
 - Refactor to use UseDispatch and useSelector
-- Use AsyncThunk
+- *Use AsyncThunk
 - Implement user info as cookies instead of localstorage 
 - Fix console warnings/errors (eslint and ts)
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
@@ -40,7 +45,7 @@ Refactors:
 ======================  Recipes  ==============================
 ===============================================================
 
-- Show "missing optionals" indicator that recipe is missing some optional ingredients
+- *Show "missing optionals" indicator that recipe is missing some optional ingredients
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
 - When finish creating new recipe, set as selected to avoid confusion
 - Is Optional - Make a custom checkbox with question icon instead of classic checkbox
@@ -131,3 +136,12 @@ Refactor:
 Mobile:
 - Show contact details
 
+
+
+import { useSelector, useDispatch } from 'react-redux';
+
+RootState, AppDispatch
+import { RootState, AppDispatch } from '@core/types';
+
+const dispatch = useDispatch<AppDispatch>();
+const {  } = useSelector((state: RootState) => state); 

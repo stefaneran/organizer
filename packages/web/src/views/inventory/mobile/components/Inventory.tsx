@@ -1,12 +1,17 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core'
+import { addCart, removeInventory } from 'inventory/store/thunks';
+// Icons
 import { RemoveBagIconLarge } from '@core/components/Icons/BagIcon';
 import { AddCartIconLarge } from '@core/components/Icons/CartIcon';
+// Components
+import { TextField } from '@material-ui/core'
 import ItemList from 'inventory/mobile/components/ItemList';
+// Utils
 import availableItemsToArray from 'inventory/utils/availableItemsToArray';
-import { InventoryActions, GroceryItemEdit } from 'inventory/types';
-import { InputEvent } from '@core/types';
+// Types
+import { InputEvent, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   textFilter: {
@@ -25,18 +30,10 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-interface Props {
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  actions: InventoryActions;
-}
-
-const Inventory: React.FC<Props> = ({ 
-  groceries, 
-  inventory, 
-  actions 
-}) => {
+const Inventory: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries, inventory } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [textFilter, setTextFilter] = React.useState('');
 
@@ -46,10 +43,10 @@ const Inventory: React.FC<Props> = ({
     setTextFilter(event.target.value)
   }
   const handleRemoveItem = (id: string) => {
-    actions.inventory.remove([id]);
+    dispatch(removeInventory([id]));
   }
   const handleAddToCart = (id: string) => {
-    actions.cart.add([id]);
+    dispatch(addCart([id]));
   }
   
   return (
@@ -66,7 +63,6 @@ const Inventory: React.FC<Props> = ({
       <div className={classes.list}>
         <ItemList 
           listItems={listItems}
-          selectedItems={undefined}
           rowIcons={[
             { icon: <RemoveBagIconLarge />, handler: handleRemoveItem },
             { icon: <AddCartIconLarge />, handler: handleAddToCart }

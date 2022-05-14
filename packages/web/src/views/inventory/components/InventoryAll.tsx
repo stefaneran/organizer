@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createItem, updateItem, deleteItems, addInventory } from 'inventory/store/thunks';
 // Icons
 import { AddBagIconSmall } from '@core/components/Icons/BagIcon';
 import { TrashIconSmall, TrashIconSmallWhite, TrashIconXS } from '@core/components/Icons/DeleteIcon';
@@ -9,23 +11,16 @@ import ConfirmationDialog from '@core/components/ConfirmationDialog';
 // Utils
 import allItemsToArray from 'inventory/utils/allItemsToArray';
 // Types
-import { InventoryActions, GroceryItemEdit, NutritionalInfo } from 'inventory/types';
+import { RootState, AppDispatch } from '@core/types';
+import { NutritionalInfo } from 'inventory/types';
 
 interface Props {
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart: string[];
   isSelectedTab: boolean;
-  actions: InventoryActions;
 }
 
-const InventoryAll: React.FC<Props> = ({
-  groceries,
-  inventory,
-  cart,
-  isSelectedTab,
-  actions
-}) => {
+const InventoryAll: React.FC<Props> = ({ isSelectedTab }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
   const [confirmationDialog, setConfirmationDialog] = React.useState({ isOpen: false, groceryId: '' });
@@ -52,26 +47,26 @@ const InventoryAll: React.FC<Props> = ({
 
   const handleSaveNutrition = (groceryId: string, nutrition: NutritionalInfo[]) => {
     const groceryItem = groceries[groceryId];
-    actions.groceries.update(groceryId, { ...groceryItem, id: groceryId, nutrition })
+    dispatch(updateItem(groceryId, { ...groceryItem, id: groceryId, nutrition }))
     toggleNutritionDialog();
   }
 
   const handleAddFromAllToAvailable = (id: string) => {
-    actions.inventory.add([id]);
+    dispatch(addInventory([id]));
   }
 
   const handleAddNewToAll = ({ name, category }: Record<string, string>) => {
-    actions.groceries.create({ name, category, nutrition: [] });
+    dispatch(createItem({ name, category, nutrition: [] }));
   }
 
   const handleAddSelectedToAvailable = () => {
-    actions.inventory.add(selectedItems);
+    dispatch(addInventory(selectedItems));
   }
 
   const handleRemoveFromAll = (groceryId?: string) => async () => {
     // Are we removing a single item
     const isSingleItem = Boolean(groceryId);
-    actions.groceries.delete(isSingleItem ? [groceryId] : selectedItems);
+    dispatch(deleteItems(isSingleItem ? [groceryId] : selectedItems));
     setSelectedItems(isSingleItem ? selectedItems.filter(id => id !== groceryId) : []);
     toggleConfirmationDialog();
   }
@@ -83,10 +78,6 @@ const InventoryAll: React.FC<Props> = ({
         isSelectedTab={isSelectedTab}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        groceries={groceries}
-        inventory={inventory}
-        cart={cart}
-        actions={actions}
         getList={allItemsToArray}
         customRowIcons={[
           { icon: <TrashIconSmall />, handler: toggleConfirmationDialog, altIcon: <TrashIconSmallWhite /> },
@@ -115,7 +106,6 @@ const InventoryAll: React.FC<Props> = ({
       {nutritionDialog.isOpen && (
         <NutritionEditDialog
           isOpen
-          groceries={groceries}
           groceryId={nutritionDialog.groceryId}
           onClose={toggleNutritionDialog}
           onSave={handleSaveNutrition}

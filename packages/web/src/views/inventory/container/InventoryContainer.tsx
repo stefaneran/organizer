@@ -1,15 +1,15 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core'; 
-import { connector, ReduxProps, DispatchProps } from 'inventory/container/InventoryConnector';
+import { getItems } from 'inventory/store/thunks';
 // Components
+import { Paper } from '@material-ui/core'; 
 import Cart from 'inventory/components/Cart';
 import Inventory from 'inventory/components/Inventory';
 // Utils
-import mapActions from 'inventory/utils/mapActions';
 import { checkStoreDataSyncInLocalStorage } from '@core/localstorage/lastUpdate';
 // Types
-import { OrganizerModule } from '@core/types';
+import { OrganizerModule, RootState, AppDispatch } from '@core/types';
 import { InventoryTabs } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -21,17 +21,11 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
-  loggedIn,
-  lastUpdate,
-  groceries,
-  inventory,
-  cart,
-  cartSelected,
-  ...actionProps
-}) => {
+const InventoryContainer: React.FC = () => {
   const classes = useStyles();
-  const actions = mapActions(actionProps);
+  const dispatch = useDispatch<AppDispatch>();
+  const { loggedIn } = useSelector((state: RootState) => state.app.user);
+  const { lastUpdate } = useSelector((state: RootState) => state.inventoryStore);
 
   const [selectedTab, setSelectedTab] = React.useState(InventoryTabs.Cart);
 
@@ -40,25 +34,17 @@ const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
   React.useEffect(() => {
     const isDataUpToDate = checkStoreDataSyncInLocalStorage(OrganizerModule.Inventory, lastUpdate);
     if (loggedIn && !isDataUpToDate) {
-      actionProps.getItems();
+      dispatch(getItems());
     }
   }, [loggedIn])
 
   return (
     <Paper className={classes.container}>
       <Cart 
-        groceries={groceries}
-        cart={cart}
-        cartSelected={cartSelected}
-        actions={actions}
         isSelectedTab={selectedTab === InventoryTabs.Cart}
         setSelectedTab={handleSelectTab}
       />
-      <Inventory 
-        groceries={groceries}
-        inventory={inventory} 
-        cart={cart} 
-        actions={actions} 
+      <Inventory
         isSelectedTab={selectedTab === InventoryTabs.Inventory}
         setSelectedTab={handleSelectTab}
       />
@@ -66,4 +52,4 @@ const InventoryContainer: React.FC<ReduxProps & DispatchProps> = ({
   )
 }
 
-export default connector(InventoryContainer);
+export default InventoryContainer;

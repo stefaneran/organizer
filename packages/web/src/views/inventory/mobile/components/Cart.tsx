@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCart, updateCartSelected, removeCart, finishShopping } from 'inventory/store/thunks';
+// Icon
 import { AddBagIconMedium } from '@core/components/Icons/BagIcon';
 import { RemoveCartIconLarge } from '@core/components/Icons/CartIcon';
+// Components
+import { Button } from '@material-ui/core';
 import AddItemInput from 'inventory/mobile/components/AddItemInput';
 import ItemList from 'inventory/mobile/components/ItemList';
+// Utils
 import cartItemsToArray from 'inventory/utils/cartItemsToArray';
-import { InventoryActions, GroceryItemEdit } from 'inventory/types';
+// Types
+import { RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
   list: {
@@ -19,46 +25,35 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-interface Props {
-  groceries: Record<string, GroceryItemEdit>;
-  cart: string[];
-  cartSelected: string[];
-  actions: InventoryActions;
-}
-
-const Cart: React.FC<Props> = ({
-  groceries,
-  cart,
-  cartSelected,
-  actions
-}) => {
+const Cart: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries, cart } = useSelector((state: RootState) => state.inventoryStore); 
+
   const listItems = cartItemsToArray(cart, groceries)
 
   const handleItemSelection = (selected: string[]) => {
-    actions.cart.updateSelected(selected);
+    dispatch(updateCartSelected(selected));
   }
   const handleRemoveItem = (id: string) => {
-    actions.cart.remove([id]);
+    dispatch(removeCart([id]));
   }
   const handleAddToCart = (id: string) => {
-    actions.cart.add([id]);
+    dispatch(addCart([id]));
   }
   const handleFinishShopping = () => {
-    actions.cart.finishShopping();
+    dispatch(finishShopping());
   }
 
   return (
     <>
-      <AddItemInput 
-        groceries={groceries} 
+      <AddItemInput
         targetCollection={cart} 
         onChange={handleAddToCart} 
       />
       <div className={classes.list}>
         <ItemList 
           listItems={listItems}
-          selectedItems={cartSelected} 
           onItemSelection={handleItemSelection}
           rowIcons={[
             { icon: <RemoveCartIconLarge />, handler: handleRemoveItem }

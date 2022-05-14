@@ -1,10 +1,14 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Typography } from '@material-ui/core';
+// Icons
 import CloseIcon from '@material-ui/icons/Close';
+// Components
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Typography } from '@material-ui/core';
 import NutritionEditRow from 'inventory/components/NutritionEditRow';
+// Types
 import { GroceryItemEdit, NutritionalInfo } from 'inventory/types';
-import { UnitType } from '@core/types';
+import { UnitType, RootState } from '@core/types';
 
 const useStyles = makeStyles((theme) => createStyles({
   container: {
@@ -37,7 +41,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 interface Props {
   isOpen: boolean;
-  groceries: Record<string, GroceryItemEdit>;
   groceryId: string;
   onClose: () => void;
   onSave: (itemId: string, nutrition: NutritionalInfo[]) => void;
@@ -54,12 +57,12 @@ const getNutrition = (groceryItem: GroceryItemEdit) => {
 
 const NutritionEditDialog: React.FC<Props> = ({
   isOpen,
-  groceries,
   groceryId,
   onClose,
   onSave
 }) => {
   const classes = useStyles();
+  const { groceries } = useSelector((state: RootState) => state.inventoryStore); 
 
   const groceryItem = groceries[groceryId];
 

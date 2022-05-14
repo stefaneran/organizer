@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { AnyAction } from "redux";
 import { ThunkDispatch } from 'redux-thunk';
-import { Activity } from 'activities/types';
-import { Contact, Event } from 'contacts/types';
-import { GroceryItemEdit } from 'inventory/types';
-import { Recipe } from 'recipes/types';
 import combinedReducer from 'app/store/combinedReducer';
 
 // ********** General types ********** //
@@ -33,6 +29,21 @@ export type UserData = {
   password: string;
 }
 
+// Which package/module is open in the app
+export enum OrganizerModule {
+  Activities = "Activities",
+  Contacts = "Contacts",
+  Inventory = "Inventory",
+  Recipes = "Recipes"
+}
+
+export enum ModuleStoreName {
+  Activities = "activitiesStore",
+  Contacts = "contactsStore",
+  Inventory = "inventoryStore",
+  Recipes = "recipesStore"
+}
+
 // ********** Event types ********** //
 
 // MUI <TextField /> or <Switch /> onChange event
@@ -56,47 +67,8 @@ export type SelectEvent<T> = React.ChangeEvent<{
 export type AutoCompleteHandler = 
   (event: React.ChangeEvent<any>, value: any | null) => void // eslint-disable-line @typescript-eslint/no-explicit-any
 
-// Which package/module is open in the app
-export enum OrganizerModule {
-  Activities = "Activities",
-  Contacts = "Contacts",
-  Inventory = "Inventory",
-  Recipes = "Recipes"
-}
-
-export enum ModuleStoreName {
-  Activities = "activitiesStore",
-  Contacts = "contactsStore",
-  Inventory = "inventoryStore",
-  Recipes = "recipesStore"
-}
 
 // ********** Redux types ********** //
-
-export interface ActivitiesStore {
-  activities: Record<string, Activity>;
-  lastUpdate: number;
-}
-
-export interface ContactsStore {
-  contacts: Record<string, Contact>;
-  events: Record<string, Event>;
-  groups: string[];
-  lastUpdate: number;
-}
-
-export interface InventoryStore {
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart: string[];
-  cartSelected: string[];
-  lastUpdate: number;
-}
-
-export interface RecipeStore {
-  recipes: Record<string, Recipe>;
-  lastUpdate: number;
-}
 
 export type RootState = ReturnType<typeof combinedReducer>;
 

@@ -1,9 +1,7 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { 
-  List, ListItem, ListItemText, Collapse,
-  Button, Divider, Tooltip, TextField
-} from '@material-ui/core';
+import { addCart, addInventory, updateItem } from 'inventory/store/thunks';
 // Icons
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -12,14 +10,18 @@ import { AddCartIconXS, AddCartIconSmall } from '@core/components/Icons/CartIcon
 import { AddBagIconXS } from '@core/components/Icons/BagIcon';
 import { ListIconSmall, NestedIconSmall } from '@core/components/Icons/ListIcon';
 // Components
+import { 
+  List, ListItem, ListItemText, Collapse,
+  Button, Divider, Tooltip, TextField
+} from '@material-ui/core';
 import SwitchInput from '@core/components/inputs/SwitchInput';
 import NestedList from 'inventory/components/NestedList';
 import SimpleList from 'inventory/components/SimpleList';
 import AddNewItemInput from 'inventory/components/AddNewGroceryInput';
 import AddGroceryInput from 'inventory/components/AddGroceryInput';
 // Types
-import { GroceryItem, GroceryItemEdit, RowIcon, InventoryActions } from 'inventory/types';
-import { StateSetter, InputEvent } from '@core/types';
+import { GroceryItem, RowIcon } from 'inventory/types';
+import { StateSetter, InputEvent, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   listContainer: {
@@ -73,15 +75,9 @@ interface Props {
   inventoryType: InventoryType;
   isSelectedTab: boolean;
   selectedItems: string[];
-  setSelectedItems: StateSetter<string[]>;
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart?: string[];
   customRowIcons: RowIcon[];
-  actions: InventoryActions;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   specificActions: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setSelectedItems: StateSetter<string[]>;
   getList: (...args: any[]) => GroceryItem[];
 }
 
@@ -89,16 +85,14 @@ const InventorySection: React.FC<Props> = ({
   inventoryType,
   isSelectedTab,
   selectedItems,
-  setSelectedItems,
-  groceries, 
-  inventory,
-  cart,
   customRowIcons,
-  actions,
   specificActions,
+  setSelectedItems,
   getList
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+  const { groceries, inventory } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [textFilter, setTextFilter] = React.useState('');
   // Should group items by category
@@ -126,13 +120,16 @@ const InventorySection: React.FC<Props> = ({
     setTextFilter(event.target.value)
   }
   const handleAddSelectedToCart = () => {
-    actions.cart.add(selectedItems)
+    dispatch(addCart(selectedItems));
   }
   const handleAddToCart = (id: string) => {
-    actions.cart.add([id]);
+    dispatch(addCart([id]));
   }
   const handleAddToAvailable = (id: string) => {
-    actions.inventory.add([id])
+    dispatch(addInventory([id]));
+  }
+  const handleGroceriesUpdate = (id: string, updatedItem: GroceryItem) => {
+    dispatch(updateItem(id, updatedItem));
   }
 
   const rowIcons = [
@@ -156,28 +153,22 @@ const InventorySection: React.FC<Props> = ({
             {isNested ? (
               <NestedList 
                 isSelectedTab={isSelectedTab}
-                listItems={listItems} 
-                groceries={groceries}
-                inventory={inventory} 
-                cart={cart}
+                groceryItems={listItems}
                 selectedItems={selectedItems} 
                 onItemSelection={handleItemSelection} 
                 rowIcons={rowIcons}
                 textFilter={textFilter}
-                onEdit={isAllType ? actions.groceries.update : undefined}
+                onEdit={isAllType ? handleGroceriesUpdate : undefined}
                 toggleNutrition={specificActions.toggleNutrition}
               />
             ) : (
               <SimpleList 
                 isSelectedTab={isSelectedTab}
-                listItems={listItems} 
-                groceries={groceries}
-                inventory={inventory} 
-                cart={cart}
+                listItems={listItems}
                 selectedItems={selectedItems} 
                 onItemSelection={handleItemSelection} 
                 rowIcons={rowIcons}
-                onEdit={isAllType ? actions.groceries.update : undefined}
+                onEdit={isAllType ? handleGroceriesUpdate : undefined}
                 toggleNutrition={specificActions.toggleNutrition}
               />
             )}

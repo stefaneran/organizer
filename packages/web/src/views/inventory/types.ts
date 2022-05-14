@@ -1,4 +1,3 @@
-import { ReduxProps } from 'inventory/container/InventoryConnector';
 import { UnitType } from '@core/types';
 
 export enum InventoryTabs {
@@ -22,24 +21,6 @@ export interface GroceryItem {
 }
 
 export type GroceryItemEdit = Omit<GroceryItem, "id">;
-
-export interface InventoryActions {
-  groceries: {
-    create: ReduxProps["createItem"],
-    update: ReduxProps["updateItem"]
-    delete: ReduxProps["deleteItems"]
-  },
-  inventory: {
-    add: ReduxProps["addInventory"];
-    remove: ReduxProps["removeInventory"];
-  },
-  cart: {
-    add: ReduxProps["addCart"];
-    remove: ReduxProps["removeCart"];
-    updateSelected: ReduxProps["updateCartSelected"];
-    finishShopping: ReduxProps["finishShopping"];
-  }
-}
 
 export interface RowIcon {
   icon: JSX.Element;

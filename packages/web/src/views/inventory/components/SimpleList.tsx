@@ -1,15 +1,15 @@
 import * as React from 'react';
+// Components
 import { List } from '@material-ui/core';
 import InventoryListItem from 'inventory/components/InventoryListItem';
+// Utils
 import genericSort from '@core/utils/genericSort';
-import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
+// Types
+import { GroceryItem, RowIcon } from 'inventory/types';
 
 interface Props {
   isSelectedTab: boolean;
   listItems: GroceryItem[];
-  groceries?: Record<string, GroceryItemEdit>;
-  inventory?: string[];
-  cart?: string[];
   selectedItems: string[];
   rowIcons?: RowIcon[];
   onItemSelection: (selected: string[]) => void;
@@ -20,9 +20,6 @@ interface Props {
 const SimpleList: React.FC<Props> = ({ 
   listItems, 
   isSelectedTab,
-  groceries,
-  inventory, 
-  cart,
   selectedItems, 
   rowIcons,
   onItemSelection,
@@ -40,9 +37,6 @@ const SimpleList: React.FC<Props> = ({
       {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(groceryItem => (
         <InventoryListItem 
           key={groceryItem.id}
-          groceries={groceries}
-          inventory={inventory} 
-          cart={cart}
           groceryItem={groceryItem}
           selectedItems={selectedItems}
           isSelectedTab={isSelectedTab}

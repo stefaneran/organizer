@@ -25,14 +25,11 @@ const Collapsible = (props) => {
   const {
     isSelectedTab,
     category, 
-    listItems, 
-    groceries,
-    inventory,
+    listItems,
     selectedItems, 
     onItemSelection,
     textFilter,
     rowIcons,
-    cart,
     onEdit,
     toggleNutrition
   } = props;
@@ -68,9 +65,6 @@ const Collapsible = (props) => {
           {listItems && listItems.sort((a, b) => genericSort(a.name, b.name)).map(groceryItem => (
             <InventoryListItem 
               key={groceryItem.id}
-              groceries={groceries}
-              inventory={inventory}
-              cart={cart}
               groceryItem={groceryItem}
               selectedItems={selectedItems}
               isSelectedTab={isSelectedTab}
@@ -89,10 +83,7 @@ const Collapsible = (props) => {
 
 interface Props {
   isSelectedTab: boolean;
-  listItems: GroceryItem[];
-  groceries: Record<string, GroceryItemEdit>;
-  inventory: string[];
-  cart?: string[];
+  groceryItems: GroceryItem[];
   selectedItems: string[];
   textFilter: string;
   rowIcons: RowIcon[];
@@ -104,19 +95,24 @@ interface Props {
 const NestedList: React.FC<Props> = (props) => {
 
   const categories = React.useMemo(() => {
-    return categorizeItems(props.listItems, "category")
-  }, [props.listItems]);
+    return categorizeItems(props.groceryItems, "category")
+  }, [props.groceryItems]);
 
   return (
     <List component="div" disablePadding>
-      {categories && Object.keys(categories).sort((a, b) => genericSort(a, b)).map(category => (
-        <Collapsible 
-          key={category}
-          {...props}
-          category={category}
-          listItems={categories[category]}
-        />
-      ))}
+      {categories && 
+        Object
+          .keys(categories)
+          .sort((a, b) => genericSort(a, b))
+          .map(category => (
+            <Collapsible 
+              key={category}
+              category={category}
+              listItems={categories[category]}
+              {...props}
+            />
+          ))
+      }
     </List>
   )
 }
