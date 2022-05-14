@@ -83,7 +83,7 @@ const RecipeInfoEdit: React.FC<Props> = ({
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} id="RecipeInfoEdit">
       <TextField
         className={classes.input}
         value={recipeData.name}

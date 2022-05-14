@@ -85,6 +85,7 @@ const Cart: React.FC<Props> = ({
       <div className={classes.contentContainer}>
         <div style={{ width: isSelectedTab && hasSelectedItems ? '65%' : '100%' }}>
           <SimpleList 
+            parentTab={InventoryTabs.Cart}
             isSelectedTab={isSelectedTab}
             listItems={listItems} 
             selectedItems={cartSelected} 

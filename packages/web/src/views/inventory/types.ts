@@ -1,23 +1,18 @@
-import { UnitType } from '@core/types';
-
 export enum InventoryTabs {
   Cart = "Cart",
   Inventory = "Inventory"
 }
 
-export interface NutritionalInfo {
-  unit: UnitType;
-  amount: number;
-  calories: number; // Amount of kcal
-  proteins: number; // Grams of proteins
-  fat: number; // Grams of fat
+export enum SelectedInventory {
+  All = "all",
+  Available = "available"
 }
 
 export interface GroceryItem {
   id: string;
   name: string;
   category: string;
-  nutrition: NutritionalInfo[];
+  isEssential: boolean;
 }
 
 export type GroceryItemEdit = Omit<GroceryItem, "id">;

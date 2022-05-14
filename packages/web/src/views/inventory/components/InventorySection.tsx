@@ -20,7 +20,7 @@ import SimpleList from 'inventory/components/SimpleList';
 import AddNewItemInput from 'inventory/components/AddNewGroceryInput';
 import AddGroceryInput from 'inventory/components/AddGroceryInput';
 // Types
-import { GroceryItem, RowIcon } from 'inventory/types';
+import { GroceryItem, RowIcon, InventoryTabs } from 'inventory/types';
 import { StateSetter, InputEvent, RootState, AppDispatch } from '@core/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -163,6 +163,7 @@ const InventorySection: React.FC<Props> = ({
               />
             ) : (
               <SimpleList 
+                parentTab={InventoryTabs.Inventory}
                 isSelectedTab={isSelectedTab}
                 listItems={listItems}
                 selectedItems={selectedItems} 

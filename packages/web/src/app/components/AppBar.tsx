@@ -167,7 +167,7 @@ const AppBar = ({
 
           {app.user.loggedIn && (
             <span className={classes.userName}>
-              <Typography variant="subtitle1" style={{ color: '#fff' }}>{app.user.userName}</Typography>
+              <Typography variant="subtitle1" style={{ color: '#fff' }}>Welcome, {app.user.userName}</Typography>
             </span>
           )}
 

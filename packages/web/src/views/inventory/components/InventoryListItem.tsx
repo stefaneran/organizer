@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import { ImportantIconSmall } from '@core/components/Icons/ImportantIcon';
 // Components
 import { ListItem, ListItemText, ListItemIcon, Checkbox, Tooltip } from '@material-ui/core';
 import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
@@ -12,17 +13,32 @@ import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
 // Types
-import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit, RowIcon, InventoryTabs } from 'inventory/types';
 import { ClickEvent, RootState } from '@core/types';
+
+const useStyles = makeStyles(() => createStyles({
+  checkboxContainer: {
+    minWidth: '35px'
+  },
+  essentialIcon: {
+    marginRight: '0.3em',
+    position: 'relative',
+    left: '-0.2em'
+  },
+  essentialCheckbox: {
+    marginRight: '0.7em'
+  }
+}));
 
 interface Props {
   groceryItem: GroceryItem;
   selectedItems: string[];
+  // Which tab this item is located in
+  parentTab: InventoryTabs;
   isSelectedTab: boolean;
   rowIcons?: RowIcon[];
   onSelect: (id: string) => () => void;
   onEdit?: (id: string, item: GroceryItemEdit) => void;
-  toggleNutrition?: (id?: string, isEdit?: boolean) => void;
 }
 
 const getIcon = (
@@ -39,16 +55,18 @@ const getIcon = (
 const InventoryListItem: React.FC<Props> = ({
   groceryItem,
   selectedItems,
+  parentTab,
   isSelectedTab,
   rowIcons,
   onSelect,
-  onEdit,
-  toggleNutrition
+  onEdit
 }) => {
+  const classes = useStyles();
   const { groceries, inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [groceryName, setGroceryName] = React.useState(groceryItem.name);
   const [groceryCategory, setGroceryCategory] = React.useState(groceryItem.category);
+  const [groceryIsEssential, setGroceryIsEssential] = React.useState(Boolean(groceryItem.isEssential))
   const [isEditing, setIsEditing] = React.useState(false);
 
   const hasSelection = Boolean(selectedItems);
@@ -62,8 +80,8 @@ const InventoryListItem: React.FC<Props> = ({
     setIsEditing(!isEditing);
   }
 
-  const toggleEditNutrition = () => {
-    toggleNutrition(groceryItem.id, true);
+  const toggleEssential = () => {
+    setGroceryIsEssential(!groceryIsEssential);
   }
 
   const handleSaveEdit = () => {
@@ -71,7 +89,8 @@ const InventoryListItem: React.FC<Props> = ({
       const updatedItem = { 
         name: groceryName, 
         category: groceryCategory,
-        nutrition: groceryItem.nutrition
+        isEssential: groceryIsEssential,
+        nutrition: groceryItem.nutrition,
       }
       onEdit(groceryItem.id, updatedItem);
     }
@@ -92,20 +111,19 @@ const InventoryListItem: React.FC<Props> = ({
     handler(id);
   }
 
-  // Used only in case of groceries
-  const itemBackground = 
-    (groceryItem: GroceryItem) => groceries && inventory && cart ? getWarningColor(groceryItem, cart, inventory) : '';
+  const shouldHighlightItem = parentTab === InventoryTabs.Inventory;
+  const itemHighlight = getWarningColor(groceryItem, cart, inventory)
 
   return (
     <ListItem 
-      button 
+      button
       onClick={hasSelection && !isEditing ? onSelect(groceryItem.id) : undefined}
       style={{ 
-        background: itemBackground(groceryItem)
+        background: shouldHighlightItem ? itemHighlight : ''
       }}
     >
       {hasSelection && isSelectedTab && !isEditing && (
-        <ListItemIcon>
+        <ListItemIcon className={classes.checkboxContainer}>
           <Checkbox
             edge="start"
             checked={selectedItems.includes(groceryItem.id)}
@@ -120,16 +138,22 @@ const InventoryListItem: React.FC<Props> = ({
           categoryOptions={categoryOptions}
           setGroceryName={setGroceryName}
           setGroceryCategory={setGroceryCategory}
-          toggleNutrition={toggleNutrition}
         />
       ) : (
-        <ListItemText primary={groceryItem.name} secondary={groceryItem.category} />
+        <>
+          {groceryIsEssential ? (
+            <div className={classes.essentialIcon}>
+              <ImportantIconSmall />
+            </div>
+          ) : null}
+          <ListItemText primary={groceryItem.name} secondary={groceryItem.category} />
+        </>
       )}
       
       <>
         {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
           <ListItemIcon key={`${groceryItem.id}-${index}`} onClick={handleIconAction(groceryItem.id, rowIcon.handler)}>
-            {getIcon(rowIcon, itemBackground(groceryItem))}
+            {getIcon(rowIcon, itemHighlight)}
           </ListItemIcon>
         )) : null}
         {onEdit && !isEditing ? (
@@ -139,11 +163,14 @@ const InventoryListItem: React.FC<Props> = ({
         ) : null}
         {isEditing ? (
           <>
-            <ListItemIcon onClick={toggleEditNutrition}>
-              <Tooltip title="Add Nutritional Info">
-                <PlaylistAddIcon style={{ color: '#3f51b5' }} />
-              </Tooltip>
-            </ListItemIcon>
+            <Tooltip title="Mark as essential">
+              <Checkbox
+                className={classes.essentialCheckbox}
+                checked={groceryIsEssential || false}
+                onClick={toggleEssential}
+                color="primary"
+              />
+            </Tooltip>
             <ListItemIcon onClick={handleSaveEdit}>
               <CheckIcon style={{ color: '#3f51b5' }} />
             </ListItemIcon>

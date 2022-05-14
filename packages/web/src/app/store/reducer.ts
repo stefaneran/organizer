@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getLatestVersion } from '@core/changelogs';
 
 const slice = createSlice({
   name: 'app',
   initialState: {
-    version: '1.0.0',
+    version: getLatestVersion(),
     isLoading: false,
     isMobile: false,
     user: {

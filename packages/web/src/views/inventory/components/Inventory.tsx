@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-// Icons
-import { BagIconXS, BagIconWhiteXS } from '@core/components/Icons/BagIcon';
-import { DatabaseIconXS, DatabaseIconWhiteXS } from '@core/components/Icons/DatabaseIcon';
 // Components
-import { Typography, IconButton, Tooltip } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import InventoryToolbar from 'inventory/components/InventoryToolbar';
 import InventoryAll from 'inventory/components/InventoryAll';
 import InventoryAvailable from 'inventory/components/InventoryAvailable';
 // Utils
-import { InventoryTabs } from 'inventory/types';
+import { InventoryTabs, SelectedInventory } from 'inventory/types';
 
 const useStyles = makeStyles(() => createStyles({
   container: {
     padding: '1em',
+    paddingBottom: '5em', // Allows scroll to bottom without cutting off content
     display: 'inline-block',
     overflow: 'hidden',
     transition: 'width 300ms'
@@ -20,15 +19,6 @@ const useStyles = makeStyles(() => createStyles({
   contentContainer: {
     height: '95%',
     overflowY: 'auto'
-  },
-  inventoryButtons: {
-    display: 'flex',
-    '& > button': {
-      marginRight: '1em'
-    },
-    '& .selected': {
-      background: '#3f51b5'
-    }
   },
   divider: {
     margin: '1em 0'
@@ -46,9 +36,9 @@ const Inventory: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const [selectedInventory, setSelectedInventory] = React.useState<'available' | 'all'>('available')
+  const [selectedInventory, setSelectedInventory] = React.useState<SelectedInventory>(SelectedInventory.Available);
 
-  const handleSelectInventory = (type: 'available' | 'all') => () => {
+  const handleSelectInventory = (type: SelectedInventory) => () => {
     setSelectedInventory(type)
   }
 
@@ -67,26 +57,13 @@ const Inventory: React.FC<Props> = ({
       <Typography variant="h4">
         Inventory
       </Typography>
-      <div className={classes.inventoryButtons}>
-        <Tooltip title="Groceries">
-          <IconButton 
-            onClick={handleSelectInventory('all')} 
-            className={selectedInventory === 'all' ? 'selected' : ''}
-          >
-            {selectedInventory === 'all' ? <DatabaseIconWhiteXS /> : <DatabaseIconXS />}
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Available Inventory">
-          <IconButton 
-            onClick={handleSelectInventory('available')} 
-            className={selectedInventory === 'available' ? 'selected' : ''}
-          >
-            {selectedInventory === 'available' ? <BagIconWhiteXS /> : <BagIconXS />}
-          </IconButton>
-        </Tooltip>
-      </div>
+      <InventoryToolbar 
+        isSelectedTab={isSelectedTab}
+        selectedInventory={selectedInventory}
+        onSelectInventory={handleSelectInventory}
+      />
       <div className={classes.contentContainer}>
-        {selectedInventory === 'available' ? (
+        {selectedInventory === SelectedInventory.Available ? (
           <InventoryAvailable isSelectedTab={isSelectedTab} />
         ) : (
           <InventoryAll isSelectedTab={isSelectedTab} />

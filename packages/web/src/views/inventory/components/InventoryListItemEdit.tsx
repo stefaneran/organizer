@@ -25,7 +25,6 @@ interface Props {
   categoryOptions: string[];
   setGroceryName: StateSetter<string>;
   setGroceryCategory: StateSetter<string>;
-  toggleNutrition: (id?: string, isEdit?: boolean) => void;
 }
 
 const InventoryListItemEdit: React.FC<Props> = ({

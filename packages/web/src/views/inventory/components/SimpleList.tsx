@@ -5,9 +5,10 @@ import InventoryListItem from 'inventory/components/InventoryListItem';
 // Utils
 import genericSort from '@core/utils/genericSort';
 // Types
-import { GroceryItem, RowIcon } from 'inventory/types';
+import { GroceryItem, RowIcon, InventoryTabs } from 'inventory/types';
 
 interface Props {
+  parentTab: InventoryTabs;
   isSelectedTab: boolean;
   listItems: GroceryItem[];
   selectedItems: string[];
@@ -18,8 +19,9 @@ interface Props {
 }
 
 const SimpleList: React.FC<Props> = ({ 
-  listItems, 
+  parentTab,
   isSelectedTab,
+  listItems, 
   selectedItems, 
   rowIcons,
   onItemSelection,
@@ -39,6 +41,7 @@ const SimpleList: React.FC<Props> = ({
           key={groceryItem.id}
           groceryItem={groceryItem}
           selectedItems={selectedItems}
+          parentTab={parentTab}
           isSelectedTab={isSelectedTab}
           onSelect={handleSelection}
           rowIcons={rowIcons}

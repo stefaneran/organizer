@@ -11,7 +11,7 @@ import categorizeItems from '@core/utils/categorizeItems';
 import genericSort from '@core/utils/genericSort';
 import shouldCategoryBeOpen from 'inventory/utils/shouldCategoryBeOpen';
 // Types
-import { GroceryItem, GroceryItemEdit, RowIcon } from 'inventory/types';
+import { GroceryItem, GroceryItemEdit, InventoryTabs, RowIcon } from 'inventory/types';
 import { ClickEvent } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -67,6 +67,8 @@ const Collapsible = (props) => {
               key={groceryItem.id}
               groceryItem={groceryItem}
               selectedItems={selectedItems}
+              /* Cart doesn't use nested list, so parent tab will always be inventory */
+              parentTab={InventoryTabs.Inventory}
               isSelectedTab={isSelectedTab}
               onSelect={handleSelection}
               rowIcons={rowIcons}

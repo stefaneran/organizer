@@ -1,7 +1,6 @@
 
 NEXT:
 - Implement env
-- Make Inventory essential items feature
 - Make event reminders feature
 - Use routing and make homepage
 
@@ -44,6 +43,7 @@ Refactors:
 - Add Stock Recipe types (Lunch,Brunch,Dinner,Snack,etc)
 - When finish creating new recipe, set as selected to avoid confusion
 - Is Optional - Make a custom checkbox with question icon instead of classic checkbox
+- Add option to mark selected as essential
 
 Mobile:
 - Click on icon wonky - Remove isHover for mobile
@@ -53,6 +53,7 @@ Mobile:
 Refactor: 
 - Find duplicate util functions and move to /utils
 - Remove optional ingredients dialogue (useless feature that adds a lot of technical debt)
+- Remove nutrition feature (useless feature)
 
 Optional: 
 - Make modular recipes (ex: Bolognese as base, and real recipe with spaghetti)
@@ -64,7 +65,6 @@ Optional:
 ======================  Inventory  ============================
 ===============================================================
 
-- Make Inventory essential items feature
 - Grocery spoiling feature
 - Add "De-select All" button
 - BUG: Confirmation dialog doesnt work on delete allItems (maybe available too)

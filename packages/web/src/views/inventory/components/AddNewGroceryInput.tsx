@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Autocomplete } from '@material-ui/lab';
-import { TextField, Button } from '@material-ui/core';
+// Icons
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+// Components
+import { Autocomplete } from '@material-ui/lab';
+import { TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
+// Utils
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
-import { GroceryEdit } from 'inventory/types';
+// Types
+import { GroceryItemEdit } from 'inventory/types';
 import { InputEvent, AutoCompleteHandler } from '@core/types';
 
 const useStyles = makeStyles(() => createStyles({
@@ -30,7 +34,7 @@ const useStyles = makeStyles(() => createStyles({
 }))
 
 interface Props {
-  groceries: Record<string, GroceryEdit>;
+  groceries: Record<string, GroceryItemEdit>;
   onSubmit: (groceryItem: GroceryItemEdit) => void;
 }
 
@@ -39,9 +43,13 @@ const AddNewGroceryInput: React.FC<Props> = ({ groceries, onSubmit }) => {
 
   const [currentNameValue, setCurrentNameValue] = React.useState('');
   const [currentCategoryValue, setCurrentCategoryValue] = React.useState('');
+  const [currentIsEssentialValue, setCurrentIsEssentialValue] = React.useState(false);
 
   const categoryOptions = getCategoryOptions(currentCategoryValue, groceries);
 
+  const toggleIsEssential = () => {
+    setCurrentIsEssentialValue(!currentIsEssentialValue);
+  }
   const handleNameInput = (event: InputEvent) => {
     setCurrentNameValue(event.target.value);
   }
@@ -56,8 +64,14 @@ const AddNewGroceryInput: React.FC<Props> = ({ groceries, onSubmit }) => {
   const handleSubmit = () => {
     const hasName = Boolean(currentNameValue?.length);
     const hasCategory = Boolean(currentCategoryValue?.length);
-    if (hasName && hasCategory) {
-      onSubmit({ name: currentNameValue, category: currentCategoryValue })
+    if (hasName) {
+      onSubmit({ 
+        name: currentNameValue, 
+        category: hasCategory ? currentCategoryValue : "Uncategorized", 
+        isEssential: currentIsEssentialValue 
+      })
+      setCurrentNameValue('');
+      setCurrentIsEssentialValue(false);
     }
   }
 
@@ -89,6 +103,11 @@ const AddNewGroceryInput: React.FC<Props> = ({ groceries, onSubmit }) => {
               variant={'outlined'} 
             />
           }
+        />
+        <FormControlLabel
+          control={<Checkbox checked={currentIsEssentialValue} onClick={toggleIsEssential} color="primary" />}
+          label="Is Essential Grocery"
+          labelPlacement="end"
         />
       </div>
       <div className={classes.buttonsContainer}>

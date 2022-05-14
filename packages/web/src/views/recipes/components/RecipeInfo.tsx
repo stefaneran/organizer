@@ -72,7 +72,7 @@ const RecipeInfo: React.FC<Props> = ({
   return (
     <>
     {hasRecipe && (
-      <div className={classes.detailsContainer}>
+      <div className={classes.detailsContainer} id="RecipeInfo">
         <div className={classes.header}>
           <div className={classes.headerTitles}>
             <Typography variant="h4">

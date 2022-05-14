@@ -1,18 +1,17 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createItem, updateItem, deleteItems, addInventory } from 'inventory/store/thunks';
+import { useDispatch } from 'react-redux';
+import { createItem, deleteItems, addInventory } from 'inventory/store/thunks';
 // Icons
 import { AddBagIconSmall } from '@core/components/Icons/BagIcon';
 import { TrashIconSmall, TrashIconSmallWhite, TrashIconXS } from '@core/components/Icons/DeleteIcon';
 // Components
 import InventorySection from 'inventory/components/InventorySection';
-import NutritionEditDialog from 'inventory/components/NutritionEditDialog';
 import ConfirmationDialog from '@core/components/ConfirmationDialog';
 // Utils
 import allItemsToArray from 'inventory/utils/allItemsToArray';
 // Types
-import { RootState, AppDispatch } from '@core/types';
-import { NutritionalInfo } from 'inventory/types';
+import { AppDispatch } from '@core/types';
+import { GroceryItemEdit } from 'inventory/types';
 
 interface Props {
   isSelectedTab: boolean;
@@ -20,11 +19,9 @@ interface Props {
 
 const InventoryAll: React.FC<Props> = ({ isSelectedTab }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { groceries } = useSelector((state: RootState) => state.inventoryStore); 
 
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
   const [confirmationDialog, setConfirmationDialog] = React.useState({ isOpen: false, groceryId: '' });
-  const [nutritionDialog, setNutritionDialog] = React.useState({ isOpen: false, groceryId: '', isEdit: false });
 
   const hasSelectedItems = Boolean(selectedItems.length);
 
@@ -39,24 +36,12 @@ const InventoryAll: React.FC<Props> = ({ isSelectedTab }) => {
     setConfirmationDialog({ isOpen: !isOpen, groceryId });
   }
 
-  const toggleNutritionDialog = (id?: string, isEdit?: boolean) => {
-    const { isOpen } = nutritionDialog;
-    const groceryId = typeof id === 'string' ? id : '';
-    setNutritionDialog({ isOpen: !isOpen, groceryId, isEdit: Boolean(isEdit) })
-  }
-
-  const handleSaveNutrition = (groceryId: string, nutrition: NutritionalInfo[]) => {
-    const groceryItem = groceries[groceryId];
-    dispatch(updateItem(groceryId, { ...groceryItem, id: groceryId, nutrition }))
-    toggleNutritionDialog();
-  }
-
   const handleAddFromAllToAvailable = (id: string) => {
     dispatch(addInventory([id]));
   }
 
-  const handleAddNewToAll = ({ name, category }: Record<string, string>) => {
-    dispatch(createItem({ name, category, nutrition: [] }));
+  const handleAddNewToAll = ({ name, category, isEssential }: GroceryItemEdit) => {
+    dispatch(createItem({ name, category, isEssential }));
   }
 
   const handleAddSelectedToAvailable = () => {
@@ -86,8 +71,7 @@ const InventoryAll: React.FC<Props> = ({ isSelectedTab }) => {
         specificActions={{
           addNew: handleAddNewToAll,
           addSelectedToAvailable: handleAddSelectedToAvailable,
-          removeSelected: handleRemoveFromAll(),
-          toggleNutrition: toggleNutritionDialog
+          removeSelected: handleRemoveFromAll()
         }}
       />
       {confirmationDialog.isOpen && (
@@ -101,14 +85,6 @@ const InventoryAll: React.FC<Props> = ({ isSelectedTab }) => {
           secondaryText="Delete"
           onPrimaryAction={toggleConfirmationDialog}
           onSecondaryAction={hasSelectedItems ? handleRemoveFromAll() : handleRemoveFromAll(confirmationDialog.groceryId)}
-        />
-      )}
-      {nutritionDialog.isOpen && (
-        <NutritionEditDialog
-          isOpen
-          groceryId={nutritionDialog.groceryId}
-          onClose={toggleNutritionDialog}
-          onSave={handleSaveNutrition}
         />
       )}
     </>

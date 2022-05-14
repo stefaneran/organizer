@@ -43,7 +43,7 @@ const RecipesToolbar: React.FC<Props> = ({
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} id="RecipesToolbar">
       <Tooltip title="Open Filters">
         <IconButton onClick={toggleFiltersOpen}>
           <FilterListIcon color="primary" />

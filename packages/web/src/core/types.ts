@@ -10,8 +10,6 @@ export type Option = {
   value: string; 
 };
 
-export type UnitType = 'units' | 'grams' | 'milliliters' | 'teaspoons' | 'tablespoons';
-
 // React.useState setter function
 export type StateSetter<T> = 
   React.Dispatch<React.SetStateAction<T>>;
