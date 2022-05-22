@@ -1,14 +1,14 @@
 import { GroceryItem } from 'inventory/types';
-import { warningYellow, warningRed } from 'inventory/constants/warningColor';
+import { RED_COLOR, YELLOW_COLOR } from '@core/constants/colors';
 
-const isItemAvailable = (item: GroceryItem, inventory: string[]): boolean => 
+const isItemAvailable = (item: GroceryItem, inventory: string[]): boolean =>
   item ? inventory.includes(item.id) : false;
-const isItemInCart = (item: GroceryItem, cart: string[]): boolean => 
+const isItemInCart = (item: GroceryItem, cart: string[]): boolean =>
   item ? cart.includes(item.id) : false;
 
 const getWarningColor = (
-  item: GroceryItem, 
-  cart: string[], 
+  item: GroceryItem,
+  cart: string[],
   inventory: string[]
 ): string => {
   if (!item) {
@@ -17,12 +17,12 @@ const getWarningColor = (
   // If item missing from inventory, but is in cart
   if (!isItemAvailable(item, inventory) && isItemInCart(item, cart)) {
     // Return yellow
-    return warningYellow;
+    return YELLOW_COLOR;
   }
   // If item is missing
   else if (!isItemAvailable(item, inventory)) {
     // Return red
-    return warningRed;
+    return RED_COLOR;
   }
   return '';
 }

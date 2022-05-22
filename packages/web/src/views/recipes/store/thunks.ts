@@ -6,7 +6,6 @@ import { setRecipes, updateRecipe, deleteRecipeDone } from '.';
 import { setInventoryData } from 'inventory/store';
 import { createItem } from 'inventory/store/thunks';
 // Constants
-import baseUrl from '@core/baseUrl';
 import STATUS from '@core/constants/statusCodes';
 // Utils
 import sanitizeIngredients from 'recipes/utils/sanitizeIngredients';
@@ -20,7 +19,7 @@ import { Recipe, RecipeEdit } from 'recipes/types';
 
 export const getRecipes = () => async (dispatch: Dispatch, getState: GetState) => {
   const options: RequestOptions = {
-    url: `${baseUrl}/recipes/get`,
+    url: `${process.env.BASE_URL}/recipes/get`,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not get recipes"
   }
@@ -39,8 +38,8 @@ export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getS
   const { inventoryStore: { groceries } } = getState();
   const createGroceryThunk = async (name, category) => dispatch(createItem({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
-    recipe.ingredients, 
-    groceries, 
+    recipe.ingredients,
+    groceries,
     createGroceryThunk
   );
   const recipeId = v4();
@@ -51,7 +50,7 @@ export const addRecipe = (recipe: RecipeEdit) => async (dispatch: Dispatch, getS
   const params = { recipeId, recipe: newRecipe };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/recipes/create`,
+    url: `${process.env.BASE_URL}/recipes/create`,
     params,
     acceptedStatusCode: STATUS.CREATED,
     errorMessage: "Could not create recipe",
@@ -73,8 +72,8 @@ export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => asy
   const { inventoryStore: { groceries } } = getState();
   const createGroceryThunk = async (name, category) => dispatch(createItem({ name, category }));
   const ingredientsWithId = await sanitizeIngredients(
-    recipe.ingredients, 
-    groceries, 
+    recipe.ingredients,
+    groceries,
     createGroceryThunk
   );
   const updatedRecipe = {
@@ -84,7 +83,7 @@ export const editRecipe = (recipe: Recipe | RecipeEdit, recipeId: string) => asy
   const params = { recipeId, recipe: updatedRecipe }
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/recipes/update`,
+    url: `${process.env.BASE_URL}/recipes/update`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update recipe",
@@ -105,7 +104,7 @@ export const deleteRecipe = (recipeId: string) => async (dispatch: Dispatch, get
   const params = { recipeId };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/recipes/delete`,
+    url: `${process.env.BASE_URL}/recipes/delete`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not delete recipe",

@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      html, body, #app, * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html, body, #app, #main {
-        height: 100%;
-        width: 100%;
-      }
-      body {
-        background-color: rgba(0, 0, 0, 0.2);
-      }
-      a {
-        text-decoration: none !important;
-      }
-      div::-webkit-scrollbar {
-        width: 12px;
-        background-color: #F5F5F5; 
-      }
-      div::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        background-color: #4285F4; 
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+<head>
+  <style>
+    html,
+    body,
+    #app,
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+    html,
+    body,
+    #app,
+    #main {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    div::-webkit-scrollbar {
+      width: 12px;
+      background-color: #F5F5F5;
+    }
+
+    div::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      background-color: #4285F4;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyAv4iK8CVhg5LfzTh8o8TlPES0aiMocx_s",
-        authDomain: "sem-organizer.firebaseapp.com",
-        databaseURL: "https://sem-organizer.firebaseio.com",
-        projectId: "sem-organizer",
-        storageBucket: "sem-organizer.appspot.com",
-        messagingSenderId: "905778874300",
-        appId: "1:905778874300:web:6f2ac262d1d40625f40db9"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-  <script type="text/javascript" src="./build.js"></script></body>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAv4iK8CVhg5LfzTh8o8TlPES0aiMocx_s",
+      authDomain: "sem-organizer.firebaseapp.com",
+      databaseURL: "https://sem-organizer.firebaseio.com",
+      projectId: "sem-organizer",
+      storageBucket: "sem-organizer.appspot.com",
+      messagingSenderId: "905778874300",
+      appId: "1:905778874300:web:6f2ac262d1d40625f40db9"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script type="text/javascript" src="./build.js"></script>
+</body>
+
 </html>

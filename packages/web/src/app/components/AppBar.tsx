@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { 
-  Paper, 
+import {
+  Paper,
   Grid,
-  Typography, 
-  Tooltip, 
-  IconButton, 
+  Typography,
+  Tooltip,
+  IconButton,
   Button,
-  CircularProgress 
+  CircularProgress
 } from '@material-ui/core';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { PeopleIconSmall } from '@core/components/Icons/PeopleIcon';
@@ -87,7 +87,7 @@ interface AppBarProps {
   onLogout: () => void;
 }
 
-const AppBar = ({ 
+const AppBar = ({
   app,
   setCurrentModule,
   setLoginDialog,
@@ -138,8 +138,8 @@ const AppBar = ({
         {!app.user.loggedIn ? (
           <>
             <Grid item className={classes.buttonContainer}>
-              <Button 
-                className={classes.textButton} 
+              <Button
+                className={classes.textButton}
                 startIcon={<LogInIconSmall />}
                 onClick={setLoginDialog({ type: 'login', isOpen: true })}
               >
@@ -147,7 +147,7 @@ const AppBar = ({
               </Button>
             </Grid>
             <Grid item className={classes.buttonContainer}>
-              <Button 
+              <Button
                 className={classes.textButton}
                 onClick={setLoginDialog({ type: 'register', isOpen: true })}
               >

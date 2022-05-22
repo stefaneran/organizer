@@ -4,8 +4,9 @@ export enum Genders {
   Other = "Other"
 }
 
-export enum SortOption { 
+export enum SortOption {
   LastContact = "Last Contact",
+  LastHangout = "Last Hangout",
   Name = "Name",
   Location = "Location"
 }
@@ -29,11 +30,19 @@ export interface Contact {
   location: string;
   groups: string[];
   gender: Genders;
-  oneOnOne: boolean; // Can you hang out with this person one on one or just in groups
-  lastContact: number; // Last hangout or talk - Can be "snoozed" to represent keeping in touch
-  lastHangout: number; // Last time user hung out with contact in the real world
-  hangoutTally: number; // Number of times user hung out with contact,
-  dateCreated: number; // Date contact was created (used for calculating averages)
+  // Can you hang out with this person one on one or just in groups
+  oneOnOne: boolean;
+  // Last hangout or talk - Can be "snoozed" to represent keeping in touch
+  lastContact: number;
+  // Last time user hung out with contact in the real world
+  lastHangout: number;
+  // Number of times user hung out with contact
+  hangoutTally: number;
+  // Number of days after which the hangout bar should be empty
+  hangoutFrequency: number;
+  // Date contact was created (used for calculating averages)
+  dateCreated: number;
+  // Other contacts this contact knows and the number of times they interacted
   acquintances: Record<string, number>;
 }
 

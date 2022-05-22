@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 // Actions
 import {
   setContactsAndEvents,
-  updateContactDone, 
+  updateContactDone,
   deleteContactDone,
   updateLastContactDone,
   updateEventDone,
@@ -11,7 +11,6 @@ import {
 } from '.';
 import { setActivities } from 'activities/store';
 // Constants
-import baseUrl from '@core/baseUrl';
 import STATUS from '@core/constants/statusCodes';
 // Utils
 import genericRequest from '@core/utils/genericRequest';
@@ -23,7 +22,7 @@ import { GetState, RequestOptions, OrganizerModule } from '@core/types';
 
 export const getContactsAndEvents = () => async (dispatch: Dispatch, getState: GetState) => {
   const options: RequestOptions = {
-    url: `${baseUrl}/contacts/get`,
+    url: `${process.env.BASE_URL}/contacts/get`,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not get contact and events"
   }
@@ -42,7 +41,7 @@ export const createContact = (contact) => async (dispatch: Dispatch, getState: G
   const params = { contactId, contact };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/contacts/create`,
+    url: `${process.env.BASE_URL}/contacts/create`,
     params,
     acceptedStatusCode: STATUS.CREATED,
     errorMessage: "Could not create contact",
@@ -63,7 +62,7 @@ export const editContact = (contactId, contact) => async (dispatch: Dispatch, ge
   const params = { contactId, contact };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/contacts/update`,
+    url: `${process.env.BASE_URL}/contacts/update`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update contact",
@@ -84,7 +83,7 @@ export const deleteContact = (contactId) => async (dispatch: Dispatch, getState:
   const params = { contactId };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/contacts/delete`,
+    url: `${process.env.BASE_URL}/contacts/delete`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not delete contact",
@@ -105,7 +104,7 @@ export const updateLastContact = (contactId) => async (dispatch: Dispatch, getSt
   const params = { contactId };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/contacts/updateLast`,
+    url: `${process.env.BASE_URL}/contacts/updateLast`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update last contact",
@@ -127,7 +126,7 @@ export const createEvent = (event) => async (dispatch: Dispatch, getState: GetSt
   const params = { eventId, event };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/events/create`,
+    url: `${process.env.BASE_URL}/events/create`,
     params,
     acceptedStatusCode: STATUS.CREATED,
     errorMessage: "Could not create event",
@@ -149,7 +148,7 @@ export const editEvent = (eventId, event) => async (dispatch: Dispatch, getState
   const params = { eventId, event };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/events/update`,
+    url: `${process.env.BASE_URL}/events/update`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update event",
@@ -170,7 +169,7 @@ export const deleteEvent = (eventId) => async (dispatch: Dispatch, getState: Get
   const params = { eventId };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/events/delete`,
+    url: `${process.env.BASE_URL}/events/delete`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not delete event",

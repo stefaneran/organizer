@@ -3,7 +3,6 @@ import { v4 } from 'uuid';
 // Actions
 import { setActivities, updateActivityDone, deleteActivityDone } from 'activities/store';
 // Constants
-import baseUrl from '@core/baseUrl';
 import STATUS from '@core/constants/statusCodes';
 // Utils
 import genericRequestWithDispatch from '@core/utils/genericRequestWithDispatch';
@@ -15,7 +14,7 @@ import { Activity } from 'activities/types';
 
 export const getActivities = () => async (dispatch: Dispatch, getState: GetState) => {
   const options: RequestOptions = {
-    url: `${baseUrl}/activities/get`,
+    url: `${process.env.BASE_URL}/activities/get`,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not get activities"
   }
@@ -35,7 +34,7 @@ export const addActivity = (activity: Activity) => async (dispatch: Dispatch, ge
   const params = { activityId, activity };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/activities/create`,
+    url: `${process.env.BASE_URL}/activities/create`,
     params,
     acceptedStatusCode: STATUS.CREATED,
     errorMessage: "Could not create activity",
@@ -57,7 +56,7 @@ export const editActivity = (activityId: string, activity: Activity) => async (d
   const params = { activityId, activity };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/activities/update`,
+    url: `${process.env.BASE_URL}/activities/update`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update activity",
@@ -78,7 +77,7 @@ export const deleteActivity = (activityId: string) => async (dispatch: Dispatch,
   const params = { activityId };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/activities/delete`,
+    url: `${process.env.BASE_URL}/activities/delete`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not delete activity",

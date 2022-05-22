@@ -12,6 +12,8 @@ import InventoryListItemEdit from 'inventory/components/InventoryListItemEdit';
 // Utils
 import getWarningColor from 'inventory/utils/getWarningColor';
 import getCategoryOptions from 'inventory/utils/getCategoryOptions';
+// Constants
+import { RED_COLOR } from '@core/constants/colors';
 // Types
 import { GroceryItem, GroceryItemEdit, RowIcon, InventoryTabs } from 'inventory/types';
 import { ClickEvent, RootState } from '@core/types';
@@ -42,11 +44,11 @@ interface Props {
 }
 
 const getIcon = (
-  rowIcon: RowIcon, 
+  rowIcon: RowIcon,
   background: string
 ): JSX.Element => {
   // An exception for if item with red background
-  if (rowIcon.altIcon && background === 'rgb(255, 89, 100)') {
+  if (rowIcon.altIcon && background === RED_COLOR) {
     return rowIcon.altIcon;
   }
   return rowIcon.icon;
@@ -62,7 +64,7 @@ const InventoryListItem: React.FC<Props> = ({
   onEdit
 }) => {
   const classes = useStyles();
-  const { groceries, inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
+  const { groceries, inventory, cart } = useSelector((state: RootState) => state.inventoryStore);
 
   const [groceryName, setGroceryName] = React.useState(groceryItem.name);
   const [groceryCategory, setGroceryCategory] = React.useState(groceryItem.category);
@@ -86,8 +88,8 @@ const InventoryListItem: React.FC<Props> = ({
 
   const handleSaveEdit = () => {
     if (onEdit) {
-      const updatedItem = { 
-        name: groceryName, 
+      const updatedItem = {
+        name: groceryName,
         category: groceryCategory,
         isEssential: groceryIsEssential,
         nutrition: groceryItem.nutrition,
@@ -104,7 +106,7 @@ const InventoryListItem: React.FC<Props> = ({
   }
 
   const handleIconAction = (
-    id: string, 
+    id: string,
     handler: (id: string) => void
   ) => (event: ClickEvent) => {
     event.stopPropagation();
@@ -115,10 +117,10 @@ const InventoryListItem: React.FC<Props> = ({
   const itemHighlight = getWarningColor(groceryItem, cart, inventory)
 
   return (
-    <ListItem 
+    <ListItem
       button
       onClick={hasSelection && !isEditing ? onSelect(groceryItem.id) : undefined}
-      style={{ 
+      style={{
         background: shouldHighlightItem ? itemHighlight : ''
       }}
     >
@@ -132,7 +134,7 @@ const InventoryListItem: React.FC<Props> = ({
         </ListItemIcon>
       )}
       {isEditing ? (
-        <InventoryListItemEdit 
+        <InventoryListItemEdit
           groceryName={groceryName}
           groceryCategory={groceryCategory}
           categoryOptions={categoryOptions}
@@ -149,7 +151,7 @@ const InventoryListItem: React.FC<Props> = ({
           <ListItemText primary={groceryItem.name} secondary={groceryItem.category} />
         </>
       )}
-      
+
       <>
         {rowIcons && !isEditing ? rowIcons.map((rowIcon, index) => (
           <ListItemIcon key={`${groceryItem.id}-${index}`} onClick={handleIconAction(groceryItem.id, rowIcon.handler)}>

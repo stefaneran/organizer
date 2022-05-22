@@ -1,7 +1,9 @@
 
 NEXT:
-- Implement env
+- implement changelog
 - Make event reminders feature
+- Grocery spoiling feature
+- Implement loading icon on mobile
 - Use routing and make homepage
 - Make empty UIs:
   - Inventory 
@@ -33,6 +35,7 @@ Back-End:
 
 Refactors:
 - *Use AsyncThunk
+- Replace hardcoded colors codes to use core/constants/colors
 - Implement user info as cookies instead of localstorage 
 - Fix console warnings/errors (eslint and ts)
 - Make TextMultiSelect a HOC withAddNew (base version for simple multiselect, HOC for adding new options)
@@ -85,6 +88,7 @@ Refactor:
 
 Mobile: 
 - Cart & Inventory: Add option to switch between sort by alphabetical or category
+- Bug: Inventory items selected and cant be unselected
 
 
 ===============================================================
@@ -112,7 +116,6 @@ Optional:
 - Empty UI
 
 Contacts:
-- Show last hangout (days ago)
 - Friendship details (use metrics like hangout etc)
 - Relationships with other contacts derived from hangout data
 

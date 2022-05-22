@@ -1,7 +1,7 @@
 import { Contact, Genders } from 'contacts/types';
 
 // Empty contact object for creation
-const defaultContact: Contact = {
+const defaultContactProps: Contact = {
   name: '',
   location: '',
   groups: [],
@@ -10,7 +10,9 @@ const defaultContact: Contact = {
   lastContact: 0,
   lastHangout: 0,
   hangoutTally: 0,
-  dateCreated: Date.now()
+  hangoutFrequency: 30,
+  dateCreated: Date.now(),
+  acquintances: {}
 }
 
-export default defaultContact;
+export default defaultContactProps;

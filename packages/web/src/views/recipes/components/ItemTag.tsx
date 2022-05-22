@@ -3,25 +3,12 @@ import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 // Icons
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import { 
-  RemoveBagIconSmallFill, 
-  RemoveBagIconLargeFill,
-  CheckBagIconSmallFill,
-  CheckBagIconLargeFill
-} from '@core/components/Icons/BagIcon';
-import { 
-  WarningCartIconSmallFill, 
-  WarningCartIconLargeFill 
-} from '@core/components/Icons/CartIcon';
-import {
-  AddCartIconSmall,
-  AddCartIconSmallWhite 
-} from '@core/components/Icons/CartIcon';
+import { AddCartIconSmall, AddCartIconSmallWhite } from '@core/components/Icons/CartIcon';
 // Components
 import { Tooltip } from '@material-ui/core';
 // Utils
-import checkMissingItemsRecipe from 'recipes/utils/checkMissingItemsRecipe';
-import checkMissingInCartRecipe from 'recipes/utils/checkMissingInCartRecipe';
+import getRecipeAvailabilityIcon from 'recipes/utils/getRecipeAvailabilityIcon';
+import getIngredientAvailabilityIcon from 'recipes/utils/getIngredientAvailabilityIcon';
 // Types
 import { Recipe, Ingredient, AlternativeIngredient } from 'recipes/types';
 import { ClickEvent, RootState } from '@core/types';
@@ -29,8 +16,8 @@ import { ClickEvent, RootState } from '@core/types';
 const useStyles = makeStyles(() => createStyles({
   container: {
     position: 'relative',
-    borderStyle: 'solid', 
-    borderWidth: '2px', 
+    borderStyle: 'solid',
+    borderWidth: '2px',
     borderRadius: '50%',
     alignSelf: 'center',
     cursor: 'pointer',
@@ -51,17 +38,6 @@ const useStyles = makeStyles(() => createStyles({
   }
 }));
 
-// Check if even one ingredient is missing
-const checkMissingIngredient = (ingredient: string, inventory: string[]) => {
-  return !inventory.includes(ingredient);
-}
-
-// Check if item is in cart 
-// Note: like checkMissingInCartRecipe, doesn't matter if its true if it's not missing from available items
-const checkMissingIngredientInCart = (ingredient: string, cart: string[]) => {
-  return cart.includes(ingredient);
-}
-
 interface Props {
   recipe?: Recipe;
   ingredient?: Ingredient | AlternativeIngredient;
@@ -76,60 +52,44 @@ interface Props {
 // 2) All missing ingredients are in cart (yellow icon)
 // 3) All ingredients available (green icon)
 const ItemTag: React.FC<Props> = ({
-  recipe, 
+  recipe,
   ingredient,
   onAddMissing,
-  style, 
-  isMobile 
+  style,
+  isMobile
 }) => {
   const classes = useStyles();
-  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore); 
+  const { inventory, cart } = useSelector((state: RootState) => state.inventoryStore);
 
   const [isHover, setHover] = React.useState(false);
 
   // Determine if getting tag for a whole recipe or just one ingredient
   const isRecipe = Boolean(recipe);
 
-  const hasMissingItems = isRecipe ?
-    checkMissingItemsRecipe(recipe, inventory) :
-    checkMissingIngredient(ingredient.itemId, inventory)
-  const hasMissingInCart = isRecipe ?
-    checkMissingInCartRecipe(recipe, inventory, cart) :
-    checkMissingIngredientInCart(ingredient.itemId, cart);
+  const {
+    hasMissingItems,
+    hasMissingInCart,
+    ItemIcon,
+    tooltipTitle,
+    borderColor
+  } = isRecipe ?
+      getRecipeAvailabilityIcon(recipe, inventory, cart, isHover, isMobile) :
+      getIngredientAvailabilityIcon(ingredient, inventory, cart, isHover, isMobile);
+
   const isOptional = !isRecipe && ingredient.isOptional;
 
   const handleHoverOn = () => {
-    if (!isHover && hasMissingItems && !hasMissingInCart) 
+    if (!isHover && hasMissingItems && !hasMissingInCart)
       setHover(true)
   }
   const handleHoverOut = () => {
-    if (isHover && hasMissingItems && !hasMissingInCart) 
+    if (isHover && hasMissingItems && !hasMissingInCart)
       setHover(false)
   }
   const handleClick = (event: ClickEvent) => {
     event.stopPropagation();
     setHover(false); // Visual bug occurs if request done while cursor still inside
     onAddMissing();
-  }
-
-  // Default to no missing items
-  let tooltipTitle = 'Add To Cart';
-  let borderColor = isHover ? (
-    isRecipe ? '#fff' : '#3f51b5'
-  ) : '#AEF78E';
-  let ItemIcon = () => isMobile ? <CheckBagIconLargeFill /> : <CheckBagIconSmallFill />;
-
-  if (hasMissingItems && !hasMissingInCart && !isHover) {
-    tooltipTitle = `Ingredient${isRecipe ? 's' : ''} Not Available`;
-    borderColor = 'rgb(255, 89, 100)';
-    // eslint-disable-next-line react/display-name
-    ItemIcon = () => isMobile ? <RemoveBagIconLargeFill /> : <RemoveBagIconSmallFill />;
-  }
-  else if (hasMissingItems && hasMissingInCart && !isHover) {
-    tooltipTitle = `Ingredient${isRecipe ? 's' : ''} in Cart`;
-    borderColor = 'rgb(255, 231, 76)';
-    // eslint-disable-next-line react/display-name
-    ItemIcon = () => isMobile ? <WarningCartIconLargeFill /> : <WarningCartIconSmallFill />;
   }
 
   const defaultStyles = {
@@ -141,11 +101,11 @@ const ItemTag: React.FC<Props> = ({
 
   return (
     <Tooltip title={tooltipTitle}>
-      <div 
-        className={classes.container} 
+      <div
+        className={classes.container}
         onMouseEnter={handleHoverOn}
         onMouseLeave={handleHoverOut}
-        style={{ 
+        style={{
           ...defaultStyles,
           ...style
         }}

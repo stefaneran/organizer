@@ -18,5 +18,10 @@ export const changelogs = {
     `Improvement: Contacts - Moved hangout logic to frontend, refreshes on every events update`,
     `Improvement: Contacts - Improved the way events show title/times`,
     `Refactor: Contacts - Hid past events (useless feature)`
+  ],
+  "1.0.3": [
+    `Bugfix: Now showing loading icon when logging in`,
+    `Bugfix: Recipes - Fix alternative ingredient in cart still displaying recipe availability as red instead of yellow`,
+    `Improvement: Contacts - Can now set hangout frequency in days and sort by last hangout (factoring in frequency)`
   ]
 }

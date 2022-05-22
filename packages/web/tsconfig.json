@@ -6,19 +6,31 @@
 		"esModuleInterop": true,
 		"paths": {
 			// Need to invoke as @core for imports to work in Jest
-			"@core/*": ["src/core/*"],
-			"app/*": ["src/app/*"],
-			"activities/*": ["src/views/activities/*"],
-			"contacts/*": ["src/views/contacts/*"],
-			"inventory/*": ["src/views/inventory/*"],
-			"recipes/*": ["src/views/recipes/*"]
+			"@core/*": [
+				"src/core/*"
+			],
+			"app/*": [
+				"src/app/*"
+			],
+			"activities/*": [
+				"src/views/activities/*"
+			],
+			"contacts/*": [
+				"src/views/contacts/*"
+			],
+			"inventory/*": [
+				"src/views/inventory/*"
+			],
+			"recipes/*": [
+				"src/views/recipes/*"
+			]
 		}
 	},
 	"include": [
 		"src/**/*"
 	],
 	"exclude": [
-		"node_modules", 
+		"node_modules",
 		"dist"
 	]
 }

@@ -7,10 +7,12 @@
     "sourceMap": true,
     "strict": false,
     "target": "es2017",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
   },
+  "esModuleInterop": true,
   "compileOnSave": true,
   "include": [
-    "src"
-, "src/api/contacts/.ts"  ]
+    "src",
+    "src/api/contacts/.ts"
+  ]
 }

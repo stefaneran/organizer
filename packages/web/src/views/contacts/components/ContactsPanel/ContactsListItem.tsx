@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => createStyles({
   },
   mobileContainer: {
     fontSize: '3em',
-    '& span': { fontSize: '4rem '},
+    '& span': { fontSize: '4rem ' },
     '& p': { fontSize: '3rem' }
   }
 }));
@@ -27,9 +27,9 @@ interface Props {
   onSelect: (contactId?: string) => void;
 }
 
-const ContactsListItem: React.FC<Props> = ({ 
-  contact, 
-  mobile, 
+const ContactsListItem: React.FC<Props> = ({
+  contact,
+  mobile,
   onSelect
 }) => {
   const classes = useStyles();
@@ -58,16 +58,17 @@ const ContactsListItem: React.FC<Props> = ({
         </div>
       ) : null}
       <div>
-        <ContactMeter 
-          lastContact={lastContact} 
+        <ContactMeter
+          lastContact={lastContact}
           isHangout={false}
-          mobile={mobile} 
-          onClick={handleSnooze}  
+          mobile={mobile}
+          onClick={handleSnooze}
         />
-        <ContactMeter 
-          lastContact={lastHangout} 
+        <ContactMeter
+          lastContact={lastHangout}
+          daysFrequency={contact.hangoutFrequency || 30}
           isHangout
-          mobile={mobile} 
+          mobile={mobile}
         />
       </div>
     </ListItem>

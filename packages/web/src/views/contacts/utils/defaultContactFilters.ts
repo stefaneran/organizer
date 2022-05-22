@@ -5,7 +5,7 @@ const defaultFilters: ContactFilters = {
   name: '',
   location: '',
   gender: "All" as const,
-  sort: SortOption.LastContact,
+  sort: SortOption.LastHangout,
   oneOnOne: false
 }
 

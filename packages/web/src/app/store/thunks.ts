@@ -1,25 +1,27 @@
 import { Dispatch } from 'redux';
 import {
   loginDone,
-  logoutDone
+  logoutDone,
+  loadingStart,
+  loadingEnd
 } from './reducer';
-import { 
-  setActivities, 
-  setLastActivityUpdate, 
-  clearActivities 
+import {
+  setActivities,
+  setLastActivityUpdate,
+  clearActivities
 } from 'activities/store';
-import { 
-  setLastContactUpdate, 
-  clearContactsAndEvents, 
-  setContactsAndEvents 
+import {
+  setLastContactUpdate,
+  clearContactsAndEvents,
+  setContactsAndEvents
 } from 'contacts/store';
-import { 
-  setLastInventoryUpdate, 
+import {
+  setLastInventoryUpdate,
   clearInventoryData,
   setInventoryData
 } from 'inventory/store';
-import { 
-  setLastRecipeUpdate, 
+import {
+  setLastRecipeUpdate,
   clearRecipes,
   setRecipes
 } from 'recipes/store';
@@ -31,15 +33,15 @@ import { initializeLocalStorageLastUpdate } from '@core/localstorage/lastUpdate'
 // Types
 import { ModuleStoreName } from '@core/types';
 // Constants
-import baseUrl from '@core/baseUrl';
 import STATUS from '@core/constants/statusCodes';
 
 export const register = ({ userName, password }) => async (dispatch: Dispatch) => {
+  dispatch(loadingStart());
   const params = { userName, password }
   try {
     const timestamp = Date.now();
     const response = await jsonFetch({
-      url: `${baseUrl}/app/register`,
+      url: `${process.env.BASE_URL}/app/register`,
       method: 'POST',
       body: JSON.stringify(params),
       timestamp
@@ -50,25 +52,28 @@ export const register = ({ userName, password }) => async (dispatch: Dispatch) =
       dispatch(loginDone({ userName, password }));
     }
   } catch (e) {
+    dispatch(loadingEnd());
     return;
   }
+  dispatch(loadingEnd());
 }
 
 export const login = ({ userName, password }) => async (dispatch: Dispatch) => {
+  dispatch(loadingStart());
   const params = { userName, password }
   try {
     const response = await jsonFetch({
-      url: `${baseUrl}/app/login`,
+      url: `${process.env.BASE_URL}/app/login`,
       method: 'POST',
       body: JSON.stringify(params)
     })
     if (response.status === STATUS.OK) {
-      
+
       saveUserToLocalStorage(userName, password);
-      
+
       // Set lastUpdate values based on database latest values (will be compared to localStorage values in module containers to determine synchronisity)
 
-      const { 
+      const {
         lastActivityUpdate,
         lastContactUpdate,
         lastInventoryUpdate,
@@ -105,6 +110,7 @@ export const login = ({ userName, password }) => async (dispatch: Dispatch) => {
   } catch (e) {
     localStorage.clear();
   }
+  dispatch(loadingEnd());
 }
 
 export const logout = () => async (dispatch: Dispatch) => {

@@ -10,6 +10,7 @@ import * as recipesApi from "./api/recipes";
 import updateUserLastUpdateValue from './middleware/updateUserLastUpdateValue';
 
 const init = () => {
+
   const app = express();
   app.use(cors({ origin: true }))
 
@@ -23,7 +24,7 @@ const init = () => {
   app.use("/activities", activitiesApi.router);
   app.use("/contacts", contactsApi.router);
   app.use("/events", eventsApi.router);
-  
+
   return app;
 }
 

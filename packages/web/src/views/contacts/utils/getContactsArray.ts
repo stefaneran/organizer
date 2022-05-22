@@ -1,8 +1,8 @@
-import { Contact, ContactFilters, SortOption } from 'contacts/types';
-import genericSort from '@core/utils/genericSort';
+import { Contact, ContactFilters } from 'contacts/types';
+import sortContacts from 'contacts/utils/sortContacts';
 
 const getContactsArray = (
-  contacts: Record<string, Contact>, 
+  contacts: Record<string, Contact>,
   filters?: ContactFilters
 ): Contact[] => {
   const contactsArray = Object.keys(contacts).map(contactId => ({
@@ -33,14 +33,8 @@ const getContactsArray = (
   if (filters.oneOnOne) {
     filteredContacts = filteredContacts.filter(contact => contact.oneOnOne)
   }
-  let sortProperty = 'name';
-  if (filters.sort === SortOption.Location) {
-    sortProperty = 'location';
-  } 
-  else if (filters.sort === SortOption.LastContact) {
-    sortProperty = 'lastContact';
-  }
-  return filteredContacts.sort((a, b) => genericSort(a[sortProperty], b[sortProperty]));
+  const sorted = sortContacts(filteredContacts, filters.sort);
+  return sorted;
 }
 
 export default getContactsArray;

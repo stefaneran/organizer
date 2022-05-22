@@ -65,13 +65,13 @@ interface Props {
   onDeleteContact: () => void;
 }
 
-const ContactInfo: React.FC<Props> = ({ 
+const ContactInfo: React.FC<Props> = ({
   contact,
   contactId,
   onClose,
   toggleEdit,
   onDeleteContact
- }) => {
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const { groups } = useSelector((state: RootState) => state.contactsStore);
@@ -147,10 +147,20 @@ const ContactInfo: React.FC<Props> = ({
         helperText="Groups this contact belongs to. Hint: Press enter to add new non-existant group."
         size="medium"
       />
-      
+
       <div className={classes.inputGroup}>
-        <SelectInput
+        <TextField
           className={classes.inputGroupItemOne}
+          label="Hangout Frequency (Days)"
+          value={contactData.hangoutFrequency || 30}
+          onChange={handleChangeContactData('hangoutFrequency')}
+          type="number"
+          variant="outlined"
+          size="medium"
+          fullWidth
+        />
+        <SelectInput
+          className={classes.inputGroupItemTwo}
           value={contactData.gender}
           options={getEnumValues(Genders)}
           onChange={handleChangeContactData('gender')}
@@ -169,7 +179,7 @@ const ContactInfo: React.FC<Props> = ({
         />
       </div>
 
-      <EditButtonGroup 
+      <EditButtonGroup
         isCreate={isCreate}
         onSubmit={handleSubmit}
         onDelete={onDeleteContact}

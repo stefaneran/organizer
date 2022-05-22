@@ -1,16 +1,10 @@
 # To run locally
 
-- In 'webpack.config.js' change:
-  publicPath: './'
-  to
-  publicPath: '/'
-
-- Run "yarn"
-
 === Running client
 
 - In first terminal
 - cd packages/web
+- yarn
 - yarn start
 
 === Running api
@@ -44,15 +38,6 @@ or to re-run with every file change
   - Go to src/core/defaultWebApp.ts
   - Choose default app to show that is not a work in progress
 
-- Change baseUrl to remote
-
-  - Go to src/core/baseUrl.ts
-  - Change default export to 'baseUrlRemote' if not already
-
-- In 'packages/web/webpack.config.js' change
-  mode: from 'development' to "production
-  publicPath: from '/' to './'
-
 - cd packages/web
 
 - Run "yarn build"
@@ -70,23 +55,23 @@ or to re-run with every file change
 - Add it to webpack like this
 
 resolve: {
-alias: {
-"@alias_name": path.resolve(\_\_dirname, './src/alias_name')
-}
+  alias: {
+    "@alias_name": path.resolve(\_\_dirname, './src/alias_name')
+  }
 }
 
 - Add it to tsconfig
 
 "paths": {
-"@the*alias/*": ["src/the_alias/_"],
+  "@the*alias/*": ["src/the_alias/_"],
 }
 
 - Finally, add it to package.json so Jest can resolve it during unit tests
 
 "jest": {
-"moduleNameMapper": {
-"^@the_alias(.\*)$": "<rootDir>/src/the_alias$1"
-}
+  "moduleNameMapper": {
+    "^@the_alias(.\*)$": "<rootDir>/src/the_alias$1"
+  }
 }
 
 # Untracking files in the .gitignore
@@ -95,6 +80,6 @@ Note: Commit all changes first!
 
 Change .gitignore
 
-git rm -r --cached .;
-git add .;
-git commit -m "Untracked files issue resolved to fix .gitignore";
+git rm -r --cached .
+git add .
+git commit -m "Untracked files issue resolved to fix .gitignore"

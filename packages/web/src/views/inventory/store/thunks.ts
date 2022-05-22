@@ -14,7 +14,6 @@ import {
 } from '.';
 import { updateAfterItemDelete } from 'recipes/store';
 // Constants
-import baseUrl from '@core/baseUrl';
 import STATUS from '@core/constants/statusCodes';
 // Utils
 import genericRequestWithDispatch from '@core/utils/genericRequestWithDispatch';
@@ -26,7 +25,7 @@ import { GroceryItem, GroceryItemEdit } from 'inventory/types';
 
 export const getItems = () => async (dispatch: Dispatch, getState: GetState) => {
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/get`,
+    url: `${process.env.BASE_URL}/inventory/get`,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not get groceries"
   }
@@ -45,7 +44,7 @@ export const createItem = (groceryItem: GroceryItemEdit) => async (dispatch: Dis
   const params = { groceryId, groceryItem };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/create`,
+    url: `${process.env.BASE_URL}/inventory/create`,
     params,
     acceptedStatusCode: STATUS.CREATED,
     errorMessage: "Could not create grocery item",
@@ -68,7 +67,7 @@ export const updateItem = (groceryId: string, groceryItem: GroceryItem) => async
   const params = { groceryId, groceryItem };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/update`,
+    url: `${process.env.BASE_URL}/inventory/update`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update grocery item",
@@ -90,7 +89,7 @@ export const deleteItems = (groceriesIds: string[]) => async (dispatch: Dispatch
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/delete`,
+    url: `${process.env.BASE_URL}/inventory/delete`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not delete grocery item(s)",
@@ -112,7 +111,7 @@ export const addInventory = (groceriesIds: string[]) => async (dispatch: Dispatc
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/addInventory`,
+    url: `${process.env.BASE_URL}/inventory/addInventory`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not add to inventory",
@@ -133,7 +132,7 @@ export const removeInventory = (groceriesIds: string[]) => async (dispatch: Disp
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/removeInventory`,
+    url: `${process.env.BASE_URL}/inventory/removeInventory`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not remove from inventory",
@@ -154,7 +153,7 @@ export const addCart = (groceriesIds: string[]) => async (dispatch: Dispatch, ge
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/addCart`,
+    url: `${process.env.BASE_URL}/inventory/addCart`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not add to cart",
@@ -175,7 +174,7 @@ export const removeCart = (groceriesIds: string[]) => async (dispatch: Dispatch,
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/removeCart`,
+    url: `${process.env.BASE_URL}/inventory/removeCart`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not remove from cart",
@@ -196,7 +195,7 @@ export const updateCartSelected = (groceriesIds: string[]) => async (dispatch: D
   const params = { groceriesIds };
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/updateCartSelected`,
+    url: `${process.env.BASE_URL}/inventory/updateCartSelected`,
     params,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not update cart selection",
@@ -216,7 +215,7 @@ export const updateCartSelected = (groceriesIds: string[]) => async (dispatch: D
 export const finishShopping = () => async (dispatch: Dispatch, getState: GetState) => {
   const timestamp = Date.now();
   const options: RequestOptions = {
-    url: `${baseUrl}/inventory/finishShopping`,
+    url: `${process.env.BASE_URL}/inventory/finishShopping`,
     acceptedStatusCode: STATUS.OK,
     errorMessage: "Could not finalize shopping",
     timestamp
